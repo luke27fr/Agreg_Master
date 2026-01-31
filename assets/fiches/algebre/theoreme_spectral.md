@@ -25,7 +25,7 @@
 > D'après le théorème spectral, $A$ est diagonalisable dans une base orthonormée. Il existe $P \in O_n(\mathbb{R})$ et $D = \text{diag}(\lambda_i)$ tels que $A = P D P^T$.
 > Comme $A \in \mathcal{S}_n^{++}$, les valeurs propres $\lambda_i$ sont strictement positives.
 > On pose $\Delta = \text{diag}(\sqrt{\lambda_i})$ et on construit $R = P \Delta P^T$.
-> On vérifie que $R$ est symétrique (évident), définie positive (ses valeurs propres sont $\sqrt{\lambda_i} > 0$) et que $R^2 = P \Delta^2 P^T = A$.
+> On vérifie que $R$ est symétrique (évident), définie positive (ses valeurs propres sont $\sqrt{\lambda_i} > 0$ ) et que $R^2 = P \Delta^2 P^T = A$.
 >
 > **2. Unicité :**
 > Soit $M \in \mathcal{S}_n^{++}$ une autre solution telle que $M^2 = A$.
@@ -43,3 +43,8 @@
 >   * * **Rép :** Pas dans $\mathbb{R}$ (valeurs propres imaginaires pures), mais oui dans $\mathbb{C}$ car elle est normale (c'est-à-dire $A A^* = A^* A$ ).
 > * **Q3 :** A-t-on toujours $\|Ax\| \le \|A\| \|x\|$ ?
 >   * **Rép :** Oui par définition de la norme subordonnée. Pour une symétrique, $\|A\|_2 = \rho(A)$ (rayon spectral).
+
+### 5. Références Bibliographiques
+* **X. Gourdon**, *Algèbre* (La référence incontournable pour les démos).
+* **J. Grifone**, *Algèbre Linéaire* (Très clair sur l'aspect géométrique).
+* **G. Peyré**, *L'algèbre discrète de la transformée de Fourier* (Pour des applications plus poussées).

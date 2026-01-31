@@ -38,3 +38,8 @@
 >   * **Rép :** $R_{\Sigma} \ge \min(R_1, R_2)$. Si $R_1 \neq R_2$, on a égalité avec le minimum. Si $R_1 = R_2$, le rayon peut être plus grand (ex: somme nulle).
 > * **Q3 :** Quel est le lien avec l'Holomorphie ?
 >   * **Rép :** Une somme de série entière est holomorphe dans son disque ouvert de convergence. Réciproquement, toute fonction holomorphe est analytique (développable en série entière).
+
+### 5. Références Bibliographiques
+* **X. Gourdon**, *Analyse* (Pour les théorèmes de régularité et les exercices).
+* **Amar & Matheron**, *Analyse complexe* (Pour le lien avec l'holomorphie).
+* **W. Rudin**, *Analyse Réelle et Complexe* (Pour la vision globale).

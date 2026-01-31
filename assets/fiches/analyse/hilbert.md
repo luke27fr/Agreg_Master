@@ -13,25 +13,29 @@
 > * **Projection :** Sur un sous-espace vectoriel, la [projection orthogonale](def:projection) existe toujours si l'espace est de dimension finie. En dimension infinie, elle exige que le sous-espace soit **fermé**.
 
 > [!TIP]
-> ### 3. Exercice : Projection
+> ### 3. Exercice : Projection sur un Convexe
 > **Énoncé :** Soit $H$ un Hilbert et $K$ un [convexe](def:convexe) fermé non vide. Montrer qu'il existe un unique $p \in K$ réalisant la distance $d(x, K)$.
 >
 > #### Solution Détaillée :
 > **1. Existence (Suite minimisante) :**
 > Soit $\delta = d(x, K)$. Il existe une suite $(y_n) \in K$ telle que $\|x - y_n\| \to \delta$.
-> On utilise l'identité du parallélogramme sur les vecteurs $x-y_n$ et $x-y_m$.
-> Comme $K$ est convexe, le milieu $\frac{y_n+y_m}{2}$ est dans $K$. On en déduit alors que $\|y_n - y_m\|^2 \to 0$.
-> La suite $(y_n)$ est de Cauchy dans $H$ complet, donc elle converge vers un $p$. Comme $K$ est fermé, $p \in K$.
+> On utilise l'identité du parallélogramme sur $x-y_n$ et $x-y_m$ :
+> $$2(\|x-y_n\|^2 + \|x-y_m\|^2) = \|2x - (y_n+y_m)\|^2 + \|y_n-y_m\|^2$$
+> Comme $K$ est convexe, le milieu $\frac{y_n+y_m}{2}$ est dans $K$, donc $\|x - \frac{y_n+y_m}{2}\| \ge \delta$.
+> En passant à la limite, on déduit que $\|y_n - y_m\|^2 \to 0$. La suite est de Cauchy dans $H$ complet, donc converge vers $p \in K$ (fermé).
 >
 > **2. Unicité :**
-> Si $p_1$ et $p_2$ sont deux solutions, alors $\|x-p_1\|=\delta$ et $\|x-p_2\|=\delta$.
-> Par stricte convexité de la boule, le milieu $\frac{p_1+p_2}{2}$ serait à une distance strictement inférieure à $\delta$, ce qui contredit la définition de l'infimum, sauf si $p_1 = p_2$.
+> Supposons deux solutions $p_1, p_2$. Par stricte convexité de la norme hilbertienne (ou via parallélogramme), leur milieu serait à une distance strictement inférieure à $\delta$, ce qui est absurde.
 
 > [!QUESTION]
 > ### 4. Questions de Jury
 > * **Q1 :** Quelle est la différence entre une base hilbertienne et une base algébrique ?
 >   * **Rép :** Une base algébrique (Hamel) génère l'espace par combinaisons linéaires **finies**. Une base hilbertienne le génère par séries (sommes infinies dénombrables).
 > * **Q2 :** Tout espace préhilbertien admet-il une base orthonormée ?
->   * **Rép :** Oui (procédé de Gram-Schmidt si séparable, ou Zorn sinon), mais elle ne sera "base de Hilbert" que si l'espace est complet.
+>   * **Rép :** Oui (Gram-Schmidt ou Zorn), mais elle ne sera "base de Hilbert" que si l'espace est complet (Isomorphisme avec $\ell^2(\mathbb{N})$ ).
 > * **Q3 :** Quel est le dual d'un espace de Hilbert ?
 >   * **Rép :** Il est isomorphe à l'espace lui-même (Théorème de Riesz-Fréchet). Toute forme linéaire continue s'écrit $L(x) = \langle x, a \rangle$.
+
+### 5. Références Bibliographiques
+* **H. Brezis**, *Analyse Fonctionnelle* (La Bible pour l'Agreg).
+* **Zuily-Queffelec**, *Éléments d'analyse pour l'agrégation* (Pour les exercices).

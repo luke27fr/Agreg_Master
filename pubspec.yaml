@@ -26,3 +26,5 @@ flutter:
     - assets/fiches/
     - assets/fiches/algebre/
     - assets/fiches/analyse/
+    - assets/fiches/probabilites/      
+    - assets/fiches/geometrie/  

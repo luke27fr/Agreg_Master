@@ -22,5 +22,7 @@ const Map<String, String> glossaireData = {
   'symetrique': 'Un endomorphisme \$u\$ est symétrique (ou auto-adjoint) si pour tout \$x,y\$ : \$\\langle u(x), y \\rangle = \\langle x, u(y) \\rangle\$.',
   'valeur_propre': 'Un scalaire \$\\lambda\$ est valeur propre de \$u\$ s\'il existe un vecteur non nul \$x\$ tel que \$u(x) = \\lambda x\$.',
   'diagonalisable': 'Un endomorphisme est diagonalisable s\'il existe une base formée de vecteurs propres.',
-  'matrice_orthogonale': 'Une matrice \$P\$ est orthogonale si \$P^T P = I_n\$. Ses colonnes forment une base orthonormée.',
+  // --- Probas ---
+  'va': 'Une Variable Aléatoire est une application mesurable d\'un espace probabilisé vers un espace mesurable (souvent \$\\mathbb{R}\$ ou \$\\mathbb{N}\$).',
+  'esperance': 'L\'espérance est la valeur moyenne pondérée par les probabilités. C\'est le centre de gravité de la distribution : \$E[X] = \\sum x_i p_i\$.',
 };
