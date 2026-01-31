@@ -13,8 +13,10 @@
       "label": "Analyse",
       "path": "assets/fiches/analyse",
       "files": [
+        "hilbert.md",
         "inversion_locale.md",
-        "series_entieres.md"
+        "series_entieres.md",
+        "theoreme_spectral.md"
       ]
     }
   ]
