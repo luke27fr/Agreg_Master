@@ -1,0 +1,21 @@
+{
+  "themes": [
+    {
+      "id": "algebre",
+      "label": "Algèbre",
+      "path": "assets/fiches/algebre",
+      "files": [
+        "test.md"
+      ]
+    },
+    {
+      "id": "analyse",
+      "label": "Analyse",
+      "path": "assets/fiches/analyse",
+      "files": [
+        "inversion_locale.md",
+        "series_entieres.md"
+      ]
+    }
+  ]
+}
