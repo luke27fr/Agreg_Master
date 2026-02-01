@@ -4,7 +4,10 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:markdown/markdown.dart' as md;
-
+import 'dart:convert'; // Pour décoder le JSON
+import 'package:flutter/services.dart'; // Pour rootBundle (accéder aux fichiers assets)
+import 'package:agreg_master/models/quiz_model.dart'; // Pour utiliser l'objet QuizQuestion
+import 'package:agreg_master/pages/quiz_page.dart'; // Pour aller vers la page du Quiz
 import 'data/glossaire.dart';
 
 /// Écran de lecture d'une fiche Markdown avec rendu LaTeX et style "Pièges à éviter".
@@ -19,15 +22,48 @@ class FichePage extends StatefulWidget {
 }
 
 class _FichePageState extends State<FichePage> {
-  String _content = '';
-  bool _loading = true;
-  String? _error;
+  // 1. Variable pour stocker les questions trouvées
+  List<QuizQuestion> quizQuestions = [];
 
   @override
   void initState() {
     super.initState();
     _loadContent();
+    _loadQuiz();
   }
+
+  // 3. La fonction magique qui cherche le quiz
+  Future<void> _loadQuiz() async {
+    try {
+      // A. On charge tout le fichier quiz.json
+      final String response = await rootBundle.loadString('assets/data/quiz.json');
+      final Map<String, dynamic> data = json.decode(response);
+
+      // B. On nettoie le nom du fichier pour avoir la "clé"
+      // Ex: "assets/fiches/analyse/hilbert.md" deviendra juste "hilbert"
+      String keyName = widget.assetPath.split('/').last.replaceAll('.md', '');
+
+      // C. On vérifie si cette clé existe dans le JSON
+      if (data.containsKey(keyName)) {
+        // D. Si oui, on transforme les données JSON en objets QuizQuestion
+        final List<dynamic> questionsJson = data[keyName];
+        setState(() {
+          quizQuestions = questionsJson
+              .map((q) => QuizQuestion.fromJson(q))
+              .toList();
+        });
+        print("Quiz trouvé pour $keyName : ${quizQuestions.length} questions.");
+      } else {
+        print("Aucun quiz trouvé pour $keyName");
+      }
+    } catch (e) {
+      print("Erreur lors du chargement du quiz : $e");
+    }
+  }
+
+  String _content = '';
+  bool _loading = true;
+  String? _error;
 
   Future<void> _loadContent() async {
     try {
@@ -87,9 +123,27 @@ class _FichePageState extends State<FichePage> {
           children: bodyRows,
         ),
       ),
+      floatingActionButton: quizQuestions.isNotEmpty
+          ? FloatingActionButton.extended(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => QuizPage(
+                      title: title,
+                      questions: quizQuestions,
+                    ),
+                  ),
+                );
+              },
+              label: const Text("S'entraîner"),
+              icon: const Icon(Icons.psychology),
+              backgroundColor: const Color(0xFF1A237E),
+              foregroundColor: Colors.white,
+            )
+          : null,
     );
   }
-
   /// Regroupe les segments en « lignes » : texte + formules inline dans un Wrap (fluide),
   /// formules $$ seules sur une ligne (bloc centré). Liste = bloc pleine largeur.
   static const double _wrapSpacing = 6.0;

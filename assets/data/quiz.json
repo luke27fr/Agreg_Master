@@ -1,0 +1,122 @@
+{
+  "theoreme_spectral": [
+    {
+      "question": "Quelle est la condition nécessaire et suffisante pour qu'une matrice réelle soit diagonalisable dans une base orthonormée ?",
+      "options": [
+        "Elle doit être inversible",
+        "Elle doit être symétrique",
+        "Elle doit être orthogonale",
+        "Elle doit être de trace nulle"
+      ],
+      "correctIndex": 1,
+      "explanation": "C'est le Théorème Spectral : tout endomorphisme symétrique d'un espace euclidien est diagonalisable dans une base orthonormée."
+    },
+    {
+      "question": "Si $S = P D P^T$ avec $P$ orthogonale, que représente $P$ ?",
+      "options": [
+        "La matrice de passage vers la base de vecteurs propres",
+        "La matrice diagonale des valeurs propres",
+        "L'inverse de la matrice $S$",
+        "Une matrice de projection"
+      ],
+      "correctIndex": 0,
+      "explanation": "Les colonnes de $P$ forment la base orthonormée de vecteurs propres."
+    }
+  ],
+  "inversion_locale": [
+    {
+      "question": "Quelle est la condition cruciale en un point $a$ pour appliquer le Théorème d'Inversion Locale ?",
+      "options": [
+        "La différentielle $df_a$ doit être nulle",
+        "La différentielle $df_a$ doit être un isomorphisme (Jacobienne inversible)",
+        "L'application doit être deux fois différentiable",
+        "Le point $a$ doit être un point critique"
+      ],
+      "correctIndex": 1,
+      "explanation": "C'est la condition clé. Si le déterminant de la Jacobienne est non nul, l'application est localement un difféomorphisme."
+    },
+    {
+      "question": "Le TIL garantit-il que l'application est bijective sur tout son domaine ?",
+      "options": [
+        "Oui, toujours",
+        "Non, c'est un résultat uniquement local (au voisinage de $a$ )",
+        "Oui, si l'espace est de dimension finie",
+        "Non, sauf si la dérivée est constante"
+      ],
+      "correctIndex": 1,
+      "explanation": "Attention au piège ! $z \\mapsto e^z$ est localement inversible partout, mais n'est pas injective sur $\\mathbb{C}$ (périodique)."
+    }
+  ],
+  "hilbert": [
+    {
+      "question": "Quelle identité caractérise les normes issues d'un produit scalaire ?",
+      "options": [
+        "L'inégalité de Cauchy-Schwarz",
+        "L'identité de la médiane (ou du parallélogramme)",
+        "L'identité de polarisation",
+        "Le théorème de Pythagore"
+      ],
+      "correctIndex": 1,
+      "explanation": "C'est l'identité $\\|x+y\\|^2 + \\|x-y\\|^2 = 2(\\|x\\|^2 + \\|y\\|^2)$ ."
+    },
+    {
+      "question": "Sur quel type d'ensemble la projection orthogonale est-elle bien définie dans un Hilbert ?",
+      "options": [
+        "N'importe quel sous-espace vectoriel",
+        "Un convexe fermé non vide",
+        "Un ouvert borné",
+        "Un compact uniquement"
+      ],
+      "correctIndex": 1,
+      "explanation": "C'est le théorème de projection sur un convexe fermé (qui généralise le cas des sous-espaces vectoriels fermés)."
+    }
+  ],
+  "series_entieres": [
+    {
+      "question": "Si la limite de $|a_{n+1}/a_n|$ vaut $L > 0$ , que vaut le rayon de convergence $R$ ?",
+      "options": [
+        "$R = L$",
+        "$R = 1/L$",
+        "$R = L^2$",
+        "$R = \\ln(L)$"
+      ],
+      "correctIndex": 1,
+      "explanation": "C'est la règle de d'Alembert pour les séries numériques appliquée au terme général $u_n = a_n z^n$ ."
+    },
+    {
+      "question": "Que peut-on dire de la convergence sur le bord du disque ($|z|=R$ ) ?",
+      "options": [
+        "La série diverge toujours",
+        "La série converge toujours",
+        "On ne peut rien dire a priori, il faut étudier au cas par cas",
+        "Elle converge si $R > 1$"
+      ],
+      "correctIndex": 2,
+      "explanation": "C'est la zone d'incertitude. Exemple : $\\sum z^n$ diverge partout sur le bord, $\\sum z^n/n^2$ converge partout sur le bord."
+    }
+  ],
+  "va_discretes": [
+    {
+      "question": "Quelle est l'espérance d'une loi Géométrique $\\mathcal{G}(p)$ ?",
+      "options": [
+        "$p$",
+        "$1/p$",
+        "$p(1-p)$",
+        "$(1-p)/p^2$"
+      ],
+      "correctIndex": 1,
+      "explanation": "L'espérance est $1/p$. C'est le nombre moyen d'essais nécessaires pour obtenir le premier succès."
+    },
+    {
+      "question": "Quelle propriété caractérise les lois géométriques parmi les lois à valeurs dans $\\mathbb{N}^*$ ?",
+      "options": [
+        "L'absence de mémoire",
+        "La symétrie",
+        "L'additivité",
+        "La convergence vers une loi normale"
+      ],
+      "correctIndex": 0,
+      "explanation": "C'est la propriété d'absence de mémoire : $P(X > n+k \\mid X > n) = P(X > k)$ ."
+    }
+  ]
+}

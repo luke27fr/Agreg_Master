@@ -27,4 +27,5 @@ flutter:
     - assets/fiches/algebre/
     - assets/fiches/analyse/
     - assets/fiches/probabilites/      
-    - assets/fiches/geometrie/  
+    - assets/fiches/geometrie/ 
+    - assets/data/quiz.json 

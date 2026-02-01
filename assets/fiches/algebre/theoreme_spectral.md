@@ -29,12 +29,11 @@
 >
 > **2. Unicité :**
 > Soit $M \in \mathcal{S}_n^{++}$ une autre solution telle que $M^2 = A$.
-> * Comme $M^2 = A$, $M$ commute avec $A$ ($MA = M^3 = AM$).
+> * Comme $M^2 = A$, $M$ commute avec $A$ (car $MA = M^3 = AM$ ).
 > * Donc $M$ stabilise les sous-espaces propres de $A$.
 > * La restriction de $M$ à chaque espace propre $E_{\lambda}(A)$ est une matrice symétrique positive dont le carré vaut $\lambda I$.
 > * Sur cet espace, $M$ est donc l'homothétie de rapport $\sqrt{\lambda}$.
 > * Conclusion : $M$ coïncide nécessairement avec $R$ sur chaque sous-espace propre, donc $M = R$.
-
 > [!QUESTION]
 > ### 4. Questions de Jury
 > * **Q1 :** La décomposition de Dunford utilise-t-elle le théorème spectral ?
