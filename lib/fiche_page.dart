@@ -529,16 +529,27 @@ class _FichePageState extends State<FichePage> {
   }
 
   /// Supprime la première ligne si elle contient une balise GitHub ou un mot-clé d'admonition.
+  /// Si le blockquote ne fait qu'une ligne (ex: "> [!NOTE] Formellement : ..."), on enlève seulement le tag et on garde le texte.
   String _stripBlockquoteLabel(String content) {
     final lines = content.split('\n');
     if (lines.isEmpty) return content;
-    final first = lines.first.trim().toLowerCase();
-    final hasTag = first.contains('[!note]') || first.contains('[!warning]') || first.contains('[!tip]') || first.contains('[!question]');
-    final hasKeyword = RegExp(r'définition|théorème|theorem|propriété|lemme|proposition|exercice|exemple|correction|application|pièges|attention|erreur').hasMatch(first) ||
-        first.contains('[!theorem]');
+    final first = lines.first.trim();
+    final firstLower = first.toLowerCase();
+    final hasTag = firstLower.contains('[!note]') || firstLower.contains('[!warning]') || firstLower.contains('[!tip]') || firstLower.contains('[!question]');
+    final hasKeyword = RegExp(r'définition|théorème|theorem|propriété|lemme|proposition|exercice|exemple|correction|application|pièges|attention|erreur').hasMatch(firstLower) ||
+        firstLower.contains('[!theorem]');
     if ((hasTag || hasKeyword) && lines.length > 1) return lines.sublist(1).join('\n').trim();
-    if ((hasTag || hasKeyword) && lines.length == 1) return '';
+    if ((hasTag || hasKeyword) && lines.length == 1) return _stripTagFromFirstLine(first);
     return content;
+  }
+
+  /// Enlève le tag [!NOTE], [!WARNING], etc. du début d'une ligne (pour blockquote sur une seule ligne).
+  String _stripTagFromFirstLine(String line) {
+    final stripped = line.replaceFirst(
+      RegExp(r'\[\!\s*(?:note|warning|tip|question)\s*\]\s*', caseSensitive: false),
+      '',
+    );
+    return stripped.trim();
   }
 
   /// Découpe le contenu d’un blockquote en parties texte / formule bloc / formule inline.

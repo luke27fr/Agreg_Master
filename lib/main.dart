@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'dart:math'; // Pour le mélange aléatoire
+import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; // Pour rootBundle
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-// Assure-toi que ces imports correspondent bien à tes fichiers
+// Tes imports existants
 import 'package:agreg_master/models/quiz_model.dart';
 import 'package:agreg_master/pages/quiz_page.dart';
 import 'fiche_page.dart';
@@ -23,31 +23,26 @@ class AgregMasterApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF1B365D),
-          primary: const Color(0xFF1B365D),
-          surface: Colors.white,
-          onPrimary: Colors.white,
-          onSurface: const Color(0xFF1B365D),
-          brightness: Brightness.light,
+          seedColor: const Color(0xFF1A237E), // Bleu Nuit Profond
+          primary: const Color(0xFF1A237E),
+          surface: const Color(0xFFF5F7FA), // Gris très clair pour le fond
         ),
         useMaterial3: true,
-        textTheme: GoogleFonts.latoTextTheme(),
+        textTheme: GoogleFonts.poppinsTextTheme(),
         appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFF1B365D),
-          foregroundColor: Colors.white,
+          backgroundColor: Colors.transparent,
+          foregroundColor: Color(0xFF1A237E),
           elevation: 0,
-          centerTitle: true,
-        ),
-        cardTheme: CardThemeData(
-          color: Colors.white,
-          elevation: 2,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-            side: const BorderSide(color: Color(0xFF1B365D), width: 0.5),
+          centerTitle: false,
+          titleTextStyle: TextStyle(
+            color: Color(0xFF1A237E),
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
           ),
         ),
-        listTileTheme: const ListTileThemeData(
-          contentPadding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+        cardTheme: CardThemeData(
+          elevation: 4,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         ),
       ),
       home: const ThemesScreen(),
@@ -55,7 +50,7 @@ class AgregMasterApp extends StatelessWidget {
   }
 }
 
-/// Modèle d'un thème (Algèbre, Analyse, etc.).
+// --- Modèle ThemeItem (Inchangé) ---
 class ThemeItem {
   final String id;
   final String label;
@@ -74,10 +69,7 @@ class ThemeItem {
       id: json['id'] as String,
       label: json['label'] as String,
       path: json['path'] as String,
-      files: (json['files'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          [],
+      files: (json['files'] as List<dynamic>?)?.map((e) => e as String).toList() ?? [],
     );
   }
 }
@@ -91,93 +83,8 @@ class ThemesScreen extends StatefulWidget {
 
 class _ThemesScreenState extends State<ThemesScreen> {
   List<ThemeItem> _themes = [];
-  List<({ThemeItem theme, String file, String assetPath})> _allFiches = [];
+  int _totalFiches = 0;
   bool _loading = true;
-  String? _error;
-  bool _isSearching = false;
-  String _searchQuery = '';
-  final _searchController = TextEditingController();
-  final _searchFocusNode = FocusNode();
-
-  // --- FONCTION QUI LANCE LE GRAND QUIZ GÉNÉRAL ---
-  Future<void> _startGeneralQuiz(BuildContext context) async {
-    try {
-      final String response = await rootBundle.loadString('assets/data/quiz.json');
-      final Map<String, dynamic> data = json.decode(response);
-      List<QuizQuestion> allQuestions = [];
-
-      // On prend TOUT
-      data.forEach((key, value) {
-        if (value is List) {
-          for (var q in value) {
-            allQuestions.add(QuizQuestion.fromJson(q));
-          }
-        }
-      });
-
-      if (allQuestions.isEmpty) {
-        if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Pas de questions trouvées !")),
-          );
-        }
-        return;
-      }
-
-      // Mélange
-      allQuestions.shuffle(Random());
-      if (allQuestions.length > 20) {
-        allQuestions = allQuestions.sublist(0, 20);
-      }
-
-      if (context.mounted) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => QuizPage(
-              title: "Grand Quiz Général 🔥",
-              questions: allQuestions,
-            ),
-          ),
-        );
-      }
-    } catch (e) {
-      print("Erreur quiz général : $e");
-    }
-  }
-  // ------------------------------------------------
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    _searchFocusNode.dispose();
-    super.dispose();
-  }
-
-  List<ThemeItem> _getFilteredThemes() => _themes;
-
-  List<({ThemeItem theme, String file, String assetPath})> _getFilteredFiches() {
-    if (_searchQuery.trim().isEmpty) return [];
-    final q = _searchQuery.trim().toLowerCase();
-    return _allFiches.where((f) {
-      final title = f.file.replaceAll('.md', '').toLowerCase();
-      final category = f.theme.label.toLowerCase();
-      return title.contains(q) || category.contains(q);
-    }).toList();
-  }
-
-  void _buildAllFiches() {
-    _allFiches = [];
-    for (final theme in _themes) {
-      for (final file in theme.files) {
-        _allFiches.add((
-          theme: theme,
-          file: file,
-          assetPath: '${theme.path}/$file',
-        ));
-      }
-    }
-  }
 
   @override
   void initState() {
@@ -192,173 +99,251 @@ class _ThemesScreenState extends State<ThemesScreen> {
       final list = (data['themes'] as List<dynamic>?)
           ?.map((e) => ThemeItem.fromJson(e as Map<String, dynamic>))
           .toList();
+      
+      int count = 0;
+      if (list != null) {
+        for (var t in list) {
+          count += t.files.length;
+        }
+      }
+
       if (mounted) {
         setState(() {
           _themes = list ?? [];
-          _buildAllFiches();
+          _totalFiches = count;
           _loading = false;
         });
       }
     } catch (e) {
-      if (mounted) {
-        setState(() {
-          _error = e.toString();
-          _loading = false;
-        });
-      }
+      print("Erreur chargement: $e");
     }
   }
 
-  void _onThemeTap(ThemeItem theme) {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (context) => FichesListScreen(
-          theme: theme,
-        ),
-      ),
-    );
+  // --- Helpers pour le Design ---
+  Color _getThemeColor(String id) {
+    if (id.contains('algebre')) return const Color(0xFF3F51B5); // Indigo
+    if (id.contains('analyse')) return const Color(0xFFE91E63); // Rose
+    if (id.contains('proba')) return const Color(0xFF009688);   // Teal
+    if (id.contains('geo')) return const Color(0xFFFF9800);     // Orange
+    return const Color(0xFF607D8B); // Gris bleu par défaut
   }
 
-  void _onFicheTap(String assetPath) {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (context) => FichePage(assetPath: assetPath),
-      ),
-    );
+  IconData _getThemeIcon(String id) {
+    if (id.contains('algebre')) return Icons.functions;
+    if (id.contains('analyse')) return Icons.show_chart;
+    if (id.contains('proba')) return Icons.casino;
+    if (id.contains('geo')) return Icons.architecture;
+    return Icons.book;
+  }
+
+  // --- Grand Quiz ---
+  Future<void> _startGeneralQuiz(BuildContext context) async {
+    try {
+      final String response = await rootBundle.loadString('assets/data/quiz.json');
+      final Map<String, dynamic> data = json.decode(response);
+      List<QuizQuestion> allQuestions = [];
+      data.forEach((key, value) {
+        if (value is List) {
+          for (var q in value) allQuestions.add(QuizQuestion.fromJson(q));
+        }
+      });
+
+      if (allQuestions.isEmpty) return;
+      allQuestions.shuffle(Random());
+      if (allQuestions.length > 20) allQuestions = allQuestions.sublist(0, 20);
+
+      if (context.mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => QuizPage(title: "Grand Quiz Général 🔥", questions: allQuestions),
+          ),
+        );
+      }
+    } catch (e) {
+      print("Erreur: $e");
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_loading) {
-      return Scaffold(
-        appBar: AppBar(title: const Text('Agreg Master')),
-        body: const Center(child: CircularProgressIndicator()),
-      );
-    }
-    if (_error != null) {
-      return Scaffold(
-        appBar: AppBar(title: const Text('Agreg Master')),
-        body: Center(child: Text('Erreur: $_error')),
-      );
-    }
-
-    final filteredThemes = _getFilteredThemes();
-    final filteredFiches = _getFilteredFiches();
-    final showSearchResults = _searchQuery.trim().isNotEmpty;
-
     return Scaffold(
-      appBar: AppBar(
-        title: _isSearching
-            ? TextField(
-                controller: _searchController,
-                focusNode: _searchFocusNode,
-                style: const TextStyle(color: Colors.white, fontSize: 16),
-                decoration: InputDecoration(
-                  hintText: 'Rechercher une fiche...',
-                  hintStyle: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 16),
-                  border: InputBorder.none,
-                ),
-                onChanged: (v) => setState(() => _searchQuery = v),
-              )
-            : const Text('Agreg Master', style: TextStyle(fontWeight: FontWeight.bold)),
-        actions: [
-          IconButton(
-            icon: Icon(_isSearching ? Icons.close : Icons.search),
-            onPressed: () {
-              setState(() {
-                if (_isSearching) {
-                  _isSearching = false;
-                  _searchQuery = '';
-                  _searchController.clear();
-                  FocusScope.of(context).unfocus();
-                } else {
-                  _isSearching = true;
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    _searchFocusNode.requestFocus();
-                  });
-                }
-              });
-            },
-          ),
-        ],
-      ),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Color(0xFF1B365D), Color(0xFF2A4A7A)],
-          ),
-        ),
-        child: SafeArea(
+      backgroundColor: const Color(0xFFF5F7FA),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
-                padding: EdgeInsets.all(24.0),
-                child: Text(
-                  'Thèmes',
-                  style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold),
+              // 1. En-tête Salutation
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Bonjour !",
+                        style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                      ),
+                      const Text(
+                        "Agreg Master",
+                        style: TextStyle(
+                          fontSize: 28, 
+                          fontWeight: FontWeight.bold, 
+                          color: Color(0xFF1A237E)
+                        ),
+                      ),
+                    ],
+                  ),
+                  const CircleAvatar(
+                    radius: 25,
+                    backgroundColor: Color(0xFF1A237E),
+                    child: Icon(Icons.school, color: Colors.white),
+                  ),
+                ],
+              ),
+              
+              const SizedBox(height: 20),
+
+              // 2. Carte Résumé (Stats)
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFF1A237E), Color(0xFF3949AB)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(color: Colors.blue.withOpacity(0.3), blurRadius: 10, offset: const Offset(0, 5))
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    const Icon(Icons.library_books, color: Colors.white, size: 40),
+                    const SizedBox(width: 15),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "$_totalFiches Fiches disponibles",
+                          style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        const Text(
+                          "Continue tes efforts !",
+                          style: TextStyle(color: Colors.white70, fontSize: 14),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
+
+              const SizedBox(height: 30),
+              const Text(
+                "Matières",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black87),
+              ),
+              const SizedBox(height: 15),
+
+              // 3. Grille des Matières RESPONSIVE
               Expanded(
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-                  ),
-                  child: showSearchResults
-                      ? ListView.builder(
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          itemCount: filteredFiches.length,
+                child: _loading 
+                  ? const Center(child: CircularProgressIndicator())
+                  : LayoutBuilder(
+                      builder: (context, constraints) {
+                        // --- LOGIQUE RESPONSIVE ---
+                        int crossAxisCount;
+                        if (constraints.maxWidth > 1100) {
+                          crossAxisCount = 4; // PC Large
+                        } else if (constraints.maxWidth > 700) {
+                          crossAxisCount = 2; // Tablette / Petit PC
+                        } else {
+                          crossAxisCount = 1; // Mobile
+                        }
+                        
+                        return GridView.builder(
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: crossAxisCount, // Nombre dynamique
+                            childAspectRatio: 1.3, // Plus rectangulaire pour l'aspect "Carte"
+                            crossAxisSpacing: 20,
+                            mainAxisSpacing: 20,
+                          ),
+                          itemCount: _themes.length,
                           itemBuilder: (context, index) {
-                            final fiche = filteredFiches[index];
-                            return ListTile(
-                              title: Text(fiche.file.replaceAll('.md', '')),
-                              subtitle: Text(fiche.theme.label),
-                              onTap: () => _onFicheTap(fiche.assetPath),
-                              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                            );
-                          },
-                        )
-                      : ListView.builder(
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          itemCount: filteredThemes.length,
-                          itemBuilder: (context, index) {
-                            final theme = filteredThemes[index];
-                            return ListTile(
-                              onTap: () => _onThemeTap(theme),
-                              leading: CircleAvatar(
-                                backgroundColor: const Color(0xFF1B365D),
-                                child: Text('${index + 1}', style: const TextStyle(color: Colors.white)),
+                            final theme = _themes[index];
+                            final color = _getThemeColor(theme.id);
+                            final icon = _getThemeIcon(theme.id);
+
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(builder: (context) => FichesListScreen(theme: theme)),
+                                );
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(20),
+                                  boxShadow: [
+                                    BoxShadow(color: Colors.grey.withOpacity(0.1), blurRadius: 5, offset: const Offset(0, 2))
+                                  ],
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.all(16),
+                                        decoration: BoxDecoration(
+                                          color: color.withOpacity(0.1),
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Icon(icon, color: color, size: 36),
+                                      ),
+                                      const SizedBox(height: 16),
+                                      Text(
+                                        theme.label,
+                                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        "${theme.files.length} fiches",
+                                        style: TextStyle(color: Colors.grey[500], fontSize: 14),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
-                              title: Text(theme.label, style: const TextStyle(fontWeight: FontWeight.bold)),
-                              trailing: const Icon(Icons.chevron_right),
                             );
                           },
-                        ),
-                ),
+                        );
+                      },
+                    ),
               ),
             ],
           ),
         ),
       ),
-      // BOUTON GRAND QUIZ GÉNÉRAL
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _startGeneralQuiz(context),
-        label: const Text("Grand Quiz"),
-        icon: const Icon(Icons.flash_on),
-        backgroundColor: Colors.amber[800],
-        foregroundColor: Colors.white,
+        backgroundColor: const Color(0xFFFF9800),
+        icon: const Icon(Icons.flash_on, color: Colors.white),
+        label: const Text("Grand Quiz", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
       ),
     );
   }
 }
 
-/// Écran listant les fiches .md d'un thème avec recherche.
+// --- Page Liste des Fiches (FichesListScreen) ---
 class FichesListScreen extends StatefulWidget {
   final ThemeItem theme;
-
   const FichesListScreen({super.key, required this.theme});
 
   @override
@@ -366,185 +351,78 @@ class FichesListScreen extends StatefulWidget {
 }
 
 class _FichesListScreenState extends State<FichesListScreen> {
-  String _searchQuery = '';
-  bool _isSearchMode = false;
-  final _searchController = TextEditingController();
-  final _searchFocusNode = FocusNode();
-
-  // --- FONCTION QUI LANCE LE QUIZ FILTRÉ (SPÉCIAL CHAPITRE) ---
+  
   Future<void> _startSectionQuiz(BuildContext context) async {
-    try {
+      try {
       final String response = await rootBundle.loadString('assets/data/quiz.json');
       final Map<String, dynamic> data = json.decode(response);
       List<QuizQuestion> sectionQuestions = [];
-
-      // FILTRAGE : On ne garde que les questions des fichiers de CE thème
       for (var file in widget.theme.files) {
-        // Ex: "hilbert.md" -> "hilbert"
         String key = file.replaceAll('.md', '');
-        
         if (data.containsKey(key)) {
-          for (var q in data[key]) {
-            sectionQuestions.add(QuizQuestion.fromJson(q));
-          }
+          for (var q in data[key]) sectionQuestions.add(QuizQuestion.fromJson(q));
         }
       }
-
       if (sectionQuestions.isEmpty) {
-        if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Pas encore de quiz pour ce chapitre !")),
-          );
-        }
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Pas de quiz pour ce chapitre !")));
         return;
       }
-
-      // Mélange uniquement la section
-      sectionQuestions.shuffle(Random());
-
-      if (context.mounted) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => QuizPage(
-              title: "Quiz ${widget.theme.label}", // Ex: Quiz Algèbre
-              questions: sectionQuestions,
-            ),
-          ),
-        );
-      }
-    } catch (e) {
-      print("Erreur quiz section : $e");
-    }
-  }
-  // ------------------------------------------------------------
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    _searchFocusNode.dispose();
-    super.dispose();
-  }
-
-  List<String> _getFilteredFiles() {
-    final files = widget.theme.files;
-    if (_searchQuery.trim().isEmpty) return files;
-    final q = _searchQuery.trim().toLowerCase();
-    return files.where((f) {
-      final title = f.replaceAll('.md', '').toLowerCase();
-      final category = widget.theme.label.toLowerCase();
-      return title.contains(q) || category.contains(q);
-    }).toList();
-  }
-
-  void _onSearchTap() {
-    setState(() {
-      _isSearchMode = true;
-      _searchQuery = '';
-      _searchController.clear();
-    });
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _searchFocusNode.requestFocus();
-    });
-  }
-
-  void _onSearchClose() {
-    setState(() {
-      _isSearchMode = false;
-      _searchQuery = '';
-      _searchController.clear();
-    });
-    FocusScope.of(context).unfocus();
+      sectionQuestions.shuffle();
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => QuizPage(title: "Quiz ${widget.theme.label}", questions: sectionQuestions)),
+      );
+    } catch (e) {}
   }
 
   @override
   Widget build(BuildContext context) {
-    final filteredFiles = _getFilteredFiles();
-
     return Scaffold(
+      backgroundColor: const Color(0xFFF5F7FA),
       appBar: AppBar(
-        title: _isSearchMode
-            ? TextField(
-                controller: _searchController,
-                focusNode: _searchFocusNode,
-                style: const TextStyle(color: Colors.white, fontSize: 16),
-                decoration: InputDecoration(
-                  hintText: 'Rechercher une fiche...',
-                  hintStyle: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 16),
-                  border: InputBorder.none,
-                ),
-                onChanged: (v) => setState(() => _searchQuery = v),
-              )
-            : Text(widget.theme.label),
-        actions: [
-          IconButton(
-            icon: Icon(_isSearchMode ? Icons.close : Icons.search),
-            onPressed: _isSearchMode ? _onSearchClose : _onSearchTap,
-          ),
-        ],
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: const BackButton(color: Color(0xFF1A237E)),
+        title: Text(widget.theme.label, style: const TextStyle(color: Color(0xFF1A237E), fontWeight: FontWeight.bold)),
+        centerTitle: true,
       ),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Color(0xFF1B365D), Color(0xFF2A4A7A)],
-          ),
-        ),
-        child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Text(
-                  'Fiches — ${widget.theme.label}',
-                  style: const TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
+      body: ListView.builder(
+        padding: const EdgeInsets.all(20),
+        itemCount: widget.theme.files.length,
+        itemBuilder: (context, index) {
+          final file = widget.theme.files[index];
+          final title = file.replaceAll('.md', '');
+          return Container(
+            margin: const EdgeInsets.only(bottom: 12),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(15),
+              boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.05), blurRadius: 5)],
+            ),
+            child: ListTile(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              leading: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF1A237E).withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(8),
                 ),
+                child: const Icon(Icons.article, color: Color(0xFF1A237E), size: 20),
               ),
-              Expanded(
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-                  ),
-                  child: filteredFiles.isEmpty
-                      ? Center(child: Text("Aucune fiche trouvée."))
-                      : ListView.builder(
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          itemCount: filteredFiles.length,
-                          itemBuilder: (context, index) {
-                            final file = filteredFiles[index];
-                            final assetPath = '${widget.theme.path}/$file';
-                            return ListTile(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute<void>(
-                                    builder: (context) => FichePage(assetPath: assetPath),
-                                  ),
-                                );
-                              },
-                              leading: const CircleAvatar(
-                                backgroundColor: Color(0xFF1B365D),
-                                child: Icon(Icons.article_outlined, color: Colors.white, size: 20),
-                              ),
-                              title: Text(file.replaceAll('.md', ''), style: const TextStyle(fontWeight: FontWeight.w500)),
-                              trailing: const Icon(Icons.open_in_new, color: Color(0xFF1B365D), size: 20),
-                            );
-                          },
-                        ),
-                ),
-              ),
-            ],
-          ),
-        ),
+              title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.grey),
+              onTap: () {
+                 Navigator.push(context, MaterialPageRoute(builder: (context) => FichePage(assetPath: '${widget.theme.path}/$file')));
+              },
+            ),
+          );
+        },
       ),
-      // BOUTON QUIZ SPÉCIAL CHAPITRE
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _startSectionQuiz(context),
-        label: const Text("Quiz du Chapitre"),
+        label: const Text("Quiz Chapitre"),
         icon: const Icon(Icons.school),
-        backgroundColor: Colors.indigo,
+        backgroundColor: const Color(0xFF1A237E),
         foregroundColor: Colors.white,
       ),
     );

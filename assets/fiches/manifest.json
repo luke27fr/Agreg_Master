@@ -15,7 +15,8 @@
       "files": [
         "hilbert.md",
         "inversion_locale.md",
-        "series_entieres.md"
+        "series_entieres.md",
+        "hilbert_bases.md"
       ]
     },
     {
@@ -30,7 +31,9 @@
       "id": "geometrie",
       "label": "Géométrie",
       "path": "assets/fiches/geometrie",
-      "files": []
+      "files": ["isometries.md", "convexite.md"]
+      
+
     }
   ]
 }

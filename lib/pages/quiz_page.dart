@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
-import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:markdown/markdown.dart' as md;
 
 import '../models/quiz_model.dart';
@@ -21,7 +20,6 @@ class _QuizPageState extends State<QuizPage> {
   bool isAnswered = false;
   int? selectedOption;
 
-  // Configuration LaTeX identique à fiche_page.dart
   static md.ExtensionSet get _latexExtensionSet => md.ExtensionSet(
     [LatexBlockSyntax(), ...md.ExtensionSet.gitHubFlavored.blockSyntaxes],
     [LatexInlineSyntax(), ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes],
@@ -84,20 +82,16 @@ class _QuizPageState extends State<QuizPage> {
               backgroundColor: Colors.grey[200],
             ),
             const SizedBox(height: 16),
-            
-            // --- QUESTION ---
             Expanded(
               flex: 2,
               child: SingleChildScrollView(
                 child: _buildMarkdown("### Question ${currentIndex + 1}\n\n${question.question}"),
               ),
             ),
-            
-            // --- OPTIONS ---
             ...List.generate(question.options.length, (index) {
               Color color = Colors.white;
               Color borderColor = Colors.grey.shade300;
-              
+
               if (isAnswered) {
                 if (index == question.correctIndex) {
                   color = Colors.green.shade50;
@@ -128,8 +122,6 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               );
             }),
-
-            // --- EXPLICATION ---
             if (isAnswered) ...[
               const SizedBox(height: 10),
               Container(
