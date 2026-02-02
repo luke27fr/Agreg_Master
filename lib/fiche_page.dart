@@ -4,11 +4,50 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:markdown/markdown.dart' as md;
-import 'dart:convert'; // Pour décoder le JSON
-import 'package:flutter/services.dart'; // Pour rootBundle (accéder aux fichiers assets)
-import 'package:agreg_master/models/quiz_model.dart'; // Pour utiliser l'objet QuizQuestion
-import 'package:agreg_master/pages/quiz_page.dart'; // Pour aller vers la page du Quiz
-import 'data/glossaire.dart';
+import 'dart:convert';
+import 'package:agreg_master/models/quiz_model.dart';
+import 'package:agreg_master/pages/quiz_page.dart';
+
+/// Custom builder for <glossary> tags that renders them as clickable links
+class GlossaryElementBuilder extends MarkdownElementBuilder {
+  final void Function(String term) onTap;
+  final Color linkColor;
+  
+  GlossaryElementBuilder({required this.onTap, required this.linkColor});
+  
+  @override
+  Widget? visitElementAfter(md.Element element, TextStyle? preferredStyle) {
+    final term = element.attributes['term'] ?? '';
+    final text = element.textContent;
+    return GestureDetector(
+      onTap: () => onTap(term),
+      child: Text(
+        text,
+        style: TextStyle(
+          color: linkColor,
+          decoration: TextDecoration.underline,
+          decorationColor: linkColor,
+        ),
+      ),
+    );
+  }
+}
+
+/// Custom inline syntax for <glossary> HTML tags
+class GlossaryTagSyntax extends md.InlineSyntax {
+  GlossaryTagSyntax() : super(r'<glossary term="([^"]+)">([^<]+)</glossary>');
+  
+  @override
+  bool onMatch(md.InlineParser parser, Match match) {
+    final term = match.group(1)!;
+    final text = match.group(2)!;
+    final el = md.Element.text('glossary', text);
+    el.attributes['term'] = term;
+    parser.addNode(el);
+    return true;
+  }
+}
+
 
 /// Écran de lecture d'une fiche Markdown avec rendu LaTeX et style "Pièges à éviter".
 class FichePage extends StatefulWidget {
@@ -22,14 +61,44 @@ class FichePage extends StatefulWidget {
 }
 
 class _FichePageState extends State<FichePage> {
-  // 1. Variable pour stocker les questions trouvées
+  // Variables d'état
   List<QuizQuestion> quizQuestions = [];
+  Map<String, String> _glossaire = {};
 
   @override
   void initState() {
     super.initState();
     _loadContent();
     _loadQuiz();
+    _loadGlossaire();
+  }
+
+  // Chargement du glossaire depuis JSON (81 définitions)
+  Future<void> _loadGlossaire() async {
+    try {
+      final jsonString = await rootBundle.loadString('assets/glossaire.json');
+      final Map<String, dynamic> data = json.decode(jsonString);
+      setState(() {
+        _glossaire = data.map((k, v) => MapEntry(k.toString(), v.toString()));
+      });
+      print("✅ Glossaire chargé : ${_glossaire.length} définitions.");
+    } catch (e) {
+      print("❌ Erreur chargement glossaire : $e");
+    }
+  }
+
+  // Normalisation des clés (accents, espaces, underscores)
+  String _normalizeKey(String key) {
+    String str = key.toLowerCase().trim();
+    // Remplacer les espaces par des underscores (ou vice versa pour la recherche)
+    str = str.replaceAll(' ', '_');
+    // Normaliser les accents courants
+    const withAccent = 'àáâãäåèéêëìíîïòóôõöùúûüçñ';
+    const withoutAccent = 'aaaaaaeeeeiiiiooooouuuucn';
+    for (int i = 0; i < withAccent.length; i++) {
+      str = str.replaceAll(withAccent[i], withoutAccent[i]);
+    }
+    return str;
   }
 
   // 3. La fonction magique qui cherche le quiz
@@ -248,9 +317,29 @@ class _FichePageState extends State<FichePage> {
 
   void _showGlossaireDialog(BuildContext context, String href) {
     if (!href.startsWith('def:')) return;
-    final term = href.substring(4).trim().toLowerCase();
-    final definition = glossaireData[term];
-    final title = term.isEmpty ? 'Glossaire' : term[0].toUpperCase() + (term.length > 1 ? term.substring(1) : '');
+    final rawTerm = href.substring(4).trim();
+    final termLower = rawTerm.toLowerCase();
+    final normalizedTerm = _normalizeKey(rawTerm);
+    
+    // Recherche 1 : exacte (lowercase)
+    String? definition = _glossaire[termLower];
+    
+    // Recherche 2 : avec underscore (ex: "espace affine" -> "espace_affine")
+    if (definition == null) {
+      definition = _glossaire[termLower.replaceAll(' ', '_')];
+    }
+    
+    // Recherche 3 : normalisée (sans accents, avec underscores)
+    if (definition == null) {
+      for (var entry in _glossaire.entries) {
+        if (_normalizeKey(entry.key) == normalizedTerm) {
+          definition = entry.value;
+          break;
+        }
+      }
+    }
+    
+    final title = rawTerm.isEmpty ? 'Glossaire' : rawTerm[0].toUpperCase() + (rawTerm.length > 1 ? rawTerm.substring(1) : '');
     
     final glossaireStyleSheet = MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(
       p: const TextStyle(fontSize: 15, height: 1.5),
@@ -263,7 +352,7 @@ class _FichePageState extends State<FichePage> {
         title: Text(title),
         content: SingleChildScrollView(
           child: MarkdownBody(
-            data: definition ?? 'Définition manquante.',
+            data: definition ?? 'Définition non trouvée pour « $rawTerm ».',
             styleSheet: glossaireStyleSheet,
             extensionSet: _markdownLatexExtensionSet,
             builders: _markdownLatexBuilders,
@@ -326,11 +415,20 @@ class _FichePageState extends State<FichePage> {
 
   /// Configuration LaTeX partagée pour tous les blocs (Note, Warning, Tip, Question de Jury).
   /// Garantit le rendu des formules $...$ et $$...$$ dans les blockquotes.
+  /// Configuration LaTeX + GlossaryTag partagée pour tous les blocs.
   static md.ExtensionSet get _markdownLatexExtensionSet => md.ExtensionSet(
     [LatexBlockSyntax(), ...md.ExtensionSet.gitHubFlavored.blockSyntaxes],
-    [LatexInlineSyntax(), ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes],
+    [GlossaryTagSyntax(), LatexInlineSyntax(), ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes],
   );
   static Map<String, MarkdownElementBuilder> get _markdownLatexBuilders => {'latex': LatexElementBuilder()};
+  
+  Map<String, MarkdownElementBuilder> _getBuilders(Color linkColor) => {
+    'latex': LatexElementBuilder(),
+    'glossary': GlossaryElementBuilder(
+      onTap: (term) => _showGlossaireDialog(context, 'def:$term'),
+      linkColor: linkColor,
+    ),
+  };
 
   /// Style d'un blockquote : balises GitHub ([!NOTE], [!WARNING], [!TIP], [!QUESTION]) puis mots-clés, sinon gris.
   ({Color accentColor, Color bgColor, String title, IconData icon}) _getBlockquoteStyle(String firstLine) {
@@ -480,6 +578,12 @@ class _FichePageState extends State<FichePage> {
     required String title,
     required IconData icon,
   }) {
+    // Pre-process: Convert def: links to use <glossary> custom tag to avoid LaTeX interference
+    String processedContent = content.replaceAllMapped(
+      RegExp(r'\[([^\]]+)\]\(def:([^\)]+)\)'),
+      (match) => '<glossary term="${match.group(2)}">${match.group(1)}</glossary>',
+    );
+    
     final styleSheet = MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(
       blockSpacing: 4.0,
       listIndent: 20.0,
@@ -516,10 +620,10 @@ class _FichePageState extends State<FichePage> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: MarkdownBody(
-              data: content,
+              data: processedContent,
               styleSheet: styleSheet,
               extensionSet: _markdownLatexExtensionSet,
-              builders: _markdownLatexBuilders,
+              builders: _getBuilders(accentColor),
               onTapLink: (text, href, title) => _showGlossaireDialog(context, href ?? ''),
             ),
           ),

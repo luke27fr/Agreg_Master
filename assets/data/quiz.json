@@ -118,5 +118,161 @@
       "correctIndex": 0,
       "explanation": "C'est la propriété d'absence de mémoire : $P(X > n+k \\mid X > n) = P(X > k)$ ."
     }
+  ],
+  "isometries_affines": [
+    {
+      "question": "Quelle est la propriété fondamentale d'une isométrie affine ?",
+      "options": [
+        "Elle conserve les distances",
+        "Elle conserve l'origine",
+        "Elle a un déterminant égal à 1"
+      ],
+      "correctIndex": 0,
+      "explanation": "C'est la définition même ! f est une isométrie si d(f(M), f(N)) = d(M, N) pour tout couple de points."
+    },
+    {
+      "question": "Une isométrie affine possède-t-elle toujours un point fixe ?",
+      "options": [
+        "Oui, toujours",
+        "Non, pas toujours",
+        "Seulement si c'est un déplacement"
+      ],
+      "correctIndex": 1,
+      "explanation": "Non ! L'exemple classique est la TRANSLATION (de vecteur non nul) qui n'a aucun point fixe."
+    },
+    {
+      "question": "Comment appelle-t-on une isométrie dont la partie linéaire a un déterminant de -1 ?",
+      "options": [
+        "Un déplacement",
+        "Un antidéplacement",
+        "Une homothétie"
+      ],
+      "correctIndex": 1,
+      "explanation": "C'est un antidéplacement (comme une réflexion). Elle renverse l'orientation de l'espace."
+    },
+    {
+      "question": "D'après le théorème des 3 miroirs, toute isométrie du plan se décompose en au plus...",
+      "options": [
+        "2 réflexions",
+        "3 réflexions",
+        "4 réflexions"
+      ],
+      "correctIndex": 1,
+      "explanation": "3 réflexions ! Si elle a un point fixe, c'est max 2. Sinon, c'est max 3."
+    },
+    {
+      "question": "Quelle est la nature d'une symétrie glissée ?",
+      "options": [
+        "Un déplacement sans point fixe",
+        "Un antidéplacement avec point fixe",
+        "Un antidéplacement sans point fixe"
+      ],
+      "correctIndex": 2,
+      "explanation": "C'est le piège classique. C'est la composée d'une réflexion et d'une translation parallèle à l'axe. Elle retourne l'espace (antidéplacement) et ne fixe aucun point."
+    }
+  ],
+  "convexite": [
+    {
+      "question": "Quelle condition définit une partie convexe C ?",
+      "options": [
+        "C contient tous ses points d'accumulation",
+        "Pour tout couple (x,y) de C, le segment [x,y] est inclus dans C",
+        "C est stable par combinaison linéaire"
+      ],
+      "correctIndex": 1,
+      "explanation": "C'est la définition géométrique de base : le segment reliant deux points quelconques reste dans l'ensemble."
+    },
+    {
+      "question": "D'après le théorème de Carathéodory en dimension n, tout point de l'enveloppe convexe est barycentre de...",
+      "options": [
+        "n points",
+        "n+1 points au maximum",
+        "2n points"
+      ],
+      "correctIndex": 1,
+      "explanation": "Exactement n+1 points ! (Exemple : dans le plan (dim 2), tout point de Conv(A) est dans un triangle formé par 3 points de A)."
+    },
+    {
+      "question": "Deux convexes fermés disjoints sont-ils toujours strictement séparables par un hyperplan ?",
+      "options": [
+        "Oui, toujours",
+        "Non, il faut que l'un des deux soit compact",
+        "Seulement en dimension finie"
+      ],
+      "correctIndex": 1,
+      "explanation": "C'est le piège classique (Hahn-Banach). Si les deux sont fermés mais non bornés (ex: une hyperbole et son asymptote), on peut ne pas pouvoir les séparer strictement."
+    },
+    {
+      "question": "Quelle est la relation entre convexité et connexité ?",
+      "options": [
+        "Tout convexe est connexe",
+        "Tout connexe est convexe",
+        "Il n'y a aucun lien"
+      ],
+      "correctIndex": 0,
+      "explanation": "Tout convexe est connexe par arcs (le segment relie les points). La réciproque est fausse (un croissant de lune est connexe mais pas convexe)."
+    },
+    {
+      "question": "Que dit le théorème de Krein-Milman pour un compact convexe K ?",
+      "options": [
+        "K est l'enveloppe convexe fermée de ses points extrémaux",
+        "K possède un unique point extrémal",
+        "K est d'intérieur non vide"
+      ],
+      "correctIndex": 0,
+      "explanation": "C'est un résultat puissant : on peut 'reconstruire' tout le compact convexe juste avec ses points extrémaux (les 'coins')."
+    }
+  ],
+  "determinants": [
+    {
+      "question": "Quelle est la définition exacte du déterminant en dimension n ?",
+      "options": [
+        "L'unique forme n-linéaire symétrique qui vaut 1 sur la base",
+        "L'unique forme n-linéaire alternée qui vaut 1 sur la base",
+        "Le produit des coefficients diagonaux"
+      ],
+      "correctIndex": 1,
+      "explanation": "C'est une forme ALTERNÉE (s'annule si deux colonnes sont égales). Le produit diagonal n'est vrai que pour les matrices triangulaires."
+    },
+    {
+      "question": "Si A est une matrice de taille n et λ un scalaire, que vaut det(λA) ?",
+      "options": [
+        "λ det(A)",
+        "n λ det(A)",
+        "λⁿ det(A)"
+      ],
+      "correctIndex": 2,
+      "explanation": "Attention au piège ! Le scalaire sort de chacune des n colonnes (multilinéarité), donc on a λ puissance n."
+    },
+    {
+      "question": "Quelle est la différentielle du déterminant au point In (Identité) ?",
+      "options": [
+        "H ↦ det(H)",
+        "H ↦ Tr(H)",
+        "H ↦ 1"
+      ],
+      "correctIndex": 1,
+      "explanation": "C'est la Trace ! On a det(I + H) = 1 + Tr(H) + o(H). Pour une matrice A quelconque, c'est Tr(com(A)ᵗ H)."
+    },
+    {
+      "question": "L'ensemble GLn(C) des matrices inversibles complexes est...",
+      "options": [
+        "Fermé et borné",
+        "Dense et ouvert",
+        "Un sous-espace vectoriel"
+      ],
+      "correctIndex": 1,
+      "explanation": "Il est ouvert (image réciproque de C*) et dense (on peut approcher toute matrice par des inversibles en perturbant les valeurs propres)."
+    },
+    {
+      "question": "Quand le déterminant de Vandermonde est-il nul ?",
+      "options": [
+        "Si la somme des scalaires est nulle",
+        "Si au moins deux scalaires sont égaux",
+        "Jamais"
+      ],
+      "correctIndex": 1,
+      "explanation": "Il vaut le produit des (xj - xi). Il s'annule donc si et seulement si deux scalaires sont identiques."
+    }
   ]
 }

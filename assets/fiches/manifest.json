@@ -2,10 +2,28 @@
   "themes": [
     {
       "id": "algebre",
-      "label": "Algèbre",
+      "label": "Algèbre & Arithmétique",
       "path": "assets/fiches/algebre",
       "files": [
-        "theoreme_spectral.md"
+        "theoreme_spectral.md",
+        "logique_ensembles.md",
+        "groupes_structures.md",
+        "groupes_finis.md",
+        "anneaux_corps.md",
+        "polynomes.md",
+        "fractions_rationnelles.md",
+        "arithmetique_z.md",
+        "nombres_premiers.md",
+        "espaces_vectoriels.md",
+        "applications_lineaires.md",
+        "determinants.md",
+        "systemes_lineaires.md",
+        "reduction_endomorphismes.md",
+        "polynomes_endomorphismes.md",
+        "espaces_euclidiens.md",
+        "adjoint_spectral.md",
+        "formes_quadratiques.md",
+        "geometrie_matricielle.md"
       ]
     },
     {
@@ -14,26 +32,73 @@
       "path": "assets/fiches/analyse",
       "files": [
         "hilbert.md",
+        "hilbert_bases.md",
         "inversion_locale.md",
         "series_entieres.md",
-        "hilbert_bases.md"
+        "reels_complexes.md",
+        "topologie_normes.md",
+        "topologie_ouverts.md",
+        "compacite.md",
+        "connexite.md",
+        "completude.md",
+        "suites_numeriques.md",
+        "series_numeriques.md",
+        "suites_fonctions.md",
+        "series_fonctions.md",
+        "series_fourier.md",
+        "limites_continuite.md",
+        "derivabilite.md",
+        "convexite_analyse.md",
+        "integration_segment.md",
+        "integration_impropre.md",
+        "convergences_integrales.md",
+        "calcul_diff.md",
+        "eq_diff_lineaires.md",
+        "eq_diff_non_lineaires.md"
       ]
     },
     {
       "id": "probabilites",
-      "label": "Probabilités",
+      "label": "Probabilités & Stats",
       "path": "assets/fiches/probabilites",
       "files": [
-        "va_discretes.md"
+        "va_discretes.md",
+        "denombrement.md",
+        "espaces_proba.md",
+        "conditionnement.md",
+        "lois_usuelles_discretes.md",
+        "variables_densite.md",
+        "lois_usuelles_densite.md",
+        "esperance_variance.md",
+        "vecteurs_aleatoires.md",
+        "convergences.md",
+        "lgn_tcl.md",
+        "statistique_descriptive.md",
+        "estimation.md",
+        "intervalles_confiance.md"
       ]
     },
     {
       "id": "geometrie",
       "label": "Géométrie",
       "path": "assets/fiches/geometrie",
-      "files": ["isometries.md", "convexite.md"]
-      
-
+      "files": [
+        "convexite.md",
+        "isometries.md",
+        "espaces_affines.md",
+        "barycentres.md",
+        "produit_scalaire_geo.md",
+        "isometries_vectorielles.md",
+        "isometries_affines.md",
+        "similitudes.md",
+        "geo_plane.md",
+        "geo_espace.md",
+        "nombres_complexes_geo.md",
+        "courbes_parametrees.md",
+        "courbes_polaire.md",
+        "coniques.md",
+        "surfaces.md"
+      ]
     }
   ]
 }

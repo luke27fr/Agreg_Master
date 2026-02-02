@@ -29,3 +29,6 @@ flutter:
     - assets/fiches/probabilites/      
     - assets/fiches/geometrie/ 
     - assets/data/quiz.json 
+    - assets/glossaire.json
+
+    
