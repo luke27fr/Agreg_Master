@@ -96,5 +96,19 @@
     "groupe de lie semi-simple": "Groupe de Lie qui n'est pas isomorphe à un sous-groupe d'un autre groupe de Lie semi-simple.",
     "groupe de lie nilpotent": "Groupe de Lie qui n'est pas isomorphe à un sous-groupe d'un autre groupe de Lie nilpotent.",
     "prehilbertien": "Espace vectoriel réel (ou complexe) muni d'un produit scalaire. S'il est complet pour la norme associée, c'est un espace de Hilbert.",
-    "projection": "Projecteur p sur un sous-espace F tel que le noyau Ker(p) est orthogonal à l'image F. Pour tout x, p(x) est l'unique point de F minimisant la distance ||x - y||."
+    "projection": "Projecteur p sur un sous-espace F tel que le noyau Ker(p) est orthogonal à l'image F. Pour tout x, p(x) est l'unique point de F minimisant la distance ||x - y||.",
+    "espace probabilise": "Triplet (Ω, A, P) où Ω est l'univers, A une tribu d'événements, et P une mesure de probabilité sur A.",
+    "probabilite conditionnelle": "Probabilité d'un événement A sachant qu'un événement B s'est réalisé : P(A|B) = P(A∩B)/P(B) si P(B) > 0.",
+    "chaine de markov": "Processus stochastique vérifiant la propriété de Markov : le futur ne dépend du passé qu'à travers le présent.",
+    "loi de bernoulli": "Loi d'une variable aléatoire prenant les valeurs 0 ou 1, avec P(X=1) = p. C'est le cas n=1 de la binomiale.",
+    "vecteur_propre": "Vecteur non nul v tel que f(v) = λv pour un scalaire λ (la valeur propre associée).",
+    "va": "Variable aléatoire : fonction mesurable de l'univers Ω vers un espace d'état (souvent ℝ).",
+    "ev": "Espace vectoriel : ensemble muni d'une addition interne et d'une multiplication externe par un scalaire.",
+    "vp": "Valeur propre : scalaire λ tel qu'il existe un vecteur non nul v vérifiant f(v) = λv.",
+    "sev": "Sous-espace vectoriel : partie d'un espace vectoriel stable par combinaisons linéaires.",
+    "bon": "Base orthonormée : base formée de vecteurs de norme 1 et deux à deux orthogonaux.",
+    "tcl": "Théorème central limite : la somme normalisée de v.a. i.i.d. converge vers une loi normale.",
+    "lgn": "Loi des grands nombres : la moyenne empirique converge vers l'espérance.",
+    "tvi": "Théorème des valeurs intermédiaires : une fonction continue sur [a,b] atteint toute valeur entre f(a) et f(b).",
+    "taf": "Théorème des accroissements finis : f(b)-f(a) = f'(c)(b-a) pour un certain c entre a et b."
   }

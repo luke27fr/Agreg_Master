@@ -274,5 +274,1420 @@
       "correctIndex": 1,
       "explanation": "Il vaut le produit des (xj - xi). Il s'annule donc si et seulement si deux scalaires sont identiques."
     }
+  ],
+  "polynomes": [
+    {
+      "question": "Dans $\\mathbb{K}[X]$, quels sont les éléments inversibles ?",
+      "options": [
+        "Les polynômes de degré 1",
+        "Les constantes non nulles",
+        "Tous les polynômes non nuls",
+        "Seulement le polynôme 1"
+      ],
+      "correctIndex": 1,
+      "explanation": "Les inversibles de $\\mathbb{K}[X]$ sont exactement les polynômes de degré 0 non nuls, c'est-à-dire les constantes non nulles $a \\in \\mathbb{K}^*$."
+    },
+    {
+      "question": "Le polynôme $X^2 + 1$ est irréductible dans...",
+      "options": [
+        "$\\mathbb{C}[X]$ uniquement",
+        "$\\mathbb{R}[X]$ uniquement",
+        "$\\mathbb{R}[X]$ et $\\mathbb{Q}[X]$",
+        "Aucun de ces anneaux"
+      ],
+      "correctIndex": 2,
+      "explanation": "Dans $\\mathbb{C}[X]$, il se factorise en $(X-i)(X+i)$. Mais dans $\\mathbb{R}[X]$ et $\\mathbb{Q}[X]$, son discriminant est négatif donc il est irréductible."
+    },
+    {
+      "question": "Soit $P \\in \\mathbb{K}[X]$ de degré $n$. Combien de racines $P$ peut-il avoir au maximum dans $\\mathbb{K}$ ?",
+      "options": [
+        "$n-1$",
+        "$n$",
+        "$n+1$",
+        "Infinité si $\\mathbb{K}$ est infini"
+      ],
+      "correctIndex": 1,
+      "explanation": "Un polynôme non nul de degré $n$ a au plus $n$ racines dans un corps (comptées avec multiplicité). C'est une conséquence de la division euclidienne."
+    },
+    {
+      "question": "Le critère d'Eisenstein avec $p=2$ s'applique-t-il à $X^4 + 4X^3 + 6X^2 + 4X + 2$ ?",
+      "options": [
+        "Non, car $2 \\nmid 1$ (coefficient dominant)",
+        "Non, car $4 | 2$ (terme constant)",
+        "Oui, et le polynôme est irréductible dans $\\mathbb{Q}[X]$",
+        "Oui, mais seulement dans $\\mathbb{Z}[X]$"
+      ],
+      "correctIndex": 2,
+      "explanation": "On vérifie : $2|4, 2|6, 2|4, 2|2$ mais $2 \\nmid 1$ et $4 \\nmid 2$. Toutes les conditions sont satisfaites, donc irréductible dans $\\mathbb{Q}[X]$."
+    },
+    {
+      "question": "Quel théorème affirme que $\\mathbb{C}$ est algébriquement clos ?",
+      "options": [
+        "Théorème de Bézout",
+        "Théorème de d'Alembert-Gauss",
+        "Théorème de Lagrange",
+        "Théorème de Cayley-Hamilton"
+      ],
+      "correctIndex": 1,
+      "explanation": "Le théorème de d'Alembert-Gauss (ou théorème fondamental de l'algèbre) affirme que tout polynôme non constant de $\\mathbb{C}[X]$ admet au moins une racine dans $\\mathbb{C}$."
+    }
+  ],
+  "espaces_vectoriels": [
+    {
+      "question": "Que signifie 'famille libre' ?",
+      "options": [
+        "Famille qui engendre tout l'espace",
+        "Famille dont aucune combinaison linéaire non triviale n'est nulle",
+        "Famille de vecteurs orthogonaux",
+        "Famille de cardinal maximal"
+      ],
+      "correctIndex": 1,
+      "explanation": "Une famille $(v_1, ..., v_n)$ est libre si $\\sum \\lambda_i v_i = 0$ implique que tous les $\\lambda_i$ sont nuls."
+    },
+    {
+      "question": "La formule de Grassmann donne...",
+      "options": [
+        "$\\dim(E \\times F) = \\dim(E) \\times \\dim(F)$",
+        "$\\dim(E + F) = \\dim(E) + \\dim(F) - \\dim(E \\cap F)$",
+        "$\\dim(E \\oplus F) = \\dim(E) - \\dim(F)$",
+        "$\\dim(E/F) = \\dim(E) + \\dim(F)$"
+      ],
+      "correctIndex": 1,
+      "explanation": "La formule de Grassmann relie les dimensions de la somme et de l'intersection de deux sous-espaces."
+    },
+    {
+      "question": "Le vecteur nul peut-il appartenir à une famille libre ?",
+      "options": [
+        "Oui, toujours",
+        "Non, jamais",
+        "Seulement si c'est le seul vecteur",
+        "Seulement en dimension infinie"
+      ],
+      "correctIndex": 1,
+      "explanation": "Non ! Si $\\vec{0}$ est dans la famille, alors $1 \\cdot \\vec{0} = \\vec{0}$ est une combinaison linéaire nulle non triviale."
+    }
+  ],
+  "applications_lineaires": [
+    {
+      "question": "Que dit le théorème du rang ?",
+      "options": [
+        "$\\text{rg}(f) = \\dim(\\ker(f))$",
+        "$\\dim(E) = \\dim(\\ker(f)) + \\text{rg}(f)$",
+        "$\\text{rg}(f) = \\dim(E) + \\dim(F)$",
+        "$\\dim(\\ker(f)) = \\dim(\\text{Im}(f))$"
+      ],
+      "correctIndex": 1,
+      "explanation": "Le théorème du rang affirme que la dimension de l'espace de départ égale la somme des dimensions du noyau et de l'image."
+    },
+    {
+      "question": "Une application linéaire est injective si et seulement si...",
+      "options": [
+        "Son image est $F$ tout entier",
+        "Son noyau est réduit à $\\{0\\}$",
+        "Son rang est nul",
+        "Elle conserve les normes"
+      ],
+      "correctIndex": 1,
+      "explanation": "$f$ injective $\\Leftrightarrow \\ker(f) = \\{0\\}$. C'est la caractérisation fondamentale de l'injectivité."
+    },
+    {
+      "question": "Si $p^2 = p$, alors $p$ est...",
+      "options": [
+        "Une homothétie",
+        "Un projecteur",
+        "Une rotation",
+        "Une symétrie"
+      ],
+      "correctIndex": 1,
+      "explanation": "Un endomorphisme $p$ vérifiant $p^2 = p$ est un projecteur. On a alors $E = \\ker(p) \\oplus \\text{Im}(p)$."
+    }
+  ],
+  "reduction_endomorphismes": [
+    {
+      "question": "Qu'est-ce qu'une valeur propre de $f$ ?",
+      "options": [
+        "Un vecteur $v$ tel que $f(v) = 0$",
+        "Un scalaire $\\lambda$ tel que $\\ker(f - \\lambda I) \\neq \\{0\\}$",
+        "Le déterminant de $f$",
+        "La trace de $f$"
+      ],
+      "correctIndex": 1,
+      "explanation": "$\\lambda$ est valeur propre ssi il existe un vecteur non nul $v$ tel que $f(v) = \\lambda v$, donc $\\ker(f - \\lambda I) \\neq \\{0\\}$."
+    },
+    {
+      "question": "Le polynôme caractéristique $\\chi_f$ vérifie...",
+      "options": [
+        "$\\chi_f(f) \\neq 0$ en général",
+        "$\\chi_f(f) = 0$ (Cayley-Hamilton)",
+        "$\\deg(\\chi_f) = \\text{rg}(f)$",
+        "$\\chi_f = \\mu_f$ toujours"
+      ],
+      "correctIndex": 1,
+      "explanation": "Le théorème de Cayley-Hamilton affirme que tout endomorphisme annule son polynôme caractéristique : $\\chi_f(f) = 0$."
+    },
+    {
+      "question": "Une matrice est diagonalisable si et seulement si...",
+      "options": [
+        "Elle est symétrique",
+        "Son polynôme minimal est scindé à racines simples",
+        "Son déterminant est non nul",
+        "Toutes ses valeurs propres sont distinctes"
+      ],
+      "correctIndex": 1,
+      "explanation": "$f$ diagonalisable $\\Leftrightarrow$ $\\mu_f$ scindé à racines simples. Attention : valeurs propres distinctes $\\Rightarrow$ diagonalisable, mais la réciproque est fausse."
+    },
+    {
+      "question": "Si $m_g(\\lambda) < m_a(\\lambda)$ pour une valeur propre $\\lambda$, alors...",
+      "options": [
+        "La matrice est diagonalisable",
+        "La matrice n'est PAS diagonalisable",
+        "La matrice est inversible",
+        "La matrice est nilpotente"
+      ],
+      "correctIndex": 1,
+      "explanation": "Pour être diagonalisable, il faut $m_g(\\lambda) = m_a(\\lambda)$ pour TOUTE valeur propre. Si l'égalité échoue pour une seule, la matrice n'est pas diagonalisable."
+    }
+  ],
+  "groupes_structures": [
+    {
+      "question": "Qu'est-ce qu'un sous-groupe distingué ?",
+      "options": [
+        "Un sous-groupe de cardinal maximal",
+        "Un sous-groupe $H$ tel que $gHg^{-1} = H$ pour tout $g$",
+        "Un sous-groupe engendré par un élément",
+        "Un sous-groupe abélien"
+      ],
+      "correctIndex": 1,
+      "explanation": "$H$ distingué (noté $H \\triangleleft G$) signifie que $H$ est stable par conjugaison. C'est la condition pour que $G/H$ soit un groupe."
+    },
+    {
+      "question": "Que dit le théorème de Lagrange ?",
+      "options": [
+        "Tout groupe fini est cyclique",
+        "L'ordre d'un sous-groupe divise l'ordre du groupe",
+        "Tout groupe a un sous-groupe d'ordre 2",
+        "L'ordre d'un élément est toujours pair"
+      ],
+      "correctIndex": 1,
+      "explanation": "Si $H$ est un sous-groupe de $G$ fini, alors $|H|$ divise $|G|$. De plus, $|G| = |H| \\cdot [G:H]$."
+    },
+    {
+      "question": "Le premier théorème d'isomorphisme affirme que...",
+      "options": [
+        "$G \\simeq H$ si $|G| = |H|$",
+        "$G/\\ker(\\varphi) \\simeq \\text{Im}(\\varphi)$",
+        "Tout morphisme est injectif",
+        "$\\ker(\\varphi) = G$"
+      ],
+      "correctIndex": 1,
+      "explanation": "C'est le théorème fondamental : si $\\varphi : G \\to G'$ est un morphisme, alors $G/\\ker(\\varphi) \\simeq \\text{Im}(\\varphi)$."
+    }
+  ],
+  "groupes_finis": [
+    {
+      "question": "Combien y a-t-il de groupes d'ordre 4 à isomorphisme près ?",
+      "options": [
+        "Un seul",
+        "Deux",
+        "Trois",
+        "Quatre"
+      ],
+      "correctIndex": 1,
+      "explanation": "Il y a exactement 2 groupes d'ordre 4 : $\\mathbb{Z}/4\\mathbb{Z}$ (cyclique) et $\\mathbb{Z}/2\\mathbb{Z} \\times \\mathbb{Z}/2\\mathbb{Z}$ (groupe de Klein)."
+    },
+    {
+      "question": "Tout groupe d'ordre $p$ premier est...",
+      "options": [
+        "Abélien mais pas cyclique",
+        "Cyclique",
+        "Non abélien",
+        "Isomorphe à $\\mathfrak{S}_3$"
+      ],
+      "correctIndex": 1,
+      "explanation": "Par Lagrange, les seuls sous-groupes ont ordre 1 ou $p$. Tout élément non neutre engendre donc tout le groupe."
+    },
+    {
+      "question": "Le groupe alterné $\\mathfrak{A}_n$ est le noyau de...",
+      "options": [
+        "L'application déterminant",
+        "La signature",
+        "La trace",
+        "L'application identité"
+      ],
+      "correctIndex": 1,
+      "explanation": "$\\mathfrak{A}_n = \\ker(\\varepsilon)$ où $\\varepsilon : \\mathfrak{S}_n \\to \\{-1, +1\\}$ est la signature."
+    }
+  ],
+  "anneaux_corps": [
+    {
+      "question": "$\\mathbb{Z}/n\\mathbb{Z}$ est un corps si et seulement si...",
+      "options": [
+        "$n$ est pair",
+        "$n$ est une puissance de 2",
+        "$n$ est premier",
+        "$n > 10$"
+      ],
+      "correctIndex": 2,
+      "explanation": "$\\mathbb{Z}/n\\mathbb{Z}$ est un corps ssi tout élément non nul est inversible, ce qui équivaut à $n$ premier (Bézout)."
+    },
+    {
+      "question": "Un idéal $I$ est maximal si et seulement si...",
+      "options": [
+        "$A/I$ est intègre",
+        "$A/I$ est un corps",
+        "$I = A$",
+        "$I$ contient 1"
+      ],
+      "correctIndex": 1,
+      "explanation": "$I$ maximal $\\Leftrightarrow$ $A/I$ est un corps. $I$ premier $\\Leftrightarrow$ $A/I$ est intègre."
+    },
+    {
+      "question": "La caractéristique d'un corps intègre est...",
+      "options": [
+        "Toujours 2",
+        "0 ou un nombre premier",
+        "Toujours infinie",
+        "Égale à son cardinal"
+      ],
+      "correctIndex": 1,
+      "explanation": "Dans un anneau intègre, si $n \\cdot 1 = 0$ pour $n > 0$ minimal, alors $n$ est premier (sinon diviseurs de zéro)."
+    }
+  ],
+  "arithmetique_z": [
+    {
+      "question": "Le théorème de Bézout affirme que...",
+      "options": [
+        "$\\gcd(a, b) = a + b$",
+        "$\\gcd(a, b) = au + bv$ pour certains entiers $u, v$",
+        "$\\gcd(a, b)$ divise $a - b$",
+        "$\\gcd(a, b) = 1$ toujours"
+      ],
+      "correctIndex": 1,
+      "explanation": "Il existe $u, v \\in \\mathbb{Z}$ tels que $\\gcd(a, b) = au + bv$. C'est fondamental pour l'algorithmique."
+    },
+    {
+      "question": "L'indicatrice d'Euler $\\varphi(12)$ vaut...",
+      "options": [
+        "6",
+        "4",
+        "12",
+        "3"
+      ],
+      "correctIndex": 1,
+      "explanation": "$\\varphi(12) = \\varphi(4)\\varphi(3) = 2 \\times 2 = 4$. Les inversibles modulo 12 sont $\\{1, 5, 7, 11\\}$."
+    },
+    {
+      "question": "Le théorème chinois dit que si $\\gcd(m, n) = 1$...",
+      "options": [
+        "$m + n$ est premier",
+        "$\\mathbb{Z}/mn\\mathbb{Z} \\simeq \\mathbb{Z}/m\\mathbb{Z} \\times \\mathbb{Z}/n\\mathbb{Z}$",
+        "$mn$ divise $m + n$",
+        "$\\varphi(mn) = 1$"
+      ],
+      "correctIndex": 1,
+      "explanation": "C'est le théorème des restes chinois : l'isomorphisme est donné par $x \\mapsto (x \\mod m, x \\mod n)$."
+    }
+  ],
+  "nombres_premiers": [
+    {
+      "question": "Comment Euclide prouve-t-il qu'il y a une infinité de premiers ?",
+      "options": [
+        "Par récurrence",
+        "En montrant que $p_1 \\cdots p_n + 1$ n'est divisible par aucun $p_i$",
+        "En calculant $\\pi(x)$",
+        "Par le théorème de Dirichlet"
+      ],
+      "correctIndex": 1,
+      "explanation": "Si $p_1, ..., p_n$ étaient tous les premiers, $N = p_1 \\cdots p_n + 1$ ne serait divisible par aucun d'eux. Contradiction."
+    },
+    {
+      "question": "Pour tester si $n$ est premier, il suffit de vérifier la divisibilité par les premiers...",
+      "options": [
+        "Jusqu'à $n$",
+        "Jusqu'à $\\sqrt{n}$",
+        "Jusqu'à $n/2$",
+        "Jusqu'à $\\ln(n)$"
+      ],
+      "correctIndex": 1,
+      "explanation": "Si $n = ab$ avec $a \\leq b$, alors $a \\leq \\sqrt{n}$. Donc il suffit de tester jusqu'à $\\sqrt{n}$."
+    }
+  ],
+  "fractions_rationnelles": [
+    {
+      "question": "Le degré d'une fraction rationnelle $P/Q$ est...",
+      "options": [
+        "$\\deg(P) + \\deg(Q)$",
+        "$\\deg(P) - \\deg(Q)$",
+        "$\\max(\\deg(P), \\deg(Q))$",
+        "$\\deg(P) \\times \\deg(Q)$"
+      ],
+      "correctIndex": 1,
+      "explanation": "Le degré de $F = P/Q$ est $\\deg(P) - \\deg(Q)$. Il peut être négatif si $\\deg(P) < \\deg(Q)$."
+    },
+    {
+      "question": "La décomposition en éléments simples sur $\\mathbb{R}$ fait apparaître...",
+      "options": [
+        "Uniquement des termes $\\frac{a}{(X - \\alpha)^k}$",
+        "Des termes $\\frac{a}{(X - \\alpha)^k}$ et $\\frac{aX + b}{(X^2 + pX + q)^k}$",
+        "Uniquement des polynômes",
+        "Des exponentielles"
+      ],
+      "correctIndex": 1,
+      "explanation": "Sur $\\mathbb{R}$, les pôles complexes conjugués donnent des termes du second degré au dénominateur."
+    }
+  ],
+  "logique_ensembles": [
+    {
+      "question": "La négation de $\\forall x, P(x)$ est...",
+      "options": [
+        "$\\forall x, \\neg P(x)$",
+        "$\\exists x, \\neg P(x)$",
+        "$\\neg \\exists x, P(x)$",
+        "$\\exists x, P(x)$"
+      ],
+      "correctIndex": 1,
+      "explanation": "Pour nier 'pour tout $x$, $P(x)$', il suffit de trouver un contre-exemple : 'il existe $x$ tel que non $P(x)$'."
+    },
+    {
+      "question": "Les lois de De Morgan affirment que $\\overline{A \\cup B}$ = ...",
+      "options": [
+        "$\\bar{A} \\cup \\bar{B}$",
+        "$\\bar{A} \\cap \\bar{B}$",
+        "$A \\cap B$",
+        "$\\overline{A \\cap B}$"
+      ],
+      "correctIndex": 1,
+      "explanation": "Le complémentaire d'une union est l'intersection des complémentaires."
+    }
+  ],
+  "systemes_lineaires": [
+    {
+      "question": "Un système $AX = B$ a des solutions si et seulement si...",
+      "options": [
+        "$\\det(A) \\neq 0$",
+        "$\\text{rg}(A) = \\text{rg}(A|B)$",
+        "$A$ est symétrique",
+        "$B = 0$"
+      ],
+      "correctIndex": 1,
+      "explanation": "C'est le théorème de Rouché-Fontené. L'égalité des rangs signifie que $B$ est dans l'image de $A$."
+    },
+    {
+      "question": "La complexité du pivot de Gauss est...",
+      "options": [
+        "$O(n)$",
+        "$O(n^2)$",
+        "$O(n^3)$",
+        "$O(2^n)$"
+      ],
+      "correctIndex": 2,
+      "explanation": "Le pivot de Gauss effectue $O(n^3)$ opérations arithmétiques pour un système $n \\times n$."
+    }
+  ],
+  "espaces_euclidiens": [
+    {
+      "question": "L'inégalité de Cauchy-Schwarz affirme que...",
+      "options": [
+        "$\\langle x, y \\rangle = \\|x\\| \\|y\\|$",
+        "$|\\langle x, y \\rangle| \\leq \\|x\\| \\|y\\|$",
+        "$\\|x + y\\| = \\|x\\| + \\|y\\|$",
+        "$\\langle x, y \\rangle \\geq 0$"
+      ],
+      "correctIndex": 1,
+      "explanation": "Cauchy-Schwarz : $|\\langle x, y \\rangle| \\leq \\|x\\| \\|y\\|$ avec égalité ssi $x$ et $y$ sont colinéaires."
+    },
+    {
+      "question": "Le procédé de Gram-Schmidt permet de...",
+      "options": [
+        "Calculer un déterminant",
+        "Orthonormaliser une famille libre",
+        "Trouver les valeurs propres",
+        "Inverser une matrice"
+      ],
+      "correctIndex": 1,
+      "explanation": "Gram-Schmidt transforme une famille libre en famille orthonormée engendrant le même espace."
+    }
+  ],
+  "formes_quadratiques": [
+    {
+      "question": "Que dit le théorème d'inertie de Sylvester ?",
+      "options": [
+        "Toute forme quadratique est définie positive",
+        "La signature $(p, q)$ est un invariant",
+        "Le rang est toujours maximal",
+        "La matrice est toujours diagonale"
+      ],
+      "correctIndex": 1,
+      "explanation": "La signature (nombre de valeurs propres positives et négatives) ne dépend pas de la base choisie."
+    },
+    {
+      "question": "Une forme quadratique est définie positive ssi...",
+      "options": [
+        "Son rang est maximal",
+        "Toutes ses valeurs propres sont strictement positives",
+        "Sa trace est positive",
+        "Son déterminant est positif"
+      ],
+      "correctIndex": 1,
+      "explanation": "Définie positive $\\Leftrightarrow$ signature $(n, 0)$ $\\Leftrightarrow$ toutes les valeurs propres $> 0$."
+    }
+  ],
+  "adjoint_spectral": [
+    {
+      "question": "Un endomorphisme $f$ est autoadjoint si...",
+      "options": [
+        "$f \\circ f = \\text{Id}$",
+        "$f = f^*$",
+        "$f^* = -f$",
+        "$\\det(f) = 1$"
+      ],
+      "correctIndex": 1,
+      "explanation": "Autoadjoint signifie $f = f^*$, i.e., $\\langle f(x), y \\rangle = \\langle x, f(y) \\rangle$ pour tous $x, y$."
+    },
+    {
+      "question": "Les valeurs propres d'un endomorphisme autoadjoint réel sont...",
+      "options": [
+        "Complexes conjuguées",
+        "Réelles",
+        "De module 1",
+        "Nulles"
+      ],
+      "correctIndex": 1,
+      "explanation": "C'est une partie du théorème spectral : les valeurs propres d'une matrice symétrique réelle sont réelles."
+    }
+  ],
+  "polynomes_endomorphismes": [
+    {
+      "question": "Le théorème de Cayley-Hamilton affirme que...",
+      "options": [
+        "$\\det(f) = 0$",
+        "$\\chi_f(f) = 0$",
+        "$\\mu_f = \\chi_f$",
+        "$f$ est diagonalisable"
+      ],
+      "correctIndex": 1,
+      "explanation": "Tout endomorphisme annule son polynôme caractéristique : $\\chi_f(f) = 0$."
+    },
+    {
+      "question": "Le polynôme minimal $\\mu_f$ divise...",
+      "options": [
+        "Aucun autre polynôme",
+        "Le polynôme caractéristique $\\chi_f$",
+        "Tous les polynômes",
+        "Le déterminant"
+      ],
+      "correctIndex": 1,
+      "explanation": "$\\mu_f | \\chi_f$ car $\\chi_f(f) = 0$. Ils ont les mêmes racines mais pas les mêmes multiplicités."
+    }
+  ],
+  "geometrie_matricielle": [
+    {
+      "question": "$GL_n(\\mathbb{R})$ est-il connexe ?",
+      "options": [
+        "Oui",
+        "Non, il a deux composantes connexes",
+        "Non, il a $n$ composantes",
+        "Cela dépend de $n$"
+      ],
+      "correctIndex": 1,
+      "explanation": "$GL_n(\\mathbb{R})$ a deux composantes : $GL_n^+$ (det $> 0$) et $GL_n^-$ (det $< 0$). Le déterminant est continu."
+    },
+    {
+      "question": "L'ensemble des matrices diagonalisables est...",
+      "options": [
+        "Fermé",
+        "Ouvert",
+        "Dense dans $\\mathcal{M}_n(\\mathbb{C})$",
+        "Vide"
+      ],
+      "correctIndex": 2,
+      "explanation": "Les matrices à valeurs propres distinctes sont diagonalisables et denses (polynôme caractéristique à discriminant non nul)."
+    }
+  ],
+  "reels_complexes": [
+    {
+      "question": "Les racines $n$-ièmes de l'unité sont...",
+      "options": [
+        "Des réels",
+        "Les $e^{2ik\\pi/n}$ pour $k = 0, ..., n-1$",
+        "Des entiers",
+        "Des nombres négatifs"
+      ],
+      "correctIndex": 1,
+      "explanation": "Les solutions de $z^n = 1$ sont les $\\omega_k = e^{2ik\\pi/n}$, régulièrement espacées sur le cercle unité."
+    },
+    {
+      "question": "Le théorème de d'Alembert-Gauss dit que...",
+      "options": [
+        "$\\mathbb{R}$ est complet",
+        "$\\mathbb{C}$ est algébriquement clos",
+        "$\\mathbb{Q}$ est dense dans $\\mathbb{R}$",
+        "Tout nombre complexe a un inverse"
+      ],
+      "correctIndex": 1,
+      "explanation": "Tout polynôme non constant à coefficients complexes admet au moins une racine dans $\\mathbb{C}$."
+    }
+  ],
+  "suites_numeriques": [
+    {
+      "question": "Une suite monotone bornée est...",
+      "options": [
+        "Divergente",
+        "Convergente",
+        "Constante",
+        "De Cauchy uniquement"
+      ],
+      "correctIndex": 1,
+      "explanation": "C'est le théorème de la limite monotone, conséquence de la complétude de $\\mathbb{R}$."
+    },
+    {
+      "question": "Le théorème de Bolzano-Weierstrass affirme que...",
+      "options": [
+        "Toute suite converge",
+        "Toute suite bornée admet une sous-suite convergente",
+        "Toute suite monotone est bornée",
+        "Toute suite a une limite"
+      ],
+      "correctIndex": 1,
+      "explanation": "De toute suite bornée, on peut extraire une sous-suite convergente. C'est équivalent à la compacité des fermés bornés."
+    }
+  ],
+  "limites_continuite": [
+    {
+      "question": "Le théorème des valeurs intermédiaires nécessite...",
+      "options": [
+        "La dérivabilité",
+        "La continuité sur un intervalle",
+        "La monotonie",
+        "La bornitude"
+      ],
+      "correctIndex": 1,
+      "explanation": "Si $f$ est continue sur $[a,b]$ et $f(a) < y < f(b)$, alors $\\exists c \\in ]a,b[, f(c) = y$."
+    },
+    {
+      "question": "Une fonction continue sur un compact est...",
+      "options": [
+        "Bornée et atteint ses bornes",
+        "Dérivable",
+        "Lipschitzienne",
+        "Monotone"
+      ],
+      "correctIndex": 0,
+      "explanation": "L'image d'un compact par une fonction continue est compacte, donc fermée et bornée dans $\\mathbb{R}$."
+    }
+  ],
+  "derivabilite": [
+    {
+      "question": "Le théorème de Rolle nécessite...",
+      "options": [
+        "$f$ dérivable sur $[a,b]$",
+        "$f$ continue sur $[a,b]$, dérivable sur $]a,b[$, et $f(a) = f(b)$",
+        "$f(a) = f(b) = 0$",
+        "$f$ strictement monotone"
+      ],
+      "correctIndex": 1,
+      "explanation": "Sous ces hypothèses, il existe $c \\in ]a,b[$ tel que $f'(c) = 0$."
+    },
+    {
+      "question": "Le théorème des accroissements finis donne...",
+      "options": [
+        "$f(b) - f(a) = f'(a)(b-a)$",
+        "$f(b) - f(a) = f'(c)(b-a)$ pour un certain $c \\in ]a,b[$",
+        "$f'(a) = f'(b)$",
+        "$f$ est constante"
+      ],
+      "correctIndex": 1,
+      "explanation": "C'est une généralisation de Rolle : la pente de la sécante est atteinte par la dérivée en un point intermédiaire."
+    }
+  ],
+  "series_numeriques": [
+    {
+      "question": "La série $\\sum \\frac{1}{n^\\alpha}$ converge ssi...",
+      "options": [
+        "$\\alpha > 0$",
+        "$\\alpha > 1$",
+        "$\\alpha < 1$",
+        "$\\alpha = 1$"
+      ],
+      "correctIndex": 1,
+      "explanation": "C'est la série de Riemann. Elle converge pour $\\alpha > 1$ et diverge pour $\\alpha \\leq 1$."
+    },
+    {
+      "question": "La convergence absolue implique...",
+      "options": [
+        "La divergence",
+        "La convergence",
+        "La convergence vers 0",
+        "Rien de particulier"
+      ],
+      "correctIndex": 1,
+      "explanation": "Si $\\sum |u_n|$ converge, alors $\\sum u_n$ converge (mais pas l'inverse : série alternée)."
+    }
+  ],
+  "topologie_normes": [
+    {
+      "question": "En dimension finie, toutes les normes sont...",
+      "options": [
+        "Égales",
+        "Équivalentes",
+        "Différentes",
+        "Nulles"
+      ],
+      "correctIndex": 1,
+      "explanation": "Deux normes $N_1, N_2$ sont équivalentes si $cN_1 \\leq N_2 \\leq CN_1$. C'est vrai en dimension finie uniquement."
+    },
+    {
+      "question": "Un espace de Banach est un espace normé...",
+      "options": [
+        "De dimension finie",
+        "Complet",
+        "Séparable",
+        "Hilbertien"
+      ],
+      "correctIndex": 1,
+      "explanation": "Un Banach est un espace normé complet : toute suite de Cauchy y converge."
+    }
+  ],
+  "compacite": [
+    {
+      "question": "Dans $\\mathbb{R}^n$, compact équivaut à...",
+      "options": [
+        "Ouvert et borné",
+        "Fermé et borné",
+        "Connexe et fermé",
+        "Borné uniquement"
+      ],
+      "correctIndex": 1,
+      "explanation": "C'est le théorème de Borel-Lebesgue, spécifique à la dimension finie."
+    },
+    {
+      "question": "L'image d'un compact par une fonction continue est...",
+      "options": [
+        "Ouverte",
+        "Compacte",
+        "Non bornée",
+        "Vide"
+      ],
+      "correctIndex": 1,
+      "explanation": "La compacité est préservée par continuité. C'est fondamental pour l'existence d'extrema."
+    }
+  ],
+  "connexite": [
+    {
+      "question": "Les parties connexes de $\\mathbb{R}$ sont...",
+      "options": [
+        "Les ouverts",
+        "Les fermés",
+        "Les intervalles",
+        "Les ensembles finis"
+      ],
+      "correctIndex": 2,
+      "explanation": "Dans $\\mathbb{R}$, connexe = intervalle. C'est lié au TVI."
+    },
+    {
+      "question": "Connexe par arcs implique...",
+      "options": [
+        "Compact",
+        "Connexe",
+        "Borné",
+        "Fermé"
+      ],
+      "correctIndex": 1,
+      "explanation": "Si deux points sont reliables par un chemin continu, l'espace est connexe. La réciproque est fausse en général."
+    }
+  ],
+  "completude": [
+    {
+      "question": "Le théorème du point fixe de Banach nécessite...",
+      "options": [
+        "Un espace compact",
+        "Un espace complet et une contraction",
+        "Une application linéaire",
+        "Un espace de dimension finie"
+      ],
+      "correctIndex": 1,
+      "explanation": "Si $f$ est contractante ($d(f(x), f(y)) \\leq k \\cdot d(x,y)$ avec $k < 1$) sur un complet, il y a un unique point fixe."
+    },
+    {
+      "question": "Le théorème de Baire dit que dans un espace complet...",
+      "options": [
+        "Tout ouvert est dense",
+        "L'intersection dénombrable d'ouverts denses est dense",
+        "Tout fermé est compact",
+        "Tout ensemble est ouvert"
+      ],
+      "correctIndex": 1,
+      "explanation": "C'est un résultat puissant avec de nombreuses applications (inexistence de certaines fonctions, etc.)."
+    }
+  ],
+  "suites_fonctions": [
+    {
+      "question": "La convergence uniforme préserve...",
+      "options": [
+        "La dérivabilité",
+        "La continuité",
+        "La monotonie",
+        "La bornitude"
+      ],
+      "correctIndex": 1,
+      "explanation": "Si $f_n \\to f$ uniformément et les $f_n$ sont continues, alors $f$ est continue."
+    },
+    {
+      "question": "$f_n(x) = x^n$ sur $[0,1]$ converge...",
+      "options": [
+        "Uniformément vers 0",
+        "Simplement mais pas uniformément",
+        "Uniformément vers 1",
+        "Vers une fonction continue"
+      ],
+      "correctIndex": 1,
+      "explanation": "La limite simple est $0$ si $x < 1$, $1$ si $x = 1$. Pas uniforme car la limite est discontinue."
+    }
+  ],
+  "integration_segment": [
+    {
+      "question": "Le théorème fondamental de l'analyse dit que si $f$ est continue...",
+      "options": [
+        "$\\int_a^b f = f(b) - f(a)$",
+        "$F(x) = \\int_a^x f$ vérifie $F' = f$",
+        "$f$ est dérivable",
+        "$\\int f = 0$"
+      ],
+      "correctIndex": 1,
+      "explanation": "La primitive $F(x) = \\int_a^x f(t)dt$ d'une fonction continue est de classe $C^1$ avec $F' = f$."
+    },
+    {
+      "question": "La formule de changement de variable $\\int_a^b f(\\varphi(t))\\varphi'(t)dt$ égale...",
+      "options": [
+        "$\\int_a^b f(u)du$",
+        "$\\int_{\\varphi(a)}^{\\varphi(b)} f(u)du$",
+        "$\\int_a^b f(t)dt$",
+        "$f(\\varphi(b)) - f(\\varphi(a))$"
+      ],
+      "correctIndex": 1,
+      "explanation": "On pose $u = \\varphi(t)$, les bornes deviennent $\\varphi(a)$ et $\\varphi(b)$."
+    }
+  ],
+  "integration_impropre": [
+    {
+      "question": "$\\int_1^{+\\infty} \\frac{dx}{x^\\alpha}$ converge ssi...",
+      "options": [
+        "$\\alpha > 0$",
+        "$\\alpha > 1$",
+        "$\\alpha < 1$",
+        "$\\alpha = 2$"
+      ],
+      "correctIndex": 1,
+      "explanation": "C'est l'intégrale de Riemann en $+\\infty$. Converge pour $\\alpha > 1$, diverge sinon."
+    },
+    {
+      "question": "L'intégrale $\\int_0^{+\\infty} \\frac{\\sin x}{x}dx$ est...",
+      "options": [
+        "Absolument convergente",
+        "Semi-convergente",
+        "Divergente",
+        "Nulle"
+      ],
+      "correctIndex": 1,
+      "explanation": "C'est l'intégrale de Dirichlet, égale à $\\pi/2$. Elle converge mais pas absolument."
+    }
+  ],
+  "calcul_diff": [
+    {
+      "question": "Le théorème d'inversion locale nécessite que...",
+      "options": [
+        "$f$ soit linéaire",
+        "$df_a$ soit un isomorphisme",
+        "$f(a) = 0$",
+        "$f$ soit constante"
+      ],
+      "correctIndex": 1,
+      "explanation": "Si la différentielle est inversible (Jacobienne de déterminant non nul), $f$ est un difféomorphisme local."
+    },
+    {
+      "question": "Le théorème des fonctions implicites permet de...",
+      "options": [
+        "Calculer des intégrales",
+        "Exprimer localement $y$ en fonction de $x$ quand $F(x,y) = 0$",
+        "Trouver les extrema",
+        "Inverser une matrice"
+      ],
+      "correctIndex": 1,
+      "explanation": "Si $F(a,b) = 0$ et $\\partial F/\\partial y(a,b) \\neq 0$, alors localement $y = \\varphi(x)$ avec $F(x, \\varphi(x)) = 0$."
+    }
+  ],
+  "eq_diff_lineaires": [
+    {
+      "question": "L'espace des solutions d'une EDL d'ordre $n$ homogène est de dimension...",
+      "options": [
+        "1",
+        "$n$",
+        "$n-1$",
+        "Infinie"
+      ],
+      "correctIndex": 1,
+      "explanation": "C'est un espace vectoriel de dimension $n$ (Cauchy-Lipschitz linéaire)."
+    },
+    {
+      "question": "Pour $y'' + y = 0$, la solution générale est...",
+      "options": [
+        "$Ae^x + Be^{-x}$",
+        "$A\\cos x + B\\sin x$",
+        "$Ax + B$",
+        "$Ae^x$"
+      ],
+      "correctIndex": 1,
+      "explanation": "L'équation caractéristique $r^2 + 1 = 0$ donne $r = \\pm i$, donc solutions sinusoïdales."
+    }
+  ],
+  "series_fourier": [
+    {
+      "question": "L'identité de Parseval affirme que...",
+      "options": [
+        "$\\sum c_n = f(0)$",
+        "$\\frac{1}{2\\pi}\\int |f|^2 = \\sum |c_n|^2$",
+        "$c_n \\to 0$",
+        "$f$ est dérivable"
+      ],
+      "correctIndex": 1,
+      "explanation": "C'est l'égalité des normes $L^2$ : l'énergie du signal égale la somme des énergies des harmoniques."
+    },
+    {
+      "question": "$\\sum \\frac{1}{n^2} = ?$ (via Fourier de $x$ sur $[-\\pi, \\pi]$)",
+      "options": [
+        "$\\pi$",
+        "$\\pi^2/6$",
+        "$\\pi^2/4$",
+        "1"
+      ],
+      "correctIndex": 1,
+      "explanation": "C'est le problème de Bâle. Parseval avec $f(x) = x$ donne $\\pi^2/3 = 2\\sum 1/n^2$."
+    }
+  ],
+  "geometrie_affine": [
+    {
+      "question": "Le barycentre de $(A, 1), (B, 2), (C, 3)$ est tel que...",
+      "options": [
+        "$\\vec{GA} + \\vec{GB} + \\vec{GC} = \\vec{0}$",
+        "$\\vec{GA} + 2\\vec{GB} + 3\\vec{GC} = \\vec{0}$",
+        "$\\vec{AG} = \\vec{AB} + \\vec{AC}$",
+        "$G = A$"
+      ],
+      "correctIndex": 1,
+      "explanation": "Par définition du barycentre, $\\sum \\alpha_i \\vec{GA_i} = \\vec{0}$."
+    },
+    {
+      "question": "Une application affine a pour partie linéaire...",
+      "options": [
+        "Une translation",
+        "Un endomorphisme",
+        "Une homothétie",
+        "Une rotation"
+      ],
+      "correctIndex": 1,
+      "explanation": "Si $f(A + \\vec{v}) = f(A) + \\vec{f}(\\vec{v})$, alors $\\vec{f}$ est un endomorphisme (la partie linéaire)."
+    }
+  ],
+  "geometrie_euclidienne": [
+    {
+      "question": "La distance d'un point $M$ à un plan d'équation $ax + by + cz = d$ est...",
+      "options": [
+        "$|ax_M + by_M + cz_M - d|$",
+        "$\\frac{|ax_M + by_M + cz_M - d|}{\\sqrt{a^2+b^2+c^2}}$",
+        "$\\sqrt{a^2+b^2+c^2}$",
+        "0"
+      ],
+      "correctIndex": 1,
+      "explanation": "On projette $\\vec{AM}$ sur le vecteur normal $\\vec{n} = (a,b,c)$ et on divise par $\\|\\vec{n}\\|$."
+    },
+    {
+      "question": "Les isométries du plan sont les...",
+      "options": [
+        "Translations, rotations, réflexions, et réflexions glissées",
+        "Homothéties uniquement",
+        "Applications linéaires",
+        "Projections"
+      ],
+      "correctIndex": 0,
+      "explanation": "Ce sont les 4 types : translations (pas de point fixe), rotations, réflexions, réflexions glissées."
+    }
+  ],
+  "coniques": [
+    {
+      "question": "L'excentricité d'une ellipse vérifie...",
+      "options": [
+        "$e > 1$",
+        "$e < 1$",
+        "$e = 1$",
+        "$e = 0$"
+      ],
+      "correctIndex": 1,
+      "explanation": "$e < 1$ pour une ellipse, $e = 1$ pour une parabole, $e > 1$ pour une hyperbole."
+    },
+    {
+      "question": "La directrice d'une parabole est...",
+      "options": [
+        "L'axe de symétrie",
+        "La droite telle que tout point est équidistant du foyer et de cette droite",
+        "La tangente au sommet",
+        "Une asymptote"
+      ],
+      "correctIndex": 1,
+      "explanation": "C'est la définition foyer-directrice avec $e = 1$ : $MF = MH$ où $H$ est le projeté sur la directrice."
+    }
+  ],
+  "surfaces": [
+    {
+      "question": "La courbure de Gauss d'une sphère de rayon $R$ est...",
+      "options": [
+        "0",
+        "$1/R$",
+        "$1/R^2$",
+        "$R$"
+      ],
+      "correctIndex": 2,
+      "explanation": "Pour une sphère, $K = 1/R^2$ (courbure constante positive)."
+    },
+    {
+      "question": "Le Theorema Egregium de Gauss dit que $K$ est...",
+      "options": [
+        "Toujours positif",
+        "Un invariant intrinsèque",
+        "Nul pour les surfaces",
+        "Égal à $H$"
+      ],
+      "correctIndex": 1,
+      "explanation": "La courbure de Gauss ne dépend que de la première forme fondamentale (distances sur la surface)."
+    }
+  ],
+  "projective": [
+    {
+      "question": "En géométrie projective, deux droites parallèles...",
+      "options": [
+        "Ne se coupent jamais",
+        "Se coupent à l'infini",
+        "Sont confondues",
+        "N'existent pas"
+      ],
+      "correctIndex": 1,
+      "explanation": "C'est l'intérêt de la géométrie projective : on ajoute les points à l'infini pour que toutes les droites se coupent."
+    },
+    {
+      "question": "Le birapport de 4 points est...",
+      "options": [
+        "Toujours entier",
+        "Un invariant projectif",
+        "Égal à 1",
+        "Défini uniquement pour des points alignés"
+      ],
+      "correctIndex": 1,
+      "explanation": "Le birapport est préservé par toute homographie (transformation projective bijective)."
+    }
+  ],
+  "rotations": [
+    {
+      "question": "Une rotation de $\\mathbb{R}^3$ a toujours...",
+      "options": [
+        "Trois points fixes",
+        "Un axe (droite de points fixes)",
+        "Aucun point fixe",
+        "Un plan de points fixes"
+      ],
+      "correctIndex": 1,
+      "explanation": "En dimension 3, toute rotation non triviale a un axe : le sous-espace propre associé à la valeur propre 1."
+    },
+    {
+      "question": "Les quaternions unitaires représentent les rotations par...",
+      "options": [
+        "$q$ et $-q$ représentent la même rotation",
+        "$q$ et $-q$ représentent des rotations opposées",
+        "Un quaternion par rotation",
+        "Aucun lien avec les rotations"
+      ],
+      "correctIndex": 0,
+      "explanation": "Le revêtement $SU_2 \\to SO_3$ est 2 pour 1 : $q$ et $-q$ donnent la même rotation."
+    }
+  ],
+  "similitudes": [
+    {
+      "question": "Une similitude de rapport $k$ multiplie les distances par...",
+      "options": [
+        "$k^2$",
+        "$k$",
+        "$1/k$",
+        "$\\sqrt{k}$"
+      ],
+      "correctIndex": 1,
+      "explanation": "Par définition, $d(f(A), f(B)) = k \\cdot d(A, B)$."
+    },
+    {
+      "question": "Une similitude plane $z \\mapsto (1+i)z + 2$ a pour rapport...",
+      "options": [
+        "1",
+        "$\\sqrt{2}$",
+        "2",
+        "$1+i$"
+      ],
+      "correctIndex": 1,
+      "explanation": "Le rapport est $|1+i| = \\sqrt{1^2 + 1^2} = \\sqrt{2}$."
+    }
+  ],
+  "espaces_probabilises": [
+    {
+      "question": "Les axiomes de Kolmogorov incluent...",
+      "options": [
+        "$\\mathbb{P}(\\Omega) = 0$",
+        "$\\mathbb{P}(\\Omega) = 1$ et $\\sigma$-additivité",
+        "$\\mathbb{P}(A) < 0$ possible",
+        "$\\mathbb{P}(\\emptyset) = 1$"
+      ],
+      "correctIndex": 1,
+      "explanation": "$\\mathbb{P}(\\Omega) = 1$, $\\mathbb{P}(A) \\geq 0$, et $\\mathbb{P}(\\cup A_n) = \\sum \\mathbb{P}(A_n)$ si les $A_n$ sont disjoints."
+    },
+    {
+      "question": "Le lemme de Borel-Cantelli dit que si $\\sum \\mathbb{P}(A_n) < +\\infty$...",
+      "options": [
+        "Tous les $A_n$ se réalisent",
+        "Un nombre fini de $A_n$ se réalisent p.s.",
+        "Aucun $A_n$ ne se réalise",
+        "$\\mathbb{P}(A_n) \\to 1$"
+      ],
+      "correctIndex": 1,
+      "explanation": "Si la série converge, p.s. seul un nombre fini d'événements se réalisent ($\\mathbb{P}(\\limsup A_n) = 0$)."
+    }
+  ],
+  "proba_conditionnelles": [
+    {
+      "question": "La formule de Bayes permet de...",
+      "options": [
+        "Calculer $\\mathbb{P}(A \\cap B)$",
+        "Inverser le conditionnement : $\\mathbb{P}(B|A)$ à partir de $\\mathbb{P}(A|B)$",
+        "Calculer $\\mathbb{P}(A \\cup B)$",
+        "Montrer l'indépendance"
+      ],
+      "correctIndex": 1,
+      "explanation": "$\\mathbb{P}(B|A) = \\frac{\\mathbb{P}(A|B)\\mathbb{P}(B)}{\\mathbb{P}(A)}$. Utile pour les causes sachant les effets."
+    },
+    {
+      "question": "Deux événements sont indépendants si...",
+      "options": [
+        "$\\mathbb{P}(A \\cap B) = 0$",
+        "$\\mathbb{P}(A \\cap B) = \\mathbb{P}(A)\\mathbb{P}(B)$",
+        "$A \\cap B = \\emptyset$",
+        "$\\mathbb{P}(A) = \\mathbb{P}(B)$"
+      ],
+      "correctIndex": 1,
+      "explanation": "L'indépendance signifie que la probabilité de l'intersection est le produit des probabilités."
+    }
+  ],
+  "variables_aleatoires": [
+    {
+      "question": "L'espérance vérifie $\\mathbb{E}[aX + b] = ?$",
+      "options": [
+        "$a\\mathbb{E}[X]$",
+        "$a\\mathbb{E}[X] + b$",
+        "$(a+b)\\mathbb{E}[X]$",
+        "$\\mathbb{E}[X] + ab$"
+      ],
+      "correctIndex": 1,
+      "explanation": "L'espérance est linéaire : $\\mathbb{E}[aX + b] = a\\mathbb{E}[X] + b$."
+    },
+    {
+      "question": "La variance vérifie $\\text{Var}(aX + b) = ?$",
+      "options": [
+        "$a\\text{Var}(X) + b$",
+        "$a^2\\text{Var}(X)$",
+        "$(a+b)^2\\text{Var}(X)$",
+        "$\\text{Var}(X)$"
+      ],
+      "correctIndex": 1,
+      "explanation": "La variance est quadratique en le facteur et insensible à la translation : $\\text{Var}(aX + b) = a^2\\text{Var}(X)$."
+    }
+  ],
+  "lois_discretes": [
+    {
+      "question": "La loi de Poisson $\\mathcal{P}(\\lambda)$ a pour espérance et variance...",
+      "options": [
+        "$\\mathbb{E} = \\lambda$, $\\text{Var} = \\lambda^2$",
+        "$\\mathbb{E} = \\text{Var} = \\lambda$",
+        "$\\mathbb{E} = \\lambda$, $\\text{Var} = 1$",
+        "$\\mathbb{E} = 1$, $\\text{Var} = \\lambda$"
+      ],
+      "correctIndex": 1,
+      "explanation": "Pour Poisson, espérance = variance = $\\lambda$. C'est une caractéristique distinctive."
+    },
+    {
+      "question": "La loi géométrique est caractérisée par...",
+      "options": [
+        "L'additivité",
+        "L'absence de mémoire",
+        "La symétrie",
+        "L'invariance par rotation"
+      ],
+      "correctIndex": 1,
+      "explanation": "$\\mathbb{P}(X > m + n | X > m) = \\mathbb{P}(X > n)$ : le passé n'influence pas le futur."
+    }
+  ],
+  "lois_continues": [
+    {
+      "question": "La loi normale $\\mathcal{N}(\\mu, \\sigma^2)$ est caractérisée par...",
+      "options": [
+        "Sa médiane",
+        "Sa moyenne $\\mu$ et sa variance $\\sigma^2$",
+        "Son mode uniquement",
+        "Son support"
+      ],
+      "correctIndex": 1,
+      "explanation": "Une gaussienne est entièrement déterminée par ses deux paramètres : moyenne et variance."
+    },
+    {
+      "question": "La loi exponentielle est caractérisée parmi les lois continues par...",
+      "options": [
+        "L'absence de mémoire",
+        "La symétrie",
+        "Le support borné",
+        "L'espérance nulle"
+      ],
+      "correctIndex": 0,
+      "explanation": "C'est l'analogue continu de la loi géométrique : $\\mathbb{P}(X > t+s | X > t) = \\mathbb{P}(X > s)$."
+    }
+  ],
+  "couples_va": [
+    {
+      "question": "Deux variables non corrélées sont-elles indépendantes ?",
+      "options": [
+        "Oui, toujours",
+        "Non, pas nécessairement",
+        "Seulement si gaussiennes",
+        "Seulement si discrètes"
+      ],
+      "correctIndex": 1,
+      "explanation": "Non corrélées ($\\text{Cov} = 0$) n'implique pas indépendantes. Contre-exemple : $X$ uniforme, $Y = X^2$."
+    },
+    {
+      "question": "La loi de $X + Y$ pour $X, Y$ indépendantes est...",
+      "options": [
+        "La somme des lois",
+        "Le produit de convolution des densités",
+        "La loi de $X$",
+        "Toujours normale"
+      ],
+      "correctIndex": 1,
+      "explanation": "$f_{X+Y}(z) = \\int f_X(x) f_Y(z-x) dx$ (convolution des densités)."
+    }
+  ],
+  "convergences_proba": [
+    {
+      "question": "Convergence p.s. implique...",
+      "options": [
+        "Convergence en loi uniquement",
+        "Convergence en probabilité",
+        "Convergence $L^2$",
+        "Rien d'autre"
+      ],
+      "correctIndex": 1,
+      "explanation": "p.s. $\\Rightarrow$ proba $\\Rightarrow$ loi. Mais pas l'inverse en général."
+    },
+    {
+      "question": "La loi faible des grands nombres dit que $\\bar{X}_n \\to \\mu$...",
+      "options": [
+        "Presque sûrement",
+        "En probabilité",
+        "En loi",
+        "Jamais"
+      ],
+      "correctIndex": 1,
+      "explanation": "Loi faible : convergence en probabilité. Loi forte : convergence presque sûre."
+    }
+  ],
+  "theoremes_limites": [
+    {
+      "question": "Le TCL dit que $\\frac{S_n - n\\mu}{\\sigma\\sqrt{n}}$ converge vers...",
+      "options": [
+        "$\\mathcal{N}(\\mu, \\sigma^2)$",
+        "$\\mathcal{N}(0, 1)$",
+        "Une loi de Poisson",
+        "0"
+      ],
+      "correctIndex": 1,
+      "explanation": "La somme normalisée converge vers la loi normale standard $\\mathcal{N}(0, 1)$."
+    },
+    {
+      "question": "Le TCL nécessite que les $X_i$ aient...",
+      "options": [
+        "Une espérance finie seulement",
+        "Une variance finie",
+        "Une loi normale",
+        "Un support borné"
+      ],
+      "correctIndex": 1,
+      "explanation": "La condition clé est $\\text{Var}(X_i) < \\infty$. Avec variance infinie, on peut avoir d'autres limites (lois stables)."
+    }
+  ],
+  "chaines_markov": [
+    {
+      "question": "La propriété de Markov dit que...",
+      "options": [
+        "Le futur dépend de tout le passé",
+        "Le futur ne dépend que du présent",
+        "La chaîne est stationnaire",
+        "Tous les états sont récurrents"
+      ],
+      "correctIndex": 1,
+      "explanation": "$\\mathbb{P}(X_{n+1} | X_n, ..., X_0) = \\mathbb{P}(X_{n+1} | X_n)$ : seul l'état actuel compte."
+    },
+    {
+      "question": "Une mesure invariante $\\pi$ vérifie...",
+      "options": [
+        "$\\pi P = 0$",
+        "$\\pi P = \\pi$",
+        "$P \\pi = \\pi$",
+        "$\\pi = P$"
+      ],
+      "correctIndex": 1,
+      "explanation": "$\\pi P = \\pi$ signifie que si la distribution initiale est $\\pi$, elle reste $\\pi$ à tout instant."
+    }
+  ],
+  "estimation": [
+    {
+      "question": "Un estimateur sans biais vérifie...",
+      "options": [
+        "$\\text{Var}(\\hat{\\theta}) = 0$",
+        "$\\mathbb{E}[\\hat{\\theta}] = \\theta$",
+        "$\\hat{\\theta} = \\theta$",
+        "$\\mathbb{E}[\\hat{\\theta}] = 0$"
+      ],
+      "correctIndex": 1,
+      "explanation": "Sans biais signifie que l'espérance de l'estimateur égale la vraie valeur du paramètre."
+    },
+    {
+      "question": "La borne de Cramér-Rao donne...",
+      "options": [
+        "Une borne supérieure sur le biais",
+        "Une borne inférieure sur la variance",
+        "La valeur exacte de l'estimateur",
+        "Le maximum de vraisemblance"
+      ],
+      "correctIndex": 1,
+      "explanation": "$\\text{Var}(\\hat{\\theta}) \\geq 1/(nI(\\theta))$ où $I$ est l'information de Fisher."
+    }
+  ],
+  "tests_statistiques": [
+    {
+      "question": "L'erreur de type I est...",
+      "options": [
+        "Accepter $H_0$ alors qu'elle est vraie",
+        "Rejeter $H_0$ alors qu'elle est vraie",
+        "Rejeter $H_0$ alors qu'elle est fausse",
+        "Ne rien décider"
+      ],
+      "correctIndex": 1,
+      "explanation": "Type I = faux positif (rejeter à tort). Type II = faux négatif (accepter à tort)."
+    },
+    {
+      "question": "La p-valeur est...",
+      "options": [
+        "La probabilité que $H_0$ soit vraie",
+        "La plus petite valeur de $\\alpha$ pour laquelle on rejette",
+        "La probabilité de $H_1$",
+        "L'erreur de type II"
+      ],
+      "correctIndex": 1,
+      "explanation": "C'est la probabilité d'observer des données aussi extrêmes sous $H_0$. On rejette si p-valeur $< \\alpha$."
+    }
+  ],
+  "intervalles_confiance": [
+    {
+      "question": "Un IC à 95% signifie que...",
+      "options": [
+        "$\\theta$ est dans l'IC avec probabilité 95%",
+        "95% des IC construits sur des échantillons répétés contiennent $\\theta$",
+        "L'IC contient 95% des valeurs",
+        "L'erreur est de 5%"
+      ],
+      "correctIndex": 1,
+      "explanation": "L'interprétation fréquentiste : sur beaucoup d'échantillons, 95% des IC couvrent le vrai paramètre."
+    },
+    {
+      "question": "La largeur d'un IC diminue quand...",
+      "options": [
+        "Le niveau de confiance augmente",
+        "La taille de l'échantillon augmente",
+        "La variance augmente",
+        "On change de paramètre"
+      ],
+      "correctIndex": 1,
+      "explanation": "La largeur est en $O(1/\\sqrt{n})$. Plus de données = plus de précision."
+    }
+  ],
+  "lois_usuelles_discretes": [
+    {
+      "question": "Quelle est la variance d'une loi binomiale $\\mathcal{B}(n, p)$ ?",
+      "options": [
+        "$np$",
+        "$np(1-p)$",
+        "$n^2p$",
+        "$p(1-p)$"
+      ],
+      "correctIndex": 1,
+      "explanation": "Pour $X \\sim \\mathcal{B}(n,p)$, $\\mathbb{E}[X] = np$ et $\\text{Var}(X) = np(1-p)$."
+    },
+    {
+      "question": "La somme de deux Poisson indépendantes $\\mathcal{P}(\\lambda)$ et $\\mathcal{P}(\\mu)$ suit...",
+      "options": [
+        "$\\mathcal{P}(\\lambda\\mu)$",
+        "$\\mathcal{P}(\\lambda + \\mu)$",
+        "$\\mathcal{P}(\\max(\\lambda, \\mu))$",
+        "Une loi binomiale"
+      ],
+      "correctIndex": 1,
+      "explanation": "La somme de Poisson indépendantes est Poisson de paramètre la somme : stabilité par convolution."
+    },
+    {
+      "question": "L'approximation de Poisson de la binomiale s'applique quand...",
+      "options": [
+        "$n$ grand et $p$ proche de 1/2",
+        "$n$ grand, $p$ petit, $np \\approx \\lambda$",
+        "$n$ petit et $p$ grand",
+        "$n = p$"
+      ],
+      "correctIndex": 1,
+      "explanation": "Quand $n \\to \\infty$, $p \\to 0$ avec $np \\to \\lambda$, alors $\\mathcal{B}(n,p) \\to \\mathcal{P}(\\lambda)$."
+    }
+  ],
+  "lois_usuelles_densite": [
+    {
+      "question": "La densité de la loi normale centrée réduite $\\mathcal{N}(0,1)$ est...",
+      "options": [
+        "$\\frac{1}{\\sqrt{2\\pi}}e^{-x^2/2}$",
+        "$e^{-x}$ pour $x \\geq 0$",
+        "$\\frac{1}{2}$ sur $[-1, 1]$",
+        "$\\frac{1}{x^2}$ pour $x > 0$"
+      ],
+      "correctIndex": 0,
+      "explanation": "La densité gaussienne standard est $\\frac{1}{\\sqrt{2\\pi}}e^{-x^2/2}$, symétrique et en forme de cloche."
+    },
+    {
+      "question": "Si $X \\sim \\mathcal{N}(\\mu, \\sigma^2)$, alors $\\frac{X - \\mu}{\\sigma}$ suit...",
+      "options": [
+        "$\\mathcal{N}(\\mu, 1)$",
+        "$\\mathcal{N}(0, \\sigma^2)$",
+        "$\\mathcal{N}(0, 1)$",
+        "$\\mathcal{N}(1, 1)$"
+      ],
+      "correctIndex": 2,
+      "explanation": "C'est la standardisation : on centre et on réduit pour obtenir une loi normale standard."
+    },
+    {
+      "question": "La loi exponentielle $\\mathcal{E}(\\lambda)$ a pour espérance...",
+      "options": [
+        "$\\lambda$",
+        "$1/\\lambda$",
+        "$\\lambda^2$",
+        "$e^\\lambda$"
+      ],
+      "correctIndex": 1,
+      "explanation": "Pour $X \\sim \\mathcal{E}(\\lambda)$, $\\mathbb{E}[X] = 1/\\lambda$ et $\\text{Var}(X) = 1/\\lambda^2$."
+    }
   ]
 }
