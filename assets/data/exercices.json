@@ -8,10 +8,10 @@
       "enonce": "Montrer qu'un groupe d'ordre 15 est cyclique.",
       "indication": "Utiliser Sylow pour montrer qu'il n'y a qu'un seul 3-Sylow et qu'un seul 5-Sylow.",
       "solution": [
-        "Par Sylow, le nombre n₃ de 3-Sylow vérifie n₃ ≡ 1 (mod 3) et n₃ | 5, donc n₃ = 1.",
-        "De même, n₅ ≡ 1 (mod 5) et n₅ | 3, donc n₅ = 1.",
+        "Par Sylow, le nombre $n_3$ de 3-Sylow vérifie $n_3 \\equiv 1 \\pmod{3}$ et $n_3 \\mid 5$, donc $n_3 = 1$.",
+        "De même, $n_5 \\equiv 1 \\pmod{5}$ et $n_5 \\mid 3$, donc $n_5 = 1$.",
         "Les uniques sous-groupes de Sylow sont distingués et d'ordres premiers distincts.",
-        "Donc G ≅ ℤ/3ℤ × ℤ/5ℤ ≅ ℤ/15ℤ."
+        "Donc $G \\cong \\mathbb{Z}/3\\mathbb{Z} \\times \\mathbb{Z}/5\\mathbb{Z} \\cong \\mathbb{Z}/15\\mathbb{Z}$."
       ],
       "lecons": [104],
       "tags": ["Sylow", "groupes cycliques"]
@@ -21,13 +21,13 @@
       "titre": "Calcul de puissance de matrice",
       "domaine": "Algèbre",
       "niveau": "Facile",
-      "enonce": "Soit A = [[1, 1], [0, 1]]. Calculer A¹⁰⁰.",
-      "indication": "Utiliser que (A-I)² = 0 ou le binôme de Newton.",
+      "enonce": "Soit $A = \\begin{pmatrix} 1 & 1 \\\\ 0 & 1 \\end{pmatrix}$. Calculer $A^{100}$.",
+      "indication": "Utiliser que $(A-I)^2 = 0$ ou le binôme de Newton.",
       "solution": [
-        "Posons N = A - I = [[0, 1], [0, 0]].",
-        "On a N² = 0, donc A = I + N avec N nilpotent.",
-        "Par le binôme : Aⁿ = (I+N)ⁿ = I + nN (les termes en Nᵏ pour k ≥ 2 sont nuls).",
-        "Donc A¹⁰⁰ = I + 100N = [[1, 100], [0, 1]]."
+        "Posons $N = A - I = \\begin{pmatrix} 0 & 1 \\\\ 0 & 0 \\end{pmatrix}$.",
+        "On a $N^2 = 0$, donc $A = I + N$ avec $N$ nilpotent.",
+        "Par le binôme : $A^n = (I+N)^n = I + nN$ (les termes en $N^k$ pour $k \\geq 2$ sont nuls).",
+        "Donc $A^{100} = I + 100N = \\begin{pmatrix} 1 & 100 \\\\ 0 & 1 \\end{pmatrix}$."
       ],
       "lecons": [156, 157],
       "tags": ["matrices", "nilpotent"]
@@ -37,15 +37,15 @@
       "titre": "Convergence uniforme et intégration",
       "domaine": "Analyse",
       "niveau": "Moyen",
-      "enonce": "Soit fₙ(x) = nx·e^(-nx²) pour x ∈ [0,1]. Étudier la convergence simple et uniforme de (fₙ). Que peut-on dire de ∫₀¹ fₙ?",
-      "indication": "Trouver le maximum de fₙ sur [0,1].",
+      "enonce": "Soit $f_n(x) = nx e^{-nx^2}$ pour $x \\in [0,1]$. Étudier la convergence simple et uniforme de $(f_n)$. Que peut-on dire de $\\int_0^1 f_n$?",
+      "indication": "Trouver le maximum de $f_n$ sur $[0,1]$.",
       "solution": [
-        "Convergence simple : pour x = 0, fₙ(0) = 0. Pour x > 0, fₙ(x) = nx·e^(-nx²) → 0 (exponentielle domine).",
-        "Donc fₙ → 0 simplement.",
-        "Convergence uniforme : f'ₙ(x) = n(1 - 2nx²)e^(-nx²), max en x = 1/√(2n).",
-        "‖fₙ‖∞ = fₙ(1/√(2n)) = √(n/(2e)) → +∞.",
+        "Convergence simple : pour $x = 0$, $f_n(0) = 0$. Pour $x > 0$, $f_n(x) \\to 0$ (exponentielle domine).",
+        "Donc $f_n \\to 0$ simplement.",
+        "Convergence uniforme : $f_n'(x) = n(1 - 2nx^2)e^{-nx^2}$, max en $x = 1/\\sqrt{2n}$.",
+        "$\\|f_n\\|_\\infty = f_n(1/\\sqrt{2n}) = \\sqrt{n/(2e)} \\to +\\infty$.",
         "Pas de convergence uniforme.",
-        "∫₀¹ fₙ = [-½e^(-nx²)]₀¹ = ½(1 - e^(-n)) → ½ ≠ 0."
+        "$\\int_0^1 f_n = \\frac{1}{2}(1 - e^{-n}) \\to \\frac{1}{2} \\neq 0$."
       ],
       "lecons": [241],
       "tags": ["convergence uniforme", "contre-exemple"]
@@ -55,15 +55,15 @@
       "titre": "Identité de Bézout",
       "domaine": "Algèbre",
       "niveau": "Facile",
-      "enonce": "Trouver u, v ∈ ℤ tels que 17u + 23v = 1.",
+      "enonce": "Trouver $u, v \\in \\mathbb{Z}$ tels que $17u + 23v = 1$.",
       "indication": "Algorithme d'Euclide étendu.",
       "solution": [
-        "23 = 1 × 17 + 6",
-        "17 = 2 × 6 + 5",
-        "6 = 1 × 5 + 1",
-        "Remontée : 1 = 6 - 5 = 6 - (17 - 2×6) = 3×6 - 17",
-        "= 3(23 - 17) - 17 = 3×23 - 4×17",
-        "Donc u = -4 et v = 3. Vérification : -68 + 69 = 1. ✓"
+        "$23 = 1 \\times 17 + 6$",
+        "$17 = 2 \\times 6 + 5$",
+        "$6 = 1 \\times 5 + 1$",
+        "Remontée : $1 = 6 - 5 = 6 - (17 - 2 \\times 6) = 3 \\times 6 - 17$",
+        "$= 3(23 - 17) - 17 = 3 \\times 23 - 4 \\times 17$",
+        "Donc $u = -4$ et $v = 3$. Vérification : $-68 + 69 = 1$. ✓"
       ],
       "lecons": [142],
       "tags": ["arithmétique", "Bézout"]
@@ -73,14 +73,14 @@
       "titre": "Rayon de convergence et somme",
       "domaine": "Analyse",
       "niveau": "Moyen",
-      "enonce": "Déterminer le rayon de convergence et calculer la somme de ∑(n≥1) xⁿ/(n(n+1)).",
+      "enonce": "Déterminer le rayon de convergence et calculer la somme de $\\sum_{n \\geq 1} \\frac{x^n}{n(n+1)}$.",
       "indication": "Décomposer en éléments simples.",
       "solution": [
-        "Par d'Alembert : R = lim n(n+1)/((n+1)(n+2)) = 1.",
-        "Décomposition : 1/(n(n+1)) = 1/n - 1/(n+1).",
-        "Pour |x| < 1 : S(x) = ∑ xⁿ/n - ∑ xⁿ/(n+1) = -ln(1-x) - (1/x)∑ x^(n+1)/(n+1)",
-        "= -ln(1-x) - (1/x)(-ln(1-x) - x) = -ln(1-x) + ln(1-x)/x + 1",
-        "= 1 + (1/x - 1)ln(1-x)."
+        "Par d'Alembert : $R = \\lim \\frac{n(n+1)}{(n+1)(n+2)} = 1$.",
+        "Décomposition : $\\frac{1}{n(n+1)} = \\frac{1}{n} - \\frac{1}{n+1}$.",
+        "Pour $|x| < 1$ : $S(x) = \\sum \\frac{x^n}{n} - \\sum \\frac{x^n}{n+1}$",
+        "$= -\\ln(1-x) - \\frac{1}{x}(-\\ln(1-x) - x)$",
+        "$= 1 + \\left(\\frac{1}{x} - 1\\right)\\ln(1-x)$."
       ],
       "lecons": [243],
       "tags": ["séries entières", "somme"]
@@ -90,14 +90,13 @@
       "titre": "Intégrale de Wallis",
       "domaine": "Analyse",
       "niveau": "Facile",
-      "enonce": "Calculer Wₙ = ∫₀^(π/2) sinⁿ(x) dx et en déduire lim(n→∞) W₂ₙ/W₂ₙ₊₁.",
+      "enonce": "Calculer $W_n = \\int_0^{\\pi/2} \\sin^n(x)\\, dx$ et en déduire $\\lim_{n \\to \\infty} \\frac{W_{2n}}{W_{2n+1}}$.",
       "indication": "Intégration par parties pour la relation de récurrence.",
       "solution": [
-        "IPP : Wₙ = (n-1)/n × W_(n-2) pour n ≥ 2.",
-        "W₀ = π/2, W₁ = 1.",
-        "W₂ₙ = (2n-1)!!/(2n)!! × π/2, W₂ₙ₊₁ = (2n)!!/(2n+1)!!.",
-        "W₂ₙ/W₂ₙ₊₁ = ((2n-1)!!)²/((2n)!!(2n)!!) × (2n+1)!! × π/2",
-        "En utilisant l'équivalent de Wallis : W₂ₙ/W₂ₙ₊₁ → 1."
+        "IPP : $W_n = \\frac{n-1}{n} W_{n-2}$ pour $n \\geq 2$.",
+        "$W_0 = \\frac{\\pi}{2}$, $W_1 = 1$.",
+        "$W_{2n} = \\frac{(2n-1)!!}{(2n)!!} \\cdot \\frac{\\pi}{2}$, $W_{2n+1} = \\frac{(2n)!!}{(2n+1)!!}$.",
+        "En utilisant l'équivalent de Wallis : $\\frac{W_{2n}}{W_{2n+1}} \\to 1$."
       ],
       "lecons": [236, 265],
       "tags": ["Wallis", "intégrales"]
@@ -108,14 +107,14 @@
       "domaine": "Algèbre",
       "niveau": "Moyen",
       "enonce": "Décomposer 65 et 145 en sommes de deux carrés de toutes les manières possibles.",
-      "indication": "Factoriser dans ℤ[i].",
+      "indication": "Factoriser dans $\\mathbb{Z}[i]$.",
       "solution": [
-        "65 = 5 × 13 = (2+i)(2-i)(3+2i)(3-2i).",
-        "Regroupements : (2+i)(3+2i) = 4+7i ⟹ 65 = 4² + 7²",
-        "(2+i)(3-2i) = 8-i ⟹ 65 = 8² + 1²",
-        "145 = 5 × 29 = (2+i)(2-i)(5+2i)(5-2i).",
-        "(2+i)(5+2i) = 8+9i ⟹ 145 = 8² + 9²",
-        "(2+i)(5-2i) = 12+i ⟹ 145 = 12² + 1²"
+        "$65 = 5 \\times 13 = (2+i)(2-i)(3+2i)(3-2i)$.",
+        "Regroupements : $(2+i)(3+2i) = 4+7i \\Rightarrow 65 = 4^2 + 7^2$",
+        "$(2+i)(3-2i) = 8-i \\Rightarrow 65 = 8^2 + 1^2$",
+        "$145 = 5 \\times 29 = (2+i)(2-i)(5+2i)(5-2i)$.",
+        "$(2+i)(5+2i) = 8+9i \\Rightarrow 145 = 8^2 + 9^2$",
+        "$(2+i)(5-2i) = 12+i \\Rightarrow 145 = 12^2 + 1^2$"
       ],
       "lecons": [122, 126],
       "tags": ["Gauss", "somme de carrés"]
@@ -125,14 +124,14 @@
       "titre": "Diagonalisation orthogonale",
       "domaine": "Algèbre",
       "niveau": "Moyen",
-      "enonce": "Diagonaliser orthogonalement A = [[2,1,1], [1,2,1], [1,1,2]].",
-      "indication": "A = I + J où J est la matrice dont tous les coefficients valent 1.",
+      "enonce": "Diagonaliser orthogonalement $A = \\begin{pmatrix} 2 & 1 & 1 \\\\ 1 & 2 & 1 \\\\ 1 & 1 & 2 \\end{pmatrix}$.",
+      "indication": "$A = I + J$ où $J$ est la matrice dont tous les coefficients valent 1.",
       "solution": [
-        "χ_A(X) = det(A - XI) = (X-1)²(X-4) (calcul direct).",
-        "Valeurs propres : λ₁ = 1 (double), λ₂ = 4 (simple).",
-        "E₁ = {(x,y,z) : x+y+z=0}, base orthonormée : v₁ = (1/√2)(1,-1,0), v₂ = (1/√6)(1,1,-2).",
-        "E₄ = Vect(1,1,1), normalisé : v₃ = (1/√3)(1,1,1).",
-        "P = (v₁ | v₂ | v₃), D = diag(1,1,4)."
+        "$\\chi_A(X) = \\det(A - XI) = (X-1)^2(X-4)$ (calcul direct).",
+        "Valeurs propres : $\\lambda_1 = 1$ (double), $\\lambda_2 = 4$ (simple).",
+        "$E_1 = \\{(x,y,z) : x+y+z=0\\}$, base orthonormée.",
+        "$E_4 = \\text{Vect}(1,1,1)$, normalisé : $v_3 = \\frac{1}{\\sqrt{3}}(1,1,1)$.",
+        "$P = (v_1 | v_2 | v_3)$, $D = \\text{diag}(1,1,4)$."
       ],
       "lecons": [158],
       "tags": ["spectral", "orthogonal"]
@@ -143,12 +142,12 @@
       "domaine": "Probabilités",
       "niveau": "Moyen",
       "enonce": "On lance 1000 fois une pièce équilibrée. Quelle est la probabilité d'obtenir entre 480 et 520 piles ?",
-      "indication": "Utiliser le TCL avec μ = np = 500 et σ = √(npq) = √250.",
+      "indication": "Utiliser le TCL avec $\\mu = np = 500$ et $\\sigma = \\sqrt{npq} = \\sqrt{250}$.",
       "solution": [
-        "Soit S₁₀₀₀ le nombre de piles. E[S₁₀₀₀] = 500, σ(S₁₀₀₀) = √250 ≈ 15.81.",
-        "Par le TCL : Z = (S₁₀₀₀ - 500)/15.81 ≈ N(0,1).",
-        "P(480 ≤ S₁₀₀₀ ≤ 520) = P(-1.27 ≤ Z ≤ 1.27)",
-        "= 2Φ(1.27) - 1 ≈ 2 × 0.898 - 1 ≈ 0.796.",
+        "Soit $S_{1000}$ le nombre de piles. $E[S_{1000}] = 500$, $\\sigma(S_{1000}) = \\sqrt{250} \\approx 15.81$.",
+        "Par le TCL : $Z = \\frac{S_{1000} - 500}{15.81} \\approx \\mathcal{N}(0,1)$.",
+        "$P(480 \\leq S_{1000} \\leq 520) = P(-1.27 \\leq Z \\leq 1.27)$",
+        "$= 2\\Phi(1.27) - 1 \\approx 2 \\times 0.898 - 1 \\approx 0.796$.",
         "Environ 80% de chances."
       ],
       "lecons": [262],
@@ -159,14 +158,14 @@
       "titre": "Calcul de somme par Fourier",
       "domaine": "Analyse",
       "niveau": "Moyen",
-      "enonce": "Calculer ∑(n=1 à +∞) 1/n² en utilisant la série de Fourier de f(x) = x² sur [-π, π].",
-      "indication": "Calculer les coefficients de Fourier puis utiliser Parseval.",
+      "enonce": "Calculer $\\sum_{n=1}^{+\\infty} \\frac{1}{n^2}$ en utilisant la série de Fourier de $f(x) = x^2$ sur $[-\\pi, \\pi]$.",
+      "indication": "Calculer les coefficients de Fourier puis évaluer en $x = \\pi$.",
       "solution": [
-        "f(x) = x² paire, donc bₙ = 0.",
-        "a₀ = (1/π)∫_{-π}^{π} x² dx = 2π²/3.",
-        "aₙ = (2/π)∫₀^π x² cos(nx) dx = 4(-1)ⁿ/n².",
-        "En x = π : π² = π²/3 + 4∑(n=1 à +∞) (-1)ⁿ(-1)ⁿ/n² = π²/3 + 4∑ 1/n².",
-        "Donc ∑ 1/n² = (π² - π²/3)/4 = π²/6."
+        "$f(x) = x^2$ paire, donc $b_n = 0$.",
+        "$a_0 = \\frac{1}{\\pi}\\int_{-\\pi}^{\\pi} x^2\\, dx = \\frac{2\\pi^2}{3}$.",
+        "$a_n = \\frac{2}{\\pi}\\int_0^{\\pi} x^2 \\cos(nx)\\, dx = \\frac{4(-1)^n}{n^2}$.",
+        "En $x = \\pi$ : $\\pi^2 = \\frac{\\pi^2}{3} + 4\\sum_{n=1}^{+\\infty} \\frac{1}{n^2}$.",
+        "Donc $\\sum \\frac{1}{n^2} = \\frac{\\pi^2}{6}$."
       ],
       "lecons": [246],
       "tags": ["Fourier", "séries"]
@@ -176,15 +175,15 @@
       "titre": "Point fixe de Banach",
       "domaine": "Analyse",
       "niveau": "Facile",
-      "enonce": "Montrer que l'équation x = cos(x) a une unique solution dans [0,1].",
-      "indication": "Montrer que f(x) = cos(x) est contractante sur [0,1].",
+      "enonce": "Montrer que l'équation $x = \\cos(x)$ a une unique solution dans $[0,1]$.",
+      "indication": "Montrer que $f(x) = \\cos(x)$ est contractante sur $[0,1]$.",
       "solution": [
-        "f : [0,1] → ℝ, f(x) = cos(x).",
-        "f([0,1]) ⊂ [cos(1), 1] ⊂ [0.54, 1] ⊂ [0,1] car cos(1) ≈ 0.54.",
-        "|f'(x)| = |sin(x)| ≤ sin(1) < 1 sur [0,1].",
-        "Donc f est contractante de rapport k = sin(1) ≈ 0.84.",
-        "Par Banach, ∃! x* ∈ [0,1] tel que cos(x*) = x*.",
-        "Approximation : x* ≈ 0.739 (point fixe de Dottie)."
+        "$f : [0,1] \\to \\mathbb{R}$, $f(x) = \\cos(x)$.",
+        "$f([0,1]) \\subset [\\cos(1), 1] \\subset [0.54, 1] \\subset [0,1]$.",
+        "$|f'(x)| = |\\sin(x)| \\leq \\sin(1) < 1$ sur $[0,1]$.",
+        "Donc $f$ est contractante de rapport $k = \\sin(1) \\approx 0.84$.",
+        "Par Banach, $\\exists!\\, x^* \\in [0,1]$ tel que $\\cos(x^*) = x^*$.",
+        "Approximation : $x^* \\approx 0.739$ (point fixe de Dottie)."
       ],
       "lecons": [205],
       "tags": ["point fixe", "Banach"]
@@ -194,14 +193,13 @@
       "titre": "Décomposition polaire",
       "domaine": "Algèbre",
       "niveau": "Difficile",
-      "enonce": "Soit A = [[1, 1], [0, 1]]. Trouver sa décomposition polaire A = UP avec U orthogonale et P symétrique définie positive.",
-      "indication": "P = √(AᵀA).",
+      "enonce": "Soit $A = \\begin{pmatrix} 1 & 1 \\\\ 0 & 1 \\end{pmatrix}$. Trouver sa décomposition polaire $A = UP$ avec $U$ orthogonale et $P$ symétrique définie positive.",
+      "indication": "$P = \\sqrt{A^T A}$.",
       "solution": [
-        "AᵀA = [[1, 1], [1, 2]].",
-        "Valeurs propres de AᵀA : λ = (3 ± √5)/2.",
-        "On calcule P = √(AᵀA) (via diagonalisation).",
-        "Puis U = AP⁻¹.",
-        "P = (1/√5)[[√5+1, 1], [1, √5+1]] · (1/2) (à simplifier)."
+        "$A^T A = \\begin{pmatrix} 1 & 1 \\\\ 1 & 2 \\end{pmatrix}$.",
+        "Valeurs propres de $A^T A$ : $\\lambda = \\frac{3 \\pm \\sqrt{5}}{2}$.",
+        "On calcule $P = \\sqrt{A^T A}$ (via diagonalisation).",
+        "Puis $U = A P^{-1}$."
       ],
       "lecons": [160],
       "tags": ["décomposition polaire", "matrices"]
