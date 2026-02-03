@@ -75,7 +75,19 @@
         "Théorème de Bolzano : f(a)f(b) < 0 implique ∃c, f(c) = 0"
       ],
       "lecons": [204, 228],
-      "tags": ["continuité", "connexité"]
+      "tags": ["continuité", "connexité"],
+      "videos": [
+        {
+          "titre": "TVI - Démonstration et applications",
+          "url": "https://www.youtube.com/watch?v=example3",
+          "plateforme": "youtube",
+          "dureeMinutes": 12,
+          "auteur": "Analyse Sup",
+          "description": "Preuve complète avec exemples d'application"
+        }
+      ],
+      "difficulte": 2,
+      "remarque": "Fondamental pour l'étude des fonctions continues"
     },
     {
       "id": "bezout",
@@ -93,7 +105,19 @@
         "Théorème de Bézout généralisé"
       ],
       "lecons": [121, 142],
-      "tags": ["arithmétique", "PGCD"]
+      "tags": ["arithmétique", "PGCD"],
+      "videos": [
+        {
+          "titre": "Identité de Bézout - Algorithme d'Euclide étendu",
+          "url": "https://www.youtube.com/watch?v=example4",
+          "plateforme": "youtube",
+          "dureeMinutes": 18,
+          "auteur": "Algèbre Agreg",
+          "description": "Démonstration et algorithme pratique"
+        }
+      ],
+      "difficulte": 3,
+      "remarque": "Essentiel en arithmétique, lien avec les anneaux principaux"
     },
     {
       "id": "bolzano_weierstrass",
@@ -111,7 +135,19 @@
         "Théorème de Weierstrass (bornes atteintes)"
       ],
       "lecons": [203, 223],
-      "tags": ["suites", "compacité"]
+      "tags": ["suites", "compacité"],
+      "videos": [
+        {
+          "titre": "Bolzano-Weierstrass - Méthode de dichotomie",
+          "url": "https://www.youtube.com/watch?v=example5",
+          "plateforme": "youtube",
+          "dureeMinutes": 14,
+          "auteur": "Analyse Avancée",
+          "description": "Construction détaillée par intervalles emboîtés"
+        }
+      ],
+      "difficulte": 3,
+      "remarque": "Fondamental en topologie et compacité"
     },
     {
       "id": "cayley_hamilton_demo",
@@ -130,7 +166,19 @@
         "deg(μ_A) ≤ n"
       ],
       "lecons": [153],
-      "tags": ["réduction", "polynôme caractéristique"]
+      "tags": ["réduction", "polynôme caractéristique"],
+      "videos": [
+        {
+          "titre": "Cayley-Hamilton - Deux preuves élégantes",
+          "url": "https://www.youtube.com/watch?v=example6",
+          "plateforme": "youtube",
+          "dureeMinutes": 20,
+          "auteur": "Réduction Endo",
+          "description": "Preuve par triangulation et par comatrice"
+        }
+      ],
+      "difficulte": 4,
+      "remarque": "Théorème central en réduction, nombreuses applications"
     },
     {
       "id": "spectral_demo",
@@ -148,6 +196,18 @@
         "Classification des quadriques",
         "Théorème de Sylvester"
       ],
+      "videos": [
+        {
+          "titre": "Théorème Spectral - Démonstration complète",
+          "url": "https://www.youtube.com/watch?v=example7",
+          "plateforme": "youtube",
+          "dureeMinutes": 25,
+          "auteur": "Espaces Euclidiens",
+          "description": "Preuve par récurrence avec orthogonalité"
+        }
+      ],
+      "difficulte": 5,
+      "remarque": "Un des théorèmes les plus importants de l'algèbre linéaire",
       "lecons": [158, 170],
       "tags": ["diagonalisation", "formes quadratiques"]
     },
