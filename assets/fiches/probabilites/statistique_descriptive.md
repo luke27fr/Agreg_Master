@@ -18,7 +18,7 @@
 > * **Biais :** $\frac{1}{n}$ pour la variance donne un estimateur biaisé; utiliser $\frac{1}{n-1}$.
 > * **Valeurs aberrantes :** La moyenne est sensible aux outliers, la médiane est robuste.
 > * **Corrélation $\neq$ causalité :** Une forte corrélation n'implique pas une relation causale.
-> * **Échantillon vs population :** Ne pas confondre paramètres ($\mu$, $\sigma$) et estimateurs ($\bar{x}$, $s$).
+> * **Échantillon vs population :** Ne pas confondre paramètres ($\mu$, $\sigma$ ) et estimateurs ($\bar{x}$, $s$ ).
 
 > [!TIP]
 > ### 3. Exercice Type : Régression linéaire
@@ -35,7 +35,7 @@
 > [!QUESTION]
 > ### 4. Questions de Jury
 > * **Q1 :** Pourquoi diviser par $n-1$ pour la variance ?
->   * **Rép :** Pour obtenir un estimateur sans biais de $\sigma^2$ (on perd 1 degré de liberté en estimant $\mu$ par $\bar{x}$).
+>   * **Rép :** Pour obtenir un estimateur sans biais de $\sigma^2$ (on perd 1 degré de liberté en estimant $\mu$ par $\bar{x}$ ).
 > * **Q2 :** Quelle différence entre moyenne et médiane ?
 >   * **Rép :** La médiane est robuste aux outliers, pas la moyenne.
 > * **Q3 :** Comment interpréter $r = 0.8$ ?

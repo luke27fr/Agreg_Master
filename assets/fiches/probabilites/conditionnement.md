@@ -13,7 +13,7 @@
 
 > [!WARNING]
 > ### 2. Pièges à éviter
-> * **$\mathbb{P}(A|B) \neq \mathbb{P}(B|A)$** en général (confusion courante !).
+> * **Attention à l'ordre :** $\mathbb{P}(A|B) \neq \mathbb{P}(B|A)$ en général (confusion courante !).
 > * **Conditionnement par événement de proba 0 :** Nécessite une définition plus sophistiquée.
 > * **Indépendance :** $A \perp B \Leftrightarrow \mathbb{P}(A|B) = \mathbb{P}(A)$.
 > * **$\mathbb{E}[X|Y]$ est une variable aléatoire** (fonction de $Y$), pas un nombre.

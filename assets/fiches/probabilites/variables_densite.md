@@ -9,7 +9,7 @@
 > * **Espérance :** $\mathbb{E}[X] = \int x f(x) dx$ si l'intégrale converge absolument.
 > * **Transfert :** $\mathbb{E}[g(X)] = \int g(x) f(x) dx$.
 > * **Changement de variable :** Si $Y = g(X)$ avec $g$ bijective $\mathcal{C}^1$, $f_Y(y) = f_X(g^{-1}(y)) |{(g^{-1})}'(y)|$.
-> * **$\mathbb{P}(X = a) = 0$** pour tout $a$ (les singletons ont mesure nulle).
+> * **Singletons de mesure nulle :** $\mathbb{P}(X = a) = 0$ pour tout $a$.
 
 > [!WARNING]
 > ### 2. Pièges à éviter

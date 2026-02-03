@@ -15,8 +15,8 @@
 > [!WARNING]
 > ### 2. Pièges à éviter
 > * **Existence :** L'espérance peut ne pas exister (ex : loi de Cauchy).
-> * **$\mathbb{E}[XY] \neq \mathbb{E}[X]\mathbb{E}[Y]$** sauf si $X, Y$ indépendantes.
-> * **$\text{Var}(X + Y) \neq \text{Var}(X) + \text{Var}(Y)$** sauf si non corrélées.
+> * **Produit d'espérances :** $\mathbb{E}[XY] \neq \mathbb{E}[X]\mathbb{E}[Y]$ sauf si $X, Y$ indépendantes.
+> * **Variance de somme :** $\text{Var}(X + Y) \neq \text{Var}(X) + \text{Var}(Y)$ sauf si non corrélées.
 > * **Inégalité de Markov :** $\mathbb{P}(|X| \geq a) \leq \frac{\mathbb{E}[|X|]}{a}$ pour $a > 0$.
 > * **Inégalité de Bienaymé-Tchebychev :** $\mathbb{P}(|X - \mathbb{E}[X]| \geq \varepsilon) \leq \frac{\text{Var}(X)}{\varepsilon^2}$.
 
