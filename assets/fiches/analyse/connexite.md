@@ -17,7 +17,7 @@
 > * **Union de connexes :** L'union de deux connexes n'est connexe que si leur intersection est non vide.
 > * **Fermé dans un connexe :** Un fermé propre non vide d'un connexe n'est pas ouvert.
 > * **Produit :** Le produit de connexes est connexe.
-> * **Ouvert de $\mathbb{R}^n$ ($n \geq 1$) :** Connexe $\Leftrightarrow$ connexe par arcs.
+> * **Ouvert de $\mathbb{R}^n$ (pour $n \geq 1$) :** Connexe $\Leftrightarrow$ connexe par arcs.
 
 > [!TIP]
 > ### 3. Exercice Type : $GL_n(\mathbb{R})$ non connexe

@@ -15,7 +15,7 @@
 > ### 2. Pièges à éviter
 > * **Caractéristique 2 :** La formule de polarisation ne marche pas ! Les formes quadratiques ne sont pas équivalentes aux formes bilinéaires.
 > * **Rang ≠ dimension :** Le rang de $q$ est le rang de $\varphi$, pas la dimension de $E$.
-> * **Congruence :** Deux matrices sont congruentes ($B = P^T A P$) ssi elles représentent la même forme quadratique.
+> * **Congruence :** Deux matrices sont congruentes (i.e. $B = P^T A P$) ssi elles représentent la même forme quadratique.
 > * **Définie vs semi-définie :** Semi-définie positive : $q(x) \geq 0$ (le noyau peut être non trivial).
 > * **Signature sur $\mathbb{C}$ :** Toute forme quadratique complexe de rang $r$ est congruente à $x_1^2 + \cdots + x_r^2$.
 

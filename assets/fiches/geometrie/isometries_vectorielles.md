@@ -13,7 +13,7 @@
 
 > [!WARNING]
 > ### 2. Pièges à éviter
-> * **$O_n$ non connexe :** Deux composantes connexes : $SO_n$ ($\det = 1$) et $\det = -1$.
+> * **$O_n$ non connexe :** Deux composantes connexes : $SO_n$ (avec $\det = 1$) et $\det = -1$.
 > * **Réflexion ≠ rotation :** La réflexion n'est pas dans $SO_n$ (déterminant $-1$).
 > * **Axe de rotation en 3D :** Existe toujours pour une rotation non triviale (espace propre de 1).
 > * **Matrice orthogonale ≠ symétrique :** $P^T P = I$ mais $P \neq P^T$ en général.
