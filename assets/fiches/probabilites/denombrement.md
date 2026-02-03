@@ -17,7 +17,7 @@
 > * **Avec ou sans répétition :** Tirages avec remise vs sans remise.
 > * **Ordre ou non :** Arrangements (ordre compte) vs Combinaisons (ordre ne compte pas).
 > * **Surcomptage :** Diviser par le nombre de façons de compter le même objet.
-> * **$\binom{n}{k} = 0$ si $k > n$** ou $k < 0$.
+> * **Convention :** $\binom{n}{k} = 0$ si $k > n$ ou $k < 0$.
 
 > [!TIP]
 > ### 3. Exercice Type : Anagrammes
