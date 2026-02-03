@@ -351,6 +351,7 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Calculer le rang de H₃ = [[1,2,3],[2,3,4],[3,4,5]].',
                 indication: 'Les lignes sont liées.',
+                correction: 'Observons que L₂ - L₁ = [1,1,1] et L₃ - L₂ = [1,1,1]. Donc L₃ = 2L₂ - L₁. Les lignes sont liées linéairement. De plus, L₁ et L₂ sont indépendantes (non proportionnelles). Donc rg(H₃) = 2. Vérification : det(H₃) = 1(15-16) - 2(10-12) + 3(8-9) = -1+4-3 = 0, confirmant rg < 3.',
                 points: 3,
               ),
             ],
@@ -361,11 +362,13 @@ class ExamenBlancService extends ChangeNotifier {
             questions: [
               QuestionExamen(
                 enonce: 'Pour la suite aₖ = 1/(k+1), étudier la diagonalisabilité de H_n.',
+                correction: 'H_n est une matrice de Hankel symétrique réelle, donc diagonalisable (théorème spectral). Les valeurs propres sont toutes réelles et il existe une base orthonormée de vecteurs propres. Pour calculer explicitement les valeurs propres, on peut utiliser la décomposition H = VDV^T où V est une matrice de Vandermonde associée.',
                 points: 5,
               ),
               QuestionExamen(
                 enonce: 'Calculer det(H_n) pour n = 2, 3, 4.',
                 indication: 'Remarquer une structure récurrente.',
+                correction: 'H₂ = [[1,1/2],[1/2,1/3]], det = 1/3 - 1/4 = 1/12. H₃ (calculé précédemment) : det = 0 car rg=2<3. H₄ : En développant (calculs longs), det(H₄) ≈ 0. Structure : les matrices de Hankel pour aₖ=1/(k+1) ont souvent un rang déficient pour n grand (suite harmonique décroît lentement).',
                 points: 3,
               ),
             ],
@@ -377,10 +380,12 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Montrer que toute matrice de Hankel peut s\'écrire comme produit de Vandermonde.',
                 indication: 'H = VDV^T où V est Vandermonde.',
+                correction: 'Soit H[i,j] = a_{i+j}. On peut décomposer H = VDV^T où V est la matrice de Vandermonde V[i,j] = xⱼⁱ et D est diagonale. Les coefficients aₖ sont liés aux moments μₖ = Σ dᵢxᵢᵏ. Cette décomposition relie les matrices de Hankel à l\'interpolation et aux moments de mesures.',
                 points: 4,
               ),
               QuestionExamen(
                 enonce: 'Application à l\'interpolation polynomiale.',
+                correction: 'Les matrices de Hankel apparaissent dans les problèmes de moments : étant donnés μ₀, μ₁, ..., μ₂ₙ, existe-t-il une mesure telle que μₖ = ∫xᵏdμ(x) ? La condition nécessaire et suffisante est que la matrice de Hankel H[i,j]=μ_{i+j} soit semi-définie positive (critère de positivité des moments).',
                 points: 3,
               ),
             ],
