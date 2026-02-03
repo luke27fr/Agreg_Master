@@ -249,10 +249,12 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Calculer ∫₀^∞ e^(-x²) dx.',
                 indication: 'Utilisez une intégrale double.',
+                correction: 'Posons I = ∫₀^∞ e^(-x²)dx. Alors I² = (∫₀^∞ e^(-x²)dx)(∫₀^∞ e^(-y²)dy) = ∫∫_{ℝ₊²} e^(-(x²+y²))dxdy. En coordonnées polaires (r,θ) avec x²+y²=r², on obtient I² = ∫₀^(π/2) ∫₀^∞ e^(-r²)r dr dθ = (π/2)·(1/2) = π/4. Donc I = √(π/4) = √π/2.',
                 points: 4,
               ),
               QuestionExamen(
                 enonce: 'En déduire la valeur de ∫₀^∞ x²e^(-x²) dx.',
+                correction: 'Par intégration par parties avec u=x et v\'=xe^(-x²), on a ∫₀^∞ x²e^(-x²)dx = [-x·e^(-x²)/2]₀^∞ + (1/2)∫₀^∞ e^(-x²)dx = 0 + (1/2)·(√π/2) = √π/4.',
                 points: 3,
               ),
             ],
@@ -276,10 +278,12 @@ class ExamenBlancService extends ChangeNotifier {
                 enonce: 'Soit G un groupe d\'ordre 28. Montrer que G possède un sous-groupe distingué non trivial.',
                 indication: 'Utiliser les théorèmes de Sylow.',
                 pointsCles: ['n₇ = 1 ou 8', 'Si n₇=1, le 7-Sylow est distingué'],
+                correction: '28 = 4×7 = 2²×7. Par Sylow, n₇ ≡ 1 (mod 7) et n₇ | 4. Donc n₇ ∈ {1,8}. Si n₇=8, il y aurait 8×6=48 éléments d\'ordre 7 (impossible car |G|=28). Donc n₇=1, et l\'unique 7-Sylow est distingué (normalisé par tout G).',
                 points: 4,
               ),
               QuestionExamen(
                 enonce: 'En déduire que G n\'est pas simple.',
+                correction: 'G possède un sous-groupe distingué H d\'ordre 7 (le 7-Sylow). Comme {e} ⊊ H ⊊ G, G n\'est pas simple (définition : un groupe simple n\'a pas de sous-groupe distingué non trivial).',
                 points: 2,
               ),
             ],
@@ -291,15 +295,18 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Déterminer le polynôme minimal de A = [[0,1,0],[0,0,1],[1,0,0]].',
                 indication: 'Calculer A², A³.',
+                correction: 'A² = [[0,0,1],[1,0,0],[0,1,0]] et A³ = I₃. Donc A³ - I = 0, et X³-1 annule A. Comme A ≠ I, le polynôme minimal divise X³-1 et deg ≥ 2. Vérifions A²+A+I : [[1,1,1],[1,1,1],[1,1,1]] ≠ 0. Donc πₐ(X) = X³-1.',
                 points: 3,
               ),
               QuestionExamen(
                 enonce: 'A est-elle diagonalisable sur ℝ ? Sur ℂ ?',
+                correction: 'Sur ℝ : χₐ(X) = X³-1 = (X-1)(X²+X+1). X²+X+1 n\'a pas de racines réelles (Δ=-3<0). Donc A a une seule valeur propre réelle (λ=1) de multiplicité 1. A n\'est PAS diagonalisable sur ℝ. Sur ℂ : X³-1 = (X-1)(X-j)(X-j²) où j=e^(2iπ/3). Trois valeurs propres distinctes, donc A est diagonalisable sur ℂ.',
                 points: 3,
               ),
               QuestionExamen(
                 enonce: 'Interpréter géométriquement A.',
                 indication: 'Permutation circulaire des coordonnées.',
+                correction: 'A(x,y,z) = (y,z,x). C\'est une permutation circulaire : x→y, y→z, z→x. Géométriquement, c\'est une rotation d\'ordre 3 autour de l\'axe (1,1,1) (grande diagonale du cube). A³ = I car 3 rotations de 120° = tour complet.',
                 points: 2,
               ),
             ],
@@ -311,10 +318,12 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Déterminer la signature de q(x,y,z) = x² + 2xy + 2y² - 2yz + z².',
                 indication: 'Diagonaliser ou Gauss.',
+                correction: 'Méthode de Gauss : q(x,y,z) = (x+y)² + (y-z)² = X² + Y² avec X=x+y, Y=y-z. Signature (2,0,1) : 2 termes positifs, 0 négatif, 1 variable manquante (z n\'apparaît qu\'après changement). Autre méthode : matrice M = [[1,1,0],[1,2,-1],[0,-1,1]], calculer valeurs propres.',
                 points: 4,
               ),
               QuestionExamen(
                 enonce: 'La forme est-elle définie positive ?',
+                correction: 'Non. Signature (2,0,1) signifie qu\'il y a une direction dégénérée (noyau non trivial). Pour être définie positive, il faudrait signature (3,0,0). Contre-exemple : si z = y-x, alors q(x,y,z) = (x+y)² + 0 = (x+y)², qui s\'annule pour x=-y ≠ 0.',
                 points: 2,
               ),
             ],
@@ -336,6 +345,7 @@ class ExamenBlancService extends ChangeNotifier {
             questions: [
               QuestionExamen(
                 enonce: 'Soit H_n la matrice de Hankel : H[i,j] = a_{i+j}. Montrer que H est symétrique si aₖ = a₋ₖ.',
+                correction: 'H[i,j] = a_{i+j} et H[j,i] = a_{j+i} = a_{i+j} (addition commutative). Donc H^T = H, la matrice est symétrique sans condition sur les aₖ. (La condition aₖ = a₋ₖ est en fait toujours vérifiée pour les indices positifs d\'une matrice de Hankel standard.)',
                 points: 2,
               ),
               QuestionExamen(
