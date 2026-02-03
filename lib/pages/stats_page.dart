@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fl_chart/fl_chart.dart';
 import '../services/score_service.dart';
+import '../services/reading_service.dart';
 
 class StatsPage extends StatefulWidget {
   const StatsPage({super.key});
@@ -12,6 +14,7 @@ class StatsPage extends StatefulWidget {
 
 class _StatsPageState extends State<StatsPage> {
   final ScoreService _scoreService = ScoreService();
+  final ReadingService _readingService = ReadingService();
   Map<String, dynamic>? _manifest;
   bool _loading = true;
 
@@ -20,11 +23,13 @@ class _StatsPageState extends State<StatsPage> {
     super.initState();
     _loadManifest();
     _scoreService.addListener(_onScoreChanged);
+    _readingService.addListener(_onScoreChanged);
   }
 
   @override
   void dispose() {
     _scoreService.removeListener(_onScoreChanged);
+    _readingService.removeListener(_onScoreChanged);
     super.dispose();
   }
 
@@ -74,6 +79,17 @@ class _StatsPageState extends State<StatsPage> {
                   
                   const SizedBox(height: 24),
                   
+                  // Graphique d'évolution
+                  if (history.length >= 2) ...[
+                    const Text(
+                      'Évolution des scores',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 12),
+                    _buildEvolutionChart(history, isDark),
+                    const SizedBox(height: 24),
+                  ],
+                  
                   // Stats par matière
                   const Text(
                     'Par matière',
@@ -107,7 +123,123 @@ class _StatsPageState extends State<StatsPage> {
     );
   }
 
+  Widget _buildEvolutionChart(List<QuizHistoryEntry> history, bool isDark) {
+    // Prendre les 20 derniers quiz et inverser pour avoir chronologique
+    final recentHistory = history.take(20).toList().reversed.toList();
+    
+    if (recentHistory.length < 2) {
+      return const SizedBox.shrink();
+    }
+
+    final spots = <FlSpot>[];
+    for (int i = 0; i < recentHistory.length; i++) {
+      spots.add(FlSpot(i.toDouble(), recentHistory[i].percentage));
+    }
+
+    return Container(
+      height: 200,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: isDark ? const Color(0xFF1E1E1E) : Colors.white,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: LineChart(
+        LineChartData(
+          gridData: FlGridData(
+            show: true,
+            drawVerticalLine: false,
+            horizontalInterval: 20,
+            getDrawingHorizontalLine: (value) => FlLine(
+              color: Colors.grey.withOpacity(0.2),
+              strokeWidth: 1,
+            ),
+          ),
+          titlesData: FlTitlesData(
+            leftTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                reservedSize: 35,
+                interval: 20,
+                getTitlesWidget: (value, meta) => Text(
+                  '${value.toInt()}%',
+                  style: TextStyle(fontSize: 10, color: Colors.grey[600]),
+                ),
+              ),
+            ),
+            bottomTitles: const AxisTitles(
+              sideTitles: SideTitles(showTitles: false),
+            ),
+            topTitles: const AxisTitles(
+              sideTitles: SideTitles(showTitles: false),
+            ),
+            rightTitles: const AxisTitles(
+              sideTitles: SideTitles(showTitles: false),
+            ),
+          ),
+          borderData: FlBorderData(show: false),
+          minY: 0,
+          maxY: 100,
+          lineBarsData: [
+            LineChartBarData(
+              spots: spots,
+              isCurved: true,
+              color: const Color(0xFF1A237E),
+              barWidth: 3,
+              isStrokeCapRound: true,
+              dotData: FlDotData(
+                show: true,
+                getDotPainter: (spot, percent, barData, index) {
+                  final color = spot.y >= 80
+                      ? Colors.green
+                      : (spot.y >= 60 ? Colors.orange : Colors.red);
+                  return FlDotCirclePainter(
+                    radius: 4,
+                    color: color,
+                    strokeWidth: 2,
+                    strokeColor: Colors.white,
+                  );
+                },
+              ),
+              belowBarData: BarAreaData(
+                show: true,
+                color: const Color(0xFF1A237E).withOpacity(0.1),
+              ),
+            ),
+            // Ligne de référence à 80%
+            LineChartBarData(
+              spots: [
+                FlSpot(0, 80),
+                FlSpot(spots.length - 1, 80),
+              ],
+              isCurved: false,
+              color: Colors.green.withOpacity(0.5),
+              barWidth: 1,
+              dotData: const FlDotData(show: false),
+              dashArray: [5, 5],
+            ),
+          ],
+          lineTouchData: LineTouchData(
+            touchTooltipData: LineTouchTooltipData(
+              getTooltipItems: (touchedSpots) {
+                return touchedSpots.map((spot) {
+                  if (spot.barIndex == 1) return null; // Ignorer la ligne de référence
+                  final entry = recentHistory[spot.x.toInt()];
+                  return LineTooltipItem(
+                    '${entry.ficheId}\n${spot.y.toInt()}%',
+                    const TextStyle(color: Colors.white, fontSize: 12),
+                  );
+                }).toList();
+              },
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _buildGlobalCard(double globalAvg, int fichesCount, int quizCount, bool isDark) {
+    final readCount = _readingService.readFiches.length;
+    
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(20),
@@ -138,6 +270,7 @@ class _StatsPageState extends State<StatsPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              _buildStatItem(Icons.menu_book, '$readCount', 'Fiches lues'),
               _buildStatItem(Icons.library_books, '$fichesCount', 'Fiches testées'),
               _buildStatItem(Icons.quiz, '$quizCount', 'Quiz passés'),
             ],

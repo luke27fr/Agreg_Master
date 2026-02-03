@@ -1,0 +1,281 @@
+import 'package:flutter/material.dart';
+import '../services/settings_service.dart';
+import '../services/score_service.dart';
+import '../services/favorites_service.dart';
+import '../services/notes_service.dart';
+import '../services/reading_service.dart';
+
+class SettingsPage extends StatefulWidget {
+  const SettingsPage({super.key});
+
+  @override
+  State<SettingsPage> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
+  final SettingsService _settingsService = SettingsService();
+
+  @override
+  void initState() {
+    super.initState();
+    _settingsService.addListener(_onSettingsChanged);
+  }
+
+  @override
+  void dispose() {
+    _settingsService.removeListener(_onSettingsChanged);
+    super.dispose();
+  }
+
+  void _onSettingsChanged() {
+    if (mounted) setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return Scaffold(
+      backgroundColor: isDark ? const Color(0xFF121212) : const Color(0xFFF5F7FA),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: const BackButton(),
+        title: const Text('Paramètres', style: TextStyle(fontWeight: FontWeight.bold)),
+        centerTitle: true,
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          // Section Apparence
+          _buildSectionTitle('Apparence'),
+          _buildCard(isDark, [
+            // Mode sombre
+            SwitchListTile(
+              title: const Text('Mode sombre'),
+              subtitle: const Text('Thème sombre pour le confort des yeux'),
+              secondary: Icon(isDark ? Icons.dark_mode : Icons.light_mode),
+              value: _settingsService.isDarkMode,
+              onChanged: (value) => _settingsService.setDarkMode(value),
+            ),
+            const Divider(height: 1),
+            // Taille de police
+            ListTile(
+              leading: const Icon(Icons.text_fields),
+              title: const Text('Taille du texte'),
+              subtitle: Text(_getFontSizeLabel(_settingsService.fontSize)),
+              trailing: SizedBox(
+                width: 150,
+                child: Slider(
+                  value: _settingsService.fontSize,
+                  min: 0.8,
+                  max: 1.4,
+                  divisions: 6,
+                  label: _getFontSizeLabel(_settingsService.fontSize),
+                  onChanged: (value) => _settingsService.setFontSize(value),
+                ),
+              ),
+            ),
+          ]),
+
+          const SizedBox(height: 24),
+
+          // Section Quiz
+          _buildSectionTitle('Quiz'),
+          _buildCard(isDark, [
+            // Timer
+            SwitchListTile(
+              title: const Text('Timer de quiz'),
+              subtitle: Text(_settingsService.quizTimerEnabled
+                  ? '${_settingsService.quizTimerSeconds}s par question'
+                  : 'Désactivé'),
+              secondary: const Icon(Icons.timer),
+              value: _settingsService.quizTimerEnabled,
+              onChanged: (value) => _settingsService.setQuizTimer(value),
+            ),
+            if (_settingsService.quizTimerEnabled) ...[
+              const Divider(height: 1),
+              ListTile(
+                leading: const SizedBox(width: 24),
+                title: const Text('Temps par question'),
+                trailing: SizedBox(
+                  width: 150,
+                  child: Slider(
+                    value: _settingsService.quizTimerSeconds.toDouble(),
+                    min: 10,
+                    max: 120,
+                    divisions: 11,
+                    label: '${_settingsService.quizTimerSeconds}s',
+                    onChanged: (value) => _settingsService.setQuizTimer(
+                      true,
+                      seconds: value.round(),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ]),
+
+          const SizedBox(height: 24),
+
+          // Section Lecture
+          _buildSectionTitle('Lecture'),
+          _buildCard(isDark, [
+            SwitchListTile(
+              title: const Text('Mode focus'),
+              subtitle: const Text('Masque la navigation pendant la lecture'),
+              secondary: const Icon(Icons.visibility_off),
+              value: _settingsService.focusModeEnabled,
+              onChanged: (value) => _settingsService.setFocusMode(value),
+            ),
+          ]),
+
+          const SizedBox(height: 24),
+
+          // Section Données
+          _buildSectionTitle('Données'),
+          _buildCard(isDark, [
+            ListTile(
+              leading: const Icon(Icons.delete_outline, color: Colors.red),
+              title: const Text('Réinitialiser les scores'),
+              subtitle: const Text('Supprimer tous les scores de quiz'),
+              onTap: () => _showResetDialog(
+                context,
+                'Réinitialiser les scores ?',
+                'Cette action supprimera tous vos scores de quiz.',
+                () => ScoreService().resetAllScores(),
+              ),
+            ),
+            const Divider(height: 1),
+            ListTile(
+              leading: const Icon(Icons.delete_outline, color: Colors.orange),
+              title: const Text('Supprimer les favoris'),
+              subtitle: const Text('Retirer toutes les fiches des favoris'),
+              onTap: () => _showResetDialog(
+                context,
+                'Supprimer les favoris ?',
+                'Cette action retirera toutes vos fiches favorites.',
+                () async {
+                  final favs = FavoritesService().favorites.toList();
+                  for (var f in favs) {
+                    await FavoritesService().removeFavorite(f);
+                  }
+                },
+              ),
+            ),
+            const Divider(height: 1),
+            ListTile(
+              leading: const Icon(Icons.delete_outline, color: Colors.blue),
+              title: const Text('Supprimer les notes'),
+              subtitle: const Text('Effacer toutes vos notes personnelles'),
+              onTap: () => _showResetDialog(
+                context,
+                'Supprimer les notes ?',
+                'Cette action effacera toutes vos notes personnelles.',
+                () async {
+                  final notes = NotesService().notes.keys.toList();
+                  for (var n in notes) {
+                    await NotesService().deleteNote(n);
+                  }
+                },
+              ),
+            ),
+          ]),
+
+          const SizedBox(height: 24),
+
+          // Section À propos
+          _buildSectionTitle('À propos'),
+          _buildCard(isDark, [
+            const ListTile(
+              leading: Icon(Icons.info_outline),
+              title: Text('Agreg Master'),
+              subtitle: Text('Version 1.0.0'),
+            ),
+            const Divider(height: 1),
+            const ListTile(
+              leading: Icon(Icons.school),
+              title: Text('Application de révision'),
+              subtitle: Text('Préparation à l\'Agrégation de Mathématiques'),
+            ),
+          ]),
+
+          const SizedBox(height: 40),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSectionTitle(String title) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 4, bottom: 8),
+      child: Text(
+        title,
+        style: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+          color: Colors.grey[600],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCard(bool isDark, List<Widget> children) {
+    return Container(
+      decoration: BoxDecoration(
+        color: isDark ? const Color(0xFF1E1E1E) : Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 4,
+          ),
+        ],
+      ),
+      child: Column(children: children),
+    );
+  }
+
+  String _getFontSizeLabel(double value) {
+    if (value <= 0.85) return 'Très petit';
+    if (value <= 0.95) return 'Petit';
+    if (value <= 1.05) return 'Normal';
+    if (value <= 1.15) return 'Grand';
+    if (value <= 1.25) return 'Très grand';
+    return 'Maximum';
+  }
+
+  void _showResetDialog(
+    BuildContext context,
+    String title,
+    String message,
+    Future<void> Function() onConfirm,
+  ) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(title),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('Annuler'),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              await onConfirm();
+              if (ctx.mounted) Navigator.pop(ctx);
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Données supprimées')),
+                );
+              }
+            },
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            child: const Text('Supprimer', style: TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
+    );
+  }
+}

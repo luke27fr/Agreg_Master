@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
@@ -5,6 +6,7 @@ import 'package:markdown/markdown.dart' as md;
 
 import '../models/quiz_model.dart';
 import '../services/score_service.dart';
+import '../services/settings_service.dart';
 
 class QuizPage extends StatefulWidget {
   final String title;
@@ -28,18 +30,64 @@ class _QuizPageState extends State<QuizPage> {
   int? selectedOption;
   int score = 0;
   List<int> wrongIndices = []; // Track des questions ratées
+  
+  // Timer
+  final SettingsService _settingsService = SettingsService();
+  Timer? _timer;
+  int _timeLeft = 0;
+  bool _timerExpired = false;
 
   static md.ExtensionSet get _latexExtensionSet => md.ExtensionSet(
     [LatexBlockSyntax(), ...md.ExtensionSet.gitHubFlavored.blockSyntaxes],
     [LatexInlineSyntax(), ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes],
   );
 
+  @override
+  void initState() {
+    super.initState();
+    _startTimerIfEnabled();
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  void _startTimerIfEnabled() {
+    if (_settingsService.quizTimerEnabled && !isAnswered) {
+      _timeLeft = _settingsService.quizTimerSeconds;
+      _timerExpired = false;
+      _timer?.cancel();
+      _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+        if (_timeLeft > 0) {
+          setState(() => _timeLeft--);
+        } else {
+          timer.cancel();
+          _onTimerExpired();
+        }
+      });
+    }
+  }
+
+  void _onTimerExpired() {
+    if (!isAnswered) {
+      setState(() {
+        _timerExpired = true;
+        isAnswered = true;
+        wrongIndices.add(currentIndex);
+      });
+    }
+  }
+
   void _checkAnswer(int index) {
     if (isAnswered) return;
+    _timer?.cancel();
     final question = widget.questions[currentIndex];
     setState(() {
       selectedOption = index;
       isAnswered = true;
+      _timerExpired = false;
       if (index == question.correctIndex) {
         score++;
       } else {
@@ -54,8 +102,11 @@ class _QuizPageState extends State<QuizPage> {
         currentIndex++;
         isAnswered = false;
         selectedOption = null;
+        _timerExpired = false;
       });
+      _startTimerIfEnabled();
     } else {
+      _timer?.cancel();
       _showScoreDialog();
     }
   }
@@ -174,6 +225,37 @@ class _QuizPageState extends State<QuizPage> {
         backgroundColor: const Color(0xFF1A237E),
         foregroundColor: Colors.white,
         actions: [
+          // Timer si activé
+          if (_settingsService.quizTimerEnabled && !isAnswered)
+            Center(
+              child: Container(
+                margin: const EdgeInsets.only(right: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: _timeLeft <= 5 ? Colors.red : Colors.white.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.timer,
+                      size: 16,
+                      color: _timeLeft <= 5 ? Colors.white : Colors.white70,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      '${_timeLeft}s',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: _timeLeft <= 5 ? Colors.white : Colors.white70,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           Center(
             child: Padding(
               padding: const EdgeInsets.only(right: 16),
@@ -238,6 +320,27 @@ class _QuizPageState extends State<QuizPage> {
             }),
             if (isAnswered) ...[
               const SizedBox(height: 10),
+              // Message temps écoulé
+              if (_timerExpired)
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  margin: const EdgeInsets.only(bottom: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.orange.shade50,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.orange),
+                  ),
+                  child: const Row(
+                    children: [
+                      Icon(Icons.timer_off, color: Colors.orange),
+                      SizedBox(width: 8),
+                      Text(
+                        "Temps écoulé !",
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.orange),
+                      ),
+                    ],
+                  ),
+                ),
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(

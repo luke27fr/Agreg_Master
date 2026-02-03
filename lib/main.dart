@@ -10,10 +10,13 @@ import 'package:agreg_master/pages/quiz_page.dart';
 import 'package:agreg_master/pages/search_page.dart';
 import 'package:agreg_master/pages/stats_page.dart';
 import 'package:agreg_master/pages/review_page.dart';
+import 'package:agreg_master/pages/flashcards_page.dart';
+import 'package:agreg_master/pages/settings_page.dart';
 import 'package:agreg_master/services/score_service.dart';
 import 'package:agreg_master/services/favorites_service.dart';
 import 'package:agreg_master/services/notes_service.dart';
 import 'package:agreg_master/services/settings_service.dart';
+import 'package:agreg_master/services/reading_service.dart';
 import 'fiche_page.dart';
 
 void main() async {
@@ -24,6 +27,7 @@ void main() async {
     FavoritesService().loadFavorites(),
     NotesService().loadNotes(),
     SettingsService().loadSettings(),
+    ReadingService().loadReadingProgress(),
   ]);
   runApp(const AgregMasterApp());
 }
@@ -536,11 +540,14 @@ class _ThemesScreenState extends State<ThemesScreen> {
                         ),
                         tooltip: 'Rechercher',
                       ),
-                      // Bouton Mode sombre
+                      // Bouton Paramètres
                       IconButton(
-                        icon: Icon(isDark ? Icons.light_mode : Icons.dark_mode),
-                        onPressed: () => _settingsService.toggleDarkMode(),
-                        tooltip: isDark ? 'Mode clair' : 'Mode sombre',
+                        icon: const Icon(Icons.settings),
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const SettingsPage()),
+                        ),
+                        tooltip: 'Paramètres',
                       ),
                     ],
                   ),
@@ -554,7 +561,7 @@ class _ThemesScreenState extends State<ThemesScreen> {
 
               const SizedBox(height: 16),
 
-              // 3. Boutons rapides (Révision, Stats, Favoris)
+              // 3. Boutons rapides (Révision, Stats, Flashcards, Favoris)
               Row(
                 children: [
                   Expanded(
@@ -569,7 +576,7 @@ class _ThemesScreenState extends State<ThemesScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 12),
+                  const SizedBox(width: 8),
                   Expanded(
                     child: _buildQuickButton(
                       icon: Icons.bar_chart,
@@ -581,7 +588,19 @@ class _ThemesScreenState extends State<ThemesScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 12),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: _buildQuickButton(
+                      icon: Icons.style,
+                      label: 'Flashcards',
+                      color: Colors.teal,
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const FlashcardsPage()),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
                   Expanded(
                     child: _buildQuickButton(
                       icon: Icons.star,
@@ -736,18 +755,21 @@ class FichesListScreen extends StatefulWidget {
 class _FichesListScreenState extends State<FichesListScreen> {
   final ScoreService _scoreService = ScoreService();
   final FavoritesService _favoritesService = FavoritesService();
+  final ReadingService _readingService = ReadingService();
 
   @override
   void initState() {
     super.initState();
     _scoreService.addListener(_onDataChanged);
     _favoritesService.addListener(_onDataChanged);
+    _readingService.addListener(_onDataChanged);
   }
 
   @override
   void dispose() {
     _scoreService.removeListener(_onDataChanged);
     _favoritesService.removeListener(_onDataChanged);
+    _readingService.removeListener(_onDataChanged);
     super.dispose();
   }
 
@@ -849,6 +871,7 @@ class _FichesListScreenState extends State<FichesListScreen> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final avgScore = _scoreService.getAverageForFiches(widget.theme.files);
     final completedCount = _scoreService.getCompletedCount(widget.theme.files);
+    final readCount = _readingService.getReadCount(widget.theme.files);
 
     return Scaffold(
       backgroundColor: isDark ? const Color(0xFF121212) : const Color(0xFFF5F7FA),
@@ -870,19 +893,27 @@ class _FichesListScreenState extends State<FichesListScreen> {
               borderRadius: BorderRadius.circular(16),
               boxShadow: [BoxShadow(color: Colors.grey.withOpacity(isDark ? 0.05 : 0.1), blurRadius: 5)],
             ),
-            child: Row(
+            child: Column(
               children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                // Progression lecture
+                Row(
+                  children: [
+                    Icon(Icons.menu_book, color: Colors.blue[400], size: 20),
+                    const SizedBox(width: 8),
+                    Text("$readCount/${widget.theme.files.length} lues", style: TextStyle(color: Colors.grey[600], fontSize: 13)),
+                    const SizedBox(width: 16),
+                    Icon(Icons.quiz, color: Colors.green[400], size: 20),
+                    const SizedBox(width: 8),
+                    Text("$completedCount/${widget.theme.files.length} testées", style: TextStyle(color: Colors.grey[600], fontSize: 13)),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                // Barre de progression Quiz
+                if (avgScore >= 0) ...[
+                  Row(
                     children: [
-                      Text(
-                        "$completedCount/${widget.theme.files.length} fiches testées",
-                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                      ),
-                      const SizedBox(height: 8),
-                      if (avgScore >= 0) ...[
-                        ClipRRect(
+                      Expanded(
+                        child: ClipRRect(
                           borderRadius: BorderRadius.circular(4),
                           child: LinearProgressIndicator(
                             value: avgScore / 100,
@@ -891,30 +922,35 @@ class _FichesListScreenState extends State<FichesListScreen> {
                             minHeight: 8,
                           ),
                         ),
-                        const SizedBox(height: 4),
-                        Text(
-                          "Moyenne: ${avgScore.round()}%",
-                          style: TextStyle(
-                            color: _getScoreColor(avgScore),
-                            fontWeight: FontWeight.bold,
-                          ),
+                      ),
+                      const SizedBox(width: 12),
+                      Text(
+                        "${avgScore.round()}%",
+                        style: TextStyle(
+                          color: _getScoreColor(avgScore),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
                         ),
-                      ] else
-                        const Text(
-                          "Commencez un quiz !",
-                          style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
-                        ),
+                      ),
                     ],
                   ),
-                ),
-                const SizedBox(width: 16),
-                ElevatedButton.icon(
-                  onPressed: () => _startSectionQuiz(context),
-                  icon: const Icon(Icons.school, size: 18),
-                  label: const Text("Quiz"),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF1A237E),
-                    foregroundColor: Colors.white,
+                ] else
+                  const Text(
+                    "Commencez un quiz !",
+                    style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
+                  ),
+                const SizedBox(height: 12),
+                // Bouton Quiz
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    onPressed: () => _startSectionQuiz(context),
+                    icon: const Icon(Icons.school, size: 18),
+                    label: const Text("Quiz du chapitre"),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF1A237E),
+                      foregroundColor: Colors.white,
+                    ),
                   ),
                 ),
               ],
@@ -930,6 +966,7 @@ class _FichesListScreenState extends State<FichesListScreen> {
                 final ficheId = file.replaceAll('.md', '');
                 final score = _scoreService.getScore(ficheId);
                 final isFavorite = _favoritesService.isFavorite(ficheId);
+                final isRead = _readingService.isRead(ficheId);
                 
                 return Container(
                   margin: const EdgeInsets.only(bottom: 12),
@@ -939,32 +976,57 @@ class _FichesListScreenState extends State<FichesListScreen> {
                     boxShadow: [BoxShadow(color: Colors.grey.withOpacity(isDark ? 0.05 : 0.1), blurRadius: 5)],
                   ),
                   child: ListTile(
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                    leading: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: score != null 
-                            ? _getScoreColor(score.percentage).withOpacity(0.1)
-                            : (isDark ? Colors.grey[800] : const Color(0xFF1A237E).withOpacity(0.1)),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Icon(
-                        score != null 
-                            ? (score.percentage >= 80 ? Icons.check_circle : Icons.article)
-                            : Icons.article,
-                        color: score != null 
-                            ? _getScoreColor(score.percentage)
-                            : (isDark ? Colors.grey[400] : const Color(0xFF1A237E)),
-                        size: 20,
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    leading: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // Checkbox lecture
+                        SizedBox(
+                          width: 32,
+                          child: Checkbox(
+                            value: isRead,
+                            onChanged: (_) => _readingService.toggleRead(ficheId),
+                            activeColor: Colors.blue,
+                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: score != null 
+                                ? _getScoreColor(score.percentage).withOpacity(0.1)
+                                : (isDark ? Colors.grey[800] : const Color(0xFF1A237E).withOpacity(0.1)),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Icon(
+                            score != null 
+                                ? (score.percentage >= 80 ? Icons.check_circle : Icons.article)
+                                : Icons.article,
+                            color: score != null 
+                                ? _getScoreColor(score.percentage)
+                                : (isDark ? Colors.grey[400] : const Color(0xFF1A237E)),
+                            size: 20,
+                          ),
+                        ),
+                      ],
+                    ),
+                    title: Text(
+                      ficheId,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        decoration: isRead ? TextDecoration.none : TextDecoration.none,
                       ),
                     ),
-                    title: Text(ficheId, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
                     subtitle: score != null
                         ? Text(
                             "Score: ${score.percentage.round()}% • ${_formatDate(score.date)}",
                             style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                           )
-                        : null,
+                        : Text(
+                            isRead ? "Lu" : "Non lu",
+                            style: TextStyle(fontSize: 12, color: isRead ? Colors.blue : Colors.grey[400]),
+                          ),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
