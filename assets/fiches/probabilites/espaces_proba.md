@@ -16,7 +16,7 @@
 
 > [!WARNING]
 > ### 2. Pièges à éviter
-> * **$\mathcal{A} \neq \mathcal{P}(\Omega)$** en général (pour $\Omega$ non dénombrable).
+> * **Tribu $\neq$ ensemble des parties :** $\mathcal{A} \neq \mathcal{P}(\Omega)$ en général (pour $\Omega$ non dénombrable).
 > * **Tribu :** Doit être stable par unions **dénombrables**, pas quelconques.
 > * **Continuité :** $\mathbb{P}(\bigcup_n A_n) = \lim \mathbb{P}(A_n)$ si $A_n \uparrow$ (croissante).
 > * **Événements indépendants :** $\mathbb{P}(A \cap B) = \mathbb{P}(A)\mathbb{P}(B)$, pas seulement pour deux !
