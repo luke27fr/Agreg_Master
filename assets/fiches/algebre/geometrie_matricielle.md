@@ -33,9 +33,9 @@
 > [!QUESTION]
 > ### 4. Questions de Jury
 > * **Q1 :** $GL_n(\mathbb{R})$ est-il connexe ?
->   * **Rép :** Non, il a deux composantes connexes : $GL_n^+$ (où $\det > 0$) et $GL_n^-$ (où $\det < 0$).
+>   * **Rép :** Non, il a deux composantes connexes : $GL_n^+$ où $\det > 0$, et $GL_n^-$ où $\det < 0$.
 > * **Q2 :** Quelle est la dimension de $SL_n(\mathbb{K})$ comme variété ?
->   * **Rép :** $n^2 - 1$ (une équation $\det = 1$ en dimension $n^2$).
+>   * **Rép :** $n^2 - 1$ — une équation $\det = 1$ en dimension $n^2$.
 > * **Q3 :** Qu'est-ce que le commutant d'une matrice ?
 >   * **Rép :** $\text{Com}(A) = \{B : AB = BA\}$. Si $A$ est diagonalisable à valeurs propres distinctes, $\text{Com}(A)$ est l'ensemble des polynômes en $A$.
 
