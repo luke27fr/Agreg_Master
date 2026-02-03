@@ -642,7 +642,7 @@ Géométriquement, c'est la pente de la tangente au graphe en (a, f(a)).
 **Optimisation** : Maximiser un profit ? Cherche où la dérivée = 0 (sommet de la courbe).
 
 **Apprentissage automatique** : La descente de gradient utilise la dérivée pour minimiser l'erreur d'un réseau de neurones. C'est littéralement "suivre la pente descendante".''',
-        lienAvecLycee: 'Tu calcules déjà des dérivées : (x²)' = 2x, (sin)' = cos... Le nombre dérivé f'(a) est la limite du taux d\'accroissement. La tangente a pour équation y = f(a) + f\'(a)(x-a).',
+        lienAvecLycee: 'Tu calcules déjà des dérivées : (x²)\' = 2x, (sin)\' = cos... Le nombre dérivé f\'(a) est la limite du taux d\'accroissement. La tangente a pour équation y = f(a) + f\'(a)(x-a).',
         pourquoiCestImportant: '''La dérivée est l'outil n°1 pour étudier les variations :
 
 • **Théorème de Rolle / TAF** : Si f'(x) > 0, alors f croît. Point critique (f'(a)=0) = possible extremum.
@@ -1238,7 +1238,7 @@ L'analyse complexe est INCROYABLEMENT riche et élégante.''',
 
 **Mécanique des fluides** : Écoulement 2D incompressible = fonction holomorphe ! Parties réelle et imaginaire = lignes de courant et équipotentielles.
 
-**Théorie des nombres** : Fonction ζ de Riemann (hypothèse de Riemann = problème à 1 million $).''',
+**Théorie des nombres** : Fonction ζ de Riemann (hypothèse de Riemann = problème à 1 million \$).''',
         lienAvecLycee: 'Tu connais les nombres complexes z = x + iy. L\'analyse complexe étudie les fonctions de z (comme f(z) = z², e^z, sin(z)...). C\'est le calcul différentiel mais en 2D complexe !',
         pourquoiCestImportant: '''L'analyse complexe résout des problèmes réels de manière élégante :
 
@@ -1255,7 +1255,7 @@ L'analyse complexe est INCROYABLEMENT riche et élégante.''',
           '❌ "Holomorphe = analytique réelle" → Plus fort ! Holomorphe ⟹ développable en série entière',
           '❌ "On peut avoir f\' = 0 en un point isolé" → NON ! Si f\'=0 sur un ouvert, alors f est constante (principe d\'identité)',
         ],
-        anecdote: 'Cauchy (1820s) a fondé l\'analyse complexe rigoureuse. Riemann (1850s) l\'a révolutionné avec les surfaces de Riemann. L\'hypothèse de Riemann (1859) est LE problème ouvert le plus célèbre : "Tous les zéros non triviaux de ζ(s) sont sur la droite Re(s)=1/2." 1 million $ de récompense !',
+        anecdote: 'Cauchy (1820s) a fondé l\'analyse complexe rigoureuse. Riemann (1850s) l\'a révolutionné avec les surfaces de Riemann. L\'hypothèse de Riemann (1859) est LE problème ouvert le plus célèbre : "Tous les zéros non triviaux de ζ(s) sont sur la droite Re(s)=1/2." 1 million \$ de récompense !',
         applicationsReelles: [
           'Calcul d\'intégrales (résidus)',
           'Traitement du signal (transformée Z)',
@@ -1310,7 +1310,7 @@ La topologie est la "géométrie qualitative" : on ne mesure pas distances ou an
           '❌ "Homéomorphe = même forme" → NON ! Même structure topologique, pas nécessairement même forme géométrique',
           '❌ "Le ruban de Möbius a 2 faces" → NON ! Il n\'a qu\'UNE SEULE face (propriété topologique)',
         ],
-        anecdote: 'Poincaré (1904) a conjecturé : "Toute variété fermée simplement connexe de dimension 3 est homéomorphe à la sphère S³." C\'était LE problème ouvert du 20e siècle ! Perelman l\'a résolu en 2003 (médailles Fields + 1M$ refusés). Preuve : 3 articles denses utilisant le flot de Ricci.',
+        anecdote: 'Poincaré (1904) a conjecturé : "Toute variété fermée simplement connexe de dimension 3 est homéomorphe à la sphère S³." C\'était LE problème ouvert du 20e siècle ! Perelman l\'a résolu en 2003 (médailles Fields + 1M\$ refusés). Preuve : 3 articles denses utilisant le flot de Ricci.',
         applicationsReelles: [
           'Robotique (espace des configurations)',
           'Traitement d\'images (topologie algébrique)',
@@ -2065,7 +2065,7 @@ Les espaces de Hilbert généralisent ℝⁿ à l'infini. Toute l'intuition géo
         domaine: 'analyse',
         niveauAgregation: 5,
         difficulteIntuitive: 4,
-        analogiaSimple: 'Espace vectoriel normé (avec une notion de "longueur") et complet.',
+        analogieSimple: 'Espace vectoriel normé (avec une notion de "longueur") et complet.',
         questionCle: 'Comment généraliser ℝⁿ en dimension infinie avec une norme ?',
         explicationIntuitive: '''Un espace de Banach = espace vectoriel normé complet.
 
