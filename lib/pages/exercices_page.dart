@@ -5,6 +5,8 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
 import 'package:markdown/markdown.dart' as md;
 
+import '../widgets/global_search_button.dart';
+
 class ExercicesPage extends StatefulWidget {
   const ExercicesPage({super.key});
 
@@ -80,6 +82,7 @@ class _ExercicesPageState extends State<ExercicesPage> {
         leading: const BackButton(),
         title: const Text('Exercices Classiques', style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
+        actions: const [GlobalSearchButton()],
       ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
@@ -371,6 +374,8 @@ class _ExercicesPageState extends State<ExercicesPage> {
                       ),
                     ),
                     actions: [
+          const GlobalSearchButton(),
+          
                       TextButton(
                         onPressed: () => Navigator.pop(ctx),
                         child: const Text('Fermer'),

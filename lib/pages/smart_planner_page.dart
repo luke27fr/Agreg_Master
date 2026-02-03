@@ -3,6 +3,8 @@ import 'package:table_calendar/table_calendar.dart';
 import '../services/smart_planner_service.dart';
 import '../models/smart_planner_model.dart';
 
+import '../widgets/global_search_button.dart';
+
 class SmartPlannerPage extends StatefulWidget {
   const SmartPlannerPage({super.key});
 
@@ -45,6 +47,8 @@ class _SmartPlannerPageState extends State<SmartPlannerPage> {
         title: const Text('Planning Intelligent', style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
         actions: [
+          const GlobalSearchButton(),
+          
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () => _showConfigDialog(),

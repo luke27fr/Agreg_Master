@@ -3,6 +3,8 @@ import 'package:fl_chart/fl_chart.dart';
 import '../services/wellness_service.dart';
 import '../models/wellness_model.dart';
 
+import '../widgets/global_search_button.dart';
+
 class WellnessPage extends StatefulWidget {
   const WellnessPage({super.key});
 
@@ -41,7 +43,8 @@ class _WellnessPageState extends State<WellnessPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text('Bien-être & Santé', style: TextStyle(fontWeight: FontWeight.bold)),
-        centerTitle: true,
+        $1
+        actions: const [GlobalSearchButton()],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),

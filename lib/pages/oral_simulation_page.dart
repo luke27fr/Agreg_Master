@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'jury_virtuel_page.dart';
 
+import '../widgets/global_search_button.dart';
+
 class OralSimulationPage extends StatefulWidget {
   const OralSimulationPage({super.key});
 
@@ -873,6 +875,8 @@ class _OralSimulationPageState extends State<OralSimulationPage> {
         title: const Text('Abandonner la simulation ?'),
         content: const Text('Votre progression sera perdue.'),
         actions: [
+          const GlobalSearchButton(),
+          
           TextButton(
             onPressed: () => Navigator.pop(ctx),
             child: const Text('Continuer'),

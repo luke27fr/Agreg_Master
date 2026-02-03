@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../widgets/global_search_button.dart';
+
 class QuestionsJuryPage extends StatefulWidget {
   const QuestionsJuryPage({super.key});
 
@@ -73,7 +75,8 @@ class _QuestionsJuryPageState extends State<QuestionsJuryPage> {
         elevation: 0,
         leading: const BackButton(),
         title: const Text('Questions de jury', style: TextStyle(fontWeight: FontWeight.bold)),
-        centerTitle: true,
+        $1
+        actions: const [GlobalSearchButton()],
       ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())

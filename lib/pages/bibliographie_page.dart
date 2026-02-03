@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../widgets/global_search_button.dart';
+
 class BibliographiePage extends StatefulWidget {
   const BibliographiePage({super.key});
 
@@ -53,7 +55,8 @@ class _BibliographiePageState extends State<BibliographiePage> {
         elevation: 0,
         leading: const BackButton(),
         title: const Text('Bibliographie', style: TextStyle(fontWeight: FontWeight.bold)),
-        centerTitle: true,
+        $1
+        actions: const [GlobalSearchButton()],
       ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())

@@ -6,6 +6,8 @@ import 'package:share_plus/share_plus.dart';
 import '../services/structured_notes_service.dart';
 import '../models/structured_notes_model.dart';
 
+import '../widgets/global_search_button.dart';
+
 class StructuredNotesPage extends StatefulWidget {
   const StructuredNotesPage({super.key});
 
@@ -324,6 +326,8 @@ class _StructuredNotesPageState extends State<StructuredNotesPage> with SingleTi
             ),
           ),
           actions: [
+          const GlobalSearchButton(),
+          
             TextButton(
               onPressed: () => Navigator.pop(ctx),
               child: const Text('Annuler'),

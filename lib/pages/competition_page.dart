@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../services/competition_service.dart';
 import '../models/competition_model.dart';
 
+import '../widgets/global_search_button.dart';
+
 class CompetitionPage extends StatefulWidget {
   const CompetitionPage({super.key});
 
@@ -463,6 +465,8 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
           ],
         ),
         actions: [
+          const GlobalSearchButton(),
+          
           TextButton(
             onPressed: () => Navigator.pop(ctx),
             child: const Text('Plus tard'),

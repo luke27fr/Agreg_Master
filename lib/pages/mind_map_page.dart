@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../services/mind_map_service.dart';
 import '../models/mind_map_model.dart';
 
+import '../widgets/global_search_button.dart';
+
 class MindMapPage extends StatefulWidget {
   const MindMapPage({super.key});
 
@@ -584,6 +586,8 @@ class _MindMapPageState extends State<MindMapPage> with SingleTickerProviderStat
           ),
         ),
         actions: [
+          const GlobalSearchButton(),
+          
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
             child: const Text('Fermer'),

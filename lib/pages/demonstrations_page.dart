@@ -5,6 +5,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
 import 'package:markdown/markdown.dart' as md;
 import 'package:url_launcher/url_launcher.dart';
+import '../widgets/global_search_button.dart';
 
 class DemonstrationsPage extends StatefulWidget {
   const DemonstrationsPage({super.key});
@@ -68,6 +69,8 @@ class _DemonstrationsPageState extends State<DemonstrationsPage> {
         title: const Text('Démonstrations', style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
         actions: [
+          // Recherche globale
+          const GlobalSearchButton(),
           // Mode récitation
           IconButton(
             icon: Icon(_showProofs ? Icons.visibility : Icons.visibility_off),

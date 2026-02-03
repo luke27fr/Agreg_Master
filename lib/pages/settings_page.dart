@@ -7,6 +7,8 @@ import '../services/reading_service.dart';
 import '../services/streak_service.dart';
 import 'export_pdf_page.dart';
 
+import '../widgets/global_search_button.dart';
+
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
 
@@ -288,6 +290,8 @@ class _SettingsPageState extends State<SettingsPage> {
         title: Text(title),
         content: Text(message),
         actions: [
+          const GlobalSearchButton(),
+          
           TextButton(
             onPressed: () => Navigator.pop(ctx),
             child: const Text('Annuler'),

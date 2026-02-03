@@ -27,6 +27,7 @@ import '../services/lecon_progress_service.dart';
 import '../services/examen_blanc_service.dart';
 import '../services/structured_notes_service.dart';
 import '../services/wellness_service.dart';
+import '../widgets/global_search_button.dart';
 
 class AgregationHubPage extends StatefulWidget {
   const AgregationHubPage({super.key});
@@ -79,6 +80,8 @@ class _AgregationHubPageState extends State<AgregationHubPage> {
         title: const Text('Préparation Agrégation', style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
         actions: [
+          // Recherche globale
+          const GlobalSearchButton(),
           // Badge count
           IconButton(
             icon: Stack(

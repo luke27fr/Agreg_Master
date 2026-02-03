@@ -3,6 +3,8 @@ import '../services/spaced_repetition_service.dart';
 import '../models/spaced_repetition_model.dart';
 import 'package:intl/intl.dart';
 
+import '../widgets/global_search_button.dart';
+
 class SpacedRepetitionPage extends StatefulWidget {
   const SpacedRepetitionPage({super.key});
 
@@ -44,7 +46,8 @@ class _SpacedRepetitionPageState extends State<SpacedRepetitionPage> with Single
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text('Répétition Espacée', style: TextStyle(fontWeight: FontWeight.bold)),
-        centerTitle: true,
+        $1
+        actions: const [GlobalSearchButton()],
         bottom: TabBar(
           controller: _tabController,
           tabs: const [

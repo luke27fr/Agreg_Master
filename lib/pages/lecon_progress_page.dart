@@ -3,6 +3,8 @@ import 'package:fl_chart/fl_chart.dart';
 import '../services/lecon_progress_service.dart';
 import '../models/lecon_progress_model.dart';
 
+import '../widgets/global_search_button.dart';
+
 class LeconProgressPage extends StatefulWidget {
   const LeconProgressPage({super.key});
 
@@ -636,6 +638,8 @@ class _EditLeconDialogState extends State<_EditLeconDialog> {
         ),
       ),
       actions: [
+          const GlobalSearchButton(),
+          
         TextButton(
           onPressed: () => Navigator.pop(context),
           child: const Text('Annuler'),

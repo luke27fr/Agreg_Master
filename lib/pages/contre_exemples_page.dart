@@ -5,6 +5,8 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
 import 'package:markdown/markdown.dart' as md;
 
+import '../widgets/global_search_button.dart';
+
 class ContreExemplesPage extends StatefulWidget {
   const ContreExemplesPage({super.key});
 
@@ -64,7 +66,8 @@ class _ContreExemplesPageState extends State<ContreExemplesPage> {
         elevation: 0,
         leading: const BackButton(),
         title: const Text('Contre-exemples', style: TextStyle(fontWeight: FontWeight.bold)),
-        centerTitle: true,
+        $1
+        actions: const [GlobalSearchButton()],
       ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())

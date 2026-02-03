@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../services/badge_service.dart';
 
+import '../widgets/global_search_button.dart';
+
 class BadgesPage extends StatefulWidget {
   const BadgesPage({super.key});
 
@@ -247,6 +249,8 @@ class _BadgesPageState extends State<BadgesPage> {
           ],
         ),
         actions: [
+          const GlobalSearchButton(),
+          
           TextButton(
             onPressed: () => Navigator.pop(ctx),
             child: const Text('Fermer'),

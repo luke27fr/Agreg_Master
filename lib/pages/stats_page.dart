@@ -5,6 +5,8 @@ import 'package:fl_chart/fl_chart.dart';
 import '../services/score_service.dart';
 import '../services/reading_service.dart';
 
+import '../widgets/global_search_button.dart';
+
 class StatsPage extends StatefulWidget {
   const StatsPage({super.key});
 
@@ -65,7 +67,8 @@ class _StatsPageState extends State<StatsPage> {
         elevation: 0,
         leading: const BackButton(),
         title: const Text('Statistiques', style: TextStyle(fontWeight: FontWeight.bold)),
-        centerTitle: true,
+        $1
+        actions: const [GlobalSearchButton()],
       ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())

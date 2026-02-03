@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
 import 'package:markdown/markdown.dart' as md;
+import '../widgets/global_search_button.dart';
 
 class LeconsPage extends StatefulWidget {
   const LeconsPage({super.key});
@@ -70,6 +71,7 @@ class _LeconsPageState extends State<LeconsPage> with SingleTickerProviderStateM
         leading: const BackButton(),
         title: const Text('Leçons d\'oral', style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
+        actions: const [GlobalSearchButton()],
         bottom: TabBar(
           controller: _tabController,
           tabs: const [

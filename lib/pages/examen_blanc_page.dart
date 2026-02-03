@@ -3,6 +3,8 @@ import 'dart:async';
 import '../services/examen_blanc_service.dart';
 import '../models/examen_blanc_model.dart';
 
+import '../widgets/global_search_button.dart';
+
 class ExamenBlancPage extends StatefulWidget {
   const ExamenBlancPage({super.key});
 
@@ -719,6 +721,8 @@ class _ExamenRunningPageState extends State<ExamenRunningPage> {
           ],
         ),
         actions: [
+          const GlobalSearchButton(),
+          
           TextButton(
             onPressed: () => Navigator.pop(ctx),
             child: const Text('Fermer'),
