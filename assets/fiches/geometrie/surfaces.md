@@ -17,7 +17,7 @@
 > * **Orientation :** Le choix de $\vec{n}$ définit une orientation ; changer l'ordre de $u, v$ change le signe.
 > * **Courbure intrinsèque :** $K$ est intrinsèque (Theorema Egregium de Gauss), $H$ ne l'est pas.
 > * **Surface minimale :** $H = 0$ (ex : caténoïde, hélicoïde), pas nécessairement d'aire minimale globale.
-> * **Isométries :** Une isométrie préserve $I$ (et $K$), mais pas nécessairement la forme de la surface.
+> * **Isométries :** Une isométrie préserve $I$ et $K$, mais pas nécessairement la forme de la surface.
 
 > [!TIP]
 > ### 3. Exercice Type : Courbure de la sphère
