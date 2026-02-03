@@ -36,7 +36,7 @@
 > * **Q1 :** Énoncer le théorème de Cauchy-Lipschitz linéaire.
 >   * **Rép :** Pour $Y' = A(t)Y + B(t)$ avec $A, B$ continues, il existe une unique solution maximale pour toute condition initiale, définie sur tout l'intervalle.
 > * **Q2 :** Quelle est la dimension de l'espace des solutions d'une EDL d'ordre $n$ ?
->   * **Rép :** $n$ (si les coefficients sont continus et $a_n \neq 0$).
+>   * **Rép :** $n$ (si les coefficients sont continus et $a_n \neq 0$ ).
 > * **Q3 :** Comment résoudre une équation d'Euler $t^2 y'' + aty' + by = 0$ ?
 >   * **Rép :** Changement $t = e^s$ (ou $y = t^r$) ramène à coefficients constants.
 

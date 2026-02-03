@@ -4,7 +4,7 @@
 > ### 1. Définitions et Fondamentaux
 > Les théorèmes de convergence permettent d'intervertir limite et intégrale.
 > * **Convergence monotone (Beppo Levi) :** Si $f_n \nearrow f$ avec $f_n \geq 0$ mesurables, alors $\int f_n \nearrow \int f$.
-> * **Lemme de Fatou :** $\int \liminf f_n \leq \liminf \int f_n$ pour $f_n \geq 0$.
+> * **Lemme de Fatou :** Pour $f_n \geq 0$, on a $\int (\liminf f_n) \leq \liminf (\int f_n)$.
 > * **Convergence dominée (Lebesgue) :** Si $f_n \to f$ p.p., $|f_n| \leq g$ intégrable, alors $\int f_n \to \int f$.
 > * **Fubini :** $\int \int f(x,y) dx dy = \int \int f(x,y) dy dx$ si $\int \int |f| < +\infty$.
 > * **Dérivation sous l'intégrale :** $\frac{d}{dt} \int f(x,t) dx = \int \frac{\partial f}{\partial t}(x,t) dx$ sous conditions.
@@ -27,7 +27,7 @@
 >    Donc $f_n(x) = \frac{n \sin(x/n)}{x(1 + x^2)} \to \frac{1}{1 + x^2}$.
 > 2. **Domination :** $|n \sin(x/n)| \leq |x|$ (car $|\sin u| \leq |u|$).
 >    Donc $|f_n(x)| \leq \frac{1}{1 + x^2}$ qui est intégrable sur $[0, +\infty[$.
-> 3. **Convergence dominée :** $\lim \int f_n = \int \lim f_n = \int_0^{+\infty} \frac{dx}{1 + x^2} = [\arctan x]_0^{+\infty} = \frac{\pi}{2}$.
+> 3. **Convergence dominée :** $\lim_{n} \int f_n = \int (\lim_{n} f_n) = \int_0^{+\infty} \frac{dx}{1 + x^2} = \frac{\pi}{2}$.
 
 > [!QUESTION]
 > ### 4. Questions de Jury

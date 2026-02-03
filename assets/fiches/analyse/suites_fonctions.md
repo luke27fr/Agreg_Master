@@ -7,7 +7,7 @@
 > * **[Convergence uniforme](def:convergence uniforme) :** $\|f_n - f\|_\infty = \sup_x |f_n(x) - f(x)| \to 0$.
 > * **Uniforme $\Rightarrow$ simple :** Mais la réciproque est fausse.
 > * **Continuité :** Si $f_n$ continues et $f_n \to f$ uniformément, alors $f$ est continue.
-> * **Interversion limite-intégrale :** Sous convergence uniforme sur un segment, $\int \lim = \lim \int$.
+> * **Interversion limite-intégrale :** Sous convergence uniforme sur un segment, $\int (\lim f_n) = \lim (\int f_n)$.
 > * **Interversion limite-dérivée :** Si $f_n' \to g$ uniformément et $f_n(a) \to \ell$, alors $f_n \to f$ avec $f' = g$.
 > * **Critère de Cauchy uniforme :** $\sup_x |f_n(x) - f_m(x)| \to 0$ quand $n, m \to \infty$.
 
