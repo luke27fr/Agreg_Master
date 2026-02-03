@@ -26,9 +26,9 @@
 > **Solution Détaillée :**
 > 1. **Matrice augmentée :**
 >    $\begin{pmatrix} 1 & 1 & 1 & | & 1 \\ 2 & 1 & -1 & | & 0 \\ 1 & -1 & 2 & | & 3 \end{pmatrix}$
-> 2. **$L_2 \leftarrow L_2 - 2L_1$, $L_3 \leftarrow L_3 - L_1$ :**
+> 2. $L_2 \leftarrow L_2 - 2L_1$, $L_3 \leftarrow L_3 - L_1$ **:**
 >    $\begin{pmatrix} 1 & 1 & 1 & | & 1 \\ 0 & -1 & -3 & | & -2 \\ 0 & -2 & 1 & | & 2 \end{pmatrix}$
-> 3. **$L_3 \leftarrow L_3 - 2L_2$ :**
+> 3. $L_3 \leftarrow L_3 - 2L_2$ **:**
 >    $\begin{pmatrix} 1 & 1 & 1 & | & 1 \\ 0 & -1 & -3 & | & -2 \\ 0 & 0 & 7 & | & 6 \end{pmatrix}$
 > 4. **Remontée :** $z = 6/7$, $y = 2 - 3z = -4/7$, $x = 1 - y - z = 5/7$.
 

@@ -13,7 +13,7 @@
 
 > [!WARNING]
 > ### 2. Pièges à éviter
-> * **$\in$ vs $\subset$ :** $x \in A$ (élément) vs $B \subset A$ (ensemble). $\{1\} \in \{\{1\}, 2\}$ mais $\{1\} \subset \{1, 2\}$.
+> * $\in$ **vs** $\subset$ **:** $x \in A$ (élément) vs $B \subset A$ (ensemble). $\{1\} \in \{\{1\}, 2\}$ mais $\{1\} \subset \{1, 2\}$.
 > * **Implication :** $P \Rightarrow Q$ est vraie si $P$ est fausse (ex falso quodlibet).
 > * **Négation de $\Rightarrow$ :** $\neg(P \Rightarrow Q) \equiv P \land \neg Q$.
 > * **Ensemble vide :** $\emptyset \subset A$ pour tout $A$. $\emptyset \neq \{\emptyset\}$.

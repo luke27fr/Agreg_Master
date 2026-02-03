@@ -17,7 +17,7 @@
 > ### 2. Pièges à éviter
 > * **Probabilité $\not\Rightarrow$ p.s. :** La réciproque est fausse !
 > * **Loi $\not\Rightarrow$ probabilité :** Convergence en loi vers une v.a. non constante ne donne pas convergence en proba.
-> * **$L^1 \not\Rightarrow L^2$ :** Pas d'implication entre convergences $L^p$ de degrés différents.
+> * $L^1 \not\Rightarrow L^2$ **:** Pas d'implication entre convergences $L^p$ de degrés différents.
 > * **Lemme de Fatou :** $\mathbb{E}[\liminf X_n] \leq \liminf \mathbb{E}[X_n]$ (inégalité !).
 
 > [!TIP]

@@ -16,7 +16,7 @@
 > * **Définie positive :** $\langle x, x \rangle \geq 0$ avec égalité ssi $x = 0$. Essentiel pour avoir une norme.
 > * **Cauchy-Schwarz :** L'égalité a lieu ssi $x$ et $y$ sont colinéaires.
 > * **Gram-Schmidt :** Ne pas oublier de normaliser après orthogonalisation !
-> * **$F^{\perp\perp}$ :** En dimension finie, $F^{\perp\perp} = F$. En dimension infinie, ce n'est pas toujours vrai.
+> * $F^{\perp\perp}$ **:** En dimension finie, $F^{\perp\perp} = F$. En dimension infinie, ce n'est pas toujours vrai.
 > * **Matrice de Gram :** $G_{ij} = \langle e_i, e_j \rangle$. Elle est définie positive ssi la famille est libre.
 
 > [!TIP]

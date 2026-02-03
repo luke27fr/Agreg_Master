@@ -13,7 +13,7 @@
 
 > [!WARNING]
 > ### 2. Pièges à éviter
-> * **$u_n \to 0$ ne suffit pas :** $\sum \frac{1}{n}$ diverge (série harmonique).
+> * $u_n \to 0$ **ne suffit pas :** $\sum \frac{1}{n}$ diverge (série harmonique).
 > * **d'Alembert indécis :** $\ell = 1$ ne conclut pas (ni convergence ni divergence).
 > * **Absolue ≠ simple :** $\sum \frac{(-1)^n}{n}$ converge mais pas absolument.
 > * **Réarrangement :** Une série conditionnellement convergente peut être réarrangée vers n'importe quelle valeur (Riemann).
@@ -24,11 +24,11 @@
 > **Énoncé :** Étudier la convergence de $\sum \frac{1}{n^\alpha}$ selon $\alpha$.
 >
 > **Solution Détaillée :**
-> 1. **$\alpha \leq 0$ :** $\frac{1}{n^\alpha} \geq 1 \not\to 0$. Diverge.
-> 2. **$0 < \alpha \leq 1$ :** Comparaison avec l'intégrale $\int_1^{+\infty} \frac{dx}{x^\alpha}$.
+> 1. $\alpha \leq 0$ **:** $\frac{1}{n^\alpha} \geq 1 \not\to 0$. Diverge.
+> 2. $0 < \alpha \leq 1$ **:** Comparaison avec l'intégrale $\int_1^{+\infty} \frac{dx}{x^\alpha}$.
 >    - Si $\alpha = 1$ : $\int \frac{dx}{x} = \ln(x) \to +\infty$. Diverge.
 >    - Si $\alpha < 1$ : $\int \frac{dx}{x^\alpha} = \frac{x^{1-\alpha}}{1-\alpha} \to +\infty$. Diverge.
-> 3. **$\alpha > 1$ :** $\int_1^{+\infty} \frac{dx}{x^\alpha} = \frac{1}{\alpha - 1} < +\infty$. Converge.
+> 3. $\alpha > 1$ **:** $\int_1^{+\infty} \frac{dx}{x^\alpha} = \frac{1}{\alpha - 1} < +\infty$. Converge.
 > 4. **Conclusion :** $\sum \frac{1}{n^\alpha}$ converge ssi $\alpha > 1$.
 
 > [!QUESTION]

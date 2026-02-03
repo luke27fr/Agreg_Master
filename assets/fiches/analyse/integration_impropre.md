@@ -16,7 +16,7 @@
 > * **Semi-convergence :** $\int_1^{+\infty} \frac{\sin x}{x} dx$ converge mais pas absolument.
 > * **Valeur principale :** $\lim_{\varepsilon \to 0} (\int_{-1}^{-\varepsilon} + \int_{\varepsilon}^{1}) \frac{dx}{x} = 0$ mais l'intégrale diverge.
 > * **Deux singularités :** Traiter chaque singularité séparément.
-> * **$\alpha = 1$ critique :** $\int_1^{+\infty} \frac{dx}{x}$ diverge (logarithme), $\int_0^1 \frac{dx}{x}$ diverge aussi.
+> * $\alpha = 1$ **critique :** $\int_1^{+\infty} \frac{dx}{x}$ diverge (logarithme), $\int_0^1 \frac{dx}{x}$ diverge aussi.
 > * **Comparaison :** Seulement pour fonctions de signe constant !
 
 > [!TIP]

@@ -16,7 +16,7 @@
 > * **Convergence uniforme :** Pas toujours ! Faux si $f$ discontinue.
 > * **Parité :** $f$ paire $\Rightarrow b_n = 0$ (série en cosinus). $f$ impaire $\Rightarrow a_n = 0$ (série en sinus).
 > * **Période :** Attention au facteur d'échelle si la période n'est pas $2\pi$.
-> * **$f \in L^2$ :** Nécessaire pour Parseval, mais pas suffisant pour la convergence ponctuelle.
+> * $f \in L^2$ **:** Nécessaire pour Parseval, mais pas suffisant pour la convergence ponctuelle.
 > * **Continuité ≠ convergence uniforme :** Même une fonction continue peut avoir une série non uniformément convergente.
 
 > [!TIP]

@@ -16,7 +16,7 @@
 > * **Dérivable ≠ $C^1$ :** $f(x) = x^2 \sin(1/x)$ est dérivable en 0 mais $f'$ non continue.
 > * **Dérivée nulle :** $f'(a) = 0$ n'implique pas extremum (point d'inflexion possible).
 > * **Réciproque Rolle :** Faux ! $f'$ peut s'annuler sans que $f$ soit constante sur un intervalle.
-> * **$f' > 0$ presque partout :** Ne suffit pas pour la stricte croissance (fonction de Cantor).
+> * $f' > 0$ **presque partout :** Ne suffit pas pour la stricte croissance (fonction de Cantor).
 > * **Composition :** $(f \circ g)' = (f' \circ g) \cdot g'$ (règle de la chaîne).
 
 > [!TIP]

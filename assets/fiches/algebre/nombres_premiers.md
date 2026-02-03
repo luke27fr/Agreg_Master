@@ -15,7 +15,7 @@
 > ### 2. Pièges à éviter
 > * **1 n'est pas premier :** Par convention, pour préserver l'unicité de la décomposition.
 > * **2 est le seul premier pair :** Tous les autres premiers sont impairs.
-> * **$n! + k$ :** Pour $2 \leq k \leq n$, $n! + k$ est divisible par $k$, donc non premier.
+> * $n! + k$ **:** Pour $2 \leq k \leq n$, $n! + k$ est divisible par $k$, donc non premier.
 > * **Primalité vs décomposition :** Tester si $n$ est premier est plus facile que factoriser $n$.
 > * **Infinité :** Il y a une infinité de premiers, mais leur répartition est irrégulière.
 

@@ -12,7 +12,7 @@
 
 > [!WARNING]
 > ### 2. Pièges à éviter
-> * **$\mathbb{P}(X = x) = 0$ :** Pour une loi continue, la probabilité d'une valeur exacte est nulle.
+> * $\mathbb{P}(X = x) = 0$ **:** Pour une loi continue, la probabilité d'une valeur exacte est nulle.
 > * **Exponentielle sans mémoire :** $\mathbb{P}(X > t + s | X > t) = \mathbb{P}(X > s)$.
 > * **Normale :** $aX + b \sim \mathcal{N}(a\mu + b, a^2\sigma^2)$ (combinaison linéaire).
 > * **Somme de normales indépendantes :** Reste normale.

@@ -9,7 +9,7 @@
 > * **Règle de la chaîne :** $d(g \circ f)_a = dg_{f(a)} \circ df_a$.
 > * **Théorème d'inversion locale :** Si $df_a$ est inversible, $f$ est un [difféomorphisme](def:diffeomorphisme) local près de $a$.
 > * **Théorème des fonctions implicites :** Sous conditions, $F(x, y) = 0$ définit $y$ comme fonction de $x$.
-> * **$C^k$ :** Toutes les dérivées partielles jusqu'à l'ordre $k$ existent et sont continues.
+> * $C^k$ **:** Toutes les dérivées partielles jusqu'à l'ordre $k$ existent et sont continues.
 
 > [!WARNING]
 > ### 2. Pièges à éviter

@@ -16,7 +16,7 @@
 > * **Marginales ne déterminent pas la jointe :** Infinité de lois jointes pour des marginales fixées.
 > * **Non corrélées ≠ indépendantes :** $\text{Cov}(X, Y) = 0$ n'implique pas l'indépendance.
 > * **Contre-exemple :** $X \sim \mathcal{U}([-1, 1])$, $Y = X^2$. $\text{Cov}(X, Y) = 0$ mais pas indépendantes.
-> * **$\text{Var}(X + Y)$ :** $= \text{Var}(X) + \text{Var}(Y) + 2\text{Cov}(X, Y)$.
+> * $\text{Var}(X + Y)$ **:** $= \text{Var}(X) + \text{Var}(Y) + 2\text{Cov}(X, Y)$.
 > * **Loi conditionnelle :** $f_{Y|X=x}(y) = \frac{f_{X,Y}(x, y)}{f_X(x)}$.
 
 > [!TIP]

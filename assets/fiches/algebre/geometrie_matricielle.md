@@ -5,8 +5,8 @@
 > L'espace $\mathcal{M}_n(\mathbb{K})$ des matrices carrées est un espace vectoriel de dimension $n^2$.
 > * **Trace :** $\text{Tr}(A) = \sum a_{ii}$. Forme linéaire, invariante par similitude.
 > * **[Déterminant](def:determinant) :** Forme $n$-linéaire alternée. $\det(AB) = \det(A)\det(B)$.
-> * **$GL_n(\mathbb{K})$ :** Matrices inversibles, $= \{A : \det(A) \neq 0\}$. Ouvert [dense](def:dense) dans $\mathcal{M}_n$.
-> * **$SL_n(\mathbb{K})$ :** Matrices de déterminant 1. Sous-groupe de $GL_n$.
+> * $GL_n(\mathbb{K})$ **:** Matrices inversibles, $= \{A : \det(A) \neq 0\}$. Ouvert [dense](def:dense) dans $\mathcal{M}_n$.
+> * $SL_n(\mathbb{K})$ **:** Matrices de déterminant 1. Sous-groupe de $GL_n$.
 > * **Similitude :** $A \sim B$ si $B = P^{-1}AP$. Mêmes valeurs propres, trace, déterminant, polynômes caractéristique et minimal.
 > * **Congruence :** $A \equiv B$ si $B = P^T A P$. Pour les formes quadratiques.
 > * **Rang :** $\text{rg}(A) = \dim(\text{Im}(A))$. Invariant par multiplication par matrice inversible.
@@ -16,7 +16,7 @@
 > * **Similitude ≠ égalité :** Deux matrices semblables ne sont pas égales en général.
 > * **Commutativité :** $AB \neq BA$ en général. Mais $\text{Tr}(AB) = \text{Tr}(BA)$.
 > * **Inversibilité :** $AB$ inversible n'implique pas $A$ ou $B$ inversible (sauf si l'un est carré).
-> * **$GL_n$ non connexe sur $\mathbb{R}$ :** Deux composantes connexes : $\det > 0$ et $\det < 0$.
+> * $GL_n$ **non connexe sur** $\mathbb{R}$ **:** Deux composantes connexes : $\det > 0$ et $\det < 0$.
 > * **Exponentielle :** $e^{A+B} = e^A e^B$ seulement si $AB = BA$.
 
 > [!TIP]

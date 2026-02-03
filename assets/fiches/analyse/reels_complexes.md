@@ -17,7 +17,7 @@
 > * **Argument non défini pour 0 :** $\arg(0)$ n'existe pas.
 > * **Argument non unique :** $\arg(z)$ est défini modulo $2\pi$.
 > * **Inégalité triangulaire :** $|z + w| \leq |z| + |w|$ avec égalité ssi $z$ et $w$ sont positivement liés.
-> * **$|z^n| = |z|^n$ :** Vrai, mais $\arg(z^n) = n\arg(z)$ modulo $2\pi$.
+> * $|z^n| = |z|^n$ **:** Vrai, mais $\arg(z^n) = n\arg(z)$ modulo $2\pi$.
 > * **Racine carrée complexe :** Pas de racine carrée "canonique" dans $\mathbb{C}$.
 
 > [!TIP]

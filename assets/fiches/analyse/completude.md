@@ -25,7 +25,7 @@
 >
 > **Solution Détaillée :**
 > 1. **Point fixe :** $f(x) = x \Leftrightarrow x = \frac{1}{2}(x + \frac{2}{x}) \Leftrightarrow x^2 = 2 \Leftrightarrow x = \sqrt{2}$.
-> 2. **$f([1,2]) \subset [1,2]$ :** $f(1) = 1.5$, $f(2) = 1.5$. $f$ décroît puis croît, min en $\sqrt{2} \approx 1.414$.
+> 2. $f([1,2]) \subset [1,2]$ **:** $f(1) = 1.5$, $f(2) = 1.5$. $f$ décroît puis croît, min en $\sqrt{2} \approx 1.414$.
 > 3. **Contraction :** $f'(x) = \frac{1}{2}(1 - \frac{2}{x^2})$. Sur $[1, 2]$ : $|f'(x)| \leq \frac{1}{2}$.
 >    Par le TAF : $|f(x) - f(y)| \leq \frac{1}{2}|x - y|$.
 > 4. **Conclusion :** Par Banach, unique point fixe $\sqrt{2}$ dans $[1, 2]$ (complet car fermé de $\mathbb{R}$).

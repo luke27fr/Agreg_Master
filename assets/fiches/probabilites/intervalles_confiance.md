@@ -12,7 +12,7 @@
 
 > [!WARNING]
 > ### 2. Pièges à éviter
-> * **$\theta$ n'est pas aléatoire :** L'IC est aléatoire (dépend des données), pas $\theta$.
+> * $\theta$ **n'est pas aléatoire :** L'IC est aléatoire (dépend des données), pas $\theta$.
 > * **"Contient $\theta$ avec proba 95%" :** Faux pour un IC observé (il contient ou pas).
 > * **Largeur :** Diminue en $1/\sqrt{n}$. Doubler la précision nécessite $4\times$ plus de données.
 > * **Approximations :** L'IC normal pour une proportion est mauvais si $n\hat{p}$ petit.

@@ -16,7 +16,7 @@
 > * **Loi ≠ proba :** Convergence en loi n'implique pas convergence en probabilité.
 > * **Proba ≠ p.s. :** Convergence en probabilité n'implique pas presque sûre en général.
 > * **Extraction :** Convergence en probabilité implique existence d'une sous-suite qui converge p.s.
-> * **$L^r$ :** Nécessite que les $X_n$ soient dans $L^r$ (moment d'ordre $r$ fini).
+> * $L^r$ **:** Nécessite que les $X_n$ soient dans $L^r$ (moment d'ordre $r$ fini).
 > * **Fonction continue :** Si $X_n \xrightarrow{\mathbb{P}} X$ et $g$ continue, alors $g(X_n) \xrightarrow{\mathbb{P}} g(X)$.
 
 > [!TIP]

@@ -25,7 +25,7 @@
 > **Solution Détaillée :**
 > 1. **Notations vectorielles :** Posons $\vec{b} = \overrightarrow{AB}$, $\vec{c} = \overrightarrow{AC}$.
 > 2. **Milieu :** $\overrightarrow{AM} = \frac{\vec{b} + \vec{c}}{2}$.
-> 3. **$\overrightarrow{BM}$ :** $\overrightarrow{BM} = \overrightarrow{BC}/2 = (\vec{c} - \vec{b})/2$.
+> 3. $\overrightarrow{BM}$ **:** $\overrightarrow{BM} = \overrightarrow{BC}/2 = (\vec{c} - \vec{b})/2$.
 > 4. **Calcul de $AM^2$ :** $AM^2 = \frac{1}{4}\|\vec{b}+\vec{c}\|^2 = \frac{1}{4}(b^2 + 2\vec{b}\cdot\vec{c} + c^2)$.
 > 5. **Calcul de $BM^2$ :** $BM^2 = \frac{1}{4}\|\vec{c}-\vec{b}\|^2 = \frac{1}{4}(c^2 - 2\vec{b}\cdot\vec{c} + b^2)$.
 > 6. **Somme :** $2AM^2 + 2BM^2 = b^2 + c^2 = AB^2 + AC^2$. CQFD.

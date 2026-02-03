@@ -14,8 +14,8 @@
 > [!WARNING]
 > ### 2. Pièges à éviter
 > * **Espérance non définie :** Peut ne pas exister (ex : loi de Cauchy).
-> * **$\mathbb{E}[XY] \neq \mathbb{E}[X]\mathbb{E}[Y]$ :** Vrai seulement si $X, Y$ indépendantes.
-> * **$\text{Var}(X + Y) \neq \text{Var}(X) + \text{Var}(Y)$ :** Vrai seulement si $X, Y$ non corrélées.
+> * $\mathbb{E}[XY] \neq \mathbb{E}[X]\mathbb{E}[Y]$ **:** Vrai seulement si $X, Y$ indépendantes.
+> * $\text{Var}(X + Y) \neq \text{Var}(X) + \text{Var}(Y)$ **:** Vrai seulement si $X, Y$ non corrélées.
 > * **Fonction de répartition :** Les sauts correspondent aux atomes (masses ponctuelles).
 > * **Densité :** Non unique (on peut la modifier sur un ensemble de mesure nulle).
 
@@ -26,7 +26,7 @@
 > **Solution Détaillée :**
 > 1. **Espérance :** $\mathbb{E}[X] = \int_0^{+\infty} x \lambda e^{-\lambda x} dx$.
 >    IPP : $= [-xe^{-\lambda x}]_0^{+\infty} + \int_0^{+\infty} e^{-\lambda x} dx = 0 + \frac{1}{\lambda} = \frac{1}{\lambda}$.
-> 2. **$\mathbb{E}[X^2]$ :** $\int_0^{+\infty} x^2 \lambda e^{-\lambda x} dx$. Double IPP $\Rightarrow \frac{2}{\lambda^2}$.
+> 2. $\mathbb{E}[X^2]$ **:** $\int_0^{+\infty} x^2 \lambda e^{-\lambda x} dx$. Double IPP $\Rightarrow \frac{2}{\lambda^2}$.
 > 3. **Variance :** $\text{Var}(X) = \frac{2}{\lambda^2} - \frac{1}{\lambda^2} = \frac{1}{\lambda^2}$.
 > 4. **Écart-type :** $\sigma(X) = \frac{1}{\lambda}$.
 

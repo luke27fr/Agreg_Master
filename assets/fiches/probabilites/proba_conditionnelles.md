@@ -14,7 +14,7 @@
 > ### 2. Pièges à éviter
 > * **Conditionner par $\mathbb{P}(B) = 0$ :** Non défini directement (mais généralisations existent).
 > * **Deux à deux ≠ mutuellement :** L'indépendance deux à deux n'implique pas l'indépendance mutuelle.
-> * **$\mathbb{P}(A|B) \neq \mathbb{P}(B|A)$ :** Confusion fréquente (erreur du procureur).
+> * $\mathbb{P}(A|B) \neq \mathbb{P}(B|A)$ **:** Confusion fréquente (erreur du procureur).
 > * **Bayes :** Inverse le sens du conditionnement. Utile pour les causes sachant les effets.
 > * **Indépendance et exclusivité :** Si $A \cap B = \emptyset$ avec $\mathbb{P}(A), \mathbb{P}(B) > 0$, alors $A$ et $B$ ne sont **pas** indépendants.
 
