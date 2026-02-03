@@ -37,31 +37,37 @@ class MathsIntuitivesService extends ChangeNotifier {
         nom: 'Les Fondations',
         description: 'Les briques de base qui soutiennent toutes les maths',
         emoji: '🏗️',
-        conceptIds: ['espaces-vectoriels', 'dimension', 'applications-lineaires', 'groupes', 'anneaux'],
+        conceptIds: ['espaces-vectoriels', 'dimension', 'applications-lineaires', 'groupes', 'anneaux', 'theoreme-rang'],
       ),
       CategorieIntuitive(
         nom: 'Voir l\'Invisible',
         description: 'Concepts pour comprendre l\'infini et le changement',
         emoji: '🔮',
-        conceptIds: ['limite', 'continuite', 'derivabilite', 'integrale', 'series-numeriques'],
+        conceptIds: ['limite', 'continuite', 'derivabilite', 'integrale', 'series-numeriques', 'equations-differentielles', 'series-fourier'],
       ),
       CategorieIntuitive(
         nom: 'Les Super-Pouvoirs',
         description: 'Théorèmes puissants qui résolvent tout',
         emoji: '⚡',
-        conceptIds: ['valeurs-propres', 'diagonalisation', 'theoreme-spectral'],
+        conceptIds: ['valeurs-propres', 'diagonalisation', 'theoreme-spectral', 'theoreme-point-fixe', 'theoreme-implicite', 'inegalites'],
       ),
       CategorieIntuitive(
         nom: 'Formes et Espaces',
         description: 'Géométrie moderne et abstraite',
         emoji: '🎨',
-        conceptIds: ['produit-scalaire', 'convexite', 'compacite'],
+        conceptIds: ['produit-scalaire', 'convexite', 'compacite', 'topologie', 'isometries'],
       ),
       CategorieIntuitive(
         nom: 'Le Hasard Apprivoisé',
         description: 'Comprendre l\'incertitude avec les probabilités',
         emoji: '🎲',
-        conceptIds: ['esperance', 'variance', 'loi-normale', 'convergence-en-loi'],
+        conceptIds: ['esperance', 'variance', 'loi-normale', 'convergence-en-loi', 'probabilites-conditionnelles'],
+      ),
+      CategorieIntuitive(
+        nom: 'Analyses Avancées',
+        description: 'Outils puissants pour l\'analyse moderne',
+        emoji: '🔬',
+        conceptIds: ['analyse-complexe', 'mesure-lebesgue'],
       ),
     ];
   }
@@ -1087,7 +1093,631 @@ C'est la convergence la plus utilisée en pratique car elle nécessite peu d'hyp
         ],
       ),
 
-      // Ajoutez encore plus de concepts ici si nécessaire...
+      // ============ ENCORE PLUS DE CONCEPTS ============
+
+      ConceptIntuitif(
+        id: 'equations-differentielles',
+        titre: 'Équations Différentielles',
+        domaine: 'analyse',
+        niveauAgregation: 5,
+        difficulteIntuitive: 3,
+        analogieSimple: 'Une équation qui décrit comment quelque chose change dans le temps.',
+        questionCle: 'Comment prédire l\'évolution d\'un système dynamique ?',
+        explicationIntuitive: '''Une équation différentielle (ED) relie une fonction à ses dérivées. Au lieu de chercher un nombre x tel que x² = 4, on cherche une FONCTION f telle que f'(x) = f(x).
+
+**Forme générale** : f'(x) = F(x, f(x))
+
+L'idée : on connaît le "taux de changement" (la dérivée) et on veut reconstituer la fonction complète.
+
+**Intuition physique** : Si tu connais la vitesse v(t) à chaque instant, tu peux retrouver la position x(t) en intégrant : x(t) = ∫v(t)dt.
+
+**Pourquoi c'est partout ?** La plupart des lois physiques s'expriment en termes de changement : F = ma (accélération = dérivée seconde), lois de Newton, Maxwell, Schrödinger... TOUTES sont des ED !
+
+**Types** :
+• Ordre 1 : f' = ...
+• Ordre 2 : f'' = ...
+• Linéaires : f'' + af' + bf = 0 (faciles !)
+• Non-linéaires : f'' = sin(f) (très difficiles !)''',
+        exempleConcret: '''**Refroidissement d'un café** : T'(t) = -k(T - T_ambiante). La température décroît exponentiellement vers la température ambiante (loi de Newton).
+
+**Population de bactéries** : N'(t) = rN(t). Croissance exponentielle : N(t) = N₀e^(rt).
+
+**Oscillateur harmonique** (ressort) : mx'' + kx = 0. Solution : x(t) = A cos(ωt + φ). Mouvement sinusoïdal !
+
+**Circuit RC** : Q'(t) + Q/RC = 0. Charge du condensateur = décroissance exponentielle.
+
+**Pandémie** : Modèle SIR (Susceptible, Infecté, Rétabli). Système d'ED couplées. Utilisé pour prédire l'évolution du COVID-19.''',
+        lienAvecLycee: 'Tu résous déjà des ED simples : primitive de f\' = f. Les ED généralisent : on cherche f telle que f\' dépend de f elle-même (pas juste une fonction donnée).',
+        pourquoiCestImportant: '''Les ED modélisent TOUS les phénomènes dynamiques :
+
+• **Physique** : Mécanique (Newton), électricité (Maxwell), quantique (Schrödinger), relativité (Einstein)
+• **Biologie** : Croissance populations, diffusion de maladies, réactions chimiques
+• **Économie** : Évolution des prix, modèles de croissance
+• **Ingénierie** : Contrôle de systèmes (drones, voitures autonomes, fusées)
+
+**Théorèmes d'existence** : Cauchy-Lipschitz garantit l'existence et l'unicité de solutions.
+
+**Méthodes de résolution** : Séparation des variables, variation de la constante, Laplace, séries...''',
+        visualisation: 'Imagine un champ de vecteurs (flèches en chaque point indiquant la pente). Une solution de l\'ED est une courbe qui suit toujours les flèches (courbe intégrale). Tracer une ED = suivre le courant !',
+        prerequisTerminale: ['Dérivées', 'Primitives', 'Fonctions exponentielles'],
+        ideesFausses: [
+          '❌ "L\'ED f\' = f a une unique solution" → NON ! f(x) = Ce^x pour toute constante C',
+          '❌ "Toute ED a une solution" → NON ! Certaines ED explosent en temps fini',
+          '❌ "ED linéaire ⟹ solution linéaire" → NON ! e^x n\'est pas linéaire mais c\'est solution de f\'=f',
+        ],
+        anecdote: 'Newton a inventé le calcul différentiel (1666) pour résoudre le problème du mouvement des planètes. Son équation F = ma est une ED d\'ordre 2. En 3 mois d\'isolement (peste de Londres), il a révolutionné les maths, la physique et l\'astronomie !',
+        applicationsReelles: [
+          'Prévisions météo (Navier-Stokes)',
+          'Contrôle de drones/satellites',
+          'Modèles épidémiologiques (SIR, SEIR)',
+          'Finance (Black-Scholes pour les options)',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'series-fourier',
+        titre: 'Séries de Fourier',
+        domaine: 'analyse',
+        niveauAgregation: 5,
+        difficulteIntuitive: 3,
+        analogieSimple: 'Décomposer un signal compliqué en somme de sinus et cosinus simples.',
+        questionCle: 'Comment représenter n\'importe quelle fonction périodique ?',
+        explicationIntuitive: '''Toute fonction périodique peut s'écrire comme une somme (infinie) de sinus et cosinus !
+
+**Formule** : f(x) = a₀ + Σ [aₙcos(nx) + bₙsin(nx)]
+
+**Idée géniale** : Au lieu de voir f comme UNE fonction compliquée, on la voit comme une SOMME de fonctions simples (sinus/cosinus) qu'on sait manipuler.
+
+**Analogie musicale** : Un son de guitare = superposition d'harmoniques (fréquence fondamentale + multiples). Les aₙ et bₙ sont les "amplitudes" de chaque harmonique.
+
+**Principe** : Les fonctions {1, cos(x), sin(x), cos(2x), sin(2x), ...} forment une "base" (orthogonale) de l'espace des fonctions périodiques. Tout signal = combinaison linéaire de cette base.
+
+**Convergence** : Pour des fonctions "gentilles" (continues par morceaux), la série de Fourier converge vers f.''',
+        exempleConcret: '''**Signal audio** : Un son = somme de fréquences pures (sinus). L'oreille décompose naturellement en fréquences (cochlée = analyseur de Fourier biologique !).
+
+**Compression MP3** : On garde seulement les coefficients de Fourier importants (hautes fréquences souvent négligeables). Compression avec perte.
+
+**Résolution d'EDP** : Équation de la chaleur, des ondes... On développe en Fourier et ça devient algébrique !
+
+**Signal carré** : Série de Fourier = sin(x) + sin(3x)/3 + sin(5x)/5 + ... Additionner des sinus donne un carré (magique !).
+
+**Cristallographie** : Diffraction des rayons X = transformée de Fourier de la structure atomique.''',
+        lienAvecLycee: 'Tu connais déjà les fonctions trigonométriques sin et cos. Les séries de Fourier disent : TOUTE fonction périodique est une combinaison de ces fonctions de base.',
+        pourquoiCestImportant: '''Les séries de Fourier sont au cœur du traitement du signal :
+
+• **Analyse spectrale** : Décomposer un signal en fréquences (spectrogramme)
+• **Filtrage** : Supprimer certaines fréquences (bruit, aigus, graves...)
+• **Résolution d'EDP** : Méthode de séparation des variables
+• **Compression** : MP3, JPEG (variante : cosinus)
+
+**Théorème fondamental** : Convergence en moyenne quadratique (L²) pour toute fonction de carré intégrable.
+
+**Transformée de Fourier** : Version "non-périodique" pour les signaux quelconques.''',
+        visualisation: 'Imagine un oscilloscope montrant un signal compliqué. La série de Fourier le décompose en barres verticales (spectre de fréquences). Chaque barre = amplitude d\'un sinus/cosinus à une fréquence donnée.',
+        prerequisTerminale: ['Sin, cos', 'Intégration', 'Orthogonalité'],
+        ideesFausses: [
+          '❌ "La série de Fourier converge toujours vers f(x)" → Presque ! Aux points de discontinuité, elle converge vers (f(x⁺)+f(x⁻))/2',
+          '❌ "Il faut une infinité de termes" → En pratique, 10-100 termes suffisent souvent',
+          '❌ "Seulement pour les fonctions périodiques" → Non ! Transformée de Fourier pour les non-périodiques',
+        ],
+        anecdote: 'Fourier (1807) a proposé sa théorie pour résoudre l\'équation de la chaleur. Lagrange et Laplace étaient SCEPTIQUES : "On ne peut pas représenter toute fonction par des sinus !" Il a fallu 50 ans pour rigoureuser (Dirichlet). Aujourd\'hui, c\'est LA base du traitement du signal.',
+        applicationsReelles: [
+          'MP3, JPEG (compression audio/image)',
+          'Égaliseurs audio (filtrage de fréquences)',
+          'Imagerie médicale (IRM = Fourier 2D/3D)',
+          'Télécommunications (modulation de signaux)',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'analyse-complexe',
+        titre: 'Fonctions Holomorphes (Analyse Complexe)',
+        domaine: 'analyse',
+        niveauAgregation: 4,
+        difficulteIntuitive: 4,
+        analogieSimple: 'Fonctions dérivables sur les nombres complexes = super-puissantes.',
+        questionCle: 'Que se passe-t-il quand on fait du calcul avec z = x + iy ?',
+        explicationIntuitive: '''En analyse complexe, on étudie les fonctions f: ℂ → ℂ. Si f est dérivable (au sens complexe), on dit qu'elle est HOLOMORPHE.
+
+**Surprise** : Holomorphe = INFINIMENT dérivable + développable en série entière ! C'est BEAUCOUP plus fort que dérivable réel.
+
+**Cauchy-Riemann** : Pour que f(z) = u(x,y) + iv(x,y) soit holomorphe, il faut :
+∂u/∂x = ∂v/∂y  et  ∂u/∂y = -∂v/∂x
+
+**Propriétés magiques** :
+• Principe du maximum : |f| atteint son max sur le bord (pas à l'intérieur)
+• Théorème de Liouville : Toute fonction entière bornée est constante !
+• Théorème des résidus : Intégrale = 2πi × somme des résidus
+
+L'analyse complexe est INCROYABLEMENT riche et élégante.''',
+        exempleConcret: '''**Fonction exponentielle** : e^z est holomorphe partout. e^(iθ) = cos(θ) + i sin(θ) (formule d'Euler).
+
+**Calcul d'intégrales réelles** : ∫₀^∞ sin(x)/x dx = π/2. Méthode : passer dans le plan complexe et utiliser le théorème des résidus !
+
+**Fractales** : L'ensemble de Mandelbrot est défini par z_{n+1} = z_n² + c dans ℂ. Frontière = fractale.
+
+**Mécanique des fluides** : Écoulement 2D incompressible = fonction holomorphe ! Parties réelle et imaginaire = lignes de courant et équipotentielles.
+
+**Théorie des nombres** : Fonction ζ de Riemann (hypothèse de Riemann = problème à 1 million $).''',
+        lienAvecLycee: 'Tu connais les nombres complexes z = x + iy. L\'analyse complexe étudie les fonctions de z (comme f(z) = z², e^z, sin(z)...). C\'est le calcul différentiel mais en 2D complexe !',
+        pourquoiCestImportant: '''L'analyse complexe résout des problèmes réels de manière élégante :
+
+• **Calcul d'intégrales** : Théorème des résidus = technique ultra-puissante
+• **EDP** : Résolution via fonctions holomorphes (Laplace 2D)
+• **Physique** : Électromagnétisme, mécanique quantique, théorie des cordes
+• **Théorie des nombres** : Fonctions L, hypothèse de Riemann
+
+**Théorème fondamental** : Si f est holomorphe sur un disque, alors f(z) = Σ aₙzⁿ (série entière) sur ce disque.''',
+        visualisation: 'Imagine une surface en 3D (partie réelle de f) au-dessus du plan complexe. Les fonctions holomorphes créent des surfaces "lisses" sans singularités (sauf aux pôles). Zoomer infiniment près d\'un point = la surface devient plane (linéaire).',
+        prerequisTerminale: ['Nombres complexes', 'Exponentielle complexe', 'Formule d\'Euler'],
+        ideesFausses: [
+          '❌ "f(z)=|z| est holomorphe" → NON ! |z| n\'est même pas dérivable (violate Cauchy-Riemann)',
+          '❌ "Holomorphe = analytique réelle" → Plus fort ! Holomorphe ⟹ développable en série entière',
+          '❌ "On peut avoir f\' = 0 en un point isolé" → NON ! Si f\'=0 sur un ouvert, alors f est constante (principe d\'identité)',
+        ],
+        anecdote: 'Cauchy (1820s) a fondé l\'analyse complexe rigoureuse. Riemann (1850s) l\'a révolutionné avec les surfaces de Riemann. L\'hypothèse de Riemann (1859) est LE problème ouvert le plus célèbre : "Tous les zéros non triviaux de ζ(s) sont sur la droite Re(s)=1/2." 1 million $ de récompense !',
+        applicationsReelles: [
+          'Calcul d\'intégrales (résidus)',
+          'Traitement du signal (transformée Z)',
+          'Mécanique des fluides (potentiel complexe)',
+          'Théorie des nombres (ζ de Riemann)',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'topologie',
+        titre: 'Topologie',
+        domaine: 'géométrie',
+        niveauAgregation: 5,
+        difficulteIntuitive: 4,
+        analogieSimple: 'Géométrie "élastique" : ce qui compte, c\'est ce qui reste quand on déforme.',
+        questionCle: 'Comment étudier les propriétés qui résistent aux déformations continues ?',
+        explicationIntuitive: '''La topologie étudie les propriétés qui sont préservées par les déformations continues (étirer, tordre, comprimer) SANS déchirer ni coller.
+
+**Blague classique** : "Un topologue est quelqu'un qui ne fait pas la différence entre une tasse de café et un donut." Pourquoi ? Les deux ont UN trou ! Topologiquement, ils sont équivalents (homéomorphes).
+
+**Concepts de base** :
+• **Ouvert** : Ensemble sans "bord" (ex: intervalle ]a,b[)
+• **Fermé** : Contient sa frontière (ex: [a,b])
+• **Connexe** : En un seul morceau
+• **Compact** : Fermé et borné (en dim finie)
+
+**Invariants topologiques** : Propriétés qui ne changent pas par homéomorphisme (nombre de trous, caractéristique d'Euler...).
+
+La topologie est la "géométrie qualitative" : on ne mesure pas distances ou angles, on étudie la STRUCTURE.''',
+        exempleConcret: '''**Tasse vs Donut** : Homéomorphes (1 trou). Mais sphère (0 trou) ≠ tore (1 trou) topologiquement.
+
+**GPS/Navigation** : Le théorème du point fixe de Brouwer dit qu'une carte de la Terre posée sur la Terre a toujours un point exactement au-dessus de sa position !
+
+**Théorème de Jordan** : Toute courbe fermée simple du plan divise le plan en exactement 2 régions (intérieur et extérieur). Évident visuellement, TRÈS difficile à prouver !
+
+**Nœuds** : En 3D, classifier les nœuds = problème topologique. Nœud trivial (défait) vs nœud de trèfle (pas défait).
+
+**Dimension** : Topologiquement, ℝⁿ ≠ ℝᵐ si n ≠ m (théorème d'invariance du domaine de Brouwer).''',
+        lienAvecLycee: 'Tu connais la continuité : f est continue si "proche de proche". La topologie généralise en définissant quels ensembles sont "ouverts", et la continuité devient : f⁻¹(ouvert) = ouvert.',
+        pourquoiCestImportant: '''La topologie sous-tend toute l'analyse moderne :
+
+• **Espaces fonctionnels** : Convergence de fonctions, compacité...
+• **Géométrie différentielle** : Étude des variétés (surfaces courbes)
+• **Théorie des nœuds** : Classification, invariants (polynôme de Jones...)
+• **Physique** : Théorie quantique des champs, transitions de phase, topologie en matière condensée
+
+**Théorèmes célèbres** : Point fixe de Brouwer, Borsuk-Ulam, théorème de Hahn-Banach...''',
+        visualisation: 'Imagine de la pâte à modeler. Deux objets sont topologiquement équivalents si tu peux déformer l\'un en l\'autre sans déchirer ni coller. Sphère → ellipsoïde (OK). Sphère → tore (impossible : nombre de trous différent).',
+        prerequisTerminale: ['Continuité', 'Ouverts/fermés', 'Distance'],
+        ideesFausses: [
+          '❌ "Topologie = géométrie" → NON ! Topologie ignore distances et angles (géométrie métrique)',
+          '❌ "Homéomorphe = même forme" → NON ! Même structure topologique, pas nécessairement même forme géométrique',
+          '❌ "Le ruban de Möbius a 2 faces" → NON ! Il n\'a qu\'UNE SEULE face (propriété topologique)',
+        ],
+        anecdote: 'Poincaré (1904) a conjecturé : "Toute variété fermée simplement connexe de dimension 3 est homéomorphe à la sphère S³." C\'était LE problème ouvert du 20e siècle ! Perelman l\'a résolu en 2003 (médailles Fields + 1M$ refusés). Preuve : 3 articles denses utilisant le flot de Ricci.',
+        applicationsReelles: [
+          'Robotique (espace des configurations)',
+          'Traitement d\'images (topologie algébrique)',
+          'Données (topological data analysis)',
+          'Physique quantique (isolants topologiques)',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'theoreme-point-fixe',
+        titre: 'Théorèmes de Point Fixe',
+        domaine: 'analyse',
+        niveauAgregation: 4,
+        difficulteIntuitive: 2,
+        analogieSimple: 'Un point qui reste en place quand on applique une transformation.',
+        questionCle: 'Existe-t-il un x tel que f(x) = x ?',
+        explicationIntuitive: '''Un point fixe de f, c'est un x tel que f(x) = x. La fonction "laisse x en place".
+
+**Exemples simples** :
+• f(x) = x² a 2 points fixes : 0 et 1 (car 0²=0 et 1²=1)
+• f(x) = cos(x) a un unique point fixe ≈ 0.739 (résoudre cos(x)=x)
+
+**Théorème de point fixe de Brouwer** : Toute fonction continue f: [a,b] → [a,b] a un point fixe.
+
+**Intuition** : Si tu plies une feuille de papier et la poses sur elle-même, il y a toujours un point qui est exactement au-dessus de sa position initiale !
+
+**Version 2D** : Pour un disque, toute rotation/déformation continue a un point fixe. Exemple : mélanger du café → il reste un point immobile dans la tasse.
+
+Les théorèmes de point fixe garantissent l'existence de solutions sans les calculer explicitement.''',
+        exempleConcret: '''**Carte géographique** : Pose une carte de France sur le sol français. Brouwer garantit qu'un point de la carte est exactement au-dessus du lieu qu'il représente !
+
+**Équilibre économique** : Théorème de Kakutani (généralisation) : un équilibre existe dans un marché (offre = demande). Prix Nobel d'économie (Arrow-Debreu, 1954).
+
+**Résolution d'équations** : f(x) = 0 ⟺ x est point fixe de g(x) = x - f(x). Méthode de Newton = itération pour trouver un point fixe.
+
+**Théorie des jeux** : Théorème de Nash : tout jeu fini a un équilibre (point fixe d'une certaine fonction). Prix Nobel 1994.
+
+**Mécanique des fluides** : Existence de solutions d'EDP via point fixe (Schauder).''',
+        lienAvecLycee: 'Résoudre f(x) = x graphiquement : intersection de y=f(x) et y=x. Le théorème de Brouwer garantit qu\'il existe au moins une intersection si f: [a,b]→[a,b] est continue.',
+        pourquoiCestImportant: '''Les théorèmes de point fixe sont des outils d'existence ultra-puissants :
+
+• **Équations** : Résolution de f(x)=0 via itération de points fixes
+• **EDP** : Existence de solutions (Schauder, Schaefer...)
+• **Théorie des jeux** : Équilibres de Nash
+• **Économie** : Équilibre général (Arrow-Debreu)
+• **Optimisation** : Convergence d'algorithmes itératifs
+
+**Versions** : Brouwer (topologique), Banach (métrique, avec contraction), Kakutani (multifonctions), Schauder (espaces infinis)...''',
+        visualisation: 'Graphiquement : tracer y=f(x) et y=x. Les intersections = points fixes. Brouwer dit : si f: [a,b]→[a,b] continue, il y a forcément une intersection.',
+        prerequisTerminale: ['Fonctions continues', 'Résolution graphique'],
+        ideesFausses: [
+          '❌ "Point fixe = unique" → NON ! f(x)=x² a 2 points fixes. L\'unicité nécessite des conditions (ex: contraction de Banach)',
+          '❌ "Brouwer donne un algorithme" → NON ! Il garantit l\'existence, pas la construction',
+          '❌ "Tout espace a un point fixe" → NON ! Seulement les espaces "gentils" (compacts, convexes...)',
+        ],
+        anecdote: 'Brouwer (1911) a prouvé son théorème par des arguments topologiques (degree theory). Ironiquement, Brouwer était un intuitionniste : il rejetait les preuves non-constructives ! Son propre théorème est non-constructif (prouve l\'existence sans donner d\'algorithme).',
+        applicationsReelles: [
+          'Économie (équilibre général)',
+          'Théorie des jeux (Nash)',
+          'Résolution numérique d\'équations',
+          'EDP (existence de solutions)',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'probabilites-conditionnelles',
+        titre: 'Probabilités Conditionnelles',
+        domaine: 'probabilités',
+        niveauAgregation: 5,
+        difficulteIntuitive: 2,
+        analogieSimple: 'Probabilité sachant qu\'on a une info : "quelle est la chance, SACHANT QUE..." ?',
+        questionCle: 'Comment mettre à jour nos croyances avec de nouvelles informations ?',
+        explicationIntuitive: '''La probabilité conditionnelle P(A|B) mesure la probabilité de A sachant que B est réalisé.
+
+**Formule** : P(A|B) = P(A ∩ B) / P(B)
+
+**Intuition** : On "restreint" l'univers à B. Parmi les cas où B est vrai, quelle fraction vérifie aussi A ?
+
+**Exemple** : Lancer un dé. P(pair) = 1/2. Mais P(pair | ≥4) = ? On sait que le résultat est ≥4, donc {4,5,6}. Parmi ceux-là, 2 sont pairs {4,6}. Donc P(pair|≥4) = 2/3.
+
+**Formule de Bayes** : P(A|B) = P(B|A)·P(A) / P(B)
+
+C'est LA formule pour "inverser" les conditionnements. Fondamentale en statistique bayésienne.
+
+**Indépendance** : A et B indépendants ⟺ P(A|B) = P(A). L'info B ne change rien à la probabilité de A.''',
+        exempleConcret: '''**Test médical** : Maladie rare (1%). Test fiable à 99% (sensibilité et spécificité). Test positif → P(malade|test+) = ?
+
+Intuition fausse : 99% ! FAUX.
+
+Bayes : P(malade|test+) = 0.01×0.99 / (0.01×0.99 + 0.99×0.01) ≈ 50% seulement !
+
+Pourquoi ? La maladie est rare. Même un test à 99% donne beaucoup de faux positifs.
+
+**Spam filter** : P(spam|"viagra") élevé. Bayes combine les mots pour classifier.
+
+**Prévisions météo** : P(pluie demain | nuages aujourd'hui) > P(pluie demain).
+
+**IA** : Classificateurs bayésiens naïfs (Naive Bayes). Très utilisés en ML.''',
+        lienAvecLycee: 'Tu utilises déjà les probas conditionnelles avec les arbres de probabilités. P(A|B) = "probabilité de A sachant B". Bayes permet d\'inverser : si tu connais P(B|A), tu peux trouver P(A|B).',
+        pourquoiCestImportant: '''Les probas conditionnelles sont au cœur de l'inférence statistique :
+
+• **Théorème de Bayes** : Mise à jour de croyances avec de nouvelles données
+• **Tests médicaux** : Interpréter un résultat positif
+• **Machine Learning** : Classificateurs bayésiens, réseaux bayésiens
+• **Filtres anti-spam** : P(spam | mots-clés)
+• **Cryptanalyse** : P(clé | message intercepté)
+
+**Formule des probabilités totales** : P(A) = Σ P(A|Bᵢ)P(Bᵢ) (décomposition selon des cas disjoints).''',
+        visualisation: 'Imagine un diagramme de Venn. P(A|B) = zoomer sur la région B et mesurer quelle fraction est aussi dans A. On "restreint" l\'univers à B.',
+        prerequisTerminale: ['Probabilités', 'Arbres de probabilités', 'Formule de Bayes'],
+        ideesFausses: [
+          '❌ "P(A|B) = P(B|A)" → FAUX ! En général, ils sont différents (penser au test médical)',
+          '❌ "Indépendance ⟹ P(A∩B) = 0" → NON ! Indépendance ⟹ P(A∩B) = P(A)P(B)',
+          '❌ "Test fiable à 99% ⟹ diagnostic sûr à 99%" → NON ! Dépend de la prévalence (Bayes)',
+        ],
+        anecdote: 'Bayes (1763, posthume) a introduit sa formule pour résoudre un problème de "probabilité inverse". Laplace (1774) l\'a redécouvert et popularisé. Aujourd\'hui, la statistique bayésienne est un paradigme majeur, concurrent du fréquentisme. Débat philosophique intense !',
+        applicationsReelles: [
+          'Tests médicaux (diagnostic)',
+          'Filtres anti-spam',
+          'Reconnaissance vocale / OCR',
+          'Apprentissage automatique (Naive Bayes, réseaux bayésiens)',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'inegalites',
+        titre: 'Inégalités Classiques',
+        domaine: 'analyse',
+        niveauAgregation: 4,
+        difficulteIntuitive: 2,
+        analogieSimple: 'Des formules magiques pour comparer et borner des quantités.',
+        questionCle: 'Comment prouver qu\'une quantité est plus grande/petite qu\'une autre ?',
+        explicationIntuitive: '''Les inégalités sont des outils pour BORNER des quantités sans les calculer exactement.
+
+**Inégalités fondamentales** :
+
+1. **Inégalité triangulaire** : |a + b| ≤ |a| + |b|
+   "Le chemin direct est plus court que faire un détour."
+
+2. **AM-GM (Arithmétique-Géométrique)** : (a+b)/2 ≥ √(ab) (pour a,b ≥ 0)
+   "La moyenne arithmétique ≥ moyenne géométrique."
+
+3. **Cauchy-Schwarz** : |⟨u,v⟩| ≤ ‖u‖·‖v‖
+   "Le produit scalaire est borné par le produit des normes."
+
+4. **Hölder** : Généralisation de Cauchy-Schwarz pour Lᵖ.
+
+5. **Jensen** : Si f est convexe, E[f(X)] ≥ f(E[X])
+   "La moyenne de f(X) ≥ f de la moyenne."
+
+Ces inégalités semblent abstraites, mais elles sont PARTOUT et super utiles !''',
+        exempleConcret: '''**AM-GM** : Pour maximiser un rectangle d'aire fixe A = xy avec périmètre P = 2(x+y), on utilise AM-GM : (x+y)/2 ≥ √(xy). Égalité si x=y → carré optimal !
+
+**Cauchy-Schwarz** : En statistiques, |Cor(X,Y)| ≤ 1 (corrélation bornée par 1).
+
+**Inégalité de Bienaymé-Tchebychev** : P(|X-μ| ≥ kσ) ≤ 1/k². Au moins 75% des valeurs sont dans [μ-2σ, μ+2σ].
+
+**Inégalité de Markov** : Si X ≥ 0, alors P(X ≥ a) ≤ E(X)/a. Borne la queue de distribution.
+
+**Optimisation** : Pour maximiser √(x) + √(y) sous contrainte x+y=1, on utilise Cauchy-Schwarz : (√x + √y)² ≤ 2(x+y) = 2. Donc √x + √y ≤ √2.''',
+        lienAvecLycee: 'Tu connais déjà l\'inégalité triangulaire |a+b| ≤ |a|+|b|. Les inégalités classiques généralisent cette idée : comparer des moyennes, des normes, des intégrales...',
+        pourquoiCestImportant: '''Les inégalités sont des outils de preuve essentiels :
+
+• **Analyse** : Majorer des erreurs, prouver la convergence
+• **Optimisation** : Trouver des bornes optimales
+• **Probabilités** : Borner des probabilités (Markov, Tchebychev, Chernoff...)
+• **Géométrie** : Comparer des longueurs, aires, volumes
+
+**Astuce** : Souvent, on utilise plusieurs inégalités en cascade pour obtenir la borne voulue.''',
+        visualisation: 'Pour |a+b| ≤ |a|+|b|, imagine deux vecteurs. Le chemin direct (a+b) est plus court que le détour (a puis b). Pour AM-GM, visualise un rectangle : pour aire fixe, le périmètre minimal = carré.',
+        prerequisTerminale: ['Valeur absolue', 'Moyennes', 'Inégalité triangulaire'],
+        ideesFausses: [
+          '❌ "Inégalité stricte toujours" → NON ! Égalité possible dans des cas particuliers (ex: AM-GM si a=b)',
+          '❌ "Cauchy-Schwarz uniquement pour vecteurs ℝⁿ" → NON ! Valable dans tout espace préhilbertien (fonctions, suites...)',
+          '❌ "Les inégalités sont des gadgets" → NON ! Elles sont au cœur de nombreuses preuves',
+        ],
+        anecdote: 'Cauchy (1821) et Schwarz (1885) ont découvert indépendamment leur inégalité. Elle unifie des dizaines d\'inégalités spécifiques. En 2D : |x₁y₁ + x₂y₂| ≤ √(x₁²+x₂²)·√(y₁²+y₂²). En dimension infinie (L²), c\'est pareil !',
+        applicationsReelles: [
+          'Optimisation (bornes)',
+          'Analyse numérique (contrôle d\'erreurs)',
+          'Probabilités (concentration des mesures)',
+          'Physique (inégalités de Heisenberg)',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'theoreme-rang',
+        titre: 'Théorème du Rang',
+        domaine: 'algèbre',
+        niveauAgregation: 5,
+        difficulteIntuitive: 2,
+        analogieSimple: 'La dimension de l\'image + dimension du noyau = dimension de départ.',
+        questionCle: 'Comment relier ce qu\'on perd (noyau) et ce qu\'on garde (image) ?',
+        explicationIntuitive: '''Pour une application linéaire f: E → F, le théorème du rang dit :
+
+**dim(E) = dim(Ker f) + dim(Im f)**
+
+Ou encore : **dim(E) = dim(Ker f) + rg(f)**
+
+**Intuition** : L'espace de départ E se "décompose" en deux parties :
+• **Ker(f)** : ce qui est envoyé sur 0 (information perdue)
+• **Im(f)** : ce qui est effectivement atteint (information préservée)
+
+**Visualisation** : Imagine une projection. Les vecteurs du noyau sont "écrasés" sur 0. Les autres sont projetés sur l'image. Dim totale = dim écrasée + dim projetée.
+
+**Conséquence** : Si dim(E) = dim(F) finie, alors :
+f injective ⟺ f surjective ⟺ f bijective
+
+C'est magique : en dimension finie, injectif = surjectif !''',
+        exempleConcret: '''**Projection orthogonale** : Projeter ℝ³ sur un plan (dim 2). Le noyau = la droite perpendiculaire au plan (dim 1). Vérif : 3 = 1 + 2 ✓
+
+**Dérivation** : D: ℝₙ[X] → ℝₙ₋₁[X]. Ker(D) = constantes (dim 1). Im(D) = ℝₙ₋₁[X] (dim n). Vérif : n+1 = 1 + n ✓
+
+**Système linéaire Ax = b** : Nombre d'inconnues = dim(Ker A) + rg(A). Si rg(A) = n, le système a une unique solution. Sinon, infinité de solutions (paramètres libres = dim(Ker A)).
+
+**Injectivité vs Surjectivité** : f: ℝ² → ℝ². Si f injective (Ker = {0}), alors rg(f) = 2 = dim(ℝ²), donc f surjective ! Injective ⟺ surjective en dim finie.''',
+        lienAvecLycee: 'Le rang d\'une matrice mesure le nombre de lignes/colonnes indépendantes. Le théorème du rang dit : rang = dim départ - dim noyau. C\'est la formule fondamentale de l\'algèbre linéaire !',
+        pourquoiCestImportant: '''Le théorème du rang est l'outil central pour étudier les applications linéaires :
+
+• **Inversibilité** : f inversible ⟺ Ker(f) = {0} ⟺ rg(f) = dim(E)
+• **Systèmes linéaires** : Nombre de solutions dépend de dim(Ker A)
+• **Dimension d'espaces** : Calculer des dimensions par récurrence
+• **Critères d'injectivité/surjectivité**
+
+**Application** : Théorème de l'isomorphisme : E/Ker(f) ≅ Im(f).''',
+        visualisation: 'Imagine un entonnoir. E = espace d\'entrée (large). F = espace de sortie (étroit). Ker = ce qui est "coincé" dans le goulot (n\'atteint pas F). Im = ce qui passe effectivement. Largeur entonnoir = largeur goulot + largeur sortie.',
+        prerequisTerminale: ['Applications linéaires', 'Noyau', 'Image', 'Dimension'],
+        ideesFausses: [
+          '❌ "Ker(f) et Im(f) sont toujours disjoints" → En général OUI, mais dans E=F, ils peuvent se croiser',
+          '❌ "Rang = nombre de lignes" → NON ! Rang ≤ min(nb lignes, nb colonnes)',
+          '❌ "dim(E) finie ⟹ dim(Im f) finie" → OUI ! Mais dim(F) peut être infinie',
+        ],
+        anecdote: 'Le théorème du rang semble évident, mais sa preuve nécessite le théorème de la base incomplète. En dim infinie, il ÉCHOUE ! Il existe des injections ℕ → ℕ non surjectives (ex: n ↦ 2n). C\'est une spécificité des espaces infinis.',
+        applicationsReelles: [
+          'Résolution de systèmes linéaires',
+          'Compression de données (rang faible)',
+          'Analyse de régression (colinéarité)',
+          'Théorie du contrôle (contrôlabilité)',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'theoreme-implicite',
+        titre: 'Théorème des Fonctions Implicites',
+        domaine: 'analyse',
+        niveauAgregation: 4,
+        difficulteIntuitive: 4,
+        analogieSimple: 'Quand peut-on "résoudre" une équation F(x,y) = 0 pour y en fonction de x ?',
+        questionCle: 'Une équation implicite définit-elle une fonction explicite ?',
+        explicationIntuitive: '''On a une équation F(x,y) = 0. Question : peut-on écrire y = f(x) localement ?
+
+**Théorème** : Si ∂F/∂y ≠ 0 en (x₀,y₀), alors OUI ! Localement, on peut résoudre y = φ(x) avec F(x, φ(x)) = 0.
+
+**Intuition géométrique** : La courbe F(x,y) = 0 "ressemble à un graphe" près de (x₀,y₀) si elle n'est pas verticale (∂F/∂y ≠ 0 = pente non verticale).
+
+**Formule bonus** : φ'(x) = -∂F/∂x / ∂F/∂y (dérivation implicite !)
+
+**Exemple** : Le cercle x² + y² = 1. Localement (si y ≠ 0), on peut écrire y = √(1-x²) ou y = -√(1-x²). Mais globalement, NON (il y a 2 "branches").
+
+C'est un théorème d'EXISTENCE locale, pas de formule explicite globale.''',
+        exempleConcret: '''**Cercle** : x² + y² - 1 = 0. Si y > 0, on peut écrire y = √(1-x²). Si y < 0, y = -√(1-x²). Aux pôles (y=0), ça échoue (∂F/∂y = 2y = 0).
+
+**Courbe de niveau** : f(x,y) = c définit une courbe. Le théorème garantit que c'est localement le graphe d'une fonction (sauf aux points critiques ∇f = 0).
+
+**Optimisation sous contrainte** : Lagrange utilise implicitement ce théorème. À l'optimum, on peut éliminer une variable localement.
+
+**Mécanique** : Équations de liaison (contraintes) définissent implicitement les trajectoires possibles d'un système.
+
+**Thermodynamique** : Équation d'état PV = nRT. On peut résoudre P(V,T) ou V(P,T) ou T(P,V) selon le contexte.''',
+        lienAvecLycee: 'Tu fais déjà de la dérivation implicite ! Exemple : x² + y² = 1. Dériver : 2x + 2yy\' = 0 donc y\' = -x/y. C\'est exactement le théorème des fonctions implicites en action.',
+        pourquoiCestImportant: '''Le théorème des fonctions implicites est fondamental en analyse :
+
+• **Résolution locale** : Garantir qu'une équation définit bien une fonction
+• **Optimisation sous contrainte** : Multiplicateurs de Lagrange
+• **Géométrie différentielle** : Définir des sous-variétés (surfaces courbes)
+• **EDP** : Théorème d'inversion locale (cas particulier)
+
+**Généralisation** : Théorème d'inversion locale, théorème du rang constant.''',
+        visualisation: 'Imagine la courbe F(x,y) = 0 tracée. Si elle n\'est pas verticale en un point (∂F/∂y ≠ 0), elle ressemble localement au graphe d\'une fonction y=φ(x). Si verticale, ça échoue (deux valeurs de y pour un x).',
+        prerequisTerminale: ['Dérivation implicite', 'Courbes de niveau'],
+        ideesFausses: [
+          '❌ "On peut toujours résoudre explicitement" → NON ! Seulement LOCALEMENT et si ∂F/∂y ≠ 0',
+          '❌ "Le théorème donne une formule pour φ(x)" → NON ! Il garantit l\'existence, pas une formule explicite',
+          '❌ "Valable globalement" → NON ! Seulement dans un voisinage du point',
+        ],
+        anecdote: 'Le théorème des fonctions implicites (Cauchy, Dini, 19e) est un des théorèmes les plus utilisés en analyse. Il sous-tend toute la géométrie différentielle. Version moderne : utilise le théorème d\'inversion locale (difféomorphisme local).',
+        applicationsReelles: [
+          'Optimisation (Lagrange)',
+          'Mécanique (contraintes)',
+          'Géométrie différentielle (variétés)',
+          'EDP (méthode des caractéristiques)',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'isometries',
+        titre: 'Isométries',
+        domaine: 'géométrie',
+        niveauAgregation: 5,
+        difficulteIntuitive: 2,
+        analogieSimple: 'Transformation qui préserve les distances (déplacements rigides).',
+        questionCle: 'Comment bouger un objet sans changer sa forme ni sa taille ?',
+        explicationIntuitive: '''Une isométrie, c'est une transformation f telle que d(f(A), f(B)) = d(A,B) pour tous points A,B. Les distances sont PRÉSERVÉES.
+
+**Types d'isométries** (en dim 2) :
+• **Translation** : Décaler dans une direction
+• **Rotation** : Tourner autour d'un point
+• **Symétrie** : Miroir par rapport à une droite
+• **Symétrie glissée** : Miroir + translation
+
+**Propriété clé** : Les isométries forment un GROUPE (on peut les composer, inverser, il y a l'identité).
+
+**Classification** : En dimension n, toute isométrie = rotation + translation (théorème de Chasles en 2D/3D). Si elle fixe un point, c'est une rotation pure (ou symétrie).
+
+**Isométries vs similitudes** : Similitude = isométrie + homothétie (change la taille mais pas la forme).''',
+        exempleConcret: '''**Pavages** : Les motifs de pavages (M.C. Escher) utilisent des isométries (translations, rotations, symétries) pour remplir le plan sans trous ni chevauchements.
+
+**Cristallographie** : Les 230 groupes d'espace décrivent toutes les structures cristallines possibles. Chaque groupe = ensemble d'isométries laissant le cristal invariant.
+
+**Robotique** : Bouger un bras de robot = composition de rotations et translations (isométries). Les matrices SO(3) (rotations 3D) sont fondamentales.
+
+**Rubik's Cube** : Chaque mouvement est une isométrie (rotation d'une face). Le groupe du Rubik's Cube ≈ 4.3×10¹⁹ éléments !
+
+**Géométrie du plan** : Tous les triangles isocèles sont "pareils" à similitude près (même forme, tailles différentes).''',
+        lienAvecLycee: 'Tu connais déjà les transformations du plan : translation, rotation, symétrie. Une isométrie, c\'est exactement ça : transformer sans déformer. Les distances et angles sont préservés.',
+        pourquoiCestImportant: '''Les isométries sont la clé de la géométrie :
+
+• **Classification** : Étudier les objets à isométrie près (congruence)
+• **Groupes de symétrie** : Décrire les symétries d'un objet (molécules, cristaux...)
+• **Géométrie différentielle** : Étude des espaces à courbure constante
+• **Physique** : Invariance par translation/rotation = lois de conservation (Noether)
+
+**Théorème de Cartan-Ambrose-Hicks** : Deux espaces riemanniens sont isométriques ssi même courbure.''',
+        visualisation: 'Imagine un objet rigide (planche de bois). Une isométrie = déplacer la planche sans la déformer. Tu peux la glisser, la tourner, la retourner, mais pas l\'étirer ni la plier.',
+        prerequisTerminale: ['Translations', 'Rotations', 'Symétries', 'Distance'],
+        ideesFausses: [
+          '❌ "Isométrie = linéaire" → NON ! Les translations ne sont pas linéaires (T(0) ≠ 0)',
+          '❌ "Toute application qui préserve la norme est une isométrie" → NON ! Il faut préserver TOUTES les distances',
+          '❌ "Il n\'y a qu\'un nombre fini d\'isométries" → NON ! Les rotations forment un continuum (groupe SO(2))',
+        ],
+        anecdote: 'Hilbert (1899) a axiomatisé la géométrie euclidienne en se basant sur les isométries (congruence). Klein (1872) a proposé le programme d\'Erlangen : classifier les géométries par leurs groupes d\'isométries. Géométrie euclidienne = géométrie du groupe des isométries !',
+        applicationsReelles: [
+          'Robotique (rotations et translations)',
+          'Cristallographie (groupes d\'espace)',
+          'Vision par ordinateur (reconnaissance d\'objets)',
+          'Jeux vidéo (transformations 3D)',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'mesure-lebesgue',
+        titre: 'Mesure de Lebesgue',
+        domaine: 'analyse',
+        niveauAgregation: 4,
+        difficulteIntuitive: 5,
+        analogieSimple: 'Généraliser la notion de "longueur" et "aire" à des ensembles très bizarres.',
+        questionCle: 'Comment mesurer la "taille" d\'un ensemble qui n\'est pas un intervalle ou un rectangle ?',
+        explicationIntuitive: '''L'intégrale de Riemann (lycée) a des limites : elle ne marche que pour des fonctions "gentilles". Lebesgue a révolutionné l'intégration en changeant de point de vue.
+
+**Riemann** : "Découpe l'axe des x en petits intervalles."
+**Lebesgue** : "Découpe l'axe des y (valeurs de f) en petits intervalles."
+
+**Mesure de Lebesgue** : μ(E) = "taille" de E.
+• μ([a,b]) = b - a (longueur d'un intervalle)
+• μ(rectangle) = aire
+• μ(point) = 0
+• μ(ℚ) = 0 ! (ensemble dénombrable)
+
+**Propriétés** :
+• σ-additivité : μ(⋃ Eᵢ disjoints) = Σ μ(Eᵢ)
+• Invariance par translation
+• Ensemble de Cantor : mesure 0 mais non dénombrable !
+
+**Intégrale de Lebesgue** : ∫f dμ généralise l'intégrale de Riemann. Fonctionne pour BEAUCOUP plus de fonctions.''',
+        exempleConcret: '''**Ensemble de Cantor** : On enlève le tiers central de [0,1], puis le tiers central de chaque morceau restant, à l'infini. Ce qui reste a mesure 0 mais contient une infinité non dénombrable de points ! Fractal.
+
+**Fonction de Dirichlet** : f(x) = 1 si x rationnel, 0 sinon. NON intégrable au sens de Riemann, mais intégrable au sens de Lebesgue (∫f = 0 car μ(ℚ) = 0).
+
+**Probabilités** : Toute la théorie moderne des probas utilise la mesure de Lebesgue (ou des généralisations). Loi uniforme sur [0,1] = mesure de Lebesgue normalisée.
+
+**Convergence** : Théorèmes de convergence dominée, monotone... permettent d'intervertir limite et intégrale (impossible avec Riemann en général).''',
+        lienAvecLycee: 'L\'intégrale de Riemann ∫ₐᵇ f(x)dx mesure l\'aire sous la courbe en découpant l\'axe des x. Lebesgue découpe l\'axe des y. Pour des fonctions continues, les deux coïncident. Mais Lebesgue est plus général.',
+        pourquoiCestImportant: '''La théorie de la mesure est le fondement de l'analyse moderne :
+
+• **Probabilités** : Espaces de probabilité = espaces mesurés
+• **EDP** : Espaces de Sobolev (solutions faibles)
+• **Analyse fonctionnelle** : Espaces Lᵖ
+• **Théorèmes de convergence** : Convergence dominée, Fubini...
+
+Sans Lebesgue, pas de probabilités modernes, pas d'EDP modernes, pas d'analyse fonctionnelle.''',
+        visualisation: 'Riemann : découpe l\'axe x en barres verticales fines. Lebesgue : découpe l\'axe y (hauteurs) et mesure l\'ensemble des x ayant chaque hauteur. Pour f continue, même résultat. Pour f discontinue, Lebesgue est plus puissant.',
+        prerequisTerminale: ['Intégrale de Riemann', 'Aire sous une courbe'],
+        ideesFausses: [
+          '❌ "Tout ensemble a une mesure" → NON ! Il existe des ensembles non mesurables (axiome du choix)',
+          '❌ "Mesure 0 ⟹ ensemble fini ou vide" → NON ! ℚ est dénombrable infini et de mesure 0',
+          '❌ "Intégrale Lebesgue = intégrale Riemann" → OUI pour f continue, mais Lebesgue est BEAUCOUP plus général',
+        ],
+        anecdote: 'Lebesgue (1902, thèse de doctorat) a révolutionné l\'intégration. Avant, l\'intégrale de Riemann coinçait sur plein de fonctions. Lebesgue : "Je découpe différemment !" Résultat : théorie ultra-puissante, espaces Lᵖ, probabilités modernes... Bourbaki a dit : "L\'une des plus grandes révolutions mathématiques du 20e siècle."',
+        applicationsReelles: [
+          'Probabilités (espaces mesurés)',
+          'EDP (solutions faibles)',
+          'Traitement du signal (espaces L²)',
+          'Finance (calcul stochastique)',
+        ],
+      ),
+
+      // Fin des concepts
     ];
   }
 }
