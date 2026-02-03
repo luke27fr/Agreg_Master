@@ -146,10 +146,12 @@ class ExamenBlancService extends ChangeNotifier {
               ),
               QuestionExamen(
                 enonce: 'Déterminer la matrice de l\'application linéaire f: R³ → R² définie par f(x,y,z) = (x+y, 2y-z).',
+                correction: 'Dans les bases canoniques, la matrice est Mat(f) = [[1,1,0],[0,2,-1]]. En effet, f(1,0,0) = (1,0), f(0,1,0) = (1,2), f(0,0,1) = (0,-1).',
                 points: 2,
               ),
               QuestionExamen(
                 enonce: 'Calculer le rang de cette application.',
+                correction: 'Les deux lignes de la matrice sont indépendantes donc rg(f) = 2. On peut aussi voir que Im(f) = R² donc rg(f) = dim(Im(f)) = 2.',
                 points: 2,
               ),
             ],
@@ -160,15 +162,18 @@ class ExamenBlancService extends ChangeNotifier {
             questions: [
               QuestionExamen(
                 enonce: 'Soit A la matrice [[2,1],[0,2]]. Calculer les valeurs propres de A.',
+                correction: 'χ_A(X) = det(A - XI) = det([[2-X,1],[0,2-X]]) = (2-X)² = 0. Donc λ = 2 est valeur propre double.',
                 points: 2,
               ),
               QuestionExamen(
                 enonce: 'A est-elle diagonalisable ? Justifier.',
                 indication: 'Vérifiez la dimension des espaces propres.',
+                correction: 'E_2 = ker(A-2I) = ker([[0,1],[0,0]]) = Vect((1,0)). Donc dim(E_2) = 1 < 2 (multiplicité). A n\'est pas diagonalisable.',
                 points: 3,
               ),
               QuestionExamen(
                 enonce: 'Déterminer la forme de Jordan de A.',
+                correction: 'A est déjà en forme de Jordan : J = [[2,1],[0,2]]. C\'est un bloc de Jordan de taille 2 pour λ=2.',
                 points: 3,
               ),
             ],
@@ -179,10 +184,12 @@ class ExamenBlancService extends ChangeNotifier {
             questions: [
               QuestionExamen(
                 enonce: 'Soit E = R³ muni du produit scalaire canonique. Déterminer le projeté orthogonal du vecteur (1,2,3) sur le plan x+y+z=0.',
+                correction: 'P⊥ = Vect(n) où n = (1,1,1). proj_n(v) = ⟨v,n⟩/‖n‖² · n = 6/3 · (1,1,1) = (2,2,2). Donc proj_P(v) = v - proj_n(v) = (1,2,3) - (2,2,2) = (-1,0,1). Vérif : -1+0+1 = 0 ✓',
                 points: 3,
               ),
               QuestionExamen(
                 enonce: 'Calculer la distance de ce vecteur au plan.',
+                correction: 'd(v,P) = ‖proj_n(v)‖ = ‖(2,2,2)‖ = 2√3.',
                 points: 2,
               ),
             ],
@@ -203,10 +210,12 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Étudier la convergence de la série ∑(1/n²).',
                 indication: 'Comparez avec une série de Riemann.',
+                correction: 'C\'est une série de Riemann avec α = 2 > 1, donc elle converge. On peut aussi comparer avec ∫₁^∞ dx/x² = 1 (convergent).',
                 points: 2,
               ),
               QuestionExamen(
                 enonce: 'Montrer que la suite u_n = ∑_{k=1}^n 1/k - ln(n) converge.',
+                correction: 'u_{n+1} - u_n = 1/(n+1) - ln((n+1)/n) = 1/(n+1) - ln(1 + 1/n) > 0 par concavité de ln. Donc (u_n) croissante. De plus, ∫ₖ^{k+1} dx/x ≤ 1/k ≤ ∫_{k-1}^k dx/x donne ln(n) ≤ u_n ≤ 1 + ln(n), donc (u_n) bornée. Par théorème de convergence monotone, u_n → γ (constante d\'Euler ≈ 0.577).',
                 points: 4,
               ),
             ],
@@ -217,15 +226,18 @@ class ExamenBlancService extends ChangeNotifier {
             questions: [
               QuestionExamen(
                 enonce: 'Soit f(x,y) = x²y + y³. Calculer le gradient de f.',
+                correction: '∇f = (∂f/∂x, ∂f/∂y) = (2xy, x² + 3y²).',
                 points: 2,
               ),
               QuestionExamen(
                 enonce: 'Déterminer les points critiques de f.',
+                correction: '∇f = 0 ⟺ 2xy = 0 et x² + 3y² = 0. Donc x = 0 et y = 0. Point critique : (0,0).',
                 points: 3,
               ),
               QuestionExamen(
                 enonce: 'Étudier leur nature (minimum, maximum, point selle).',
                 indication: 'Utilisez la matrice hessienne.',
+                correction: 'Hessienne : H = [[2y, 2x],[2x, 6y]]. En (0,0) : H = [[0,0],[0,0]]. det(H) = 0, test non conclusif. Étude directe : f(x,0) = 0, f(0,y) = y³ change de signe. Donc (0,0) est un point selle.',
                 points: 2,
               ),
             ],
