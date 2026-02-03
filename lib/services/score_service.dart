@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
+import 'spaced_repetition_service.dart';
 
 /// Représente le score d'un quiz pour une fiche
 class QuizScore {
@@ -135,9 +136,40 @@ class ScoreService extends ChangeNotifier {
       _history.removeRange(100, _history.length);
     }
     
+    // Intégrer au système de répétition espacée
+    _updateSpacedRepetition(ficheId, score, total);
+    
     notifyListeners();
     await _persistScores();
     await _persistHistory();
+  }
+
+  /// Met à jour le système de répétition espacée selon le score
+  void _updateSpacedRepetition(String ficheId, int score, int total) {
+    final srsService = SpacedRepetitionService();
+    final percentage = (score / total * 100);
+    
+    // Convertir le pourcentage en qualité (0-5)
+    int quality;
+    if (percentage >= 95) {
+      quality = 5; // Parfait
+    } else if (percentage >= 85) {
+      quality = 4; // Bien
+    } else if (percentage >= 70) {
+      quality = 3; // Difficile mais réussi
+    } else if (percentage >= 50) {
+      quality = 2; // Familier mais échoué
+    } else {
+      quality = 0; // Échec
+    }
+    
+    // Si la fiche n'existe pas encore dans le SRS, l'ajouter
+    if (srsService.getCard(ficheId) == null) {
+      srsService.addCard(ficheId);
+    }
+    
+    // Mettre à jour avec le résultat du quiz
+    srsService.reviewCard(ficheId, quality);
   }
 
   /// Récupère le score d'une fiche

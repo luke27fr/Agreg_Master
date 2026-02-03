@@ -11,8 +11,12 @@ import 'bibliographie_page.dart';
 import 'questions_jury_page.dart';
 import 'badges_page.dart';
 import 'pomodoro_page.dart';
+import 'spaced_repetition_page.dart';
+import 'lecon_progress_page.dart';
 import '../services/streak_service.dart';
 import '../services/badge_service.dart';
+import '../services/spaced_repetition_service.dart';
+import '../services/lecon_progress_service.dart';
 
 class AgregationHubPage extends StatefulWidget {
   const AgregationHubPage({super.key});
@@ -24,18 +28,24 @@ class AgregationHubPage extends StatefulWidget {
 class _AgregationHubPageState extends State<AgregationHubPage> {
   final StreakService _streakService = StreakService();
   final BadgeService _badgeService = BadgeService();
+  final SpacedRepetitionService _srsService = SpacedRepetitionService();
+  final LeconProgressService _progressService = LeconProgressService();
 
   @override
   void initState() {
     super.initState();
     _streakService.addListener(_onDataChanged);
     _badgeService.addListener(_onDataChanged);
+    _srsService.addListener(_onDataChanged);
+    _progressService.addListener(_onDataChanged);
   }
 
   @override
   void dispose() {
     _streakService.removeListener(_onDataChanged);
     _badgeService.removeListener(_onDataChanged);
+    _srsService.removeListener(_onDataChanged);
+    _progressService.removeListener(_onDataChanged);
     super.dispose();
   }
 
@@ -144,6 +154,39 @@ class _AgregationHubPageState extends State<AgregationHubPage> {
               'Préparation Oral',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
+            const SizedBox(height: 12),
+
+            // Progression des leçons (mise en avant)
+            _buildWideFeatureCard(
+              context,
+              isDark,
+              icon: Icons.trending_up,
+              title: 'Ma Progression',
+              subtitle: '${_progressService.getReadyLecons().length} leçon${_progressService.getReadyLecons().length > 1 ? 's' : ''} prête${_progressService.getReadyLecons().length > 1 ? 's' : ''} • Tracker détaillé',
+              color: Colors.teal,
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const LeconProgressPage()),
+              ),
+            ),
+
+            const SizedBox(height: 12),
+
+            // Répétition Espacée (nouveau - mise en avant)
+            _buildWideFeatureCard(
+              context,
+              isDark,
+              icon: Icons.psychology,
+              title: 'Répétition Espacée (SRS)',
+              subtitle: '${_srsService.getDueCards().length} fiche${_srsService.getDueCards().length > 1 ? 's' : ''} à réviser • Mémorisation optimale',
+              color: Colors.deepOrange,
+              badge: _srsService.getDueCards().isNotEmpty ? '${_srsService.getDueCards().length}' : null,
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const SpacedRepetitionPage()),
+              ),
+            ),
+
             const SizedBox(height: 12),
 
             // Simulation Oral (mise en avant)
@@ -585,6 +628,7 @@ class _AgregationHubPageState extends State<AgregationHubPage> {
     required String subtitle,
     required Color color,
     required VoidCallback onTap,
+    String? badge,
   }) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -596,13 +640,38 @@ class _AgregationHubPageState extends State<AgregationHubPage> {
           padding: const EdgeInsets.all(16),
           child: Row(
             children: [
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: color.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(icon, color: color, size: 28),
+              Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: color.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Icon(icon, color: color, size: 28),
+                  ),
+                  if (badge != null)
+                    Positioned(
+                      right: -8,
+                      top: -8,
+                      child: Container(
+                        padding: const EdgeInsets.all(6),
+                        decoration: const BoxDecoration(
+                          color: Colors.red,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Text(
+                          badge,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
               ),
               const SizedBox(width: 16),
               Expanded(

@@ -20,6 +20,8 @@ import 'package:agreg_master/services/settings_service.dart';
 import 'package:agreg_master/services/reading_service.dart';
 import 'package:agreg_master/services/streak_service.dart';
 import 'package:agreg_master/services/badge_service.dart';
+import 'package:agreg_master/services/spaced_repetition_service.dart';
+import 'package:agreg_master/services/lecon_progress_service.dart';
 import 'fiche_page.dart';
 
 void main() async {
@@ -33,6 +35,8 @@ void main() async {
     ReadingService().loadReadingProgress(),
     StreakService().loadData(),
     BadgeService().loadData(),
+    SpacedRepetitionService().loadData(),
+    LeconProgressService().loadData(),
   ]);
   runApp(const AgregMasterApp());
 }
