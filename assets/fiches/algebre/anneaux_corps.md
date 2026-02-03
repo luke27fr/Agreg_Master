@@ -14,7 +14,7 @@
 > [!WARNING]
 > ### 2. Pièges à éviter
 > * **Intègre ≠ corps :** $\mathbb{Z}$ est intègre mais pas un corps (2 n'est pas inversible).
-> * **Idéal premier vs maximal :** Tout idéal maximal est premier, mais pas réciproquement ($\{0\}$ dans $\mathbb{Z}$).
+> * **Idéal premier vs maximal :** Tout idéal maximal est premier, mais pas réciproquement — ex : $\{0\}$ dans $\mathbb{Z}$.
 > * **Caractéristique :** Dans un anneau intègre, la caractéristique est 0 ou un nombre premier.
 > * **$\mathbb{Z}/n\mathbb{Z}$ :** C'est un corps ssi $n$ est premier. Sinon, il a des diviseurs de zéro.
 > * **Sous-anneau :** Doit contenir 1 ! $2\mathbb{Z}$ n'est pas un sous-anneau de $\mathbb{Z}$.
