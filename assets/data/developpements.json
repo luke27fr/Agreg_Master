@@ -22,21 +22,21 @@
     },
     {
       "id": "simplicite_An",
-      "titre": "Simplicité du groupe alterné $A_n$ pour $n \\geq 5$",
+      "titre": "Simplicité du groupe alterné Aₙ pour n ≥ 5",
       "domaine": "Algèbre",
       "niveau": "Classique",
       "duree_min": 15,
       "lecons": [103, 105],
       "prerequis": ["Cycles, signature", "Sous-groupes distingués"],
       "plan": [
-        "1. Les 3-cycles engendrent $A_n$",
-        "2. Les 3-cycles sont conjugués dans $A_n$ (n≥5)",
+        "1. Les 3-cycles engendrent Aₙ",
+        "2. Les 3-cycles sont conjugués dans Aₙ (n≥5)",
         "3. Preuve de simplicité",
         "4. Cas n=5 : isomorphisme avec groupe des rotations de l'icosaèdre"
       ],
       "points_cles": [
         "Lemme : produit de transpositions",
-        "Conjugaison dans $S_n$ vs $A_n$"
+        "Conjugaison dans Sₙ vs Aₙ"
       ]
     },
     {
@@ -87,7 +87,7 @@
       "prerequis": ["Polynôme caractéristique", "Trigonalisation"],
       "plan": [
         "1. Énoncé",
-        "2. Preuve par trigonalisation (sur $\\mathbb{C}$)",
+        "2. Preuve par trigonalisation (sur ℂ)",
         "3. Extension à tout corps",
         "4. Applications : calcul de puissances, inverse"
       ],
@@ -144,13 +144,13 @@
       "prerequis": ["Entiers de Gauss", "Anneaux principaux"],
       "plan": [
         "1. Caractérisation : n = a² + b² ssi...",
-        "2. Primalité dans $\\mathbb{Z}[i]$",
+        "2. Primalité dans ℤ[i]",
         "3. Critère sur les diviseurs premiers",
         "4. Exemples et algorithme"
       ],
       "points_cles": [
         "-1 est un carré mod p ssi p ≡ 1 [4]",
-        "Factorisation unique dans $\\mathbb{Z}[i]$"
+        "Factorisation unique dans ℤ[i]"
       ]
     },
     {
@@ -283,12 +283,12 @@
       ],
       "points_cles": [
         "Fonction dominante intégrable",
-        "Convergence dans $L^1$"
+        "Convergence dans L¹"
       ]
     },
     {
       "id": "fourier_L1",
-      "titre": "Transformée de Fourier dans $L^1$",
+      "titre": "Transformée de Fourier dans L¹",
       "domaine": "Analyse",
       "niveau": "Classique",
       "duree_min": 12,
@@ -315,12 +315,12 @@
       "prerequis": ["Séries de Fourier", "Espaces de Hilbert"],
       "plan": [
         "1. Coefficients de Fourier",
-        "2. Base hilbertienne de $L^2$",
+        "2. Base hilbertienne de L²",
         "3. Égalité de Parseval",
         "4. Applications : calcul de séries"
       ],
       "points_cles": [
-        "$\\sum |c_n|^2 = \\frac{1}{2\\pi}\\int |f|^2$",
+        "∑|cₙ|² = (1/2π)∫|f|²",
         "Exemples de calculs"
       ]
     },
@@ -378,7 +378,7 @@
       ],
       "points_cles": [
         "Normalisation",
-        "Lévy : φ_n → φ implique convergence en loi"
+        "Lévy : φₙ → φ implique convergence en loi"
       ]
     },
     {
@@ -392,12 +392,12 @@
       "plan": [
         "1. Calcul des intégrales de Wallis",
         "2. Relation de récurrence",
-        "3. Équivalent de W_n",
+        "3. Équivalent de Wₙ",
         "4. Formule de Stirling"
       ],
       "points_cles": [
-        "$W_n \\sim \\sqrt{\\pi/(2n)}$",
-        "$n! \\sim \\sqrt{2\\pi n}(n/e)^n$"
+        "Wₙ ~ √(π/(2n))",
+        "n! ~ √(2πn)(n/e)ⁿ"
       ]
     }
   ]

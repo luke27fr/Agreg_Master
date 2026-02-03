@@ -4,12 +4,12 @@
       "id": "lagrange",
       "titre": "Théorème de Lagrange (ordre d'un sous-groupe)",
       "domaine": "Algèbre",
-      "enonce": "Si $H$ est un sous-groupe de $G$ fini, alors $|H|$ divise $|G|$.",
+      "enonce": "Si H est un sous-groupe de G fini, alors |H| divise |G|.",
       "preuve": [
-        "On considère la relation d'équivalence : $x \\sim y \\Leftrightarrow x^{-1}y \\in H$.",
-        "Les classes d'équivalence sont les classes à gauche $gH = \\{gh : h \\in H\\}$.",
-        "Toutes les classes ont le même cardinal $|H|$ (car $g \\cdot : H \\to gH$ est une bijection).",
-        "Les classes partitionnent $G$, donc $|G| = [G:H] \\cdot |H|$."
+        "On considère la relation d'équivalence : x ~ y ⇔ x⁻¹y ∈ H.",
+        "Les classes d'équivalence sont les classes à gauche gH = {gh : h ∈ H}.",
+        "Toutes les classes ont le même cardinal |H| (car g· : H → gH est une bijection).",
+        "Les classes partitionnent G, donc |G| = [G:H] · |H|."
       ],
       "corollaires": [
         "L'ordre d'un élément divise l'ordre du groupe",
@@ -22,11 +22,11 @@
       "id": "rolle",
       "titre": "Théorème de Rolle",
       "domaine": "Analyse",
-      "enonce": "Si $f : [a,b] \\to \\mathbb{R}$ est continue sur $[a,b]$, dérivable sur $]a,b[$, et $f(a) = f(b)$, alors $\\exists c \\in ]a,b[$ tel que $f'(c) = 0$.",
+      "enonce": "Si f : [a,b] → ℝ est continue sur [a,b], dérivable sur ]a,b[, et f(a) = f(b), alors ∃c ∈ ]a,b[ tel que f'(c) = 0.",
       "preuve": [
-        "Si $f$ est constante, $f' = 0$ partout.",
-        "Sinon, $f$ atteint son max ou min en un point intérieur $c$ (Weierstrass).",
-        "En ce point, $f'(c) = 0$ (condition nécessaire d'extremum)."
+        "Si f est constante, f' = 0 partout.",
+        "Sinon, f atteint son max ou min en un point intérieur c (Weierstrass).",
+        "En ce point, f'(c) = 0 (condition nécessaire d'extremum)."
       ],
       "corollaires": [
         "Théorème des accroissements finis",
@@ -39,16 +39,16 @@
       "id": "tvi",
       "titre": "Théorème des valeurs intermédiaires",
       "domaine": "Analyse",
-      "enonce": "Si $f : [a,b] \\to \\mathbb{R}$ est continue et $y$ est entre $f(a)$ et $f(b)$, alors $\\exists c \\in [a,b]$ tel que $f(c) = y$.",
+      "enonce": "Si f : [a,b] → ℝ est continue et y est entre f(a) et f(b), alors ∃c ∈ [a,b] tel que f(c) = y.",
       "preuve": [
-        "On suppose $f(a) < y < f(b)$ (l'autre cas est symétrique).",
-        "Soit $A = \\{x \\in [a,b] : f(x) \\leq y\\}$. $A$ est non vide ($a \\in A$) et majoré.",
-        "Soit $c = \\sup A$. Par continuité, $f(c) = y$.",
-        "Si $f(c) < y$, on pourrait prolonger au-delà de $c$. Si $f(c) > y$, on aurait $c \\notin \\overline{A}$."
+        "On suppose f(a) < y < f(b) (l'autre cas est symétrique).",
+        "Soit A = {x ∈ [a,b] : f(x) ≤ y}. A est non vide (a ∈ A) et majoré.",
+        "Soit c = sup A. Par continuité, f(c) = y.",
+        "Si f(c) < y, on pourrait prolonger au-delà de c. Si f(c) > y, on aurait c ∉ Ā."
       ],
       "corollaires": [
         "Image continue d'un intervalle est un intervalle",
-        "Théorème de Bolzano (version avec $f(a)f(b) < 0$)"
+        "Théorème de Bolzano (version avec f(a)f(b) < 0)"
       ],
       "lecons": [204, 228],
       "tags": ["continuité", "connexité"]
@@ -57,13 +57,13 @@
       "id": "bezout",
       "titre": "Identité de Bézout",
       "domaine": "Algèbre",
-      "enonce": "Si $\\gcd(a,b) = d$, alors $\\exists u,v \\in \\mathbb{Z}$ tels que $au + bv = d$.",
+      "enonce": "Si pgcd(a,b) = d, alors ∃u,v ∈ ℤ tels que au + bv = d.",
       "preuve": [
-        "Soit $I = \\{ax + by : x,y \\in \\mathbb{Z}\\}$. C'est un idéal de $\\mathbb{Z}$.",
-        "Comme $\\mathbb{Z}$ est principal, $I = d'\\mathbb{Z}$ pour un certain $d' > 0$.",
-        "On a $d' | a$ et $d' | b$ donc $d' | d$.",
-        "Inversement, $d | d'$ car $d' \\in I$ s'écrit $d' = ax + by$ avec $d|a$ et $d|b$.",
-        "Donc $d = d'$."
+        "Soit I = {ax + by : x,y ∈ ℤ}. C'est un idéal de ℤ.",
+        "Comme ℤ est principal, I = d'ℤ pour un certain d' > 0.",
+        "On a d' | a et d' | b donc d' | d.",
+        "Inversement, d | d' car d' ∈ I s'écrit d' = ax + by avec d|a et d|b.",
+        "Donc d = d'."
       ],
       "corollaires": [
         "Lemme de Gauss",
@@ -78,14 +78,14 @@
       "domaine": "Analyse",
       "enonce": "Toute suite bornée de réels admet une sous-suite convergente.",
       "preuve": [
-        "Soit $(x_n)$ bornée dans $[a,b]$.",
-        "Dichotomie : l'un des intervalles $[a, (a+b)/2]$ ou $[(a+b)/2, b]$ contient une infinité de termes.",
-        "On construit par récurrence des intervalles emboîtés $[a_n, b_n]$ avec $b_n - a_n = (b-a)/2^n$.",
-        "L'intersection contient un unique point $\\ell$.",
-        "La sous-suite des termes dans chaque intervalle converge vers $\\ell$."
+        "Soit (xₙ) bornée dans [a,b].",
+        "Dichotomie : l'un des intervalles [a, (a+b)/2] ou [(a+b)/2, b] contient une infinité de termes.",
+        "On construit par récurrence des intervalles emboîtés [aₙ, bₙ] avec bₙ - aₙ = (b-a)/2ⁿ.",
+        "L'intersection contient un unique point ℓ.",
+        "La sous-suite des termes dans chaque intervalle converge vers ℓ."
       ],
       "corollaires": [
-        "Les compacts de $\\mathbb{R}^n$ sont les fermés bornés",
+        "Les compacts de ℝⁿ sont les fermés bornés",
         "Théorème de Weierstrass (bornes atteintes)"
       ],
       "lecons": [203, 223],
@@ -95,13 +95,13 @@
       "id": "cayley_hamilton_demo",
       "titre": "Théorème de Cayley-Hamilton",
       "domaine": "Algèbre",
-      "enonce": "Toute matrice annule son polynôme caractéristique : $\\chi_A(A) = 0$.",
+      "enonce": "Toute matrice annule son polynôme caractéristique : χ_A(A) = 0.",
       "preuve": [
-        "Méthode 1 (sur $\\mathbb{C}$) : $A$ est semblable à une triangulaire $T$.",
-        "On vérifie que $\\chi_T(T) = 0$ (calcul direct avec les blocs).",
+        "Méthode 1 (sur ℂ) : A est semblable à une triangulaire T.",
+        "On vérifie que χ_T(T) = 0 (calcul direct avec les blocs).",
         "Méthode 2 (générale) : utiliser la comatrice.",
-        "$(XI - A) \\cdot \\text{Com}(XI-A)^T = \\det(XI-A) \\cdot I = \\chi_A(X) \\cdot I$.",
-        "La comatrice est polynomiale en $X$, on peut substituer $A$ à $X$."
+        "(XI - A) · Com(XI-A)ᵀ = det(XI-A) · I = χ_A(X) · I.",
+        "La comatrice est polynomiale en X, on peut substituer A à X."
       ],
       "corollaires": [
         "Le polynôme minimal divise le polynôme caractéristique",
@@ -117,11 +117,11 @@
       "enonce": "Toute matrice symétrique réelle est diagonalisable dans une base orthonormée.",
       "preuve": [
         "Étape 1 : Les valeurs propres sont réelles.",
-        "Si $Ax = \\lambda x$ avec $x \\neq 0$, alors $\\lambda \\|x\\|^2 = \\langle Ax, x \\rangle = \\langle x, Ax \\rangle = \\bar{\\lambda} \\|x\\|^2$.",
+        "Si Ax = λx avec x ≠ 0, alors λ‖x‖² = ⟨Ax, x⟩ = ⟨x, Ax⟩ = λ̄‖x‖².",
         "Étape 2 : Espaces propres orthogonaux.",
-        "Si $Ax = \\lambda x$ et $Ay = \\mu y$ avec $\\lambda \\neq \\mu$, alors $\\langle x, y \\rangle = 0$.",
+        "Si Ax = λx et Ay = μy avec λ ≠ μ, alors ⟨x, y⟩ = 0.",
         "Étape 3 : Récurrence sur la dimension.",
-        "Soit $\\lambda$ une valeur propre, $F = \\ker(A - \\lambda I)$. Alors $F^\\perp$ est stable par $A$."
+        "Soit λ une valeur propre, F = ker(A - λI). Alors F⊥ est stable par A."
       ],
       "corollaires": [
         "Classification des quadriques",
@@ -134,17 +134,17 @@
       "id": "convergence_dominee_demo",
       "titre": "Théorème de convergence dominée",
       "domaine": "Analyse",
-      "enonce": "Si $f_n \\to f$ p.p., $|f_n| \\leq g$ intégrable, alors $\\int f_n \\to \\int f$.",
+      "enonce": "Si fₙ → f p.p., |fₙ| ≤ g intégrable, alors ∫fₙ → ∫f.",
       "preuve": [
-        "Par Fatou appliqué à $g + f_n \\geq 0$ : $\\int (g+f) \\leq \\liminf \\int (g + f_n)$.",
-        "Donc $\\int f \\leq \\liminf \\int f_n$.",
-        "Par Fatou appliqué à $g - f_n \\geq 0$ : $\\int (g-f) \\leq \\liminf \\int (g - f_n)$.",
-        "Donc $\\int f \\geq \\limsup \\int f_n$.",
-        "On a donc $\\liminf = \\limsup = \\int f$."
+        "Par Fatou appliqué à g + fₙ ≥ 0 : ∫(g+f) ≤ lim inf ∫(g + fₙ).",
+        "Donc ∫f ≤ lim inf ∫fₙ.",
+        "Par Fatou appliqué à g - fₙ ≥ 0 : ∫(g-f) ≤ lim inf ∫(g - fₙ).",
+        "Donc ∫f ≥ lim sup ∫fₙ.",
+        "On a donc lim inf = lim sup = ∫f."
       ],
       "corollaires": [
         "Dérivation sous le signe intégrale",
-        "Convergence dans $L^1$"
+        "Convergence dans L¹"
       ],
       "lecons": [234, 266],
       "tags": ["intégration", "Lebesgue"]
@@ -153,12 +153,12 @@
       "id": "weierstrass_demo",
       "titre": "Théorème d'approximation de Weierstrass",
       "domaine": "Analyse",
-      "enonce": "Toute fonction continue sur $[a,b]$ est limite uniforme de polynômes.",
+      "enonce": "Toute fonction continue sur [a,b] est limite uniforme de polynômes.",
       "preuve": [
-        "On se ramène à $[0,1]$ par changement de variable.",
-        "Polynômes de Bernstein : $B_n(f)(x) = \\sum_{k=0}^n f(k/n) \\binom{n}{k} x^k (1-x)^{n-k}$.",
-        "On montre que $B_n(f) \\to f$ uniformément.",
-        "Utilise la continuité uniforme de $f$ sur $[0,1]$ compact.",
+        "On se ramène à [0,1] par changement de variable.",
+        "Polynômes de Bernstein : Bₙ(f)(x) = Σₖ f(k/n) C(n,k) xᵏ (1-x)ⁿ⁻ᵏ.",
+        "On montre que Bₙ(f) → f uniformément.",
+        "Utilise la continuité uniforme de f sur [0,1] compact.",
         "Estimation via l'inégalité de Bienaymé-Tchebychev."
       ],
       "corollaires": [
@@ -172,13 +172,13 @@
       "id": "point_fixe_banach",
       "titre": "Théorème du point fixe de Banach",
       "domaine": "Analyse",
-      "enonce": "Soit $(E,d)$ complet et $f : E \\to E$ contractante ($d(f(x),f(y)) \\leq k \\cdot d(x,y)$ avec $k < 1$). Alors $f$ a un unique point fixe.",
+      "enonce": "Soit (E,d) complet et f : E → E contractante (d(f(x),f(y)) ≤ k·d(x,y) avec k < 1). Alors f a un unique point fixe.",
       "preuve": [
-        "Unicité : si $f(x) = x$ et $f(y) = y$, alors $d(x,y) = d(f(x),f(y)) \\leq k \\cdot d(x,y)$, donc $d(x,y) = 0$.",
-        "Existence : soit $x_0 \\in E$ et $x_{n+1} = f(x_n)$.",
-        "$d(x_{n+1}, x_n) \\leq k^n d(x_1, x_0)$.",
-        "$(x_n)$ est de Cauchy : $d(x_{n+p}, x_n) \\leq \\frac{k^n}{1-k} d(x_1, x_0)$.",
-        "Par complétude, $x_n \\to \\ell$. Par continuité de $f$, $f(\\ell) = \\ell$."
+        "Unicité : si f(x) = x et f(y) = y, alors d(x,y) = d(f(x),f(y)) ≤ k·d(x,y), donc d(x,y) = 0.",
+        "Existence : soit x₀ ∈ E et xₙ₊₁ = f(xₙ).",
+        "d(xₙ₊₁, xₙ) ≤ kⁿ d(x₁, x₀).",
+        "(xₙ) est de Cauchy : d(xₙ₊ₚ, xₙ) ≤ kⁿ/(1-k) · d(x₁, x₀).",
+        "Par complétude, xₙ → ℓ. Par continuité de f, f(ℓ) = ℓ."
       ],
       "corollaires": [
         "Cauchy-Lipschitz",
@@ -191,16 +191,16 @@
       "id": "gauss_lemme",
       "titre": "Lemme de Gauss",
       "domaine": "Algèbre",
-      "enonce": "Si $a | bc$ et $\\gcd(a,b) = 1$, alors $a | c$.",
+      "enonce": "Si a | bc et pgcd(a,b) = 1, alors a | c.",
       "preuve": [
-        "Par Bézout, $\\exists u, v$ tels que $au + bv = 1$.",
-        "Donc $auc + bvc = c$.",
-        "Or $a | auc$ et $a | bvc$ (car $a | bc$).",
-        "Donc $a | c$."
+        "Par Bézout, ∃u, v tels que au + bv = 1.",
+        "Donc auc + bvc = c.",
+        "Or a | auc et a | bvc (car a | bc).",
+        "Donc a | c."
       ],
       "corollaires": [
         "Unicité de la décomposition en facteurs premiers",
-        "Irréductibilité de $\\mathbb{Z} \\to \\mathbb{Q}$ (Gauss)"
+        "Irréductibilité de ℤ → ℚ (Gauss)"
       ],
       "lecons": [121, 122],
       "tags": ["arithmétique", "divisibilité"]
@@ -209,13 +209,13 @@
       "id": "sylow_premier",
       "titre": "Premier théorème de Sylow",
       "domaine": "Algèbre",
-      "enonce": "Si $p^k$ divise $|G|$, alors $G$ possède un sous-groupe d'ordre $p^k$.",
+      "enonce": "Si pᵏ divise |G|, alors G possède un sous-groupe d'ordre pᵏ.",
       "preuve": [
-        "Action de $G$ sur l'ensemble $X$ des parties à $p^k$ éléments.",
-        "Pour $A \\in X$, $|G \\cdot A| = [G : \\text{Stab}(A)]$ divise $|G|$.",
-        "On montre que $|X| \\not\\equiv 0 \\pmod{p}$ (formule de Lucas).",
-        "Donc $\\exists A$ avec $|G \\cdot A| \\not\\equiv 0 \\pmod{p}$.",
-        "Cela implique $|\\text{Stab}(A)| \\geq p^k$, et l'inclusion donne l'égalité."
+        "Action de G sur l'ensemble X des parties à pᵏ éléments.",
+        "Pour A ∈ X, |G·A| = [G : Stab(A)] divise |G|.",
+        "On montre que |X| ≢ 0 (mod p) (formule de Lucas).",
+        "Donc ∃A avec |G·A| ≢ 0 (mod p).",
+        "Cela implique |Stab(A)| ≥ pᵏ, et l'inclusion donne l'égalité."
       ],
       "corollaires": [
         "Existence des p-sous-groupes de Sylow",

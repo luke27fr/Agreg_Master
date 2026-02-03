@@ -17,10 +17,10 @@
       "numero": 102,
       "titre": "Groupe des nombres complexes de module 1. Sous-groupes des racines de l'unité. Applications.",
       "points_cles": [
-        "Structure de $\\mathbb{U}$",
+        "Structure de 𝕌",
         "Racines n-ièmes de l'unité",
         "Polynômes cyclotomiques",
-        "Sous-groupes finis de $\\mathbb{U}$",
+        "Sous-groupes finis de 𝕌",
         "Applications géométriques"
       ],
       "developpements": ["cyclotomiques", "gauss_regulier"],
@@ -93,12 +93,12 @@
     },
     {
       "numero": 120,
-      "titre": "Anneaux $\\mathbb{Z}/n\\mathbb{Z}$. Applications.",
+      "titre": "Anneaux ℤ/nℤ. Applications.",
       "points_cles": [
         "Structure d'anneau",
         "Inversibles, indicatrice d'Euler",
         "Théorème chinois",
-        "Carrés dans $\\mathbb{Z}/p\\mathbb{Z}$",
+        "Carrés dans ℤ/pℤ",
         "Cryptographie RSA"
       ],
       "developpements": ["chinois", "rsa", "quadratique_reciprocite"],
@@ -164,7 +164,7 @@
         "Eisenstein",
         "Réduction modulo p",
         "Polynômes cyclotomiques",
-        "Irréductibles sur $\\mathbb{R}$, $\\mathbb{C}$"
+        "Irréductibles sur ℝ, ℂ"
       ],
       "developpements": ["eisenstein", "cyclotomiques_irreductibles"],
       "prerequis": ["polynomes", "anneaux_corps"]
@@ -278,7 +278,7 @@
       "titre": "Endomorphismes trigonalisables. Endomorphismes nilpotents.",
       "points_cles": [
         "Caractérisation",
-        "Trigonalisation sur $\\mathbb{C}$",
+        "Trigonalisation sur ℂ",
         "Nilpotents : indice",
         "Jordan (énoncé)",
         "Dunford"
@@ -396,7 +396,7 @@
       "numero": 202,
       "titre": "Exemples de parties denses et applications.",
       "points_cles": [
-        "$\\mathbb{Q}$ dense dans $\\mathbb{R}$",
+        "ℚ dense dans ℝ",
         "Polynômes denses dans $C([a,b])$",
         "Fonctions $C^\\infty$ à support compact",
         "Théorème de Baire",
@@ -410,7 +410,7 @@
       "titre": "Utilisation de la notion de compacité.",
       "points_cles": [
         "Définitions équivalentes",
-        "Compacts de $\\mathbb{R}^n$",
+        "Compacts de ℝⁿ",
         "Théorème des bornes atteintes",
         "Ascoli",
         "Applications"
@@ -485,7 +485,7 @@
     },
     {
       "numero": 215,
-      "titre": "Applications différentiables définies sur un ouvert de $\\mathbb{R}^n$.",
+      "titre": "Applications différentiables définies sur un ouvert de ℝⁿ.",
       "points_cles": [
         "Différentielle, gradient",
         "Dérivées partielles",
@@ -615,10 +615,10 @@
     },
     {
       "numero": 235,
-      "titre": "Intégrales dépendant d'un paramètre, dérivation et limite sous le signe $\\int$.",
+      "titre": "Intégrales dépendant d'un paramètre, dérivation et limite sous le signe ∫.",
       "points_cles": [
-        "Continuité sous $\\int$",
-        "Dérivation sous $\\int$",
+        "Continuité sous ∫",
+        "Dérivation sous ∫",
         "Théorème de convergence dominée",
         "Applications (Gamma, transformées)",
         "Exemples"
@@ -680,7 +680,7 @@
     },
     {
       "numero": 245,
-      "titre": "Fonctions holomorphes sur un ouvert de $\\mathbb{C}$.",
+      "titre": "Fonctions holomorphes sur un ouvert de ℂ.",
       "points_cles": [
         "Définition, Cauchy-Riemann",
         "Analyticité",
