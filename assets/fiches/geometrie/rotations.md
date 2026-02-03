@@ -2,7 +2,7 @@
 
 > [!NOTE]
 > ### 1. Définitions et Fondamentaux
-> Une rotation est une isométrie directe (déterminant $+1$) qui fixe un point ou un axe.
+> Une rotation est une isométrie directe de déterminant $+1$ qui fixe un point ou un axe.
 > * **Rotation plane :** $R_\theta = \begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix}$.
 > * **Groupe $SO_2(\mathbb{R})$ :** Rotations du plan, isomorphe à $\mathbb{R}/2\pi\mathbb{Z}$ ou au cercle $\mathbb{S}^1$.
 > * **Rotation 3D :** Matrice $\in SO_3(\mathbb{R})$. Admet un axe (droite de points fixes).

@@ -6,8 +6,8 @@
 > * **Hypothèse nulle $H_0$ :** Hypothèse à tester (souvent "pas d'effet").
 > * **Hypothèse alternative $H_1$ :** Hypothèse concurrente.
 > * **Région critique $W$ :** Ensemble des valeurs de la statistique qui conduisent à rejeter $H_0$.
-> * **Erreur de type I (risque $\alpha$) :** Rejeter $H_0$ alors qu'elle est vraie. $\alpha = \mathbb{P}(W | H_0)$.
-> * **Erreur de type II (risque $\beta$) :** Accepter $H_0$ alors qu'elle est fausse. $\beta = \mathbb{P}(W^c | H_1)$.
+> * **Erreur de type I** risque $\alpha$ **:** Rejeter $H_0$ alors qu'elle est vraie. $\alpha = \mathbb{P}(W | H_0)$.
+> * **Erreur de type II** risque $\beta$ **:** Accepter $H_0$ alors qu'elle est fausse. $\beta = \mathbb{P}(W^c | H_1)$.
 > * **Puissance :** $1 - \beta$ = probabilité de rejeter $H_0$ quand $H_1$ est vraie.
 > * **p-valeur :** Plus petite valeur de $\alpha$ pour laquelle on rejette $H_0$ avec les données observées.
 

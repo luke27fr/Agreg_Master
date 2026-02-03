@@ -24,7 +24,7 @@
 > **Énoncé :** Montrer qu'il existe une infinité de nombres premiers congrus à $3$ modulo $4$.
 >
 > **Solution Détaillée :**
-> 1. Supposons qu'il n'y ait qu'un nombre fini de tels premiers : $p_1, \ldots, p_k$ (tous $\equiv 3 \pmod{4}$).
+> 1. Supposons qu'il n'y ait qu'un nombre fini de tels premiers : $p_1, \ldots, p_k$, tous $\equiv 3 \pmod{4}$.
 > 2. Posons $N = 4p_1 \cdots p_k - 1 \equiv -1 \equiv 3 \pmod{4}$.
 > 3. $N$ est impair. S'il n'avait que des facteurs premiers $\equiv 1 \pmod{4}$, alors $N \equiv 1 \pmod{4}$. Contradiction.
 > 4. Donc $N$ a un facteur premier $q \equiv 3 \pmod{4}$.

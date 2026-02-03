@@ -5,7 +5,7 @@
 > Plusieurs notions de convergence pour les suites de variables aléatoires.
 > * **Presque sûre (p.s.) :** $\mathbb{P}(\lim X_n = X) = 1$.
 > * **En probabilité :** $\forall \varepsilon > 0, \mathbb{P}(|X_n - X| > \varepsilon) \to 0$.
-> * **En loi (notée $\mathcal{L}$) :** $F_{X_n}(x) \to F_X(x)$ en tout point de continuité de $F_X$.
+> * **En loi** notée $\mathcal{L}$ **:** $F_{X_n}(x) \to F_X(x)$ en tout point de continuité de $F_X$.
 > * **En moyenne d'ordre** $r$ **dans** $L^r$ **:** $\mathbb{E}[|X_n - X|^r] \to 0$.
 > * **Implications :** p.s. $\Rightarrow$ proba $\Rightarrow$ loi. $L^r \Rightarrow$ proba.
 > * **Lemme de Slutsky :** Si $X_n \xrightarrow{\mathcal{L}} X$ et $Y_n \xrightarrow{\mathbb{P}} c$ (constante), alors $X_n + Y_n \xrightarrow{\mathcal{L}} X + c$.

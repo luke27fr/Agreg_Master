@@ -38,7 +38,7 @@
 > * **Q2 :** Comment reconnaître une conique à partir de son équation générale ?
 >   * **Rép :** $\Delta = b^2 - 4ac$ : $\Delta < 0$ ellipse, $\Delta = 0$ parabole, $\Delta > 0$ hyperbole.
 > * **Q3 :** Qu'est-ce que la directrice d'une parabole ?
->   * **Rép :** Droite telle que pour tout point $M$ de la parabole, $MF = MH$ (excentricité $e = 1$).
+>   * **Rép :** Droite telle que pour tout point $M$ de la parabole, $MF = MH$ — excentricité $e = 1$.
 
 ### 5. Références Bibliographiques
 * **M. Berger**, *Géométrie* — Encyclopédique, couvre tous les aspects des coniques.
