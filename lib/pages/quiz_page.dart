@@ -19,6 +19,7 @@ class _QuizPageState extends State<QuizPage> {
   int currentIndex = 0;
   bool isAnswered = false;
   int? selectedOption;
+  int score = 0;
 
   static md.ExtensionSet get _latexExtensionSet => md.ExtensionSet(
     [LatexBlockSyntax(), ...md.ExtensionSet.gitHubFlavored.blockSyntaxes],
@@ -27,9 +28,13 @@ class _QuizPageState extends State<QuizPage> {
 
   void _checkAnswer(int index) {
     if (isAnswered) return;
+    final question = widget.questions[currentIndex];
     setState(() {
       selectedOption = index;
       isAnswered = true;
+      if (index == question.correctIndex) {
+        score++;
+      }
     });
   }
 
@@ -41,8 +46,89 @@ class _QuizPageState extends State<QuizPage> {
         selectedOption = null;
       });
     } else {
-      Navigator.pop(context);
+      _showScoreDialog();
     }
+  }
+
+  void _showScoreDialog() {
+    final total = widget.questions.length;
+    final percentage = (score / total * 100).round();
+    
+    String message;
+    IconData icon;
+    Color color;
+    
+    if (percentage >= 80) {
+      message = "Excellent ! 🎉";
+      icon = Icons.emoji_events;
+      color = Colors.amber;
+    } else if (percentage >= 60) {
+      message = "Bien joué ! 👍";
+      icon = Icons.thumb_up;
+      color = Colors.green;
+    } else if (percentage >= 40) {
+      message = "Peut mieux faire 📚";
+      icon = Icons.menu_book;
+      color = Colors.orange;
+    } else {
+      message = "À revoir ! 💪";
+      icon = Icons.refresh;
+      color = Colors.red;
+    }
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: Row(
+          children: [
+            Icon(icon, color: color, size: 32),
+            const SizedBox(width: 12),
+            const Text("Résultat du Quiz"),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(height: 16),
+            Text(
+              "$score / $total",
+              style: TextStyle(
+                fontSize: 48,
+                fontWeight: FontWeight.bold,
+                color: color,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              "$percentage%",
+              style: TextStyle(
+                fontSize: 24,
+                color: Colors.grey[600],
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              message,
+              style: const TextStyle(fontSize: 20),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(ctx);
+              Navigator.pop(context);
+            },
+            child: const Text(
+              "Fermer",
+              style: TextStyle(fontSize: 16, color: Color(0xFF1A237E)),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   MarkdownStyleSheet _buildTheme(BuildContext context) {
@@ -70,6 +156,17 @@ class _QuizPageState extends State<QuizPage> {
         title: Text('Quiz — ${widget.title}'),
         backgroundColor: const Color(0xFF1A237E),
         foregroundColor: Colors.white,
+        actions: [
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.only(right: 16),
+              child: Text(
+                'Score: $score/${currentIndex + (isAnswered ? 1 : 0)}',
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
