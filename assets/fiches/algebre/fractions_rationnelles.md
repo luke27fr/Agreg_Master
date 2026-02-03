@@ -6,7 +6,7 @@
 > * **Corps des fractions :** $\mathbb{K}(X)$ est le corps des fractions de l'anneau $\mathbb{K}[X]$.
 > * **Forme irréductible :** $F = \frac{P}{Q}$ avec $\gcd(P, Q) = 1$ et $Q$ unitaire.
 > * **Degré :** $\deg(F) = \deg(P) - \deg(Q)$.
-> * **Pôle :** $\alpha$ est un pôle de $F$ si $Q(\alpha) = 0$ (et $P(\alpha) \neq 0$).
+> * **Pôle :** $\alpha$ est un pôle de $F$ si $Q(\alpha) = 0$ et $P(\alpha) \neq 0$.
 > * **Ordre d'un pôle :** Multiplicité de $\alpha$ comme racine de $Q$.
 > * **Partie entière :** Division euclidienne : $F = E + \frac{R}{Q}$ avec $\deg(R) < \deg(Q)$.
 > * **Décomposition en éléments simples :** Sur $\mathbb{C}$ : $F = E + \sum \frac{a_{i,j}}{(X - \alpha_i)^j}$.
