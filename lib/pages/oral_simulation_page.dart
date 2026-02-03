@@ -48,11 +48,11 @@ class _OralSimulationPageState extends State<OralSimulationPage> {
   Future<void> _loadLecons() async {
     try {
       final json = await rootBundle.loadString('assets/data/lecons.json');
-      final data = jsonDecode(json);
+      final data = Map<String, dynamic>.from(jsonDecode(json) as Map);
       setState(() {
         _allLecons = [
-          ...(data['algebre'] as List).map((l) => {...l, 'domaine': 'Algèbre'}),
-          ...(data['analyse'] as List).map((l) => {...l, 'domaine': 'Analyse'}),
+          ...(data['algebre'] as List).map((l) => Map<String, dynamic>.from({...Map<String, dynamic>.from(l as Map), 'domaine': 'Algèbre'})),
+          ...(data['analyse'] as List).map((l) => Map<String, dynamic>.from({...Map<String, dynamic>.from(l as Map), 'domaine': 'Analyse'})),
         ];
       });
     } catch (e) {
