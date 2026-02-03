@@ -4,7 +4,7 @@
 > ### 1. Définitions et Fondamentaux
 > L'espace $\mathcal{M}_n(\mathbb{K})$ des matrices carrées est un espace vectoriel de dimension $n^2$.
 > * **Trace :** $\text{Tr}(A) = \sum a_{ii}$. Forme linéaire, invariante par similitude.
-> * **[Déterminant](def:determinant) :** Forme $n$-linéaire alternée. $\det(AB) = \det(A)\det(B)$.
+> * **[Déterminant](def:determinant) :** Forme n-linéaire alternée. $\det(AB) = \det(A)\det(B)$.
 > * $GL_n(\mathbb{K})$ **:** Matrices inversibles, $= \{A : \det(A) \neq 0\}$. Ouvert [dense](def:dense) dans $\mathcal{M}_n$.
 > * $SL_n(\mathbb{K})$ **:** Matrices de déterminant 1. Sous-groupe de $GL_n$.
 > * **Similitude :** $A \sim B$ si $B = P^{-1}AP$. Mêmes valeurs propres, trace, déterminant, polynômes caractéristique et minimal.
