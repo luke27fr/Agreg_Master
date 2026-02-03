@@ -17,7 +17,7 @@
 > * **Point singulier :** Si $\gamma'(t) = 0$, la tangente peut ne pas être définie ou être verticale.
 > * **Courbure signée :** Le signe dépend de l'orientation. $\kappa > 0$ = tourne vers $\vec{N}$.
 > * **Changement de paramètre :** La courbure est intrinsèque (ne dépend pas du paramétrage).
-> * **Point d'inflexion :** Point où $\kappa$ change de signe (i.e. $\kappa = 0$).
+> * **Point d'inflexion :** Point où $\kappa$ change de signe, i.e. $\kappa = 0$.
 > * **Branches infinies :** Asymptotes à étudier quand $t \to \pm\infty$ ou vers une singularité.
 
 > [!TIP]

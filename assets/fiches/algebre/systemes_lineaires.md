@@ -8,7 +8,7 @@
 > * **[Rang](def:rang) :** $\text{rg}(A) = \dim(\text{Im}(A))$. Détermine le nombre de pivots.
 > * **Théorème de Rouché-Fontené :** $AX = B$ a des solutions ssi $\text{rg}(A) = \text{rg}(A|B)$.
 > * **Structure des solutions :** $\mathcal{S} = x_0 + \ker(A)$ où $x_0$ est une solution particulière.
-> * **Système de Cramer :** Système carré (i.e. $n = p$) avec $\det(A) \neq 0$. Solution unique $X = A^{-1}B$.
+> * **Système de Cramer :** Système carré, i.e. $n = p$, avec $\det(A) \neq 0$. Solution unique $X = A^{-1}B$.
 > * **Formules de Cramer :** $x_i = \frac{\det(A_i)}{\det(A)}$ où $A_i$ est $A$ avec la colonne $i$ remplacée par $B$.
 
 > [!WARNING]

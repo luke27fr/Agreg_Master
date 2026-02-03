@@ -3,7 +3,7 @@
 > [!NOTE]
 > ### 1. Définitions et Fondamentaux
 > Une **forme quadratique** sur un espace vectoriel $E$ est une application $q : E \to \mathbb{K}$ telle que $q(x) = \varphi(x, x)$ pour une forme bilinéaire symétrique $\varphi$.
-> * **Forme polaire :** $\varphi(x, y) = \frac{1}{2}(q(x+y) - q(x) - q(y))$ (en caractéristique $\neq 2$).
+> * **Forme polaire :** $\varphi(x, y) = \frac{1}{2}(q(x+y) - q(x) - q(y))$ en caractéristique $\neq 2$.
 > * **Matrice :** Dans une base, $q(x) = X^T A X$ où $A$ est symétrique.
 > * **Signature :** $(p, q)$ où $p$ = nombre de valeurs propres $> 0$, $q$ = nombre de $< 0$.
 > * **Définie positive :** $q(x) > 0$ pour tout $x \neq 0$. Équivalent à signature $(n, 0)$.
@@ -15,7 +15,7 @@
 > ### 2. Pièges à éviter
 > * **Caractéristique 2 :** La formule de polarisation ne marche pas ! Les formes quadratiques ne sont pas équivalentes aux formes bilinéaires.
 > * **Rang ≠ dimension :** Le rang de $q$ est le rang de $\varphi$, pas la dimension de $E$.
-> * **Congruence :** Deux matrices sont congruentes (i.e. $B = P^T A P$) ssi elles représentent la même forme quadratique.
+> * **Congruence :** Deux matrices sont congruentes, i.e. $B = P^T A P$, ssi elles représentent la même forme quadratique.
 > * **Définie vs semi-définie :** Semi-définie positive : $q(x) \geq 0$ (le noyau peut être non trivial).
 > * **Signature sur $\mathbb{C}$ :** Toute forme quadratique complexe de rang $r$ est congruente à $x_1^2 + \cdots + x_r^2$.
 
