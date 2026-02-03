@@ -109,10 +109,10 @@ class WellnessStatistics {
     return 'Très faible';
   }
 
-  Color get couleurRisque {
-    if (risqueBurnout >= 75) return const Color(0xFFD32F2F);
-    if (risqueBurnout >= 50) return const Color(0xFFFF9800);
-    if (risqueBurnout >= 25) return const Color(0xFFFFC107);
-    return const Color(0xFF4CAF50);
+  int get couleurRisqueValue {
+    if (risqueBurnout >= 75) return 0xFFD32F2F;
+    if (risqueBurnout >= 50) return 0xFFFF9800;
+    if (risqueBurnout >= 25) return 0xFFFFC107;
+    return 0xFF4CAF50;
   }
 }

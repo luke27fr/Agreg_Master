@@ -54,8 +54,8 @@ class _WellnessPageState extends State<WellnessPage> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    stats.couleurRisque.withOpacity(0.7),
-                    stats.couleurRisque,
+                    Color(stats.couleurRisqueValue).withOpacity(0.7),
+                    Color(stats.couleurRisqueValue),
                   ],
                 ),
                 borderRadius: BorderRadius.circular(16),

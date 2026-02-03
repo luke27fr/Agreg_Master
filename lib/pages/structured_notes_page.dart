@@ -314,7 +314,9 @@ class _StructuredNotesPageState extends State<StructuredNotesPage> with SingleTi
                   maxLines: 8,
                   decoration: const InputDecoration(
                     labelText: 'Contenu (Markdown + LaTeX)',
-                    hintText: 'Utilisez \\$formule\\$ pour LaTeX inline\net \\$\\$formule\\$\\$ pour bloc',
+                    hintText: r'Utilisez $formule$ pour LaTeX inline'
+                               '\n'
+                               r'et $$formule$$ pour bloc',
                     border: OutlineInputBorder(),
                   ),
                 ),
