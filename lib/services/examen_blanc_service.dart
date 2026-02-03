@@ -126,6 +126,7 @@ class ExamenBlancService extends ChangeNotifier {
   /// Crée des examens de démonstration
   List<ExamenBlanc> _createDemoExamens() {
     return [
+      // ========== ALGÈBRE ==========
       ExamenBlanc(
         id: 'algebre_1',
         titre: 'Composition Algèbre et Géométrie - Sujet 1',
@@ -241,6 +242,823 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'En déduire la valeur de ∫₀^∞ x²e^(-x²) dx.',
                 points: 3,
+              ),
+            ],
+          ),
+        ],
+      ),
+      
+      // ALGÈBRE 2
+      ExamenBlanc(
+        id: 'algebre_2',
+        titre: 'Composition Algèbre et Géométrie - Sujet 2',
+        type: 'composition_algebre',
+        dureeMinutes: 300,
+        baremeTotal: 20,
+        exercices: [
+          ExerciceExamen(
+            titre: 'Théorie des groupes',
+            bareme: 6,
+            questions: [
+              QuestionExamen(
+                enonce: 'Soit G un groupe d\'ordre 28. Montrer que G possède un sous-groupe distingué non trivial.',
+                indication: 'Utiliser les théorèmes de Sylow.',
+                pointsCles: ['n₇ = 1 ou 8', 'Si n₇=1, le 7-Sylow est distingué'],
+                points: 4,
+              ),
+              QuestionExamen(
+                enonce: 'En déduire que G n\'est pas simple.',
+                points: 2,
+              ),
+            ],
+          ),
+          ExerciceExamen(
+            titre: 'Polynômes et réduction',
+            bareme: 8,
+            questions: [
+              QuestionExamen(
+                enonce: 'Déterminer le polynôme minimal de A = [[0,1,0],[0,0,1],[1,0,0]].',
+                indication: 'Calculer A², A³.',
+                points: 3,
+              ),
+              QuestionExamen(
+                enonce: 'A est-elle diagonalisable sur ℝ ? Sur ℂ ?',
+                points: 3,
+              ),
+              QuestionExamen(
+                enonce: 'Interpréter géométriquement A.',
+                indication: 'Permutation circulaire des coordonnées.',
+                points: 2,
+              ),
+            ],
+          ),
+          ExerciceExamen(
+            titre: 'Formes quadratiques',
+            bareme: 6,
+            questions: [
+              QuestionExamen(
+                enonce: 'Déterminer la signature de q(x,y,z) = x² + 2xy + 2y² - 2yz + z².',
+                indication: 'Diagonaliser ou Gauss.',
+                points: 4,
+              ),
+              QuestionExamen(
+                enonce: 'La forme est-elle définie positive ?',
+                points: 2,
+              ),
+            ],
+          ),
+        ],
+      ),
+
+      // ALGÈBRE 3
+      ExamenBlanc(
+        id: 'algebre_3',
+        titre: 'Problème d\'Algèbre - Matrices de Hankel',
+        type: 'probleme',
+        dureeMinutes: 240,
+        baremeTotal: 20,
+        exercices: [
+          ExerciceExamen(
+            titre: 'Partie A - Propriétés générales',
+            bareme: 5,
+            questions: [
+              QuestionExamen(
+                enonce: 'Soit H_n la matrice de Hankel : H[i,j] = a_{i+j}. Montrer que H est symétrique si aₖ = a₋ₖ.',
+                points: 2,
+              ),
+              QuestionExamen(
+                enonce: 'Calculer le rang de H₃ = [[1,2,3],[2,3,4],[3,4,5]].',
+                indication: 'Les lignes sont liées.',
+                points: 3,
+              ),
+            ],
+          ),
+          ExerciceExamen(
+            titre: 'Partie B - Diagonalisation',
+            bareme: 8,
+            questions: [
+              QuestionExamen(
+                enonce: 'Pour la suite aₖ = 1/(k+1), étudier la diagonalisabilité de H_n.',
+                points: 5,
+              ),
+              QuestionExamen(
+                enonce: 'Calculer det(H_n) pour n = 2, 3, 4.',
+                indication: 'Remarquer une structure récurrente.',
+                points: 3,
+              ),
+            ],
+          ),
+          ExerciceExamen(
+            titre: 'Partie C - Applications',
+            bareme: 7,
+            questions: [
+              QuestionExamen(
+                enonce: 'Montrer que toute matrice de Hankel peut s\'écrire comme produit de Vandermonde.',
+                indication: 'H = VDV^T où V est Vandermonde.',
+                points: 4,
+              ),
+              QuestionExamen(
+                enonce: 'Application à l\'interpolation polynomiale.',
+                points: 3,
+              ),
+            ],
+          ),
+        ],
+      ),
+
+      // ANALYSE 2
+      ExamenBlanc(
+        id: 'analyse_2',
+        titre: 'Composition Analyse et Probabilités - Sujet 2',
+        type: 'composition_analyse',
+        dureeMinutes: 300,
+        baremeTotal: 20,
+        exercices: [
+          ExerciceExamen(
+            titre: 'Séries de Fourier',
+            bareme: 7,
+            questions: [
+              QuestionExamen(
+                enonce: 'Calculer les coefficients de Fourier de f(x) = |x| sur [-π,π].',
+                indication: 'Fonction paire, donc bₙ = 0.',
+                points: 3,
+              ),
+              QuestionExamen(
+                enonce: 'Montrer que la série de Fourier converge uniformément vers f.',
+                indication: 'f est C¹ par morceaux.',
+                points: 2,
+              ),
+              QuestionExamen(
+                enonce: 'En déduire que ∑_{k impair} 1/k² = π²/8.',
+                points: 2,
+              ),
+            ],
+          ),
+          ExerciceExamen(
+            titre: 'Équations différentielles',
+            bareme: 6,
+            questions: [
+              QuestionExamen(
+                enonce: 'Résoudre y\'\' - 2y\' + y = x·e^x.',
+                indication: 'Racine double r=1.',
+                points: 4,
+              ),
+              QuestionExamen(
+                enonce: 'Résoudre le problème de Cauchy avec y(0)=1, y\'(0)=0.',
+                points: 2,
+              ),
+            ],
+          ),
+          ExerciceExamen(
+            titre: 'Probabilités - Loi normale',
+            bareme: 7,
+            questions: [
+              QuestionExamen(
+                enonce: 'X ~ N(μ,σ²). Calculer E[(X-μ)⁴].',
+                indication: 'Utiliser la fonction génératrice des moments.',
+                points: 4,
+              ),
+              QuestionExamen(
+                enonce: 'Application : coefficient d\'aplatissement (kurtosis).',
+                points: 3,
+              ),
+            ],
+          ),
+        ],
+      ),
+
+      // ANALYSE 3
+      ExamenBlanc(
+        id: 'analyse_3',
+        titre: 'Problème d\'Analyse - Espaces de Hilbert',
+        type: 'probleme',
+        dureeMinutes: 240,
+        baremeTotal: 20,
+        exercices: [
+          ExerciceExamen(
+            titre: 'Partie I - Projection orthogonale',
+            bareme: 6,
+            questions: [
+              QuestionExamen(
+                enonce: 'Soit H espace de Hilbert, F sous-espace fermé. Montrer que tout x ∈ H s\'écrit uniquement x = y + z avec y ∈ F, z ∈ F⊥.',
+                indication: 'Minimiser ‖x - y‖ pour y ∈ F.',
+                points: 4,
+              ),
+              QuestionExamen(
+                enonce: 'Montrer que P_F : x ↦ y est une application linéaire continue.',
+                points: 2,
+              ),
+            ],
+          ),
+          ExerciceExamen(
+            titre: 'Partie II - Bases hilbertiennes',
+            bareme: 8,
+            questions: [
+              QuestionExamen(
+                enonce: 'Soit (eₙ) système orthonormal. Montrer que pour tout x, ∑|⟨x,eₙ⟩|² ≤ ‖x‖² (Bessel).',
+                points: 4,
+              ),
+              QuestionExamen(
+                enonce: 'Caractériser les bases hilbertiennes via l\'égalité de Parseval.',
+                points: 4,
+              ),
+            ],
+          ),
+          ExerciceExamen(
+            titre: 'Partie III - Application aux séries de Fourier',
+            bareme: 6,
+            questions: [
+              QuestionExamen(
+                enonce: 'Montrer que (e^{inx})_{n∈ℤ} est une base hilbertienne de L²([-π,π]).',
+                points: 4,
+              ),
+              QuestionExamen(
+                enonce: 'En déduire Parseval pour les séries de Fourier.',
+                points: 2,
+              ),
+            ],
+          ),
+        ],
+      ),
+
+      // MODÉLISATION A
+      ExamenBlanc(
+        id: 'modelisation_a_1',
+        titre: 'Modélisation Option A - Probabilités et Statistiques',
+        type: 'modelisation',
+        dureeMinutes: 300,
+        baremeTotal: 20,
+        exercices: [
+          ExerciceExamen(
+            titre: 'Modélisation d\'un processus de files d\'attente',
+            bareme: 10,
+            questions: [
+              QuestionExamen(
+                enonce: 'Modéliser une file M/M/1 : arrivées Poisson(λ), service Exp(μ).',
+                indication: 'Chaîne de Markov à temps continu.',
+                points: 3,
+              ),
+              QuestionExamen(
+                enonce: 'Déterminer la condition de stabilité ρ = λ/μ < 1.',
+                points: 2,
+              ),
+              QuestionExamen(
+                enonce: 'Calculer le nombre moyen de clients dans le système.',
+                indication: 'Loi stationnaire géométrique.',
+                points: 3,
+              ),
+              QuestionExamen(
+                enonce: 'Temps moyen d\'attente (formule de Little).',
+                points: 2,
+              ),
+            ],
+          ),
+          ExerciceExamen(
+            titre: 'Régression linéaire',
+            bareme: 10,
+            questions: [
+              QuestionExamen(
+                enonce: 'Données (xᵢ,yᵢ) pour i=1..n. Déterminer a,b minimisant ∑(yᵢ - axᵢ - b)².',
+                indication: 'Dériver par rapport à a et b.',
+                points: 4,
+              ),
+              QuestionExamen(
+                enonce: 'Calculer le coefficient de corrélation R².',
+                points: 3,
+              ),
+              QuestionExamen(
+                enonce: 'Application numérique : données fournies.',
+                points: 3,
+              ),
+            ],
+          ),
+        ],
+      ),
+
+      // ALGÈBRE 4 - Groupes finis
+      ExamenBlanc(
+        id: 'algebre_4',
+        titre: 'Problème - Groupes Finis et Actions',
+        type: 'probleme',
+        dureeMinutes: 240,
+        baremeTotal: 20,
+        exercices: [
+          ExerciceExamen(
+            titre: 'Actions de groupes',
+            bareme: 8,
+            questions: [
+              QuestionExamen(
+                enonce: 'Soit G groupe fini agissant sur X. Montrer la formule des classes : |X| = |X^G| + ∑[G:G_x].',
+                indication: 'Partitionner X en orbites.',
+                points: 4,
+              ),
+              QuestionExamen(
+                enonce: 'Application : montrer qu\'un p-groupe non trivial a un centre non trivial.',
+                indication: 'Action par conjugaison.',
+                points: 4,
+              ),
+            ],
+          ),
+          ExerciceExamen(
+            titre: 'Groupes simples',
+            bareme: 7,
+            questions: [
+              QuestionExamen(
+                enonce: 'Montrer qu\'il n\'existe pas de groupe simple d\'ordre 30.',
+                indication: 'Sylow : n₅ = 1 ou 6, n₃ = 1 ou 10.',
+                points: 5,
+              ),
+              QuestionExamen(
+                enonce: 'Même question pour l\'ordre 56.',
+                points: 2,
+              ),
+            ],
+          ),
+          ExerciceExamen(
+            titre: 'Produits semi-directs',
+            bareme: 5,
+            questions: [
+              QuestionExamen(
+                enonce: 'Combien y a-t-il de groupes non isomorphes d\'ordre 6 ?',
+                indication: 'ℤ/6ℤ et S₃ = ℤ/3ℤ ⋊ ℤ/2ℤ.',
+                points: 3,
+              ),
+              QuestionExamen(
+                enonce: 'Décrire explicitement le produit semi-direct.',
+                points: 2,
+              ),
+            ],
+          ),
+        ],
+      ),
+
+      // ANALYSE 4 - Calcul différentiel
+      ExamenBlanc(
+        id: 'analyse_4',
+        titre: 'Problème - Calcul Différentiel et Optimisation',
+        type: 'probleme',
+        dureeMinutes: 240,
+        baremeTotal: 20,
+        exercices: [
+          ExerciceExamen(
+            titre: 'Différentiabilité',
+            bareme: 6,
+            questions: [
+              QuestionExamen(
+                enonce: 'Soit f(x,y) = xy²/(x²+y²) si (x,y) ≠ (0,0), f(0,0) = 0. f est-elle différentiable en (0,0) ?',
+                indication: 'Calculer les dérivées partielles puis vérifier la définition.',
+                points: 4,
+              ),
+              QuestionExamen(
+                enonce: 'f est-elle de classe C¹ ?',
+                indication: 'Les dérivées partielles sont-elles continues ?',
+                points: 2,
+              ),
+            ],
+          ),
+          ExerciceExamen(
+            titre: 'Extrema liés',
+            bareme: 8,
+            questions: [
+              QuestionExamen(
+                enonce: 'Minimiser f(x,y,z) = x² + y² + z² sous la contrainte x + 2y + 3z = 6.',
+                indication: 'Multiplicateurs de Lagrange.',
+                points: 5,
+              ),
+              QuestionExamen(
+                enonce: 'Vérifier que c\'est bien un minimum.',
+                indication: 'Hessienne restreinte.',
+                points: 3,
+              ),
+            ],
+          ),
+          ExerciceExamen(
+            titre: 'Théorème d\'inversion locale',
+            bareme: 6,
+            questions: [
+              QuestionExamen(
+                enonce: 'Soit F(x,y) = (e^x cos y, e^x sin y). Montrer que F est un difféomorphisme local en tout point.',
+                indication: 'Jacobienne inversible.',
+                points: 3,
+              ),
+              QuestionExamen(
+                enonce: 'F est-il un difféomorphisme global ?',
+                points: 3,
+              ),
+            ],
+          ),
+        ],
+      ),
+
+      // ANALYSE 5 - Séries
+      ExamenBlanc(
+        id: 'analyse_5',
+        titre: 'Problème - Séries Entières et Fonctions Analytiques',
+        type: 'probleme',
+        dureeMinutes: 240,
+        baremeTotal: 20,
+        exercices: [
+          ExerciceExamen(
+            titre: 'Rayon de convergence',
+            bareme: 5,
+            questions: [
+              QuestionExamen(
+                enonce: 'Déterminer le rayon de convergence de ∑(n!)²/(2n)! · x^n.',
+                indication: 'D\'Alembert ou formule de Stirling.',
+                points: 3,
+              ),
+              QuestionExamen(
+                enonce: 'Que se passe-t-il sur le bord du disque de convergence ?',
+                points: 2,
+              ),
+            ],
+          ),
+          ExerciceExamen(
+            titre: 'Équations fonctionnelles',
+            bareme: 8,
+            questions: [
+              QuestionExamen(
+                enonce: 'Soit f(x) = ∑aₙx^n vérifiant f(x) = x + f(x)². Déterminer les aₙ.',
+                indication: 'Identifier les coefficients.',
+                points: 5,
+              ),
+              QuestionExamen(
+                enonce: 'Montrer que f(x) = (1 - √(1-4x))/2.',
+                indication: 'Résoudre l\'équation du second degré.',
+                points: 3,
+              ),
+            ],
+          ),
+          ExerciceExamen(
+            titre: 'Développement en série entière',
+            bareme: 7,
+            questions: [
+              QuestionExamen(
+                enonce: 'Développer arctan(x) en série entière.',
+                indication: 'Intégrer 1/(1+t²).',
+                points: 4,
+              ),
+              QuestionExamen(
+                enonce: 'En déduire que π/4 = ∑(-1)^n/(2n+1).',
+                points: 3,
+              ),
+            ],
+          ),
+        ],
+      ),
+
+      // PROBABILITÉS 1
+      ExamenBlanc(
+        id: 'proba_1',
+        titre: 'Problème - Lois et Convergences',
+        type: 'probleme',
+        dureeMinutes: 240,
+        baremeTotal: 20,
+        exercices: [
+          ExerciceExamen(
+            titre: 'Lois usuelles',
+            bareme: 6,
+            questions: [
+              QuestionExamen(
+                enonce: 'Montrer que si X ~ Poisson(λ) et Y ~ Poisson(μ) indépendantes, alors X+Y ~ Poisson(λ+μ).',
+                indication: 'Fonction génératrice.',
+                points: 4,
+              ),
+              QuestionExamen(
+                enonce: 'Généraliser à n variables de Poisson.',
+                points: 2,
+              ),
+            ],
+          ),
+          ExerciceExamen(
+            titre: 'Théorème central limite',
+            bareme: 8,
+            questions: [
+              QuestionExamen(
+                enonce: 'Soit (Xₙ) iid, E[X₁]=μ, Var(X₁)=σ². Montrer que (Sₙ-nμ)/(σ√n) ⇒ N(0,1).',
+                indication: 'TCL classique.',
+                points: 4,
+              ),
+              QuestionExamen(
+                enonce: 'Application : estimer le nombre de lancers nécessaires pour que P(|S_n/n - 1/2| < 0.01) ≥ 0.95.',
+                indication: 'Utiliser l\'approximation normale.',
+                points: 4,
+              ),
+            ],
+          ),
+          ExerciceExamen(
+            titre: 'Loi des grands nombres',
+            bareme: 6,
+            questions: [
+              QuestionExamen(
+                enonce: 'Montrer la LGN forte pour des v.a. bornées.',
+                indication: 'Lemme de Borel-Cantelli.',
+                points: 4,
+              ),
+              QuestionExamen(
+                enonce: 'Que peut-on dire de (Sₙ/n - μ) ?',
+                points: 2,
+              ),
+            ],
+          ),
+        ],
+      ),
+
+      // GÉOMÉTRIE 1
+      ExamenBlanc(
+        id: 'geometrie_1',
+        titre: 'Problème - Géométrie Affine et Euclidienne',
+        type: 'probleme',
+        dureeMinutes: 240,
+        baremeTotal: 20,
+        exercices: [
+          ExerciceExamen(
+            titre: 'Isométries du cube',
+            bareme: 8,
+            questions: [
+              QuestionExamen(
+                enonce: 'Déterminer toutes les isométries du cube qui laissent le centre fixe.',
+                indication: 'Groupe octaédral.',
+                points: 5,
+              ),
+              QuestionExamen(
+                enonce: 'Montrer que ce groupe est isomorphe à S₄.',
+                indication: 'Action sur les grandes diagonales.',
+                points: 3,
+              ),
+            ],
+          ),
+          ExerciceExamen(
+            titre: 'Quadriques',
+            bareme: 7,
+            questions: [
+              QuestionExamen(
+                enonce: 'Réduire la quadrique x² + y² - z² = 1.',
+                indication: 'Hyperboloïde à une nappe.',
+                points: 3,
+              ),
+              QuestionExamen(
+                enonce: 'Déterminer les génératrices rectilignes.',
+                indication: 'Deux familles de droites.',
+                points: 4,
+              ),
+            ],
+          ),
+          ExerciceExamen(
+            titre: 'Convexité',
+            bareme: 5,
+            questions: [
+              QuestionExamen(
+                enonce: 'Montrer que l\'enveloppe convexe de points est l\'intersection de tous les convexes les contenant.',
+                points: 3,
+              ),
+              QuestionExamen(
+                enonce: 'Application : enveloppe convexe de {(0,0), (1,0), (0,1)}.',
+                points: 2,
+              ),
+            ],
+          ),
+        ],
+      ),
+
+      // MIXTE - Algèbre/Analyse
+      ExamenBlanc(
+        id: 'mixte_1',
+        titre: 'Composition Mixte - Polynômes Orthogonaux',
+        type: 'composition_analyse',
+        dureeMinutes: 300,
+        baremeTotal: 20,
+        exercices: [
+          ExerciceExamen(
+            titre: 'Polynômes de Legendre',
+            bareme: 8,
+            questions: [
+              QuestionExamen(
+                enonce: 'Définir les polynômes de Legendre Pₙ par Gram-Schmidt sur [-1,1] avec ⟨f,g⟩ = ∫₋₁¹ fg.',
+                points: 3,
+              ),
+              QuestionExamen(
+                enonce: 'Montrer que Pₙ vérifie l\'équation (1-x²)P\'\' - 2xP\' + n(n+1)P = 0.',
+                indication: 'Formule de Rodrigues.',
+                points: 3,
+              ),
+              QuestionExamen(
+                enonce: 'Calculer P₀, P₁, P₂, P₃.',
+                points: 2,
+              ),
+            ],
+          ),
+          ExerciceExamen(
+            titre: 'Approximation L²',
+            bareme: 7,
+            questions: [
+              QuestionExamen(
+                enonce: 'Montrer que les (Pₙ) forment une base orthogonale de L²([-1,1]).',
+                points: 4,
+              ),
+              QuestionExamen(
+                enonce: 'Approximer f(x) = |x| par un polynôme de degré ≤ 3.',
+                indication: 'Projection sur Vect(P₀,P₁,P₂,P₃).',
+                points: 3,
+              ),
+            ],
+          ),
+          ExerciceExamen(
+            titre: 'Zéros et propriétés',
+            bareme: 5,
+            questions: [
+              QuestionExamen(
+                enonce: 'Montrer que Pₙ a exactement n racines réelles distinctes dans ]-1,1[.',
+                indication: 'Rolle itéré.',
+                points: 3,
+              ),
+              QuestionExamen(
+                enonce: 'Application à la quadrature de Gauss.',
+                points: 2,
+              ),
+            ],
+          ),
+        ],
+      ),
+
+      // ANALYSE 6 - Intégration avancée
+      ExamenBlanc(
+        id: 'analyse_6',
+        titre: 'Problème - Intégration et Mesure',
+        type: 'probleme',
+        dureeMinutes: 240,
+        baremeTotal: 20,
+        exercices: [
+          ExerciceExamen(
+            titre: 'Convergence dominée',
+            bareme: 7,
+            questions: [
+              QuestionExamen(
+                enonce: 'Soit fₙ(x) = n·sin(x/n) sur [0,π]. Montrer que fₙ → f simplement et calculer lim ∫fₙ.',
+                indication: 'sin(u)/u → 1.',
+                points: 4,
+              ),
+              QuestionExamen(
+                enonce: 'Peut-on appliquer la convergence dominée ?',
+                indication: 'Trouver une fonction dominante.',
+                points: 3,
+              ),
+            ],
+          ),
+          ExerciceExamen(
+            titre: 'Intégrales à paramètre',
+            bareme: 8,
+            questions: [
+              QuestionExamen(
+                enonce: 'Soit F(t) = ∫₀^∞ e^{-tx}·sin(x)/x dx pour t > 0. Montrer que F est C¹.',
+                indication: 'Dérivation sous l\'intégrale.',
+                points: 4,
+              ),
+              QuestionExamen(
+                enonce: 'Calculer F\'(t) puis F(t).',
+                indication: 'F\'(t) = -∫e^{-tx}sin(x)dx.',
+                points: 4,
+              ),
+            ],
+          ),
+          ExerciceExamen(
+            titre: 'Fonction Gamma',
+            bareme: 5,
+            questions: [
+              QuestionExamen(
+                enonce: 'Montrer que Γ(x+1) = x·Γ(x) pour x > 0.',
+                indication: 'IPP.',
+                points: 2,
+              ),
+              QuestionExamen(
+                enonce: 'En déduire Γ(n+1) = n! pour n ∈ ℕ.',
+                points: 1,
+              ),
+              QuestionExamen(
+                enonce: 'Calculer Γ(1/2) = √π.',
+                indication: 'Intégrale de Gauss.',
+                points: 2,
+              ),
+            ],
+          ),
+        ],
+      ),
+
+      // ALGÈBRE 5 - Arithmétique avancée
+      ExamenBlanc(
+        id: 'algebre_5',
+        titre: 'Problème - Arithmétique et Corps Finis',
+        type: 'probleme',
+        dureeMinutes: 240,
+        baremeTotal: 20,
+        exercices: [
+          ExerciceExamen(
+            titre: 'Congruences',
+            bareme: 6,
+            questions: [
+              QuestionExamen(
+                enonce: 'Résoudre x² ≡ 1 (mod 8).',
+                indication: 'Tester toutes les classes.',
+                points: 2,
+              ),
+              QuestionExamen(
+                enonce: 'Généraliser : pour quels n, x² ≡ 1 (mod n) a-t-il plus de 2 solutions ?',
+                indication: 'Théorème chinois.',
+                points: 4,
+              ),
+            ],
+          ),
+          ExerciceExamen(
+            titre: 'Petit théorème de Fermat',
+            bareme: 7,
+            questions: [
+              QuestionExamen(
+                enonce: 'Calculer 2^{100} (mod 13).',
+                indication: 'Fermat : a^{p-1} ≡ 1 (mod p).',
+                points: 3,
+              ),
+              QuestionExamen(
+                enonce: 'Montrer que si p premier, alors (p-1)! ≡ -1 (mod p) (Wilson).',
+                indication: 'Regrouper k et k^{-1}.',
+                points: 4,
+              ),
+            ],
+          ),
+          ExerciceExamen(
+            titre: 'Corps finis',
+            bareme: 7,
+            questions: [
+              QuestionExamen(
+                enonce: 'Montrer que 𝔽_p* est cyclique.',
+                indication: 'Un groupe abélien fini d\'exposant maximum.',
+                points: 4,
+              ),
+              QuestionExamen(
+                enonce: 'Combien y a-t-il de générateurs de 𝔽₁₁* ?',
+                indication: 'φ(10) = 4.',
+                points: 3,
+              ),
+            ],
+          ),
+        ],
+      ),
+
+      // PROBABILITÉS 2
+      ExamenBlanc(
+        id: 'proba_2',
+        titre: 'Composition - Statistiques et Estimation',
+        type: 'composition_analyse',
+        dureeMinutes: 300,
+        baremeTotal: 20,
+        exercices: [
+          ExerciceExamen(
+            titre: 'Estimateurs',
+            bareme: 7,
+            questions: [
+              QuestionExamen(
+                enonce: 'Échantillon (X₁,...,Xₙ) de loi U([0,θ]). Proposer un estimateur de θ.',
+                indication: 'Maximum de vraisemblance : θ̂ = max Xᵢ.',
+                points: 3,
+              ),
+              QuestionExamen(
+                enonce: 'Cet estimateur est-il sans biais ? Calculer son biais.',
+                indication: 'E[max Xᵢ] = n·θ/(n+1).',
+                points: 4,
+              ),
+            ],
+          ),
+          ExerciceExamen(
+            titre: 'Tests d\'hypothèses',
+            bareme: 8,
+            questions: [
+              QuestionExamen(
+                enonce: 'Test H₀: μ = μ₀ vs H₁: μ ≠ μ₀ pour X ~ N(μ,σ²) avec σ connu.',
+                indication: 'Statistique Z = (X̄-μ₀)/(σ/√n).',
+                points: 4,
+              ),
+              QuestionExamen(
+                enonce: 'Déterminer la région critique au seuil 5%.',
+                indication: '|Z| > 1.96.',
+                points: 2,
+              ),
+              QuestionExamen(
+                enonce: 'Application numérique : n=25, X̄=102, σ=10, μ₀=100.',
+                points: 2,
+              ),
+            ],
+          ),
+          ExerciceExamen(
+            titre: 'Intervalle de confiance',
+            bareme: 5,
+            questions: [
+              QuestionExamen(
+                enonce: 'Construire un IC à 95% pour μ quand σ est inconnu.',
+                indication: 'Loi de Student.',
+                points: 3,
+              ),
+              QuestionExamen(
+                enonce: 'Quelle taille d\'échantillon pour une précision ±0.5 ?',
+                points: 2,
               ),
             ],
           ),

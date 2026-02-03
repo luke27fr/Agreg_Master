@@ -196,6 +196,834 @@
       ],
       "lecons": [160],
       "tags": ["décomposition polaire", "matrices"]
+    },
+    {
+      "id": "ex_gram_schmidt",
+      "titre": "Orthonormalisation de Gram-Schmidt",
+      "domaine": "Algèbre",
+      "niveau": "Facile",
+      "enonce": "Orthonormaliser la base (1,1,0), (1,0,1), (0,1,1) de ℝ³.",
+      "indication": "Procédé de Gram-Schmidt avec produit scalaire canonique.",
+      "solution": [
+        "e₁ = (1,1,0)/√2 = (1/√2, 1/√2, 0).",
+        "v₂' = (1,0,1) - ⟨v₂,e₁⟩e₁ = (1,0,1) - (1/2,1/2,0) = (1/2,-1/2,1).",
+        "e₂ = v₂'/‖v₂'‖ = (1/√6, -1/√6, 2/√6).",
+        "v₃' = (0,1,1) - ⟨v₃,e₁⟩e₁ - ⟨v₃,e₂⟩e₂.",
+        "e₃ = v₃'/‖v₃'‖."
+      ],
+      "lecons": [110],
+      "tags": ["Gram-Schmidt", "orthogonal"]
+    },
+    {
+      "id": "ex_theoreme_rang",
+      "titre": "Théorème du rang",
+      "domaine": "Algèbre",
+      "niveau": "Facile",
+      "enonce": "Soit f : ℝ⁴ → ℝ³, (x,y,z,t) ↦ (x+y, y+z, z+t). Déterminer dim(Ker f) et dim(Im f).",
+      "indication": "Résoudre f(x,y,z,t) = 0 puis appliquer le théorème du rang.",
+      "solution": [
+        "Ker f : x+y=0, y+z=0, z+t=0 ⟹ x=-y, z=-y, t=-z=y.",
+        "Ker f = Vect((1,-1,1,-1)), dim(Ker f) = 1.",
+        "Théorème du rang : dim(Im f) = 4 - 1 = 3.",
+        "Donc f est surjective."
+      ],
+      "lecons": [102, 103],
+      "tags": ["rang", "noyau", "image"]
+    },
+    {
+      "id": "ex_polynome_interpolation",
+      "titre": "Interpolation de Lagrange",
+      "domaine": "Algèbre",
+      "niveau": "Moyen",
+      "enonce": "Trouver le polynôme P ∈ ℝ₂[X] tel que P(0)=1, P(1)=0, P(2)=3.",
+      "indication": "Utiliser les polynômes de Lagrange.",
+      "solution": [
+        "L₀ = (X-1)(X-2)/2, L₁ = -X(X-2), L₂ = X(X-1)/2.",
+        "P = 1·L₀ + 0·L₁ + 3·L₂ = (X-1)(X-2)/2 + 3X(X-1)/2.",
+        "P = ((X-1)/2)·(X-2+3X) = ((X-1)/2)·(4X-2).",
+        "P = 2X² - 3X + 1.",
+        "Vérif : P(0)=1, P(1)=0, P(2)=3 ✓"
+      ],
+      "lecons": [120],
+      "tags": ["interpolation", "Lagrange"]
+    },
+    {
+      "id": "ex_equation_differentielle",
+      "titre": "EDO linéaire d'ordre 2",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Résoudre y'' + 4y' + 4y = e^(-2x).",
+      "indication": "Équation caractéristique puis variation des constantes.",
+      "solution": [
+        "ESSM : r² + 4r + 4 = 0 ⟹ r = -2 (double).",
+        "y_h = (C₁ + C₂x)e^(-2x).",
+        "Solution particulière : chercher y_p = Ax²e^(-2x).",
+        "y_p'' + 4y_p' + 4y_p = 2Ae^(-2x) = e^(-2x) ⟹ A = 1/2.",
+        "Solution générale : y = (C₁ + C₂x + x²/2)e^(-2x)."
+      ],
+      "lecons": [218],
+      "tags": ["EDO", "second ordre"]
+    },
+    {
+      "id": "ex_determinant_vandermonde",
+      "titre": "Déterminant de Vandermonde",
+      "domaine": "Algèbre",
+      "niveau": "Moyen",
+      "enonce": "Calculer le déterminant de V = [[1,a,a²],[1,b,b²],[1,c,c²]].",
+      "indication": "Faire apparaître (b-a) et (c-a) en facteur.",
+      "solution": [
+        "C₂ ← C₂ - aC₁, C₃ ← C₃ - a²C₁.",
+        "det = det([[1,0,0],[1,b-a,b²-a²],[1,c-a,c²-a²]]).",
+        "= (b-a)(c-a)·det([[1,0,0],[1,1,b+a],[1,1,c+a]]).",
+        "= (b-a)(c-a)(c-b).",
+        "Formule générale : ∏_{i<j}(xⱼ-xᵢ)."
+      ],
+      "lecons": [151],
+      "tags": ["déterminant", "Vandermonde"]
+    },
+    {
+      "id": "ex_suite_adjacente",
+      "titre": "Suites adjacentes",
+      "domaine": "Analyse",
+      "niveau": "Facile",
+      "enonce": "Soit uₙ = ∑_{k=1}^n 1/k - ln(n) et vₙ = uₙ + 1/n. Montrer que (uₙ) et (vₙ) sont adjacentes.",
+      "indication": "Montrer que uₙ croît, vₙ décroît et vₙ - uₙ → 0.",
+      "solution": [
+        "vₙ - uₙ = 1/n → 0.",
+        "uₙ₊₁ - uₙ = 1/(n+1) - ln((n+1)/n) > 0 (concavité de ln).",
+        "vₙ₊₁ - vₙ = uₙ₊₁ - uₙ + 1/(n+1) - 1/n < 0.",
+        "Donc (uₙ) et (vₙ) adjacentes, convergent vers γ (Euler)."
+      ],
+      "lecons": [203],
+      "tags": ["suites", "constante d'Euler"]
+    },
+    {
+      "id": "ex_formule_stirling",
+      "titre": "Approximation de Stirling",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Montrer que n! ~ √(2πn)·(n/e)ⁿ.",
+      "indication": "Utiliser la formule de Wallis ou Laplace.",
+      "solution": [
+        "Méthode 1 : Via Wallis et W₂ₙ.",
+        "Méthode 2 : ln(n!) = ∑ln(k) ≈ ∫ln(x)dx = n·ln(n) - n.",
+        "Encadrement : ∫_{k-1}^k ln ≤ ln(k) ≤ ∫_k^{k+1} ln.",
+        "Développement précis via Euler-Maclaurin.",
+        "Constante √(2π) via intégrale de Gauss."
+      ],
+      "lecons": [239, 265],
+      "tags": ["Stirling", "asymptotique"]
+    },
+    {
+      "id": "ex_theoreme_hahn_banach",
+      "titre": "Prolongement linéaire",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Soit F sous-espace de dimension finie de E normé, f ∈ F*. Montrer qu'on peut prolonger f en φ ∈ E* avec ‖φ‖ = ‖f‖.",
+      "indication": "Utiliser Hahn-Banach géométrique.",
+      "solution": [
+        "Compléter une base de F en base de F⊕G où dim(G) = 1.",
+        "Prolonger sur G en préservant la norme.",
+        "Cas dimension finie : construction explicite possible.",
+        "Cas général : Hahn-Banach analytique."
+      ],
+      "lecons": [211],
+      "tags": ["Hahn-Banach", "dualité"]
+    },
+    {
+      "id": "ex_projection_orthogonale",
+      "titre": "Projection orthogonale",
+      "domaine": "Algèbre",
+      "niveau": "Facile",
+      "enonce": "Dans ℝ³, projeter v = (1,2,3) sur le plan P : x + y + z = 0.",
+      "indication": "P⊥ = Vect(1,1,1).",
+      "solution": [
+        "n = (1,1,1) est normal à P.",
+        "Projection sur ℝn : proj_n(v) = ⟨v,n⟩/‖n‖² · n = 6/3 · (1,1,1) = (2,2,2).",
+        "Projection sur P : proj_P(v) = v - proj_n(v) = (-1,0,1).",
+        "Vérif : -1+0+1 = 0 ✓, distance = ‖(2,2,2)‖ = 2√3."
+      ],
+      "lecons": [108, 110],
+      "tags": ["projection", "orthogonalité"]
+    },
+    {
+      "id": "ex_cauchy_schwarz",
+      "titre": "Inégalité de Cauchy-Schwarz",
+      "domaine": "Algèbre",
+      "niveau": "Moyen",
+      "enonce": "Montrer que pour x,y ∈ ℝⁿ : |⟨x,y⟩| ≤ ‖x‖·‖y‖.",
+      "indication": "Discriminant de ‖tx + y‖² ≥ 0.",
+      "solution": [
+        "Pour tout t ∈ ℝ : ‖tx + y‖² = t²‖x‖² + 2t⟨x,y⟩ + ‖y‖² ≥ 0.",
+        "Trinôme en t toujours ≥ 0 ⟹ Δ ≤ 0.",
+        "4⟨x,y⟩² - 4‖x‖²‖y‖² ≤ 0.",
+        "Donc ⟨x,y⟩² ≤ ‖x‖²‖y‖².",
+        "Cas d'égalité : x et y colinéaires."
+      ],
+      "lecons": [108, 110],
+      "tags": ["Cauchy-Schwarz", "inégalité"]
+    },
+    {
+      "id": "ex_frobenius",
+      "titre": "Norme de Frobenius",
+      "domaine": "Algèbre",
+      "niveau": "Moyen",
+      "enonce": "Montrer que ‖A‖_F = √(tr(AᵀA)) définit une norme sur M_n(ℝ).",
+      "indication": "Vérifier les 3 axiomes d'une norme.",
+      "solution": [
+        "Séparation : ‖A‖_F = 0 ⟺ ∑a²ᵢⱼ = 0 ⟺ A = 0.",
+        "Homogénéité : ‖λA‖_F = √(∑λ²a²ᵢⱼ) = |λ|·‖A‖_F.",
+        "Inégalité triangulaire : via Minkowski sur ℝⁿ².",
+        "‖A‖_F = (∑a²ᵢⱼ)^{1/2} est la norme euclidienne sur M_n ≃ ℝⁿ²."
+      ],
+      "lecons": [109],
+      "tags": ["norme", "matrices"]
+    },
+    {
+      "id": "ex_lemme_abel",
+      "titre": "Lemme d'Abel",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Si ∑aₙ converge et (bₙ) monotone bornée, montrer que ∑aₙbₙ converge.",
+      "indication": "Transformation d'Abel : somme par parties.",
+      "solution": [
+        "Posons Aₙ = ∑_{k=0}^n aₖ. Alors aₙ = Aₙ - Aₙ₋₁.",
+        "∑_{k=0}^n aₖbₖ = Aₙbₙ - ∑_{k=0}^{n-1} Aₖ(bₖ₊₁ - bₖ).",
+        "Aₙ → A (car ∑aₙ CV), bₙ → b (monotone bornée).",
+        "∑Aₖ(bₖ₊₁ - bₖ) CV abs (|Aₖ| ≤ M, ∑|bₖ₊₁-bₖ| = |b-b₀|).",
+        "Donc ∑aₙbₙ converge."
+      ],
+      "lecons": [239],
+      "tags": ["Abel", "convergence"]
+    },
+    {
+      "id": "ex_densite_rationnels",
+      "titre": "Densité de ℚ dans ℝ",
+      "domaine": "Analyse",
+      "niveau": "Facile",
+      "enonce": "Montrer que ℚ est dense dans ℝ : tout réel est limite de rationnels.",
+      "indication": "Partie entière et puissances de 10.",
+      "solution": [
+        "Soit x ∈ ℝ, ε > 0.",
+        "Choisir n tel que 10^(-n) < ε.",
+        "Soit k = ⌊10ⁿ·x⌋.",
+        "Alors k/10ⁿ ≤ x < (k+1)/10ⁿ.",
+        "|x - k/10ⁿ| < 10^(-n) < ε.",
+        "Donc tout réel est adhérent à ℚ."
+      ],
+      "lecons": [204],
+      "tags": ["densité", "topologie"]
+    },
+    {
+      "id": "ex_stone_weierstrass_app",
+      "titre": "Application de Stone-Weierstrass",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Montrer que les fonctions continues 2π-périodiques sont limites uniformes de polynômes trigonométriques.",
+      "indication": "Stone-Weierstrass sur le cercle.",
+      "solution": [
+        "Soit A = {∑aₖcos(kx) + bₖsin(kx) : fini}.",
+        "A est une sous-algèbre de C([0,2π]).",
+        "A sépare les points : sin, cos.",
+        "A stable par conjugaison complexe.",
+        "Stone-Weierstrass : A est dense.",
+        "Donc toute f ∈ C([0,2π]) 2π-pér. est limite de trig."
+      ],
+      "lecons": [202, 246],
+      "tags": ["Stone-Weierstrass", "Fourier"]
+    },
+    {
+      "id": "ex_theoreme_rolle_itere",
+      "titre": "Rolle itéré",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "f C^n sur [a,b], f(a)=f(b)=0 et f^(k)(a) = 0 pour k=1..n-1. Montrer ∃c, f^(n)(c)=0.",
+      "indication": "Appliquer Rolle successivement.",
+      "solution": [
+        "f(a)=f(b)=0 ⟹ ∃c₁, f'(c₁) = 0 (Rolle).",
+        "f'(a) = 0 et f'(c₁) = 0 ⟹ ∃c₂ ∈ ]a,c₁[, f''(c₂) = 0.",
+        "Récurrence : f^(k)(a) = 0 et f^(k)(c_k) = 0.",
+        "Donc ∃c_{k+1}, f^(k+1)(c_{k+1}) = 0.",
+        "À l'étape n : ∃c, f^(n)(c) = 0."
+      ],
+      "lecons": [228],
+      "tags": ["Rolle", "dérivées successives"]
+    },
+    {
+      "id": "ex_formule_taylor_reste",
+      "titre": "Formule de Taylor avec reste intégral",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Établir f(b) = f(a) + ∑_{k=1}^n f^(k)(a)(b-a)^k/k! + Rₙ avec Rₙ = ∫_a^b f^(n+1)(t)(b-t)^n/n! dt.",
+      "indication": "IPP successives.",
+      "solution": [
+        "IPP sur ∫f'(t) dt avec u'=f', v=(t-b)⁰/0!.",
+        "= [f(t)]_a^b = f(b) - f(a).",
+        "IPP : ∫f'(t) dt = [f(t)·1]_a^b - ∫f''(t)·(b-t) dt.",
+        "Itérer n fois.",
+        "Obtenir Taylor-Lagrange ou Taylor-intégral."
+      ],
+      "lecons": [224],
+      "tags": ["Taylor", "IPP"]
+    },
+    {
+      "id": "ex_changement_variable",
+      "titre": "Changement de variable en intégrale",
+      "domaine": "Analyse",
+      "niveau": "Facile",
+      "enonce": "Calculer I = ∫₀^π x·sin(x) dx.",
+      "indication": "IPP avec u=x, v'=sin(x).",
+      "solution": [
+        "IPP : u=x, v'=sin(x), u'=1, v=-cos(x).",
+        "I = [-x·cos(x)]₀^π + ∫₀^π cos(x) dx.",
+        "= -π·(-1) - 0·1 + [sin(x)]₀^π.",
+        "= π + 0 = π."
+      ],
+      "lecons": [236],
+      "tags": ["IPP", "intégrale"]
+    },
+    {
+      "id": "ex_theoreme_rolle_generalise",
+      "titre": "Rolle généralisé",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Si f C¹ sur [a,b], f(a)=f(b)=0 et f' ne s'annule qu'en un nombre fini de points, montrer que f' change de signe.",
+      "indication": "Par l'absurde, f serait monotone.",
+      "solution": [
+        "Rolle : ∃c ∈ ]a,b[, f'(c) = 0.",
+        "Si f' garde un signe constant sauf en {c₁,...,cₖ},",
+        "alors f monotone sur chaque intervalle.",
+        "f(a)=0, f croît puis décroît : f(b) ≠ 0. Contradiction.",
+        "Donc f' change de signe."
+      ],
+      "lecons": [228],
+      "tags": ["Rolle", "signe dérivée"]
+    },
+    {
+      "id": "ex_pgcd_polynomes",
+      "titre": "PGCD de polynômes",
+      "domaine": "Algèbre",
+      "niveau": "Facile",
+      "enonce": "Calculer pgcd(X³ - 1, X² - 1) dans ℝ[X].",
+      "indication": "Euclide ou factorisation.",
+      "solution": [
+        "X³ - 1 = (X-1)(X²+X+1).",
+        "X² - 1 = (X-1)(X+1).",
+        "pgcd = X - 1.",
+        "Méthode 2 (Euclide) : X³-1 = (X²-1)·X + (X-1).",
+        "X²-1 = (X-1)·(X+1) + 0. pgcd = X-1."
+      ],
+      "lecons": [120],
+      "tags": ["PGCD", "polynômes"]
+    },
+    {
+      "id": "ex_theoreme_chinois",
+      "titre": "Théorème chinois",
+      "domaine": "Algèbre",
+      "niveau": "Moyen",
+      "enonce": "Résoudre le système x ≡ 2 (mod 3), x ≡ 3 (mod 5), x ≡ 1 (mod 7).",
+      "indication": "Bézout pour construire la solution.",
+      "solution": [
+        "3·5·7 = 105, modules premiers entre eux.",
+        "M₁ = 5·7 = 35, chercher e₁ : 35e₁ ≡ 1 (mod 3).",
+        "35 ≡ 2 (mod 3), 2e₁ ≡ 1, e₁ = 2.",
+        "M₂ = 3·7 = 21, 21e₂ ≡ 1 (mod 5), e₂ = 1.",
+        "M₃ = 3·5 = 15, 15e₃ ≡ 1 (mod 7), e₃ = 1.",
+        "x = 2·35·2 + 3·21·1 + 1·15·1 = 140 + 63 + 15 = 218 ≡ 8 (mod 105)."
+      ],
+      "lecons": [121],
+      "tags": ["congruences", "théorème chinois"]
+    },
+    {
+      "id": "ex_racines_unite",
+      "titre": "Racines de l'unité",
+      "domaine": "Algèbre",
+      "niveau": "Moyen",
+      "enonce": "Calculer ∑_{k=0}^{n-1} e^{2iπk/n}.",
+      "indication": "Somme géométrique ou symétrie.",
+      "solution": [
+        "Soit ω = e^{2iπ/n}, racine n-ième primitive.",
+        "S = ∑_{k=0}^{n-1} ωᵏ = (ωⁿ - 1)/(ω - 1) si ω ≠ 1.",
+        "ωⁿ = 1, donc S = 0.",
+        "Interprétation : barycentre des sommets du n-gone régulier."
+      ],
+      "lecons": [106],
+      "tags": ["racines unité", "complexes"]
+    },
+    {
+      "id": "ex_espaces_lp",
+      "titre": "Inégalité de Hölder",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Pour p,q conjugués (1/p + 1/q = 1), montrer ∫|fg| ≤ (∫|f|^p)^{1/p}·(∫|g|^q)^{1/q}.",
+      "indication": "Inégalité de Young : ab ≤ a^p/p + b^q/q.",
+      "solution": [
+        "Normaliser : ‖f‖_p = ‖g‖_q = 1.",
+        "Young : |f(x)|·|g(x)| ≤ |f(x)|^p/p + |g(x)|^q/q.",
+        "Intégrer : ∫|fg| ≤ 1/p + 1/q = 1.",
+        "Cas général : normaliser puis appliquer.",
+        "Cas d'égalité : |f|^p = λ|g|^q p.p."
+      ],
+      "lecons": [213, 234],
+      "tags": ["Hölder", "L^p"]
+    },
+    {
+      "id": "ex_convolution",
+      "titre": "Produit de convolution",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Calculer f ⋆ g où f(x) = e^(-|x|) et g = 𝟙_{[-1,1]}.",
+      "indication": "Distinguer les cas selon x.",
+      "solution": [
+        "(f⋆g)(x) = ∫_{-1}^1 e^(-|x-t|) dt.",
+        "Cas x ≥ 1 : ∫_{-1}^1 e^(t-x) dt = e^(-x)(e - e^{-2}).",
+        "Cas -1 ≤ x ≤ 1 : séparer en ∫_{-1}^x e^(t-x) + ∫_x^1 e^(x-t).",
+        "Cas x ≤ -1 : symétrie.",
+        "Résultat : fonction C¹ par morceaux."
+      ],
+      "lecons": [235],
+      "tags": ["convolution", "intégrale"]
+    },
+    {
+      "id": "ex_caracteristique_euler",
+      "titre": "Fonction indicatrice d'Euler",
+      "domaine": "Algèbre",
+      "niveau": "Moyen",
+      "enonce": "Calculer φ(360) où φ(n) = #{k ∈ [1,n] : pgcd(k,n)=1}.",
+      "indication": "Formule φ(n) = n·∏(1 - 1/p) pour p|n premier.",
+      "solution": [
+        "360 = 2³·3²·5.",
+        "φ(360) = 360·(1 - 1/2)·(1 - 1/3)·(1 - 1/5).",
+        "= 360·(1/2)·(2/3)·(4/5).",
+        "= 360·8/30 = 96."
+      ],
+      "lecons": [121, 123],
+      "tags": ["Euler", "arithmétique"]
+    },
+    {
+      "id": "ex_determinant_circulant",
+      "titre": "Déterminant circulant",
+      "domaine": "Algèbre",
+      "niveau": "Difficile",
+      "enonce": "Calculer det([[a,b,c],[c,a,b],[b,c,a]]).",
+      "indication": "Diagonaliser via les racines de l'unité.",
+      "solution": [
+        "Matrice circulante C.",
+        "Valeurs propres : P(ω^k) où P(X) = a + bX + cX².",
+        "ω = e^{2iπ/3}, racine cubique.",
+        "λ₁ = a+b+c, λ₂ = a+bω+cω², λ₃ = a+bω²+cω.",
+        "det(C) = (a+b+c)(a+bω+cω²)(a+bω²+cω).",
+        "= (a+b+c)(a² + b² + c² - ab - bc - ca)."
+      ],
+      "lecons": [151, 106],
+      "tags": ["circulant", "racines unité"]
+    },
+    {
+      "id": "ex_lemme_borel_lebesgue",
+      "titre": "Lemme de Borel-Lebesgue",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Montrer que [a,b] est compact : de tout recouvrement ouvert on peut extraire un sous-recouvrement fini.",
+      "indication": "Par l'absurde avec dichotomie.",
+      "solution": [
+        "Soit (Uᵢ) recouvrement de [a,b].",
+        "Supposons pas de sous-recouvrement fini.",
+        "Dichotomie : l'un de [a,m] ou [m,b] non recouvert finiment.",
+        "Construire [aₙ,bₙ] non rec. fini avec bₙ-aₙ = (b-a)/2ⁿ.",
+        "L'intersection {ℓ} : ℓ ∈ Uᵢ₀ ouvert ⟹ ]ℓ-ε,ℓ+ε[ ⊂ Uᵢ₀.",
+        "Pour n grand, [aₙ,bₙ] ⊂ Uᵢ₀ : contradiction."
+      ],
+      "lecons": [206],
+      "tags": ["compacité", "Borel-Lebesgue"]
+    },
+    {
+      "id": "ex_isometrie_classification",
+      "titre": "Classification des isométries du plan",
+      "domaine": "Géométrie",
+      "niveau": "Moyen",
+      "enonce": "Classifier toutes les isométries affines du plan euclidien.",
+      "indication": "Distinguer selon det = ±1 et points fixes.",
+      "solution": [
+        "Isométries directes (det = +1) :",
+        "- Translation si pas de point fixe",
+        "- Rotation si un point fixe",
+        "Isométries indirectes (det = -1) :",
+        "- Symétrie axiale si droite de points fixes",
+        "- Symétrie glissée sinon (symétrie + translation)"
+      ],
+      "lecons": [183, 184],
+      "tags": ["isométries", "géométrie plane"]
+    },
+    {
+      "id": "ex_courbe_parametree",
+      "titre": "Étude de courbe paramétrée",
+      "domaine": "Géométrie",
+      "niveau": "Moyen",
+      "enonce": "Étudier la cardioïde r = 1 + cos(θ) en polaires.",
+      "indication": "Points doubles, tangentes, courbure.",
+      "solution": [
+        "x = (1+cos θ)cos θ, y = (1+cos θ)sin θ.",
+        "Périodicité 2π, symétrie/Ox.",
+        "Points doubles : θ = 0 (point de rebroussement).",
+        "Tangente : v'(θ) = (-sin θ(2+cos θ), cos θ(2+cos θ)).",
+        "Aire : A = (1/2)∫r² dθ = 3π/2."
+      ],
+      "lecons": [190],
+      "tags": ["courbe", "polaires", "cardioïde"]
+    },
+    {
+      "id": "ex_conique_reduction",
+      "titre": "Réduction d'une conique",
+      "domaine": "Géométrie",
+      "niveau": "Moyen",
+      "enonce": "Identifier et réduire C : x² + 2xy + y² - 4x + 2y + 1 = 0.",
+      "indication": "Forme quadratique associée puis translation.",
+      "solution": [
+        "Partie quadratique : q(x,y) = x² + 2xy + y²= (x+y)².",
+        "Matrice Q = [[1,1],[1,1]], det = 0 : parabole.",
+        "Changement : X = x+y, Y orthogonal.",
+        "Équation réduite après translation : Y² = 4aX.",
+        "Axe, sommet, foyer à déterminer."
+      ],
+      "lecons": [177, 187],
+      "tags": ["conique", "réduction"]
+    },
+    {
+      "id": "ex_barycentric_coordinates",
+      "titre": "Coordonnées barycentriques",
+      "domaine": "Géométrie",
+      "niveau": "Facile",
+      "enonce": "Soit ABC triangle. Exprimer le centre de gravité G en coordonnées barycentriques.",
+      "indication": "G = bar{(A,1), (B,1), (C,1)}.",
+      "solution": [
+        "G = (A + B + C)/3.",
+        "Coordonnées barycentriques : (1/3, 1/3, 1/3).",
+        "Propriété : AG = (AB + AC)/3.",
+        "Liens avec médianes : G divise chaque médiane en 2:1."
+      ],
+      "lecons": [181],
+      "tags": ["barycentre", "triangle"]
+    },
+    {
+      "id": "ex_probabilite_geometrique",
+      "titre": "Loi géométrique",
+      "domaine": "Probabilités",
+      "niveau": "Facile",
+      "enonce": "X suit une loi géométrique de paramètre p. Calculer E[X] et Var(X).",
+      "indication": "∑n·p·(1-p)^{n-1} = p/(1-p)² après dérivation.",
+      "solution": [
+        "P(X=n) = p(1-p)^{n-1} pour n ≥ 1.",
+        "E[X] = ∑n·p·q^{n-1} où q = 1-p.",
+        "= p·∑(d/dq)[q^n] = p·d/dq[q/(1-q)] = p/((1-q)²) = 1/p.",
+        "E[X²] = (2-p)/p², Var(X) = E[X²] - E[X]² = (1-p)/p²."
+      ],
+      "lecons": [261],
+      "tags": ["loi géométrique", "espérance"]
+    },
+    {
+      "id": "ex_inegalite_markov",
+      "titre": "Inégalité de Markov",
+      "domaine": "Probabilités",
+      "niveau": "Facile",
+      "enonce": "X ≥ 0, a > 0. Montrer P(X ≥ a) ≤ E[X]/a.",
+      "indication": "Majorer X par a·𝟙_{X≥a}.",
+      "solution": [
+        "X ≥ a·𝟙_{X≥a} (car si X ≥ a, alors X ≥ a·1).",
+        "Prendre l'espérance : E[X] ≥ a·E[𝟙_{X≥a}].",
+        "E[𝟙_{X≥a}] = P(X ≥ a).",
+        "Donc P(X ≥ a) ≤ E[X]/a."
+      ],
+      "lecons": [259],
+      "tags": ["Markov", "inégalité"]
+    },
+    {
+      "id": "ex_tcl_application",
+      "titre": "TCL et intervalle de confiance",
+      "domaine": "Probabilités",
+      "niveau": "Moyen",
+      "enonce": "100 lancers, 58 faces. IC à 95% pour p (proba de face) ?",
+      "indication": "TCL avec p̂ = 0.58.",
+      "solution": [
+        "p̂ = 58/100 = 0.58 (estimateur).",
+        "TCL : √n·(p̂-p)/√(p(1-p)) ≈ N(0,1).",
+        "Approximation : √(p(1-p)) ≈ √(p̂(1-p̂)) = √(0.58·0.42) ≈ 0.494.",
+        "IC 95% : p̂ ± 1.96·0.494/10 = 0.58 ± 0.097.",
+        "IC = [0.483, 0.677]."
+      ],
+      "lecons": [262, 267],
+      "tags": ["TCL", "estimation"]
+    },
+    {
+      "id": "ex_chaine_markov",
+      "titre": "Chaîne de Markov simple",
+      "domaine": "Probabilités",
+      "niveau": "Moyen",
+      "enonce": "Chaîne à 2 états avec P = [[0.7, 0.3], [0.4, 0.6]]. Trouver la loi stationnaire.",
+      "indication": "Résoudre πP = π avec π₁ + π₂ = 1.",
+      "solution": [
+        "π = (π₁, π₂) avec πP = π.",
+        "0.7π₁ + 0.4π₂ = π₁ ⟹ 0.4π₂ = 0.3π₁.",
+        "π₁ + π₂ = 1.",
+        "π₂ = (3/4)π₁, donc π₁ = 4/7, π₂ = 3/7.",
+        "Loi stationnaire : π = (4/7, 3/7)."
+      ],
+      "lecons": [264],
+      "tags": ["Markov", "loi stationnaire"]
+    },
+    {
+      "id": "ex_fonction_generatrice",
+      "titre": "Fonction génératrice",
+      "domaine": "Probabilités",
+      "niveau": "Moyen",
+      "enonce": "X suit une loi de Poisson(λ). Calculer G_X(s) = E[s^X].",
+      "indication": "Utiliser e^x = ∑x^n/n!.",
+      "solution": [
+        "G_X(s) = ∑_{k=0}^∞ s^k · e^{-λ}λ^k/k!.",
+        "= e^{-λ} · ∑(λs)^k/k!.",
+        "= e^{-λ} · e^{λs}.",
+        "= e^{λ(s-1)}."
+      ],
+      "lecons": [260],
+      "tags": ["fonction génératrice", "Poisson"]
+    },
+    {
+      "id": "ex_vecteurs_propres_commutants",
+      "titre": "Endomorphismes qui commutent",
+      "domaine": "Algèbre",
+      "niveau": "Difficile",
+      "enonce": "Si u,v commutent et u diagonalisable, montrer que les espaces propres de u sont stables par v.",
+      "indication": "Soit x vecteur propre de u.",
+      "solution": [
+        "Soit x ∈ E_λ(u), i.e. u(x) = λx.",
+        "u(v(x)) = v(u(x)) = v(λx) = λv(x).",
+        "Donc v(x) ∈ E_λ(u).",
+        "Chaque E_λ(u) est stable par v.",
+        "On peut diagonaliser v sur chaque E_λ.",
+        "Si v aussi diagonalisable : base commune."
+      ],
+      "lecons": [153, 154],
+      "tags": ["commutation", "diagonalisation"]
+    },
+    {
+      "id": "ex_theoreme_perron_frobenius",
+      "titre": "Perron-Frobenius (cas simple)",
+      "domaine": "Algèbre",
+      "niveau": "Difficile",
+      "enonce": "Montrer qu'une matrice à coefficients > 0 a une valeur propre réelle > 0.",
+      "indication": "Utiliser la compacité de la sphère.",
+      "solution": [
+        "A matrice n×n avec aᵢⱼ > 0.",
+        "Considérer f(x) = Ax/‖Ax‖₁ sur le simplexe Δ.",
+        "f : Δ → Δ continue, donc f a un point fixe (Brouwer).",
+        "En ce point : Ax = λx avec λ > 0.",
+        "Résultat complet : λ_max simple, vecteur propre > 0."
+      ],
+      "lecons": [155],
+      "tags": ["Perron-Frobenius", "positif"]
+    },
+    {
+      "id": "ex_decomposition_dunford",
+      "titre": "Décomposition de Dunford",
+      "domaine": "Algèbre",
+      "niveau": "Difficile",
+      "enonce": "Montrer que tout endomorphisme s'écrit u = d + n avec d diagonalisable, n nilpotent, dn = nd.",
+      "indication": "Utiliser la forme de Jordan.",
+      "solution": [
+        "Sur ℂ, u trigonalisable : u = D + N (Jordan).",
+        "D = diag(λ₁,...,λₙ) diagonale.",
+        "N strictement triangulaire sup., donc nilpotente.",
+        "DN = ND (matrices triangulaires commutent).",
+        "Unicité : si u = d₁+n₁ = d₂+n₂, alors d₁-d₂ = n₂-n₁.",
+        "d₁-d₂ diag. ET nilpotent ⟹ d₁ = d₂."
+      ],
+      "lecons": [154, 157],
+      "tags": ["Dunford", "Jordan"]
+    },
+    {
+      "id": "ex_theoreme_ascoli",
+      "titre": "Application d'Ascoli",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Soit (fₙ) suite de C([0,1],ℝ) lipschitziennes de rapport k, bornées par M. Montrer qu'on peut en extraire une sous-suite uniformément convergente.",
+      "indication": "Équicontinuité + compacité.",
+      "solution": [
+        "(fₙ) bornée uniformément : |fₙ(x)| ≤ M.",
+        "(fₙ) équicontinue : |fₙ(x)-fₙ(y)| ≤ k|x-y|.",
+        "Ascoli : de toute suite bornée équicontinue,",
+        "on peut extraire une sous-suite CV uniforme.",
+        "Donc ∃φ : fₙₖ → f uniformément sur [0,1]."
+      ],
+      "lecons": [206, 241],
+      "tags": ["Ascoli", "équicontinuité"]
+    },
+    {
+      "id": "ex_lemme_fatou",
+      "titre": "Lemme de Fatou",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Si fₙ ≥ 0, montrer ∫(lim inf fₙ) ≤ lim inf(∫fₙ).",
+      "indication": "Poser gₖ = inf_{n≥k} fₙ et utiliser la monotonie.",
+      "solution": [
+        "gₖ = inf_{n≥k} fₙ ≤ fₙ pour n ≥ k.",
+        "Donc ∫gₖ ≤ ∫fₙ pour tout n ≥ k.",
+        "∫gₖ ≤ inf_{n≥k} ∫fₙ.",
+        "gₖ ↗ lim inf fₙ, monotone croissant.",
+        "∫(lim inf fₙ) = lim ∫gₖ ≤ lim(inf_{n≥k} ∫fₙ) = lim inf ∫fₙ."
+      ],
+      "lecons": [234],
+      "tags": ["Fatou", "Lebesgue"]
+    },
+    {
+      "id": "ex_variable_densite_exo",
+      "titre": "Loi exponentielle",
+      "domaine": "Probabilités",
+      "niveau": "Facile",
+      "enonce": "X suit Exp(λ). Calculer P(X > s+t | X > s) pour s,t > 0.",
+      "indication": "Propriété de perte de mémoire.",
+      "solution": [
+        "P(X > x) = e^{-λx}.",
+        "P(X > s+t | X > s) = P(X > s+t ∩ X > s)/P(X > s).",
+        "= P(X > s+t)/P(X > s).",
+        "= e^{-λ(s+t)}/e^{-λs} = e^{-λt}.",
+        "= P(X > t). (Propriété de perte de mémoire)"
+      ],
+      "lecons": [261],
+      "tags": ["exponentielle", "perte de mémoire"]
+    },
+    {
+      "id": "ex_esperance_conditionnelle",
+      "titre": "Espérance conditionnelle",
+      "domaine": "Probabilités",
+      "niveau": "Moyen",
+      "enonce": "Soit N ~ Poisson(λ) et X₁,...,Xₙ iid Bernoulli(p). Calculer E[∑_{i=1}^N Xᵢ].",
+      "indication": "Formule de l'espérance totale.",
+      "solution": [
+        "Soit S = ∑_{i=1}^N Xᵢ.",
+        "E[S | N=n] = ∑_{i=1}^n E[Xᵢ] = np.",
+        "E[S] = E[E[S|N]] = E[Np] = p·E[N] = pλ.",
+        "Interprétation : somme aléatoire de Bernoulli."
+      ],
+      "lecons": [263],
+      "tags": ["conditionnement", "Poisson"]
+    },
+    {
+      "id": "ex_densite_normale",
+      "titre": "Calcul avec loi normale",
+      "domaine": "Probabilités",
+      "niveau": "Facile",
+      "enonce": "X ~ N(10, 4). Calculer P(8 < X < 14).",
+      "indication": "Centrer-réduire puis utiliser la table.",
+      "solution": [
+        "μ = 10, σ² = 4, σ = 2.",
+        "Z = (X-10)/2 ~ N(0,1).",
+        "P(8 < X < 14) = P(-1 < Z < 2).",
+        "= Φ(2) - Φ(-1) = Φ(2) - (1-Φ(1)).",
+        "≈ 0.9772 - 0.1587 = 0.8185 ≈ 82%."
+      ],
+      "lecons": [261],
+      "tags": ["loi normale", "centrage"]
+    },
+    {
+      "id": "ex_theoreme_transfert",
+      "titre": "Théorème de transfert",
+      "domaine": "Probabilités",
+      "niveau": "Moyen",
+      "enonce": "X ~ U([0,1]). Calculer E[X²] et Var(X).",
+      "indication": "E[g(X)] = ∫g(x)f_X(x)dx.",
+      "solution": [
+        "f_X(x) = 1 sur [0,1].",
+        "E[X] = ∫₀¹ x dx = 1/2.",
+        "E[X²] = ∫₀¹ x² dx = 1/3.",
+        "Var(X) = E[X²] - E[X]² = 1/3 - 1/4 = 1/12."
+      ],
+      "lecons": [261],
+      "tags": ["transfert", "uniforme"]
+    },
+    {
+      "id": "ex_formule_bayes",
+      "titre": "Formule de Bayes",
+      "domaine": "Probabilités",
+      "niveau": "Facile",
+      "enonce": "Test maladie : sensibilité 99%, spécificité 95%, prévalence 0.1%. Si test positif, quelle est la probabilité d'être malade ?",
+      "indication": "P(M|T⁺) = P(T⁺|M)P(M)/P(T⁺).",
+      "solution": [
+        "P(M) = 0.001, P(T⁺|M) = 0.99, P(T⁻|M^c) = 0.95.",
+        "P(T⁺) = P(T⁺|M)P(M) + P(T⁺|M^c)P(M^c).",
+        "= 0.99·0.001 + 0.05·0.999 = 0.00099 + 0.04995 = 0.05094.",
+        "P(M|T⁺) = 0.00099/0.05094 ≈ 0.0194 ≈ 2%.",
+        "Paradoxe : test positif mais seulement 2% de chance d'être malade !"
+      ],
+      "lecons": [258],
+      "tags": ["Bayes", "probabilités conditionnelles"]
+    },
+    {
+      "id": "ex_serie_alterne",
+      "titre": "Critère de Leibniz",
+      "domaine": "Analyse",
+      "niveau": "Facile",
+      "enonce": "Montrer que ∑(-1)ⁿ/n converge et estimer la somme partielle.",
+      "indication": "Leibniz avec uₙ = 1/n.",
+      "solution": [
+        "uₙ = 1/n décroît vers 0.",
+        "Critère de Leibniz : ∑(-1)ⁿuₙ converge.",
+        "Reste : |Rₙ| ≤ uₙ₊₁ = 1/(n+1).",
+        "Somme = -ln(2) (développement de ln(1+x)).",
+        "S₁₀ ≈ -0.646, erreur < 1/11 ≈ 0.091."
+      ],
+      "lecons": [238],
+      "tags": ["Leibniz", "série alternée"]
+    },
+    {
+      "id": "ex_theoreme_rolle_reciproque",
+      "titre": "Réciproque partielle de Rolle",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Si f' s'annule, f peut-elle ne pas avoir deux zéros ?",
+      "indication": "Contre-exemple : f(x) = x².",
+      "solution": [
+        "Contre-exemple : f(x) = x² sur [-1,1].",
+        "f'(0) = 0 mais f ne s'annule qu'en 0 (pas deux zéros distincts).",
+        "Réciproque de Rolle est fausse.",
+        "Rolle dit : f(a)=f(b) ⟹ ∃c, f'(c)=0.",
+        "Réciproque serait : f'(c)=0 ⟹ ∃a,b, f(a)=f(b)."
+      ],
+      "lecons": [228],
+      "tags": ["Rolle", "contre-exemple"]
+    },
+    {
+      "id": "ex_critere_cauchy_condensation",
+      "titre": "Critère de condensation de Cauchy",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Utiliser la condensation pour étudier ∑1/(n·ln(n)·ln(ln(n))).",
+      "indication": "∑uₙ et ∑2^k u_{2^k} ont même nature.",
+      "solution": [
+        "uₙ = 1/(n·ln n·ln ln n) décroissante pour n ≥ 3.",
+        "Condensation : vₖ = 2^k · u_{2^k} = 2^k/(2^k·k·ln 2·ln(k·ln 2)).",
+        "≈ 1/(k·ln k) pour k grand.",
+        "∑1/(k·ln k) diverge (critère intégral : ∫dx/(x·ln x) = ln(ln x)).",
+        "Donc ∑uₙ diverge."
+      ],
+      "lecons": [238],
+      "tags": ["condensation", "divergence"]
+    },
+    {
+      "id": "ex_pivot_gauss",
+      "titre": "Pivot de Gauss",
+      "domaine": "Algèbre",
+      "niveau": "Facile",
+      "enonce": "Résoudre le système : x+y+z=6, 2x-y+z=3, x+2y-z=2.",
+      "indication": "Échelonner la matrice augmentée.",
+      "solution": [
+        "[[1,1,1,6],[2,-1,1,3],[1,2,-1,2]].",
+        "L₂ ← L₂-2L₁ : [[1,1,1,6],[0,-3,-1,-9],[1,2,-1,2]].",
+        "L₃ ← L₃-L₁ : [[1,1,1,6],[0,-3,-1,-9],[0,1,-2,-4]].",
+        "L₂ ← -L₂/3 : [[1,1,1,6],[0,1,1/3,3],[0,1,-2,-4]].",
+        "L₃ ← L₃-L₂ : [[1,1,1,6],[0,1,1/3,3],[0,0,-7/3,-7]].",
+        "z = 3, y = 3-1=2, x = 6-2-3=1. Solution : (1,2,3)."
+      ],
+      "lecons": [105],
+      "tags": ["Gauss", "systèmes linéaires"]
     }
   ]
 }
