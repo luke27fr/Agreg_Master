@@ -227,7 +227,19 @@
         "Convergence dans L¹"
       ],
       "lecons": [234, 266],
-      "tags": ["intégration", "Lebesgue"]
+      "tags": ["intégration", "Lebesgue"],
+      "videos": [
+        {
+          "titre": "Convergence Dominée - Preuve par Fatou",
+          "url": "https://www.youtube.com/watch?v=example8",
+          "plateforme": "youtube",
+          "dureeMinutes": 22,
+          "auteur": "Intégration Lebesgue",
+          "description": "Démonstration avec lemme de Fatou"
+        }
+      ],
+      "difficulte": 5,
+      "remarque": "Théorème central en théorie de la mesure"
     },
     {
       "id": "weierstrass_demo",
@@ -245,7 +257,19 @@
         "Densité des polynômes trigonométriques"
       ],
       "lecons": [201, 202],
-      "tags": ["approximation", "polynômes"]
+      "tags": ["approximation", "polynômes"],
+      "videos": [
+        {
+          "titre": "Weierstrass - Polynômes de Bernstein",
+          "url": "https://www.youtube.com/watch?v=example9",
+          "plateforme": "youtube",
+          "dureeMinutes": 18,
+          "auteur": "Approximation Fonctionnelle",
+          "description": "Construction et convergence des polynômes de Bernstein"
+        }
+      ],
+      "difficulte": 4,
+      "remarque": "Lien entre analyse et probabilités via Bernstein"
     },
     {
       "id": "point_fixe_banach",
@@ -263,7 +287,19 @@
         "Théorème d'inversion locale"
       ],
       "lecons": [205, 220],
-      "tags": ["point fixe", "espaces complets"]
+      "tags": ["point fixe", "espaces complets"],
+      "videos": [
+        {
+          "titre": "Point Fixe de Banach - Applications",
+          "url": "https://www.youtube.com/watch?v=example10",
+          "plateforme": "youtube",
+          "dureeMinutes": 16,
+          "auteur": "Espaces Métriques",
+          "description": "Preuve et applications aux EDO"
+        }
+      ],
+      "difficulte": 4,
+      "remarque": "Méthode des approximations successives, très utile"
     },
     {
       "id": "gauss_lemme",
@@ -281,6 +317,18 @@
         "Irréductibilité ℤ → ℚ (Gauss)"
       ],
       "lecons": [121, 122],
+      "videos": [
+        {
+          "titre": "Lemme de Gauss - Démonstration élégante",
+          "url": "https://www.youtube.com/watch?v=example11",
+          "plateforme": "youtube",
+          "dureeMinutes": 8,
+          "auteur": "Arithmétique Fondamentale",
+          "description": "Preuve courte avec Bézout"
+        }
+      ],
+      "difficulte": 2,
+      "remarque": "Simple mais fondamental, conséquence directe de Bézout",
       "tags": ["arithmétique", "divisibilité"]
     },
     {
@@ -299,7 +347,19 @@
         "Théorème de Cauchy"
       ],
       "lecons": [101, 104],
-      "tags": ["groupes", "Sylow"]
+      "tags": ["groupes", "Sylow"],
+      "videos": [
+        {
+          "titre": "Premier Théorème de Sylow - Actions de groupes",
+          "url": "https://www.youtube.com/watch?v=example12",
+          "plateforme": "youtube",
+          "dureeMinutes": 28,
+          "auteur": "Théorie des Groupes",
+          "description": "Preuve détaillée par action sur les parties"
+        }
+      ],
+      "difficulte": 5,
+      "remarque": "Un des théorèmes les plus difficiles du programme, crucial pour l'étude des groupes finis"
     }
   ]
 }
