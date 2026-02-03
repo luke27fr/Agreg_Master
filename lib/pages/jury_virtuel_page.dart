@@ -502,6 +502,26 @@ class _JuryVirtuelMainPageState extends State<JuryVirtuelMainPage> {
 
             const SizedBox(height: 24),
 
+            // Bouton pour démarrer une session rapide
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: () => _showLeconSelectionDialog(),
+                icon: const Icon(Icons.play_arrow, size: 28),
+                label: const Text('Démarrer une session', style: TextStyle(fontSize: 16)),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.deepPurple,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 24),
+
             // Statistiques
             if (stats.totalSessions > 0) ...[
               const Text(
@@ -595,7 +615,99 @@ class _JuryVirtuelMainPageState extends State<JuryVirtuelMainPage> {
     );
   }
 
+  void _showLeconSelectionDialog() {
+    final leconController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Choisir une leçon'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              'Entrez le numéro ou le titre de la leçon à travailler',
+              style: TextStyle(fontSize: 13),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: leconController,
+              decoration: const InputDecoration(
+                labelText: 'Leçon',
+                hintText: 'Ex: Leçon 104 - Groupes finis',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              'Ou sélectionnez un exemple :',
+              style: TextStyle(fontSize: 12, color: Colors.grey),
+            ),
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 8,
+              children: [
+                _buildQuickLeconChip(ctx, '104', 'Groupes finis'),
+                _buildQuickLeconChip(ctx, '153', 'Réduction'),
+                _buildQuickLeconChip(ctx, '170', 'Formes quadratiques'),
+                _buildQuickLeconChip(ctx, '228', 'Continuité'),
+                _buildQuickLeconChip(ctx, '234', 'Intégration'),
+              ],
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('Annuler'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              if (leconController.text.isNotEmpty) {
+                Navigator.pop(ctx);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => JuryVirtuelPage(
+                      leconId: leconController.text,
+                      leconTitre: leconController.text,
+                    ),
+                  ),
+                );
+              }
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF1A237E),
+              foregroundColor: Colors.white,
+            ),
+            child: const Text('Démarrer'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildQuickLeconChip(BuildContext ctx, String numero, String titre) {
+    return ActionChip(
+      label: Text('$numero', style: const TextStyle(fontSize: 11)),
+      onPressed: () {
+        Navigator.pop(ctx);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => JuryVirtuelPage(
+              leconId: numero,
+              leconTitre: 'Leçon $numero - $titre',
+            ),
+          ),
+        );
+      },
+      backgroundColor: const Color(0xFF1A237E).withOpacity(0.1),
+    );
+  }
+
   String _formatDate(DateTime date) {
     return '${date.day}/${date.month}/${date.year} ${date.hour}:${date.minute.toString().padLeft(2, '0')}';
   }
 }
+
