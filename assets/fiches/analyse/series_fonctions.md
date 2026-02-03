@@ -39,5 +39,5 @@
 >   * **Rép :** $\sum_{n \geq 1} \frac{(-1)^n}{n}$ (série constante, convergente par Leibniz, mais $\sum \frac{1}{n}$ diverge).
 
 ### 5. Références Bibliographiques
-* **X. Gourdon**, *Analyse* (Séries de fonctions).
-* **W. Rudin**, *Principles of Mathematical Analysis*.
+* **X. Gourdon**, *Analyse* — La référence pour l'agrégation, très complet.
+* **C. Zuily, H. Queffélec**, *Analyse pour l'agrégation* — Cours et exercices.

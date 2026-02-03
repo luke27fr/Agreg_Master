@@ -41,5 +41,5 @@
 >   * **Rép :** $\frac{\pi^4}{90}$ (via Parseval avec $f(x) = x^2$).
 
 ### 5. Références Bibliographiques
-* **X. Gourdon**, *Analyse* (Séries de Fourier).
-* **H. Dym, H.P. McKean**, *Fourier Series and Integrals*.
+* **X. Gourdon**, *Analyse* — La référence pour l'agrégation, très complet.
+* **H. Queffélec**, *Analyse pour l'agrégation* — Spécialement conçu pour le concours.

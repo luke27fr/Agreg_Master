@@ -41,5 +41,5 @@
 >   * **Rép :** $[0, 1]$ est ouvert et fermé dans $[0, 1] \cup [2, 3]$ (muni de la topologie induite).
 
 ### 5. Références Bibliographiques
-* **J. Dixmier**, *Topologie générale*.
-* **H. Cartan**, *Cours de calcul différentiel*.
+* **J. Dixmier**, *Topologie générale* — Référence pour la topologie.
+* **X. Gourdon**, *Analyse* — La référence pour l'agrégation, très complet.

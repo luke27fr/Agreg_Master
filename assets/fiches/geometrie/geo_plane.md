@@ -39,5 +39,5 @@
 >   * **Rép :** Une infinité, leurs centres sont sur la médiatrice du segment.
 
 ### 5. Références Bibliographiques
-* **H.S.M. Coxeter**, *Introduction to Geometry*.
-* **M. Berger**, *Géométrie* (Volumes 1-5).
+* **M. Berger**, *Géométrie* — Encyclopédique, couvre tous les aspects de la géométrie plane.
+* **F. Liret, D. Martinais**, *Géométrie* — Niveau classes préparatoires, très clair sur la géométrie plane.

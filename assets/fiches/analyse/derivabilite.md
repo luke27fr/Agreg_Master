@@ -39,5 +39,5 @@
 >   * **Rép :** $f(a+h) = \sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!} h^k + o(h^n)$ si $f$ est $n$ fois dérivable en $a$.
 
 ### 5. Références Bibliographiques
-* **X. Gourdon**, *Analyse* (Dérivation).
-* **W. Rudin**, *Principles of Mathematical Analysis*.
+* **X. Gourdon**, *Analyse* — La référence pour l'agrégation, très complet.
+* **H. Queffélec**, *Analyse pour l'agrégation* — Spécialement conçu pour le concours.

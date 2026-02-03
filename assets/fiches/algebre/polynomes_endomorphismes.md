@@ -40,5 +40,5 @@
 >   * **Rép :** Pour décomposer $E$ en somme directe de sous-espaces stables, notamment pour la réduction de Jordan.
 
 ### 5. Références Bibliographiques
-* **X. Gourdon**, *Algèbre* (Réduction).
-* **C. Deschamps**, *Maths MP* (Polynômes d'endomorphismes).
+* **X. Gourdon**, *Algèbre* — La référence pour l'agrégation, très complet sur les polynômes d'endomorphismes.
+* **J.-E. Rombaldi**, *Algèbre* — Exercices corrigés pour l'agrégation sur Cayley-Hamilton et le polynôme minimal.

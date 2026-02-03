@@ -43,6 +43,5 @@
 >   * **Rép :** Réduction modulo $p$ : si $\bar{P}$ est irréductible dans $\mathbb{F}_p[X]$ et $\deg(\bar{P}) = \deg(P)$, alors $P$ est irréductible dans $\mathbb{Q}[X]$.
 
 ### 5. Références Bibliographiques
-* **X. Gourdon**, *Algèbre* (Chapitres sur les polynômes et l'arithmétique).
-* **P. Music**, *Algèbre MPSI-MP* (Pour les exercices classiques).
-* **S. Lang**, *Algebra* (Pour une approche plus abstraite des anneaux de polynômes).
+* **X. Gourdon**, *Algèbre* — La référence pour l'agrégation, très complet sur les polynômes.
+* **D. Perrin**, *Algèbre* — Excellent pour l'arithmétique des polynômes et l'irréductibilité.

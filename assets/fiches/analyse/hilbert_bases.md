@@ -37,6 +37,5 @@
 >   * **Rép :** Elle reste orthonormée, mais n'est plus totale. L'orthogonal de l'espace engendré n'est plus réduit à $\{0\}$ (il contient le vecteur retiré).
 
 ### 5. Références Bibliographiques
-* **H. Brezis**, *Analyse Fonctionnelle* (Théorie générale).
-* **X. Gourdon**, *Les maths en tête - Analyse* (Pour les polynômes orthogonaux).
-* **H. Queffélec**, *Éléments d'analyse pour l'agrégation* (Exemples concrets).
+* **X. Gourdon**, *Analyse* — La référence pour l'agrégation, très complet.
+* **C. Zuily, H. Queffélec**, *Analyse pour l'agrégation* — Cours et exercices.

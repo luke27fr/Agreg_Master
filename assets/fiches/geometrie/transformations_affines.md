@@ -41,5 +41,5 @@
 >   * **Rép :** Non directement, mais on peut le plonger dans $GL_{n+1}$ via les coordonnées homogènes.
 
 ### 5. Références Bibliographiques
-* **D. Perrin**, *Cours d'algèbre* (Géométrie affine).
-* **M. Audin**, *Géométrie*.
+* **M. Audin**, *Géométrie* — Excellente approche moderne des transformations affines.
+* **J. Lelong-Ferrand, J.-M. Arnaudiès**, *Géométrie et Cinématique* — Classique complet sur les applications affines.

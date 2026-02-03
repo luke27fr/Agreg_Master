@@ -41,5 +41,5 @@
 >   * **Rép :** Le groupe symétrique $\mathfrak{S}_3$ (permutations de 3 éléments), ou $GL_2(\mathbb{R})$.
 
 ### 5. Références Bibliographiques
-* **D. Perrin**, *Cours d'algèbre* (Groupes, anneaux, corps).
-* **X. Gourdon**, *Algèbre* (Structures algébriques).
+* **D. Perrin**, *Algèbre* — Excellent pour les structures (groupes, anneaux, corps).
+* **X. Gourdon**, *Algèbre* — La référence pour l'agrégation, très complet.

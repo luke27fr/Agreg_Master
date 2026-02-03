@@ -37,5 +37,5 @@
 >   * **Rép :** Il est isomorphe à l'espace lui-même (Théorème de Riesz-Fréchet). Toute forme linéaire continue s'écrit $L(x) = \langle x, a \rangle$.
 
 ### 5. Références Bibliographiques
-* **H. Brezis**, *Analyse Fonctionnelle* (La Bible pour l'Agreg).
-* **Zuily-Queffelec**, *Éléments d'analyse pour l'agrégation* (Pour les exercices).
+* **X. Gourdon**, *Analyse* — La référence pour l'agrégation, très complet.
+* **C. Zuily, H. Queffélec**, *Analyse pour l'agrégation* — Cours et exercices.

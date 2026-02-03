@@ -44,5 +44,5 @@
 >   * **Rép :** $E^* = \mathcal{L}(E, \mathbb{K})$ est l'espace des formes linéaires. En dimension finie, $\dim(E^*) = \dim(E)$.
 
 ### 5. Références Bibliographiques
-* **X. Gourdon**, *Algèbre* (Chapitre Applications linéaires).
-* **R. Music**, *Algèbre MPSI-MP* (Exercices sur le rang).
+* **R. Music**, *Algèbre linéaire* — Très bon pour les espaces vectoriels et les applications linéaires.
+* **X. Gourdon**, *Algèbre* — La référence pour l'agrégation, très complet.

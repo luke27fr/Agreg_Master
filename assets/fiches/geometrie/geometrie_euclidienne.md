@@ -39,5 +39,5 @@
 >   * **Rép :** Dans un triangle rectangle en $C$ : $AB^2 = AC^2 + BC^2$.
 
 ### 5. Références Bibliographiques
-* **M. Audin**, *Géométrie*.
-* **M. Berger**, *Géométrie* (Tomes 1-2).
+* **M. Audin**, *Géométrie* — Excellente approche moderne de la géométrie euclidienne.
+* **M. Berger**, *Géométrie* — Encyclopédique, couvre tous les aspects de la géométrie euclidienne.

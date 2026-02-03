@@ -40,5 +40,5 @@
 >   * **Rép :** Non, c'est une propriété intrinsèque de la courbe (invariant géométrique).
 
 ### 5. Références Bibliographiques
-* **M. Berger, B. Gostiaux**, *Géométrie différentielle*.
-* **J. Dieudonné**, *Éléments d'analyse* (Tome 4).
+* **M. Berger**, *Géométrie* — Encyclopédique, couvre tous les aspects des courbes paramétrées.
+* **J. Lelong-Ferrand, J.-M. Arnaudiès**, *Géométrie et Cinématique* — Classique complet sur les courbes.

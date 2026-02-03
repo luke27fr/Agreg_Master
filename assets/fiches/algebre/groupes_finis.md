@@ -41,5 +41,5 @@
 >   * **Rép :** Si $p^k$ divise $|G|$ avec $p$ premier, alors $G$ possède un sous-groupe d'ordre $p^k$ (existence).
 
 ### 5. Références Bibliographiques
-* **D. Perrin**, *Cours d'algèbre* (Groupes finis).
-* **J.-P. Serre**, *Cours d'arithmétique* (Groupes).
+* **D. Perrin**, *Algèbre* — Excellent pour les groupes finis et les théorèmes de Sylow.
+* **J.-E. Rombaldi**, *Algèbre* — Exercices corrigés pour l'agrégation sur les groupes.

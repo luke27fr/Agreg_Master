@@ -42,5 +42,5 @@
 >   * **Rép :** Si $Av = \lambda v$ avec $v \neq 0$, alors $\lambda \|v\|^2 = \bar{v}^T A v = v^T A v = \bar{\lambda} \|v\|^2$, donc $\lambda = \bar{\lambda}$.
 
 ### 5. Références Bibliographiques
-* **X. Gourdon**, *Algèbre* (Théorème spectral).
-* **C. Deschamps**, *Maths MP* (Endomorphismes autoadjoints).
+* **X. Gourdon**, *Algèbre* — La référence pour l'agrégation, très complet sur le théorème spectral.
+* **J. Grifone**, *Algèbre linéaire* — Clair sur l'aspect géométrique des endomorphismes autoadjoints.

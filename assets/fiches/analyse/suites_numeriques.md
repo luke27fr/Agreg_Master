@@ -39,5 +39,5 @@
 >   * **Rép :** $((-1)^n)$ : $(u_{2n}) \to 1$ et $(u_{2n+1}) \to -1$.
 
 ### 5. Références Bibliographiques
-* **X. Gourdon**, *Analyse* (Suites).
-* **W. Rudin**, *Principles of Mathematical Analysis*.
+* **X. Gourdon**, *Analyse* — La référence pour l'agrégation, très complet.
+* **C. Zuily, H. Queffélec**, *Analyse pour l'agrégation* — Cours et exercices.

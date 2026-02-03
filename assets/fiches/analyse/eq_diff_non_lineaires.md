@@ -41,5 +41,5 @@
 >   * **Rép :** Montrer qu'elle reste bornée sur tout intervalle borné (évite l'explosion).
 
 ### 5. Références Bibliographiques
-* **V. Arnold**, *Équations différentielles ordinaires*.
-* **J. Hale**, *Ordinary Differential Equations*.
+* **X. Gourdon**, *Analyse* — La référence pour l'agrégation, très complet.
+* **C. Zuily, H. Queffélec**, *Analyse pour l'agrégation* — Cours et exercices.

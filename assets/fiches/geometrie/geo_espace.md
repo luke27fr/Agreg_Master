@@ -41,5 +41,5 @@
 >   * **Rép :** $V = |[\vec{a}, \vec{b}, \vec{c}]|$ (valeur absolue du produit mixte des arêtes).
 
 ### 5. Références Bibliographiques
-* **M. Berger**, *Géométrie* (Volume 2 : Espaces euclidiens).
-* **J. Dieudonné**, *Algèbre linéaire et géométrie élémentaire*.
+* **M. Berger**, *Géométrie* — Encyclopédique, couvre tous les aspects de la géométrie de l'espace.
+* **J. Dieudonné**, *Algèbre linéaire et géométrie élémentaire* — Approche rigoureuse de la géométrie dans l'espace.

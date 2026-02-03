@@ -41,5 +41,5 @@
 >   * **Rép :** Courbe tangente à toutes les courbes de la famille. Ex : la développée est l'enveloppe des normales.
 
 ### 5. Références Bibliographiques
-* **M. do Carmo**, *Differential Geometry of Curves and Surfaces*.
-* **M. Berger**, *Géométrie* (Courbes).
+* **M. Berger**, *Géométrie* — Encyclopédique, couvre tous les aspects des courbes planes.
+* **F. Liret, D. Martinais**, *Géométrie* — Niveau classes préparatoires, très clair sur les courbes.

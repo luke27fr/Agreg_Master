@@ -40,5 +40,5 @@
 >   * **Rép :** Oui, c'est la définition de la similitude : conservation des angles.
 
 ### 5. Références Bibliographiques
-* **M. Berger**, *Géométrie* (Similitudes).
-* **D. Perrin**, *Cours d'algèbre* (Transformations).
+* **M. Berger**, *Géométrie* — Encyclopédique, couvre tous les aspects des similitudes.
+* **M. Audin**, *Géométrie* — Excellente approche moderne des similitudes.

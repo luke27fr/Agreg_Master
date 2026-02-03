@@ -44,6 +44,5 @@
 >   * **Rép :** Oui par définition de la norme subordonnée. Pour une symétrique, $\|A\|_2 = \rho(A)$ (rayon spectral).
 
 ### 5. Références Bibliographiques
-* **X. Gourdon**, *Algèbre* (La référence incontournable pour les démos).
-* **J. Grifone**, *Algèbre Linéaire* (Très clair sur l'aspect géométrique).
-* **G. Peyré**, *L'algèbre discrète de la transformée de Fourier* (Pour des applications plus poussées).
+* **X. Gourdon**, *Algèbre* — La référence pour l'agrégation, très complet sur le théorème spectral.
+* **J. Grifone**, *Algèbre linéaire* — Clair sur l'aspect géométrique et la diagonalisation orthogonale.

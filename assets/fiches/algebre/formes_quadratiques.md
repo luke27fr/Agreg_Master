@@ -41,5 +41,5 @@
 >   * **Rép :** $\{x \in E : q(x) = 0\}$. C'est un cône (stable par multiplication scalaire).
 
 ### 5. Références Bibliographiques
-* **X. Gourdon**, *Algèbre* (Formes quadratiques).
-* **C. Deschamps**, *Maths MP* (Réduction).
+* **X. Gourdon**, *Algèbre* — La référence pour l'agrégation, très complet sur les formes quadratiques.
+* **J. Grifone**, *Algèbre linéaire* — Clair sur l'aspect géométrique et la signature.

@@ -39,5 +39,5 @@
 >   * **Rép :** Extension de Riemann qui intègre plus de fonctions (limites de fonctions simples).
 
 ### 5. Références Bibliographiques
-* **X. Gourdon**, *Analyse* (Intégration).
-* **W. Rudin**, *Principles of Mathematical Analysis*.
+* **X. Gourdon**, *Analyse* — La référence pour l'agrégation, très complet.
+* **H. Queffélec**, *Analyse pour l'agrégation* — Spécialement conçu pour le concours.

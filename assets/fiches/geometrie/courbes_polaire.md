@@ -41,5 +41,5 @@
 >   * **Rép :** $L = \int_0^{2\pi} \sqrt{(1+\cos\theta)^2 + \sin^2\theta} \, d\theta = 8$.
 
 ### 5. Références Bibliographiques
-* **F. Liret, D. Martinais**, *Géométrie* (Collection MPSI).
-* **H. Queffélec**, *Analyse pour l'agrégation*.
+* **F. Liret, D. Martinais**, *Géométrie* — Niveau classes préparatoires, très clair sur les coordonnées polaires.
+* **M. Berger**, *Géométrie* — Encyclopédique, couvre tous les aspects des courbes.

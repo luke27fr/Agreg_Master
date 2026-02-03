@@ -40,5 +40,5 @@
 >   * **Rép :** Évitent le gimbal lock, interpolation naturelle (slerp), composition par multiplication.
 
 ### 5. Références Bibliographiques
-* **M. Berger**, *Géométrie* (Rotations).
-* **J. Gallier**, *Geometric Methods and Applications* (Quaternions).
+* **M. Berger**, *Géométrie* — Encyclopédique, couvre tous les aspects des rotations.
+* **J. Dieudonné**, *Algèbre linéaire et géométrie élémentaire* — Approche rigoureuse des rotations et du groupe orthogonal.

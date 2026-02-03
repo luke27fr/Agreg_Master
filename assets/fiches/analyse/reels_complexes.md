@@ -43,5 +43,5 @@
 >   * **Rép :** Tout polynôme non constant de $\mathbb{C}[X]$ admet au moins une racine dans $\mathbb{C}$.
 
 ### 5. Références Bibliographiques
-* **W. Rudin**, *Principles of Mathematical Analysis*.
-* **X. Gourdon**, *Analyse* (Nombres réels).
+* **X. Gourdon**, *Analyse* — La référence pour l'agrégation, très complet.
+* **H. Queffélec**, *Analyse pour l'agrégation* — Spécialement conçu pour le concours.

@@ -40,5 +40,5 @@
 >   * **Rép :** $\frac{\sqrt{\pi}}{2}$ (intégrale de Gauss, par passage en polaires).
 
 ### 5. Références Bibliographiques
-* **X. Gourdon**, *Analyse* (Intégrales impropres).
-* **W. Rudin**, *Principles of Mathematical Analysis*.
+* **X. Gourdon**, *Analyse* — La référence pour l'agrégation, très complet.
+* **C. Zuily, H. Queffélec**, *Analyse pour l'agrégation* — Cours et exercices.

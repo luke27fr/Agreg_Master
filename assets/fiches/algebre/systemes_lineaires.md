@@ -42,5 +42,5 @@
 >   * **Rép :** $A = LU$ où $L$ est triangulaire inférieure et $U$ triangulaire supérieure. Utile pour résoudre $AX = B$ rapidement.
 
 ### 5. Références Bibliographiques
-* **X. Gourdon**, *Algèbre* (Systèmes linéaires).
-* **C. Deschamps**, *Maths MPSI* (Matrices).
+* **X. Gourdon**, *Algèbre* — La référence pour l'agrégation, très complet sur les systèmes.
+* **R. Music**, *Algèbre linéaire* — Très bon pour les méthodes de résolution et le rang.

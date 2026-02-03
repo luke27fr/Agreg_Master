@@ -39,5 +39,5 @@
 >   * **Rép :** $SO_n(\mathbb{R}) = \{P \in O_n : \det(P) = 1\}$ (rotations). $O_n = SO_n \sqcup \{P : \det(P) = -1\}$.
 
 ### 5. Références Bibliographiques
-* **X. Gourdon**, *Algèbre* (Espaces euclidiens).
-* **C. Deschamps**, *Maths MP* (Réduction, formes quadratiques).
+* **X. Gourdon**, *Algèbre* — La référence pour l'agrégation, très complet sur les espaces euclidiens.
+* **J. Grifone**, *Algèbre linéaire* — Clair sur l'aspect géométrique et les projections.

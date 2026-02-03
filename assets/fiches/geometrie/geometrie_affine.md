@@ -40,5 +40,5 @@
 >   * **Rép :** Application affine $h$ telle que $\vec{h} = \lambda \text{Id}$. Centre : unique point fixe (si $\lambda \neq 1$).
 
 ### 5. Références Bibliographiques
-* **M. Audin**, *Géométrie*.
-* **D. Perrin**, *Cours d'algèbre* (Géométrie affine).
+* **M. Audin**, *Géométrie* — Excellente approche moderne de la géométrie affine.
+* **J. Lelong-Ferrand, J.-M. Arnaudiès**, *Géométrie et Cinématique* — Classique complet sur la géométrie affine.

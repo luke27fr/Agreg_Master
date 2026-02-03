@@ -41,5 +41,5 @@
 >   * **Rép :** Si $E = F_1 \oplus \cdots \oplus F_k$, en juxtaposant des bases de chaque $F_i$, on obtient une base de $E$.
 
 ### 5. Références Bibliographiques
-* **X. Gourdon**, *Algèbre* (Chapitre sur les espaces vectoriels).
-* **S. Francinou, H. Gianella**, *Exercices de mathématiques - Algèbre 1*.
+* **R. Music**, *Algèbre linéaire* — Très bon pour les espaces vectoriels et les bases.
+* **X. Gourdon**, *Algèbre* — La référence pour l'agrégation, très complet.

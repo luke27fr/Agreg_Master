@@ -45,5 +45,5 @@
 >   * **Rép :** Oui, c'est une fonction polynomiale en les coefficients de la matrice. Elle est donc $C^\infty$.
 
 ### 5. Références Bibliographiques
-* **X. Gourdon**, *Algèbre* (Pour la densité et les calculs classiques).
-* **J. Grifone**, *Algèbre Linéaire* (Pour la vision géométrique du volume).
+* **X. Gourdon**, *Algèbre* — La référence pour l'agrégation, très complet sur les déterminants.
+* **J. Grifone**, *Algèbre linéaire* — Clair sur l'aspect géométrique du volume.

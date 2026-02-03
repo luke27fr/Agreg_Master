@@ -41,5 +41,5 @@
 >   * **Rép :** Uniforme sur tout compact. Souvent suffisante pour préserver la continuité.
 
 ### 5. Références Bibliographiques
-* **X. Gourdon**, *Analyse* (Suites de fonctions).
-* **W. Rudin**, *Principles of Mathematical Analysis*.
+* **X. Gourdon**, *Analyse* — La référence pour l'agrégation, très complet.
+* **C. Zuily, H. Queffélec**, *Analyse pour l'agrégation* — Cours et exercices.

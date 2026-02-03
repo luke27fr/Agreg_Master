@@ -40,5 +40,5 @@
 >   * **Rép :** Pour toute famille $(A_i)_{i \in I}$ d'ensembles non vides, il existe une fonction de choix $f : I \to \bigcup A_i$ avec $f(i) \in A_i$.
 
 ### 5. Références Bibliographiques
-* **R. Cori, D. Lascar**, *Logique mathématique*.
-* **D. Perrin**, *Cours d'algèbre* (Préliminaires).
+* **D. Perrin**, *Algèbre* — Excellent pour les préliminaires logiques et ensemblistes.
+* **X. Gourdon**, *Algèbre* — La référence pour l'agrégation, fondements clairs.

@@ -41,5 +41,5 @@
 >   * **Rép :** Les directions sont orthogonales ssi le quotient des nombres directeurs est imaginaire pur.
 
 ### 5. Références Bibliographiques
-* **D. Perrin**, *Cours d'algèbre* (Nombres complexes).
-* **A. Carbone**, *Géométrie plane*.
+* **M. Audin**, *Géométrie* — Excellente approche moderne des nombres complexes en géométrie.
+* **F. Liret, D. Martinais**, *Géométrie* — Niveau classes préparatoires, très clair sur les complexes.

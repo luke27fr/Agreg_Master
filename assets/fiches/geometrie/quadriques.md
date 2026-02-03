@@ -41,5 +41,5 @@
 >   * **Rép :** Une ellipse (ou un point ou vide selon la hauteur du plan).
 
 ### 5. Références Bibliographiques
-* **M. Berger**, *Géométrie* (Quadriques).
-* **F. Apéry**, *Géométrie* (Surfaces algébriques).
+* **M. Berger**, *Géométrie* — Encyclopédique, couvre tous les aspects des quadriques.
+* **F. Liret, D. Martinais**, *Géométrie* — Niveau classes préparatoires, très clair sur les quadriques.

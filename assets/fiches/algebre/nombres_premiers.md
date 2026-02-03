@@ -41,5 +41,5 @@
 >   * **Rép :** Non, $2047 = 23 \times 89$. Bien que $11$ soit premier, $M_{11}$ ne l'est pas.
 
 ### 5. Références Bibliographiques
-* **G.H. Hardy, E.M. Wright**, *An Introduction to the Theory of Numbers*.
-* **J.-P. Serre**, *Cours d'arithmétique*.
+* **X. Gourdon**, *Algèbre* — La référence pour l'agrégation, très complet sur l'arithmétique.
+* **J.-E. Rombaldi**, *Algèbre* — Exercices corrigés pour l'agrégation sur les nombres premiers.

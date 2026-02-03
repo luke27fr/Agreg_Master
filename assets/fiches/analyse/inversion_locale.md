@@ -41,6 +41,5 @@
 >   * **Rép :** On est au voisinage d'un point critique. Il faut étudier les rangs (Théorème du rang constant) ou utiliser des développements limités d'ordre supérieur (Théorie des singularités).
 
 ### 5. Références Bibliographiques
-* **F. Rouvière**, *Petit guide de calcul différentiel* (Le meilleur pour comprendre le sens physique/géométrique).
-* **H. Cartan**, *Calcul Différentiel* (La version classique et rigoureuse).
-* **A. Pommellet**, *Cours d'analyse pour l'agrégation*.
+* **F. Rouvière**, *Petit guide de calcul différentiel* — Très pédagogique sur le calcul différentiel.
+* **X. Gourdon**, *Analyse* — La référence pour l'agrégation, très complet.

@@ -41,5 +41,5 @@
 >   * **Rép :** Changement $t = e^s$ (ou $y = t^r$) ramène à coefficients constants.
 
 ### 5. Références Bibliographiques
-* **V. Arnold**, *Équations différentielles ordinaires*.
-* **X. Gourdon**, *Analyse* (Équations différentielles).
+* **X. Gourdon**, *Analyse* — La référence pour l'agrégation, très complet.
+* **C. Zuily, H. Queffélec**, *Analyse pour l'agrégation* — Cours et exercices.

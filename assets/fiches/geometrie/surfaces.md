@@ -43,5 +43,5 @@
 >   * **Rép :** $K = 0$ (surface développable, localement isométrique au plan).
 
 ### 5. Références Bibliographiques
-* **M. do Carmo**, *Differential Geometry of Curves and Surfaces*.
-* **M. Berger**, *Géométrie différentielle*.
+* **M. Berger**, *Géométrie* — Encyclopédique, couvre tous les aspects des surfaces.
+* **J. Lelong-Ferrand, J.-M. Arnaudiès**, *Géométrie et Cinématique* — Classique complet sur les surfaces.

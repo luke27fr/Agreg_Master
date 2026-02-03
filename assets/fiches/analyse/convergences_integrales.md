@@ -39,5 +39,5 @@
 >   * **Rép :** Obtenir une inégalité même sans domination. Utile pour montrer l'intégrabilité de la limite.
 
 ### 5. Références Bibliographiques
-* **W. Rudin**, *Real and Complex Analysis*.
-* **H. Brézis**, *Analyse fonctionnelle* (Appendice sur Lebesgue).
+* **X. Gourdon**, *Analyse* — La référence pour l'agrégation, très complet.
+* **W. Rudin**, *Analyse réelle et complexe* (traduit en français) — Classique rigoureux.

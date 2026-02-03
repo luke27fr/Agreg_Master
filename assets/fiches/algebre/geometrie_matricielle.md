@@ -40,5 +40,5 @@
 >   * **Rép :** $\text{Com}(A) = \{B : AB = BA\}$. Si $A$ est diagonalisable à valeurs propres distinctes, $\text{Com}(A)$ est l'ensemble des polynômes en $A$.
 
 ### 5. Références Bibliographiques
-* **X. Gourdon**, *Algèbre* (Matrices).
-* **R. Music**, *Algèbre MPSI-MP* (Géométrie des matrices).
+* **X. Gourdon**, *Algèbre* — La référence pour l'agrégation, très complet sur les matrices.
+* **J. Grifone**, *Algèbre linéaire* — Clair sur l'aspect géométrique des matrices.

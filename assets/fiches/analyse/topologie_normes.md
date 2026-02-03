@@ -39,5 +39,5 @@
 >   * **Rép :** Espace normé [complet](def:complet) (toute suite de Cauchy converge).
 
 ### 5. Références Bibliographiques
-* **H. Brézis**, *Analyse fonctionnelle*.
-* **W. Rudin**, *Functional Analysis*.
+* **J. Dixmier**, *Topologie générale* — Référence pour la topologie.
+* **H. Queffélec**, *Analyse pour l'agrégation* — Spécialement conçu pour le concours.

@@ -40,5 +40,5 @@
 >   * **Rép :** Étudier $P(t) = \|\vec{u} + t\vec{v}\|^2 \geq 0$ et son discriminant.
 
 ### 5. Références Bibliographiques
-* **J. Grifone**, *Algèbre linéaire* (Applications géométriques).
-* **X. Gourdon**, *Algèbre* (Espaces euclidiens).
+* **M. Berger**, *Géométrie* — Encyclopédique, couvre tous les aspects du produit scalaire.
+* **J. Lelong-Ferrand, J.-M. Arnaudiès**, *Géométrie et Cinématique* — Classique complet sur la géométrie euclidienne.

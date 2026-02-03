@@ -44,5 +44,5 @@
 >   * **Rép :** Non en général. Contre-exemple : $f(x) = x^2$, $f(\mathbb{R}) = [0, +\infty[$ n'est pas ouvert.
 
 ### 5. Références Bibliographiques
-* **X. Gourdon**, *Analyse* (Continuité).
-* **W. Rudin**, *Principles of Mathematical Analysis*.
+* **X. Gourdon**, *Analyse* — La référence pour l'agrégation, très complet.
+* **H. Queffélec**, *Analyse pour l'agrégation* — Spécialement conçu pour le concours.

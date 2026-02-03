@@ -40,5 +40,5 @@
 >   * **Rép :** Il est préservé par toute homographie (application projective bijective).
 
 ### 5. Références Bibliographiques
-* **M. Audin**, *Géométrie* (Géométrie projective).
-* **H.S.M. Coxeter**, *Projective Geometry*.
+* **M. Audin**, *Géométrie* — Excellente approche moderne de la géométrie projective.
+* **M. Berger**, *Géométrie* — Encyclopédique, couvre tous les aspects de la géométrie projective.

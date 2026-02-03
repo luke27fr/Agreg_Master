@@ -40,5 +40,5 @@
 >   * **Rép :** Dans $C([0,1])$, la boule unité fermée. La suite $f_n(x) = x^n$ n'a pas de sous-suite convergente pour $\|\cdot\|_\infty$.
 
 ### 5. Références Bibliographiques
-* **J. Dixmier**, *Topologie générale*.
-* **W. Rudin**, *Principles of Mathematical Analysis*.
+* **J. Dixmier**, *Topologie générale* — Référence pour la topologie.
+* **X. Gourdon**, *Analyse* — La référence pour l'agrégation, très complet.

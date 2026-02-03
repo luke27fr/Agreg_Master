@@ -39,5 +39,5 @@
 >   * **Rép :** On n'obtient pas un point mais un vecteur (bipoint de masse nulle).
 
 ### 5. Références Bibliographiques
-* **M. Audin**, *Géométrie* (Très complet sur la géométrie affine).
-* **J. Lelong-Ferrand, J.-M. Arnaudiès**, *Géométrie et Cinématique*.
+* **M. Audin**, *Géométrie* — Excellente approche moderne de la géométrie affine et des barycentres.
+* **J. Lelong-Ferrand, J.-M. Arnaudiès**, *Géométrie et Cinématique* — Classique complet sur les barycentres.

@@ -44,6 +44,5 @@
 >   * **Rép :** Quand $\chi_f$ est scindé sur $\mathbb{R}$ ET que toutes les multiplicités géométriques égalent les algébriques (ex: matrice symétrique réelle).
 
 ### 5. Références Bibliographiques
-* **X. Gourdon**, *Algèbre* (Chapitre Réduction).
-* **R. Music**, *Algèbre MP* (Exercices de réduction).
-* **C. Deschamps**, *Maths MP* (Dunford et Jordan).
+* **X. Gourdon**, *Algèbre* — La référence pour l'agrégation, très complet sur la réduction.
+* **R. Music**, *Algèbre linéaire* — Très bon pour les aspects pratiques de la diagonalisation.

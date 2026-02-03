@@ -41,5 +41,5 @@
 >   * **Rép :** Droite telle que pour tout point $M$ de la parabole, $MF = MH$ (excentricité $e = 1$).
 
 ### 5. Références Bibliographiques
-* **M. Berger**, *Géométrie* (Coniques).
-* **X. Gourdon**, *Algèbre* (Formes quadratiques et coniques).
+* **M. Berger**, *Géométrie* — Encyclopédique, couvre tous les aspects des coniques.
+* **F. Liret, D. Martinais**, *Géométrie* — Niveau classes préparatoires, très clair sur les coniques.

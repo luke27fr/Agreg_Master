@@ -45,6 +45,5 @@
 >   * **Rép :** Oui, pour $n \ge 2$. Si $n$ est impair, $-Id$ est un antidéplacement (symétrie centrale).
 
 ### 5. Références Bibliographiques
-* **M. Audin**, *Géométrie* (La référence moderne pour l'Agreg).
-* **M. Berger**, *Géométrie* (L'encyclopédie exhaustive).
-* **J. Ladegaillerie**, *Géométrie affine, projective, euclidienne* (Très pédagogique).
+* **M. Audin**, *Géométrie* — Excellente approche moderne des isométries.
+* **M. Berger**, *Géométrie* — Encyclopédique, couvre tous les aspects des isométries.

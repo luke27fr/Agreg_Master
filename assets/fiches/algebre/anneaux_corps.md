@@ -41,5 +41,5 @@
 >   * **Rép :** Oui, c'est même euclidien pour le stathme $N(a+bi) = a^2 + b^2$.
 
 ### 5. Références Bibliographiques
-* **D. Perrin**, *Cours d'algèbre* (Anneaux).
-* **X. Gourdon**, *Algèbre* (Structures algébriques).
+* **D. Perrin**, *Algèbre* — Excellent pour les structures (anneaux, idéaux, corps).
+* **X. Gourdon**, *Algèbre* — La référence pour l'agrégation, très complet.

@@ -41,5 +41,5 @@
 >   * **Rép :** Sur $\mathbb{R}$ : déjà irréductible. Sur $\mathbb{C}$ : $\frac{1}{2i}\left(\frac{1}{X-i} - \frac{1}{X+i}\right)$.
 
 ### 5. Références Bibliographiques
-* **X. Gourdon**, *Algèbre* (Fractions rationnelles).
-* **C. Deschamps**, *Maths MPSI/MP*.
+* **X. Gourdon**, *Algèbre* — La référence pour l'agrégation, très complet sur les fractions rationnelles.
+* **J.-E. Rombaldi**, *Algèbre* — Exercices corrigés pour l'agrégation sur la décomposition en éléments simples.

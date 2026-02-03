@@ -40,5 +40,5 @@
 >   * **Rép :** Connexe par arcs et tout lacet peut être contracté en un point (pas de "trou"). Ex : $\mathbb{R}^2$ mais pas $\mathbb{R}^2 \setminus \{0\}$.
 
 ### 5. Références Bibliographiques
-* **J. Dixmier**, *Topologie générale*.
-* **W. Rudin**, *Principles of Mathematical Analysis*.
+* **J. Dixmier**, *Topologie générale* — Référence pour la topologie.
+* **X. Gourdon**, *Analyse* — La référence pour l'agrégation, très complet.

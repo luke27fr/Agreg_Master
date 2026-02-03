@@ -39,5 +39,5 @@
 >   * **Rép :** Impossible sur un ouvert. Mais sur un fermé : $f(x) = 0$ pour $x \in [0,1[$, $f(1) = 1$ (pas convexe en fait). Sur un ouvert, convexe $\Rightarrow$ continue.
 
 ### 5. Références Bibliographiques
-* **R. Rockafellar**, *Convex Analysis*.
-* **J.-B. Hiriart-Urruty**, *Fundamentals of Convex Analysis*.
+* **X. Gourdon**, *Analyse* — La référence pour l'agrégation, très complet.
+* **H. Queffélec**, *Analyse pour l'agrégation* — Spécialement conçu pour le concours.

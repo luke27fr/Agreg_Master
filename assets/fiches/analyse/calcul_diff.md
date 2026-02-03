@@ -40,5 +40,5 @@
 >   * **Rép :** $d\exp_0 = \text{Id}$ est inversible, donc $\exp$ est un difféo local en 0, son image contient un voisinage de $I$.
 
 ### 5. Références Bibliographiques
-* **H. Cartan**, *Cours de calcul différentiel*.
-* **W. Rudin**, *Principles of Mathematical Analysis*.
+* **F. Rouvière**, *Petit guide de calcul différentiel* — Très pédagogique sur le calcul différentiel.
+* **X. Gourdon**, *Analyse* — La référence pour l'agrégation, très complet.

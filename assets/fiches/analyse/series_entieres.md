@@ -40,6 +40,5 @@
 >   * **Rép :** Une somme de série entière est holomorphe dans son disque ouvert de convergence. Réciproquement, toute fonction holomorphe est analytique (développable en série entière).
 
 ### 5. Références Bibliographiques
-* **X. Gourdon**, *Analyse* (Pour les théorèmes de régularité et les exercices).
-* **Amar & Matheron**, *Analyse complexe* (Pour le lien avec l'holomorphie).
-* **W. Rudin**, *Analyse Réelle et Complexe* (Pour la vision globale).
+* **X. Gourdon**, *Analyse* — La référence pour l'agrégation, très complet.
+* **W. Rudin**, *Analyse réelle et complexe* (traduit en français) — Classique rigoureux.

@@ -41,5 +41,5 @@
 >   * **Rép :** Rotations (groupe $SO_2$) et réflexions (symétries par rapport à une droite).
 
 ### 5. Références Bibliographiques
-* **X. Gourdon**, *Algèbre* (Réduction, groupes).
-* **M. Berger**, *Géométrie* (Isométries).
+* **M. Berger**, *Géométrie* — Encyclopédique, couvre tous les aspects des isométries.
+* **J. Dieudonné**, *Algèbre linéaire et géométrie élémentaire* — Approche rigoureuse du groupe orthogonal.

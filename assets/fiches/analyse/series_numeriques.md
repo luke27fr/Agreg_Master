@@ -41,5 +41,5 @@
 >   * **Rép :** $(\sum a_n)(\sum b_n) = \sum c_n$ avec $c_n = \sum_{k=0}^{n} a_k b_{n-k}$ (valide si absolument convergentes).
 
 ### 5. Références Bibliographiques
-* **X. Gourdon**, *Analyse* (Séries).
-* **W. Rudin**, *Principles of Mathematical Analysis*.
+* **X. Gourdon**, *Analyse* — La référence pour l'agrégation, très complet.
+* **C. Zuily, H. Queffélec**, *Analyse pour l'agrégation* — Cours et exercices.

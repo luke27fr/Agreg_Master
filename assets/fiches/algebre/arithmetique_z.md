@@ -46,5 +46,5 @@
 >   * **Rép :** $\varphi(12) = \varphi(4)\varphi(3) = 2 \times 2 = 4$. Les inversibles sont $\{1, 5, 7, 11\}$.
 
 ### 5. Références Bibliographiques
-* **X. Gourdon**, *Algèbre* (Arithmétique).
-* **J.-P. Serre**, *Cours d'arithmétique*.
+* **X. Gourdon**, *Algèbre* — La référence pour l'agrégation, très complet sur l'arithmétique.
+* **J.-E. Rombaldi**, *Algèbre* — Exercices corrigés pour l'agrégation sur l'arithmétique.

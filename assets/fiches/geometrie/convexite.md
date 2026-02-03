@@ -33,6 +33,5 @@
 >   * **Rép :** Dans un espace affine de dimension $n$, tout point de l'enveloppe convexe de $A$ est barycentre à coefficients positifs d'au plus $n+1$ points de $A$.
 
 ### 5. Références Bibliographiques
-* **M. Berger**, *Géométrie* (La référence pour l'enveloppe convexe et Carathéodory).
-* **H. Brezis**, *Analyse Fonctionnelle* (Pour la projection et Hahn-Banach).
-* **F. Rouvière**, *Petit guide de calcul différentiel* (Pour l'optimisation convexe).
+* **M. Berger**, *Géométrie* — Encyclopédique, couvre l'enveloppe convexe et Carathéodory.
+* **D. Music**, *Algèbre et Géométrie* — Bonne synthèse algèbre-géométrie sur la convexité.

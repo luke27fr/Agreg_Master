@@ -40,5 +40,5 @@
 >   * **Rép :** $\mathbb{R}$ (pour la distance usuelle). C'est le plus petit complet contenant $\mathbb{Q}$ densément.
 
 ### 5. Références Bibliographiques
-* **H. Brézis**, *Analyse fonctionnelle*.
-* **W. Rudin**, *Principles of Mathematical Analysis*.
+* **J. Dixmier**, *Topologie générale* — Référence pour la topologie.
+* **X. Gourdon**, *Analyse* — La référence pour l'agrégation, très complet.
