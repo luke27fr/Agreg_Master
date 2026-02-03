@@ -20,6 +20,7 @@ import 'jury_virtuel_page.dart';
 import 'structured_notes_page.dart';
 import 'competition_page.dart';
 import 'wellness_page.dart';
+import 'maths_intuitives_page.dart';
 import '../services/streak_service.dart';
 import '../services/badge_service.dart';
 import '../services/spaced_repetition_service.dart';
@@ -231,6 +232,22 @@ class _AgregationHubPageState extends State<AgregationHubPage> {
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(builder: (_) => const SpacedRepetitionPage()),
+              ),
+            ),
+
+            const SizedBox(height: 12),
+
+            // Maths Intuitives (NOUVEAU - mise en avant)
+            _buildWideFeatureCard(
+              context,
+              isDark,
+              icon: Icons.lightbulb_outline,
+              title: '💡 Maths Intuitives',
+              subtitle: 'Les concepts de l\'agrégation expliqués simplement pour un lycéen',
+              color: Colors.purple.shade600,
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const MathsIntuitivesPage()),
               ),
             ),
 

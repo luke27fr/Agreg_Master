@@ -29,6 +29,7 @@ import 'package:agreg_master/services/jury_virtuel_service.dart';
 import 'package:agreg_master/services/structured_notes_service.dart';
 import 'package:agreg_master/services/competition_service.dart';
 import 'package:agreg_master/services/wellness_service.dart';
+import 'package:agreg_master/services/maths_intuitives_service.dart';
 import 'fiche_page.dart';
 
 void main() async {
@@ -52,6 +53,7 @@ void main() async {
     StructuredNotesService().loadData(),
     CompetitionService().loadData(),
     WellnessService().loadData(),
+    MathsIntuitivesService().loadConcepts(),
   ]);
   runApp(const AgregMasterApp());
 }
