@@ -41,5 +41,5 @@
 >   * **Rép :** Pour $m$ tests, utiliser le seuil $\alpha/m$ pour chaque test individuel.
 
 ### 5. Références Bibliographiques
-* **E.L. Lehmann**, *Testing Statistical Hypotheses*.
-* **G. Casella, R. Berger**, *Statistical Inference*.
+* **G. Saporta**, *Probabilités, analyse des données et statistique* — Chapitre complet sur les tests.
+* **J.-J. Droesbeke**, *Éléments de statistique* — Approche pratique des tests d'hypothèses.

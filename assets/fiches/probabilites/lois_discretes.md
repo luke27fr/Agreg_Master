@@ -39,5 +39,5 @@
 >   * **Rép :** $X + Y \sim \mathcal{B}(n + m, p)$.
 
 ### 5. Références Bibliographiques
-* **W. Feller**, *An Introduction to Probability Theory*.
-* **G. Grimmett, D. Stirzaker**, *Probability and Random Processes*.
+* **C. Deschamps**, *Probabilités* — Introduction claire aux lois discrètes classiques.
+* **J.-Y. Ouvrard**, *Probabilités 1* — Exercices corrigés sur les lois discrètes.

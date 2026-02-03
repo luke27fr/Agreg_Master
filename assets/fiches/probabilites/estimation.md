@@ -41,5 +41,5 @@
 >   * **Rép :** Statistique $T$ telle que $\mathbb{P}(X|T)$ ne dépend pas de $\theta$. Contient toute l'info sur $\theta$.
 
 ### 5. Références Bibliographiques
-* **E.L. Lehmann**, *Theory of Point Estimation*.
-* **G. Casella, R. Berger**, *Statistical Inference*.
+* **G. Saporta**, *Probabilités, analyse des données et statistique* — Théorie de l'estimation avec applications.
+* **J.-J. Droesbeke**, *Éléments de statistique* — Méthodes d'estimation et propriétés des estimateurs.

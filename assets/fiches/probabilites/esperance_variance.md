@@ -41,5 +41,5 @@
 >   * **Rép :** Non ! Contre-exemple : $X \sim U([-1,1])$, $Y = X^2$. Non corrélées mais dépendantes.
 
 ### 5. Références Bibliographiques
-* **J. Jacod, P. Protter**, *Probability Essentials*.
-* **W. Feller**, *An Introduction to Probability Theory*.
+* **D. Foata, A. Fuchs**, *Calcul des probabilités* — Cours complet et rigoureux, idéal pour l'agrégation.
+* **J.-Y. Ouvrard**, *Probabilités 2* — Très clair sur les variables aléatoires et leurs moments.

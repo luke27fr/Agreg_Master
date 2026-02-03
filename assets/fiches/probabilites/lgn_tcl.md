@@ -38,5 +38,5 @@
 >   * **Rép :** On approche une loi discrète par une loi continue; $P(X \geq k) \approx P(Y \geq k - 0.5)$.
 
 ### 5. Références Bibliographiques
-* **P. Billingsley**, *Probability and Measure*.
-* **D. Williams**, *Probability with Martingales*.
+* **D. Foata, A. Fuchs**, *Calcul des probabilités* — Démonstrations complètes de la LGN et du TCL.
+* **J.-Y. Ouvrard**, *Probabilités 2* — Applications et exercices sur les théorèmes limites.

@@ -39,5 +39,5 @@
 >   * **Rép :** La loi Beta. Si prior Beta et vraisemblance binomiale, le posterior est Beta.
 
 ### 5. Références Bibliographiques
-* **W. Feller**, *An Introduction to Probability Theory*.
-* **J. Jacod, P. Protter**, *Probability Essentials*.
+* **C. Deschamps**, *Probabilités* — Présentation pédagogique des lois continues.
+* **D. Foata, A. Fuchs**, *Calcul des probabilités* — Propriétés et calculs avec les lois usuelles.

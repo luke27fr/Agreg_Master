@@ -40,5 +40,5 @@
 >   * **Rép :** $f_{-X}(y) = f(-y)$. Si $f$ est symétrique, $-X$ a même loi que $X$.
 
 ### 5. Références Bibliographiques
-* **J. Jacod, P. Protter**, *Probability Essentials*.
-* **P. Billingsley**, *Probability and Measure*.
+* **D. Foata, A. Fuchs**, *Calcul des probabilités* — Traitement rigoureux des variables à densité.
+* **J.-Y. Ouvrard**, *Probabilités 2* — Exercices corrigés sur les changements de variables.

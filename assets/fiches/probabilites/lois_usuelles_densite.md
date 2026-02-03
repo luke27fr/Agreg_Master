@@ -36,5 +36,5 @@
 >   * **Rép :** Théorème central limite : somme de v.a. i.i.d. tend vers une normale.
 
 ### 5. Références Bibliographiques
-* **W. Feller**, *An Introduction to Probability Theory* (Vol. 2).
-* **G. Grimmett, D. Stirzaker**, *Probability and Random Processes*.
+* **C. Deschamps**, *Probabilités* — Catalogue complet des lois à densité.
+* **D. Foata, A. Fuchs**, *Calcul des probabilités* — Propriétés et liens entre les lois continues.

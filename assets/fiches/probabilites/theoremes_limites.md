@@ -39,5 +39,5 @@
 >   * **Rép :** Version pour variables indépendantes non identiquement distribuées, sous condition de Lindeberg.
 
 ### 5. Références Bibliographiques
-* **P. Billingsley**, *Probability and Measure*.
-* **W. Feller**, *An Introduction to Probability Theory*, vol. II.
+* **D. Foata, A. Fuchs**, *Calcul des probabilités* — Démonstrations rigoureuses des théorèmes limites.
+* **J.-Y. Ouvrard**, *Probabilités 2* — Applications du TCL et de la LGN.

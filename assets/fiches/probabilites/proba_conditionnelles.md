@@ -39,5 +39,5 @@
 >   * **Rép :** Une tendance présente dans plusieurs groupes peut s'inverser quand on combine les groupes.
 
 ### 5. Références Bibliographiques
-* **J. Jacod, P. Protter**, *Probability Essentials*.
-* **G. Grimmett, D. Stirzaker**, *Probability and Random Processes*.
+* **D. Foata, A. Fuchs**, *Calcul des probabilités* — Chapitre complet sur le conditionnement.
+* **C. Deschamps**, *Probabilités* — Nombreux exercices sur Bayes et probabilités totales.

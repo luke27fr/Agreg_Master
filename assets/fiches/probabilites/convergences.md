@@ -41,5 +41,5 @@
 >   * **Rép :** Si $X_n \xrightarrow{\mathcal{L}} X$ et $Y_n \xrightarrow{\mathbb{P}} c$, alors $(X_n, Y_n) \xrightarrow{\mathcal{L}} (X, c)$.
 
 ### 5. Références Bibliographiques
-* **P. Billingsley**, *Convergence of Probability Measures*.
-* **D. Williams**, *Probability with Martingales*.
+* **D. Foata, A. Fuchs**, *Calcul des probabilités* — Chapitre détaillé sur les modes de convergence.
+* **J.-Y. Ouvrard**, *Probabilités 2* — Contre-exemples et implications entre convergences.

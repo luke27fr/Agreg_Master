@@ -42,5 +42,5 @@
 >   * **Rép :** Si $\sum \mathbb{P}(A_n) < \infty$, alors $\mathbb{P}(\limsup A_n) = 0$.
 
 ### 5. Références Bibliographiques
-* **P. Billingsley**, *Probability and Measure*.
-* **D. Williams**, *Probability with Martingales*.
+* **D. Foata, A. Fuchs**, *Calcul des probabilités* — Fondements rigoureux de la théorie des probabilités.
+* **J.-Y. Ouvrard**, *Probabilités 1* — Introduction accessible aux espaces probabilisés.

@@ -41,5 +41,5 @@
 >   * **Rép :** Formule d'inclusion-exclusion : $\sum_{k=0}^{p} (-1)^k \binom{p}{k} (p-k)^n$ où $|E|=n$, $|F|=p$.
 
 ### 5. Références Bibliographiques
-* **C. Deschamps**, *Probabilités* (Très bon pour le dénombrement).
-* **D. Foata, A. Fuchs**, *Combinatoire pour l'informatique*.
+* **C. Deschamps**, *Probabilités* — Très bon chapitre d'introduction au dénombrement.
+* **D. Foata, A. Fuchs**, *Calcul des probabilités* — Combinatoire et applications probabilistes.

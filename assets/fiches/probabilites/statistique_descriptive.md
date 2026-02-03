@@ -42,5 +42,5 @@
 >   * **Rép :** Forte corrélation linéaire positive. $R^2 = 0.64$ : 64% de la variance de $Y$ est expliquée par $X$.
 
 ### 5. Références Bibliographiques
-* **D. Freedman**, *Statistics*.
-* **G. Saporta**, *Probabilités, analyse des données et statistique*.
+* **G. Saporta**, *Probabilités, analyse des données et statistique* — La référence française pour la statistique descriptive.
+* **C. Deschamps**, *Probabilités* — Bonne introduction aux outils statistiques de base.

@@ -39,5 +39,5 @@
 >   * **Rép :** $f(x,y) = \frac{1}{\pi} \mathbf{1}_{x^2+y^2 \leq 1}$.
 
 ### 5. Références Bibliographiques
-* **G. Grimmett, D. Stirzaker**, *Probability and Random Processes*.
-* **P. Billingsley**, *Probability and Measure*.
+* **D. Foata, A. Fuchs**, *Calcul des probabilités* — Chapitre complet sur les vecteurs gaussiens.
+* **C. Deschamps**, *Probabilités* — Approche pédagogique des couples de variables.

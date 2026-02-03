@@ -40,5 +40,5 @@
 >   * **Rép :** Si $\sum \mathbb{P}(A_n) < +\infty$, alors $\mathbb{P}(\limsup A_n) = 0$ (p.s. un nombre fini d'événements se réalisent).
 
 ### 5. Références Bibliographiques
-* **J. Jacod, P. Protter**, *Probability Essentials*.
-* **A. Rényi**, *Calcul des probabilités*.
+* **D. Foata, A. Fuchs**, *Calcul des probabilités* — Fondements axiomatiques des probabilités.
+* **J.-Y. Ouvrard**, *Probabilités 1* — Introduction aux espaces probabilisés.

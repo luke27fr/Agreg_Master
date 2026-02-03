@@ -38,5 +38,5 @@
 >   * **Rép :** $\mathbb{E}[\mathbb{E}[X|Y]] = \sum_y \mathbb{E}[X|Y=y]\mathbb{P}(Y=y) = \mathbb{E}[X]$ par définition.
 
 ### 5. Références Bibliographiques
-* **D. Williams**, *Probability with Martingales*.
-* **J. Jacod, P. Protter**, *Probability Essentials*.
+* **D. Foata, A. Fuchs**, *Calcul des probabilités* — Traitement complet du conditionnement.
+* **J.-Y. Ouvrard**, *Probabilités 1* — Nombreux exercices sur Bayes et probabilités totales.

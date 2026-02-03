@@ -40,5 +40,5 @@
 >   * **Rép :** Si $Z_{n+1} = \sum_{i=1}^{Z_n} X_i$, alors $G_{Z_{n+1}}(s) = G_{Z_n}(G_X(s))$.
 
 ### 5. Références Bibliographiques
-* **W. Feller**, *An Introduction to Probability Theory*.
-* **G. Grimmett, D. Stirzaker**, *Probability and Random Processes*.
+* **D. Foata, A. Fuchs**, *Calcul des probabilités* — Traitement complet des fonctions génératrices.
+* **J.-Y. Ouvrard**, *Probabilités 2* — Applications aux marches aléatoires et processus de branchement.

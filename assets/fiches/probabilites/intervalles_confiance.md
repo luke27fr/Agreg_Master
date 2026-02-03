@@ -39,5 +39,5 @@
 >   * **Rép :** Méthode de rééchantillonnage pour estimer la distribution d'un estimateur et construire des IC.
 
 ### 5. Références Bibliographiques
-* **G. Casella, R. Berger**, *Statistical Inference*.
-* **L. Wasserman**, *All of Statistics*.
+* **G. Saporta**, *Probabilités, analyse des données et statistique* — Construction et interprétation des IC.
+* **J.-J. Droesbeke**, *Éléments de statistique* — Nombreux exemples d'intervalles de confiance.

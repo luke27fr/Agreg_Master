@@ -37,5 +37,5 @@
 >   * **Rép :** $G_X(s) = \mathbb{E}[s^X] = (1-p+ps)^n$.
 
 ### 5. Références Bibliographiques
-* **C. Deschamps**, *Probabilités pour la Licence*.
-* **J. Jacod, P. Protter**, *Probability Essentials*.
+* **C. Deschamps**, *Probabilités* — Présentation claire de toutes les lois discrètes usuelles.
+* **J.-Y. Ouvrard**, *Probabilités 1* — Exercices variés sur les lois discrètes.

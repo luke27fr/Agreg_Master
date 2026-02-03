@@ -42,5 +42,5 @@
 >   * **Rép :** Méthode MCMC pour échantillonner selon $\pi$ en construisant une chaîne de Markov avec $\pi$ invariante.
 
 ### 5. Références Bibliographiques
-* **J. Norris**, *Markov Chains*.
-* **G. Grimmett, D. Stirzaker**, *Probability and Random Processes*.
+* **D. Foata, A. Fuchs**, *Calcul des probabilités* — Introduction aux chaînes de Markov finies.
+* **J.-Y. Ouvrard**, *Probabilités 2* — Classification des états et théorèmes ergodiques.

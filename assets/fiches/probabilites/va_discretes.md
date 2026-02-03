@@ -41,6 +41,5 @@
 >   * **Rép :** On utilise la méthode de l'inversion de la fonction de répartition : $X = \lceil \frac{\ln(U)}{\ln(1-p)} \rceil$.
 
 ### 5. Références Bibliographiques
-* **D. Williams**, *Probability with Martingales* (Référence solide).
-* **Ouvrard**, *Probabilités 1* (Niveau CAPES/Agreg interne).
-* **Barbe & Ledoux**, *Probabilité* (Pour les exercices corrigés).
+* **J.-Y. Ouvrard**, *Probabilités 1* — Niveau adapté à l'agrégation, nombreux exercices.
+* **P. Barbe, M. Ledoux**, *Probabilité* — Exercices corrigés et approfondissements.

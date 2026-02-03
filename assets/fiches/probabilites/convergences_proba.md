@@ -39,5 +39,5 @@
 >   * **Rép :** $\varphi_X(t) = \mathbb{E}[e^{itX}]$. Caractérise la loi de $X$.
 
 ### 5. Références Bibliographiques
-* **P. Billingsley**, *Probability and Measure*.
-* **J. Jacod, P. Protter**, *Probability Essentials*.
+* **D. Foata, A. Fuchs**, *Calcul des probabilités* — Présentation rigoureuse des modes de convergence.
+* **J.-Y. Ouvrard**, *Probabilités 2* — Nombreux contre-exemples sur les implications.

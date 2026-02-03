@@ -40,5 +40,5 @@
 >   * **Rép :** La mesure image $\mathbb{P}_X = \mathbb{P} \circ X^{-1}$ sur $(E, \mathcal{E})$.
 
 ### 5. Références Bibliographiques
-* **J. Jacod, P. Protter**, *Probability Essentials*.
-* **W. Feller**, *An Introduction to Probability Theory*.
+* **D. Foata, A. Fuchs**, *Calcul des probabilités* — Définitions rigoureuses et exemples variés.
+* **J.-Y. Ouvrard**, *Probabilités 1* — Introduction progressive aux variables aléatoires.

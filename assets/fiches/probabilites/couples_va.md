@@ -43,5 +43,5 @@
 >   * **Rép :** Convolution : $f_{X+Y}(z) = \int f_X(x) f_Y(z - x) dx$ si $X, Y$ indépendantes.
 
 ### 5. Références Bibliographiques
-* **J. Jacod, P. Protter**, *Probability Essentials*.
-* **G. Grimmett, D. Stirzaker**, *Probability and Random Processes*.
+* **D. Foata, A. Fuchs**, *Calcul des probabilités* — Lois marginales, conditionnelles et indépendance.
+* **C. Deschamps**, *Probabilités* — Exercices sur les couples de variables aléatoires.
