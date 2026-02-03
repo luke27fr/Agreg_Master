@@ -305,49 +305,63 @@ class _MindMapPageState extends State<MindMapPage> with SingleTickerProviderStat
                   
                   if (node == null) return const SizedBox.shrink();
                   
-                  return Container(
-                    margin: const EdgeInsets.only(bottom: 8),
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: isDark ? const Color(0xFF2A2A2A) : Colors.grey[100],
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 16,
-                          backgroundColor: _getLevelColor(node.niveau).withOpacity(0.2),
-                          child: Text(
-                            '${index + 1}',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              color: _getLevelColor(node.niveau),
+                  return InkWell(
+                    onTap: () => _showNodeDialog(node),
+                    borderRadius: BorderRadius.circular(8),
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 8),
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: isDark ? const Color(0xFF2A2A2A) : Colors.grey[100],
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(
+                          color: Colors.deepPurple.withOpacity(0.3),
+                          width: 1,
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 16,
+                            backgroundColor: _getLevelColor(node.niveau).withOpacity(0.2),
+                            child: Text(
+                              '${index + 1}',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: _getLevelColor(node.niveau),
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                node.titre,
-                                style: const TextStyle(fontWeight: FontWeight.w500),
-                              ),
-                              Text(
-                                node.type,
-                                style: TextStyle(fontSize: 11, color: Colors.grey[600]),
-                              ),
-                            ],
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  node.titre,
+                                  style: const TextStyle(fontWeight: FontWeight.w500),
+                                ),
+                                Text(
+                                  node.type,
+                                  style: TextStyle(fontSize: 11, color: Colors.grey[600]),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        Icon(
-                          _getNodeIcon(node.type),
-                          size: 18,
-                          color: _getTypeColor(node.type),
-                        ),
-                      ],
+                          Icon(
+                            _getNodeIcon(node.type),
+                            size: 18,
+                            color: _getTypeColor(node.type),
+                          ),
+                          const SizedBox(width: 8),
+                          const Icon(
+                            Icons.touch_app,
+                            size: 16,
+                            color: Colors.deepPurple,
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 }),
@@ -578,6 +592,61 @@ class _MindMapPageState extends State<MindMapPage> with SingleTickerProviderStat
                           }).toList(),
                         ),
                       ],
+
+                      // Mots-clés (cliquables pour recherche)
+                      if (node.motsCles.isNotEmpty) ...[
+                        const SizedBox(height: 20),
+                        const Row(
+                          children: [
+                            Icon(Icons.label, size: 18, color: Colors.deepPurple),
+                            SizedBox(width: 6),
+                            Text(
+                              'Mots-clés',
+                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: node.motsCles.map((keyword) {
+                            return InkWell(
+                              onTap: () {
+                                Navigator.of(context).pop();
+                                Navigator.pushNamed(
+                                  context,
+                                  '/search',
+                                  arguments: {'initialQuery': keyword},
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                                decoration: BoxDecoration(
+                                  color: Colors.deepPurple.withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(16),
+                                  border: Border.all(color: Colors.deepPurple.withOpacity(0.3)),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      keyword,
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.deepPurple,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 4),
+                                    const Icon(Icons.search, size: 12, color: Colors.deepPurple),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ],
                     ],
                   ),
                 ),
@@ -587,6 +656,15 @@ class _MindMapPageState extends State<MindMapPage> with SingleTickerProviderStat
         ),
         actions: [
           const GlobalSearchButton(),
+          
+          TextButton.icon(
+            onPressed: () {
+              Navigator.of(context).pop();
+              Navigator.pushNamed(context, '/lecons');
+            },
+            icon: const Icon(Icons.library_books),
+            label: const Text('Voir les fiches'),
+          ),
           
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
