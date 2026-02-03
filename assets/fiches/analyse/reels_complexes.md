@@ -10,7 +10,7 @@
 > * **Module et argument :** $|z| = \sqrt{a^2 + b^2}$, $z = |z|e^{i\theta}$ où $\theta = \arg(z)$.
 > * **Conjugué :** $\bar{z} = a - ib$. On a $z\bar{z} = |z|^2$.
 > * **Formule d'Euler :** $e^{i\theta} = \cos\theta + i\sin\theta$.
-> * **Racines $n$-ièmes :** Les racines de $z^n = w$ sont $\sqrt[n]{|w|}e^{i(\theta + 2k\pi)/n}$ pour $k = 0, \ldots, n-1$.
+> * **Racines n-ièmes :** Les racines de $z^n = w$ sont $\sqrt[n]{|w|}e^{i(\theta + 2k\pi)/n}$ pour $k = 0, \ldots, n-1$.
 
 > [!WARNING]
 > ### 2. Pièges à éviter
