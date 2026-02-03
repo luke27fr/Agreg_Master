@@ -17,7 +17,7 @@
 > * **Division euclidienne :** Le reste est **positif** : $a = bq + r$ avec $0 \leq r < |b|$.
 > * **Bézout et PGCD :** $au + bv = d$ n'implique pas $d = \gcd(a,b)$ ! Il faut que $d$ soit le **plus petit** positif.
 > * **Premiers entre eux :** $\gcd(a, b) = 1$ ne signifie pas que $a$ ou $b$ est premier.
-> * **Valuation $p$-adique :** $v_p(ab) = v_p(a) + v_p(b)$ mais $v_p(a+b) \geq \min(v_p(a), v_p(b))$ avec égalité si $v_p(a) \neq v_p(b)$.
+> * **Valuation p-adique :** $v_p(ab) = v_p(a) + v_p(b)$ mais $v_p(a+b) \geq \min(v_p(a), v_p(b))$ avec égalité si $v_p(a) \neq v_p(b)$.
 > * **Infinité des premiers :** La preuve d'Euclide ne dit pas que $p_1 \cdots p_n + 1$ est premier !
 
 > [!TIP]

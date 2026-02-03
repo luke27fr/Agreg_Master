@@ -9,7 +9,7 @@
 > * **Théorème d'Euler :** $a^{\varphi(n)} \equiv 1 \pmod{n}$ si $\gcd(a, n) = 1$.
 > * **Groupe symétrique :** $\mathfrak{S}_n$ est le groupe des permutations de $\{1, \ldots, n\}$, de cardinal $n!$.
 > * **Signature :** Morphisme $\varepsilon : \mathfrak{S}_n \to \{-1, +1\}$. Le noyau est le groupe alterné $\mathfrak{A}_n$.
-> * **Théorèmes de Sylow :** Existence et propriétés des $p$-sous-groupes de Sylow.
+> * **Théorèmes de Sylow :** Existence et propriétés des p-sous-groupes de Sylow.
 
 > [!WARNING]
 > ### 2. Pièges à éviter

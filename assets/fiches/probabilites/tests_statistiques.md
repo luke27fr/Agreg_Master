@@ -14,7 +14,7 @@
 > [!WARNING]
 > ### 2. Pièges à éviter
 > * **Non rejet ≠ acceptation :** On ne "prouve" pas $H_0$, on échoue seulement à la rejeter.
-> * **p-valeur ≠ proba de $H_0$ :** $p$-valeur $= \mathbb{P}$(données aussi extrêmes $| H_0)$.
+> * **p-valeur ≠ proba de $H_0$ :** La p-valeur $= \mathbb{P}$(données aussi extrêmes $| H_0$).
 > * **Significatif ≠ important :** Un effet peut être statistiquement significatif mais pratiquement négligeable.
 > * **Tests multiples :** Le risque d'erreur augmente (correction de Bonferroni, etc.).
 > * **Unilatéral vs bilatéral :** Choisir avant de voir les données.
