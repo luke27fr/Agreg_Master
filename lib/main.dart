@@ -7,9 +7,12 @@ import 'package:google_fonts/google_fonts.dart';
 // Tes imports existants
 import 'package:agreg_master/models/quiz_model.dart';
 import 'package:agreg_master/pages/quiz_page.dart';
+import 'package:agreg_master/services/score_service.dart';
 import 'fiche_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await ScoreService().loadScores();
   runApp(const AgregMasterApp());
 }
 
@@ -85,11 +88,23 @@ class _ThemesScreenState extends State<ThemesScreen> {
   List<ThemeItem> _themes = [];
   int _totalFiches = 0;
   bool _loading = true;
+  final ScoreService _scoreService = ScoreService();
 
   @override
   void initState() {
     super.initState();
     _loadManifest();
+    _scoreService.addListener(_onScoreChanged);
+  }
+
+  @override
+  void dispose() {
+    _scoreService.removeListener(_onScoreChanged);
+    super.dispose();
+  }
+
+  void _onScoreChanged() {
+    if (mounted) setState(() {});
   }
 
   Future<void> _loadManifest() async {
@@ -134,6 +149,88 @@ class _ThemesScreenState extends State<ThemesScreen> {
     if (id.contains('proba')) return Icons.casino;
     if (id.contains('geo')) return Icons.architecture;
     return Icons.book;
+  }
+
+  // --- Carte Stats avec Score Global ---
+  Widget _buildStatsCard() {
+    final globalAvg = _scoreService.getGlobalAverage();
+    final completedCount = _scoreService.scores.length;
+    
+    String message;
+    if (completedCount == 0) {
+      message = "Commence par un quiz !";
+    } else if (globalAvg >= 80) {
+      message = "Excellent niveau ! 🎉";
+    } else if (globalAvg >= 60) {
+      message = "Bon travail, continue ! 👍";
+    } else {
+      message = "Continue tes efforts ! 💪";
+    }
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFF1A237E), Color(0xFF3949AB)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(color: Colors.blue.withOpacity(0.3), blurRadius: 10, offset: const Offset(0, 5))
+        ],
+      ),
+      child: Row(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  const Icon(Icons.library_books, color: Colors.white, size: 28),
+                  const SizedBox(width: 10),
+                  Text(
+                    "$_totalFiches Fiches • $completedCount testées",
+                    style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Text(
+                message,
+                style: const TextStyle(color: Colors.white70, fontSize: 14),
+              ),
+            ],
+          ),
+          const Spacer(),
+          if (completedCount > 0)
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    "${globalAvg.round()}%",
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const Text(
+                    "Moyenne",
+                    style: TextStyle(color: Colors.white70, fontSize: 12),
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
   }
 
   // --- Grand Quiz ---
@@ -208,40 +305,7 @@ class _ThemesScreenState extends State<ThemesScreen> {
               const SizedBox(height: 20),
 
               // 2. Carte Résumé (Stats)
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFF1A237E), Color(0xFF3949AB)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(color: Colors.blue.withOpacity(0.3), blurRadius: 10, offset: const Offset(0, 5))
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    const Icon(Icons.library_books, color: Colors.white, size: 40),
-                    const SizedBox(width: 15),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "$_totalFiches Fiches disponibles",
-                          style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
-                        const Text(
-                          "Continue tes efforts !",
-                          style: TextStyle(color: Colors.white70, fontSize: 14),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+              _buildStatsCard(),
 
               const SizedBox(height: 30),
               const Text(
@@ -269,7 +333,7 @@ class _ThemesScreenState extends State<ThemesScreen> {
                         return GridView.builder(
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: crossAxisCount, // Nombre dynamique
-                            childAspectRatio: 1.3, // Plus rectangulaire pour l'aspect "Carte"
+                            childAspectRatio: 1.1, // Ajusté pour le score
                             crossAxisSpacing: 20,
                             mainAxisSpacing: 20,
                           ),
@@ -278,6 +342,8 @@ class _ThemesScreenState extends State<ThemesScreen> {
                             final theme = _themes[index];
                             final color = _getThemeColor(theme.id);
                             final icon = _getThemeIcon(theme.id);
+                            final avgScore = _scoreService.getAverageForFiches(theme.files);
+                            final completedCount = _scoreService.getCompletedCount(theme.files);
 
                             return GestureDetector(
                               onTap: () {
@@ -306,17 +372,43 @@ class _ThemesScreenState extends State<ThemesScreen> {
                                         ),
                                         child: Icon(icon, color: color, size: 36),
                                       ),
-                                      const SizedBox(height: 16),
+                                      const SizedBox(height: 12),
                                       Text(
                                         theme.label,
                                         style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                                         textAlign: TextAlign.center,
                                       ),
-                                      const SizedBox(height: 8),
+                                      const SizedBox(height: 6),
                                       Text(
-                                        "${theme.files.length} fiches",
-                                        style: TextStyle(color: Colors.grey[500], fontSize: 14),
+                                        "${theme.files.length} fiches • $completedCount testées",
+                                        style: TextStyle(color: Colors.grey[500], fontSize: 12),
                                       ),
+                                      const SizedBox(height: 8),
+                                      // Barre de progression du score
+                                      if (avgScore >= 0) ...[
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(4),
+                                          child: LinearProgressIndicator(
+                                            value: avgScore / 100,
+                                            backgroundColor: Colors.grey[200],
+                                            color: avgScore >= 80 ? Colors.green : (avgScore >= 60 ? Colors.orange : Colors.red),
+                                            minHeight: 6,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Text(
+                                          "${avgScore.round()}% moyenne",
+                                          style: TextStyle(
+                                            color: avgScore >= 80 ? Colors.green : (avgScore >= 60 ? Colors.orange : Colors.red),
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ] else
+                                        Text(
+                                          "Pas encore testé",
+                                          style: TextStyle(color: Colors.grey[400], fontSize: 12, fontStyle: FontStyle.italic),
+                                        ),
                                     ],
                                   ),
                                 ),
@@ -351,9 +443,26 @@ class FichesListScreen extends StatefulWidget {
 }
 
 class _FichesListScreenState extends State<FichesListScreen> {
+  final ScoreService _scoreService = ScoreService();
+
+  @override
+  void initState() {
+    super.initState();
+    _scoreService.addListener(_onScoreChanged);
+  }
+
+  @override
+  void dispose() {
+    _scoreService.removeListener(_onScoreChanged);
+    super.dispose();
+  }
+
+  void _onScoreChanged() {
+    if (mounted) setState(() {});
+  }
   
   Future<void> _startSectionQuiz(BuildContext context) async {
-      try {
+    try {
       final String response = await rootBundle.loadString('assets/data/quiz.json');
       final Map<String, dynamic> data = json.decode(response);
       List<QuizQuestion> sectionQuestions = [];
@@ -375,8 +484,77 @@ class _FichesListScreenState extends State<FichesListScreen> {
     } catch (e) {}
   }
 
+  Future<void> _startFicheQuiz(BuildContext context, String ficheId) async {
+    try {
+      final String response = await rootBundle.loadString('assets/data/quiz.json');
+      final Map<String, dynamic> data = json.decode(response);
+      if (!data.containsKey(ficheId)) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Pas de quiz pour cette fiche !")));
+        return;
+      }
+      List<QuizQuestion> questions = [];
+      for (var q in data[ficheId]) {
+        questions.add(QuizQuestion.fromJson(q));
+      }
+      if (context.mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => QuizPage(
+            title: ficheId,
+            questions: questions,
+            ficheId: ficheId,
+          )),
+        );
+      }
+    } catch (e) {}
+  }
+
+  Color _getScoreColor(double percentage) {
+    if (percentage >= 80) return Colors.green;
+    if (percentage >= 60) return Colors.orange;
+    return Colors.red;
+  }
+
+  Widget _buildScoreBadge(String ficheId) {
+    final score = _scoreService.getScore(ficheId);
+    if (score == null) {
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: const Text(
+          "—",
+          style: TextStyle(color: Colors.grey, fontSize: 12),
+        ),
+      );
+    }
+    
+    final color = _getScoreColor(score.percentage);
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: color.withOpacity(0.5)),
+      ),
+      child: Text(
+        "${score.score}/${score.total}",
+        style: TextStyle(
+          color: color,
+          fontSize: 12,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final avgScore = _scoreService.getAverageForFiches(widget.theme.files);
+    final completedCount = _scoreService.getCompletedCount(widget.theme.files);
+
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FA),
       appBar: AppBar(
@@ -386,45 +564,142 @@ class _FichesListScreenState extends State<FichesListScreen> {
         title: Text(widget.theme.label, style: const TextStyle(color: Color(0xFF1A237E), fontWeight: FontWeight.bold)),
         centerTitle: true,
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(20),
-        itemCount: widget.theme.files.length,
-        itemBuilder: (context, index) {
-          final file = widget.theme.files[index];
-          final title = file.replaceAll('.md', '');
-          return Container(
-            margin: const EdgeInsets.only(bottom: 12),
+      body: Column(
+        children: [
+          // Carte résumé du chapitre
+          Container(
+            margin: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(15),
-              boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.05), blurRadius: 5)],
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.1), blurRadius: 5)],
             ),
-            child: ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-              leading: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF1A237E).withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "$completedCount/${widget.theme.files.length} fiches testées",
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      ),
+                      const SizedBox(height: 8),
+                      if (avgScore >= 0) ...[
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(4),
+                          child: LinearProgressIndicator(
+                            value: avgScore / 100,
+                            backgroundColor: Colors.grey[200],
+                            color: _getScoreColor(avgScore),
+                            minHeight: 8,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          "Moyenne: ${avgScore.round()}%",
+                          style: TextStyle(
+                            color: _getScoreColor(avgScore),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ] else
+                        const Text(
+                          "Commencez un quiz !",
+                          style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
+                        ),
+                    ],
+                  ),
                 ),
-                child: const Icon(Icons.article, color: Color(0xFF1A237E), size: 20),
-              ),
-              title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-              trailing: const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.grey),
-              onTap: () {
-                 Navigator.push(context, MaterialPageRoute(builder: (context) => FichePage(assetPath: '${widget.theme.path}/$file')));
+                const SizedBox(width: 16),
+                ElevatedButton.icon(
+                  onPressed: () => _startSectionQuiz(context),
+                  icon: const Icon(Icons.school, size: 18),
+                  label: const Text("Quiz"),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF1A237E),
+                    foregroundColor: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Liste des fiches
+          Expanded(
+            child: ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              itemCount: widget.theme.files.length,
+              itemBuilder: (context, index) {
+                final file = widget.theme.files[index];
+                final ficheId = file.replaceAll('.md', '');
+                final score = _scoreService.getScore(ficheId);
+                
+                return Container(
+                  margin: const EdgeInsets.only(bottom: 12),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.05), blurRadius: 5)],
+                  ),
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    leading: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: score != null 
+                            ? _getScoreColor(score.percentage).withOpacity(0.1)
+                            : const Color(0xFF1A237E).withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Icon(
+                        score != null 
+                            ? (score.percentage >= 80 ? Icons.check_circle : Icons.article)
+                            : Icons.article,
+                        color: score != null 
+                            ? _getScoreColor(score.percentage)
+                            : const Color(0xFF1A237E),
+                        size: 20,
+                      ),
+                    ),
+                    title: Text(ficheId, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                    subtitle: score != null
+                        ? Text(
+                            "Score: ${score.percentage.round()}% • ${_formatDate(score.date)}",
+                            style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                          )
+                        : null,
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _buildScoreBadge(ficheId),
+                        const SizedBox(width: 8),
+                        IconButton(
+                          icon: const Icon(Icons.quiz, color: Color(0xFF1A237E), size: 20),
+                          onPressed: () => _startFicheQuiz(context, ficheId),
+                          tooltip: "Quiz de cette fiche",
+                        ),
+                      ],
+                    ),
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => FichePage(assetPath: '${widget.theme.path}/$file')));
+                    },
+                  ),
+                );
               },
             ),
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => _startSectionQuiz(context),
-        label: const Text("Quiz Chapitre"),
-        icon: const Icon(Icons.school),
-        backgroundColor: const Color(0xFF1A237E),
-        foregroundColor: Colors.white,
+          ),
+        ],
       ),
     );
+  }
+
+  String _formatDate(DateTime date) {
+    final now = DateTime.now();
+    final diff = now.difference(date);
+    if (diff.inDays == 0) return "Aujourd'hui";
+    if (diff.inDays == 1) return "Hier";
+    if (diff.inDays < 7) return "Il y a ${diff.inDays} jours";
+    return "${date.day}/${date.month}/${date.year}";
   }
 }

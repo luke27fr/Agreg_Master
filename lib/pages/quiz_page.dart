@@ -4,12 +4,19 @@ import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
 import 'package:markdown/markdown.dart' as md;
 
 import '../models/quiz_model.dart';
+import '../services/score_service.dart';
 
 class QuizPage extends StatefulWidget {
   final String title;
   final List<QuizQuestion> questions;
+  final String? ficheId; // ID de la fiche pour sauvegarder le score
 
-  const QuizPage({super.key, required this.title, required this.questions});
+  const QuizPage({
+    super.key,
+    required this.title,
+    required this.questions,
+    this.ficheId,
+  });
 
   @override
   State<QuizPage> createState() => _QuizPageState();
@@ -50,9 +57,14 @@ class _QuizPageState extends State<QuizPage> {
     }
   }
 
-  void _showScoreDialog() {
+  void _showScoreDialog() async {
     final total = widget.questions.length;
     final percentage = (score / total * 100).round();
+    
+    // Sauvegarder le score si on a un ficheId
+    if (widget.ficheId != null) {
+      await ScoreService().saveScore(widget.ficheId!, score, total);
+    }
     
     String message;
     IconData icon;
@@ -75,6 +87,8 @@ class _QuizPageState extends State<QuizPage> {
       icon = Icons.refresh;
       color = Colors.red;
     }
+
+    if (!mounted) return;
 
     showDialog(
       context: context,
