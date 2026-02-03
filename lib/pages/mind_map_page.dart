@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../services/mind_map_service.dart';
 import '../models/mind_map_model.dart';
+import 'lecons_page.dart';
+import 'search_page.dart';
 
 import '../widgets/global_search_button.dart';
 
@@ -614,10 +616,11 @@ class _MindMapPageState extends State<MindMapPage> with SingleTickerProviderStat
                             return InkWell(
                               onTap: () {
                                 Navigator.of(context).pop();
-                                Navigator.pushNamed(
+                                Navigator.push(
                                   context,
-                                  '/search',
-                                  arguments: {'initialQuery': keyword},
+                                  MaterialPageRoute(
+                                    builder: (_) => const SearchPage(),
+                                  ),
                                 );
                               },
                               child: Container(
@@ -660,7 +663,10 @@ class _MindMapPageState extends State<MindMapPage> with SingleTickerProviderStat
           TextButton.icon(
             onPressed: () {
               Navigator.of(context).pop();
-              Navigator.pushNamed(context, '/lecons');
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const LeconsPage()),
+              );
             },
             icon: const Icon(Icons.library_books),
             label: const Text('Voir les fiches'),
