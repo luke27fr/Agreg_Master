@@ -321,13 +321,8 @@ class _FichePageState extends State<FichePage> {
     final termLower = rawTerm.toLowerCase();
     final normalizedTerm = _normalizeKey(rawTerm);
     
-    // Debug: afficher les informations de recherche
-    print("🔍 Glossaire recherche: href='$href', rawTerm='$rawTerm', termLower='$termLower'");
-    print("🔍 Clés du glossaire (${_glossaire.length}): ${_glossaire.keys.take(10).toList()}...");
-    
     // Recherche 1 : exacte (lowercase)
     String? definition = _glossaire[termLower];
-    print("🔍 Recherche exacte '$termLower': ${definition != null ? 'TROUVÉ' : 'non trouvé'}");
     
     // Recherche 2 : avec underscore (ex: "espace affine" -> "espace_affine")
     if (definition == null) {

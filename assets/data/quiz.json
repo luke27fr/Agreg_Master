@@ -1689,5 +1689,365 @@
       "correctIndex": 1,
       "explanation": "Pour $X \\sim \\mathcal{E}(\\lambda)$, $\\mathbb{E}[X] = 1/\\lambda$ et $\\text{Var}(X) = 1/\\lambda^2$."
     }
+  ],
+  "barycentres": [
+    {
+      "question": "Le barycentre de $(A, 2)$ et $(B, 3)$ divise le segment $[AB]$ dans le rapport...",
+      "options": [
+        "$2/3$ en partant de $A$",
+        "$3/5$ en partant de $A$",
+        "$2/5$ en partant de $A$",
+        "$1/2$ au milieu"
+      ],
+      "correctIndex": 1,
+      "explanation": "Le barycentre $G$ vérifie $\\overrightarrow{AG} = \\frac{3}{2+3}\\overrightarrow{AB} = \\frac{3}{5}\\overrightarrow{AB}$."
+    },
+    {
+      "question": "Le barycentre existe si et seulement si...",
+      "options": [
+        "Tous les coefficients sont positifs",
+        "La somme des coefficients est non nulle",
+        "Les points sont distincts",
+        "Il y a au moins 3 points"
+      ],
+      "correctIndex": 1,
+      "explanation": "Le barycentre existe ssi $\\sum \\alpha_i \\neq 0$. Les coefficients peuvent être négatifs."
+    }
+  ],
+  "courbes_parametrees": [
+    {
+      "question": "Un point $\\gamma(t_0)$ est dit régulier si...",
+      "options": [
+        "$\\gamma$ est continue en $t_0$",
+        "$\\gamma'(t_0) \\neq \\vec{0}$",
+        "$\\gamma''(t_0) = \\vec{0}$",
+        "La courbe est fermée"
+      ],
+      "correctIndex": 1,
+      "explanation": "Un point régulier a un vecteur tangent non nul. Sinon c'est un point stationnaire."
+    },
+    {
+      "question": "La courbure d'une courbe plane dépend-elle du paramétrage ?",
+      "options": [
+        "Oui, toujours",
+        "Non, c'est un invariant géométrique",
+        "Seulement si la courbe est fermée",
+        "Seulement aux points singuliers"
+      ],
+      "correctIndex": 1,
+      "explanation": "La courbure est une propriété intrinsèque de la courbe, indépendante du paramétrage."
+    }
+  ],
+  "courbes_polaire": [
+    {
+      "question": "L'aire balayée par une courbe polaire $r = f(\\theta)$ entre $\\theta_1$ et $\\theta_2$ est...",
+      "options": [
+        "$\\int_{\\theta_1}^{\\theta_2} r \\, d\\theta$",
+        "$\\frac{1}{2}\\int_{\\theta_1}^{\\theta_2} r^2 \\, d\\theta$",
+        "$\\int_{\\theta_1}^{\\theta_2} r^2 \\, d\\theta$",
+        "$\\pi r^2$"
+      ],
+      "correctIndex": 1,
+      "explanation": "L'aire en coordonnées polaires est $A = \\frac{1}{2}\\int r^2 d\\theta$ (formule du secteur)."
+    },
+    {
+      "question": "Pour la cardioïde $r = 1 + \\cos\\theta$, la courbe passe par l'origine quand...",
+      "options": [
+        "$\\theta = 0$",
+        "$\\theta = \\pi/2$",
+        "$\\theta = \\pi$",
+        "Jamais"
+      ],
+      "correctIndex": 2,
+      "explanation": "La courbe passe par l'origine quand $r = 0$, soit $\\cos\\theta = -1$, donc $\\theta = \\pi$."
+    }
+  ],
+  "geo_plane": [
+    {
+      "question": "La distance d'un point $M_0(x_0, y_0)$ à la droite $ax + by + c = 0$ est...",
+      "options": [
+        "$|ax_0 + by_0 + c|$",
+        "$\\frac{|ax_0 + by_0 + c|}{\\sqrt{a^2 + b^2}}$",
+        "$\\frac{ax_0 + by_0 + c}{a + b}$",
+        "$\\sqrt{(ax_0)^2 + (by_0)^2}$"
+      ],
+      "correctIndex": 1,
+      "explanation": "La formule de distance point-droite inclut la normalisation par $\\sqrt{a^2+b^2}$."
+    },
+    {
+      "question": "La droite d'Euler passe par...",
+      "options": [
+        "Les trois sommets du triangle",
+        "Le centroïde, l'orthocentre et le centre du cercle circonscrit",
+        "Les milieux des côtés",
+        "Le centre du cercle inscrit"
+      ],
+      "correctIndex": 1,
+      "explanation": "La droite d'Euler relie $G$ (centroïde), $H$ (orthocentre) et $O$ (centre circonscrit) avec $\\overrightarrow{OG} = \\frac{1}{3}\\overrightarrow{OH}$."
+    }
+  ],
+  "geo_espace": [
+    {
+      "question": "Deux droites de l'espace qui ne se coupent pas et ne sont pas parallèles sont dites...",
+      "options": [
+        "Sécantes",
+        "Confondues",
+        "Non coplanaires",
+        "Perpendiculaires"
+      ],
+      "correctIndex": 2,
+      "explanation": "En dimension 3, deux droites peuvent être non coplanaires (gauches) : ni sécantes ni parallèles."
+    },
+    {
+      "question": "Le volume d'un tétraèdre $ABCD$ est...",
+      "options": [
+        "$|[\\vec{AB}, \\vec{AC}, \\vec{AD}]|$",
+        "$\\frac{1}{6}|[\\vec{AB}, \\vec{AC}, \\vec{AD}]|$",
+        "$\\frac{1}{3}|[\\vec{AB}, \\vec{AC}, \\vec{AD}]|$",
+        "$\\frac{1}{2}|[\\vec{AB}, \\vec{AC}, \\vec{AD}]|$"
+      ],
+      "correctIndex": 1,
+      "explanation": "Le volume du tétraèdre est $\\frac{1}{6}$ de la valeur absolue du produit mixte des arêtes issues d'un sommet."
+    }
+  ],
+  "produit_scalaire_geo": [
+    {
+      "question": "L'inégalité de Cauchy-Schwarz affirme que...",
+      "options": [
+        "$|\\langle u, v \\rangle| \\geq \\|u\\| \\|v\\|$",
+        "$|\\langle u, v \\rangle| \\leq \\|u\\| \\|v\\|$",
+        "$\\langle u, v \\rangle = \\|u\\| \\|v\\|$",
+        "$\\langle u, v \\rangle \\leq \\|u\\| + \\|v\\|$"
+      ],
+      "correctIndex": 1,
+      "explanation": "Cauchy-Schwarz : $|\\langle u, v \\rangle| \\leq \\|u\\| \\|v\\|$, avec égalité ssi colinéaires."
+    },
+    {
+      "question": "La projection orthogonale de $\\vec{u}$ sur $\\vec{v}$ est...",
+      "options": [
+        "$\\frac{\\langle u, v \\rangle}{\\|v\\|} \\vec{v}$",
+        "$\\frac{\\langle u, v \\rangle}{\\|v\\|^2} \\vec{v}$",
+        "$\\frac{\\vec{u} \\cdot \\vec{v}}{\\|u\\|} \\vec{u}$",
+        "$\\langle u, v \\rangle \\vec{v}$"
+      ],
+      "correctIndex": 1,
+      "explanation": "La projection de $\\vec{u}$ sur $\\vec{v}$ est $\\text{proj}_{\\vec{v}}(\\vec{u}) = \\frac{\\langle u, v \\rangle}{\\|v\\|^2} \\vec{v}$."
+    }
+  ],
+  "denombrement": [
+    {
+      "question": "Le nombre d'anagrammes du mot MATH est...",
+      "options": [
+        "$4$",
+        "$4!$",
+        "$4^4$",
+        "$\\binom{4}{2}$"
+      ],
+      "correctIndex": 1,
+      "explanation": "MATH a 4 lettres distinctes, donc $4! = 24$ anagrammes (permutations)."
+    },
+    {
+      "question": "La formule de Pascal s'écrit...",
+      "options": [
+        "$\\binom{n}{k} = \\binom{n-1}{k} + \\binom{n-1}{k-1}$",
+        "$\\binom{n}{k} = \\binom{n}{k-1} + \\binom{n}{k+1}$",
+        "$\\binom{n}{k} = k \\binom{n-1}{k-1}$",
+        "$\\binom{n}{k} = n \\binom{n-1}{k}$"
+      ],
+      "correctIndex": 0,
+      "explanation": "Pascal : $\\binom{n}{k} = \\binom{n-1}{k-1} + \\binom{n-1}{k}$ (choisir ou non le n-ième élément)."
+    }
+  ],
+  "esperance_variance": [
+    {
+      "question": "Si $X$ et $Y$ sont indépendantes, $\\mathbb{E}[XY] = $...",
+      "options": [
+        "$\\mathbb{E}[X] + \\mathbb{E}[Y]$",
+        "$\\mathbb{E}[X] \\cdot \\mathbb{E}[Y]$",
+        "$\\mathbb{E}[X^2] + \\mathbb{E}[Y^2]$",
+        "$\\text{Cov}(X, Y)$"
+      ],
+      "correctIndex": 1,
+      "explanation": "L'indépendance implique $\\mathbb{E}[XY] = \\mathbb{E}[X]\\mathbb{E}[Y]$ (réciproque fausse !)."
+    },
+    {
+      "question": "La formule $\\text{Var}(X) = \\mathbb{E}[X^2] - \\mathbb{E}[X]^2$ s'appelle...",
+      "options": [
+        "Formule de Huygens",
+        "Formule de König-Huygens",
+        "Formule de Cauchy",
+        "Formule de Bienaymé"
+      ],
+      "correctIndex": 1,
+      "explanation": "C'est la formule de König-Huygens pour le calcul de la variance."
+    }
+  ],
+  "lgn_tcl": [
+    {
+      "question": "Le théorème central limite affirme que $\\frac{\\bar{X}_n - \\mu}{\\sigma/\\sqrt{n}}$ converge en loi vers...",
+      "options": [
+        "$\\mu$",
+        "$\\mathcal{N}(0, 1)$",
+        "$\\mathcal{N}(\\mu, \\sigma^2)$",
+        "$\\chi^2(n)$"
+      ],
+      "correctIndex": 1,
+      "explanation": "Le TCL donne la convergence vers la loi normale centrée réduite $\\mathcal{N}(0,1)$."
+    },
+    {
+      "question": "La LGN forte assure que $\\bar{X}_n$ converge vers $\\mu$...",
+      "options": [
+        "En probabilité",
+        "Presque sûrement",
+        "En loi",
+        "En moyenne quadratique"
+      ],
+      "correctIndex": 1,
+      "explanation": "La LGN forte : convergence presque sûre. La LGN faible : convergence en probabilité."
+    }
+  ],
+  "statistique_descriptive": [
+    {
+      "question": "Pourquoi divise-t-on par $n-1$ (et non $n$) pour la variance empirique corrigée ?",
+      "options": [
+        "Pour simplifier les calculs",
+        "Pour obtenir un estimateur sans biais",
+        "Pour que la variance soit positive",
+        "C'est une convention arbitraire"
+      ],
+      "correctIndex": 1,
+      "explanation": "Diviser par $n-1$ corrige le biais dû à l'estimation de $\\mu$ par $\\bar{x}$ (on perd 1 degré de liberté)."
+    },
+    {
+      "question": "Le coefficient de corrélation $r$ est toujours dans l'intervalle...",
+      "options": [
+        "$[0, 1]$",
+        "$[-1, 1]$",
+        "$[0, +\\infty[$",
+        "$]-\\infty, +\\infty[$"
+      ],
+      "correctIndex": 1,
+      "explanation": "$r = \\frac{s_{xy}}{s_x s_y} \\in [-1, 1]$ par Cauchy-Schwarz. $r = \\pm 1$ ssi relation linéaire parfaite."
+    }
+  ],
+  "variables_densite": [
+    {
+      "question": "Si $X$ a une densité $f$, alors $\\mathbb{P}(X = a) = $...",
+      "options": [
+        "$f(a)$",
+        "$0$",
+        "$\\int_a^a f(x) dx$",
+        "Dépend de $a$"
+      ],
+      "correctIndex": 1,
+      "explanation": "Pour une v.a. à densité, tout singleton a mesure nulle : $\\mathbb{P}(X = a) = 0$."
+    },
+    {
+      "question": "Si $Y = 2X$ et $X$ a densité $f_X$, alors $f_Y(y) = $...",
+      "options": [
+        "$2 f_X(y)$",
+        "$f_X(y/2)$",
+        "$\\frac{1}{2} f_X(y/2)$",
+        "$f_X(2y)$"
+      ],
+      "correctIndex": 2,
+      "explanation": "Par changement de variable, $f_Y(y) = f_X(y/2) \\cdot |1/2| = \\frac{1}{2} f_X(y/2)$."
+    }
+  ],
+  "vecteurs_aleatoires": [
+    {
+      "question": "La densité de $Z = X + Y$ pour $X, Y$ indépendantes est...",
+      "options": [
+        "$f_X + f_Y$",
+        "$f_X \\cdot f_Y$",
+        "$f_X * f_Y$ (convolution)",
+        "$\\max(f_X, f_Y)$"
+      ],
+      "correctIndex": 2,
+      "explanation": "La densité de la somme de v.a. indépendantes est le produit de convolution : $f_Z = f_X * f_Y$."
+    },
+    {
+      "question": "Deux composantes d'un vecteur gaussien non corrélées sont...",
+      "options": [
+        "Toujours dépendantes",
+        "Indépendantes",
+        "De même loi",
+        "De variance égale"
+      ],
+      "correctIndex": 1,
+      "explanation": "Pour un vecteur gaussien, non corrélé implique indépendant (propriété spéciale des gaussiennes)."
+    }
+  ],
+  "conditionnement": [
+    {
+      "question": "La formule de Bayes s'écrit $\\mathbb{P}(B|A) = $...",
+      "options": [
+        "$\\frac{\\mathbb{P}(A|B)}{\\mathbb{P}(B)}$",
+        "$\\frac{\\mathbb{P}(A|B) \\mathbb{P}(B)}{\\mathbb{P}(A)}$",
+        "$\\mathbb{P}(A) \\mathbb{P}(B)$",
+        "$\\frac{\\mathbb{P}(A \\cap B)}{\\mathbb{P}(A) + \\mathbb{P}(B)}$"
+      ],
+      "correctIndex": 1,
+      "explanation": "Bayes : $\\mathbb{P}(B|A) = \\frac{\\mathbb{P}(A|B)\\mathbb{P}(B)}{\\mathbb{P}(A)}$ (inversion des conditionnements)."
+    },
+    {
+      "question": "La formule de l'espérance totale est $\\mathbb{E}[X] = $...",
+      "options": [
+        "$\\mathbb{E}[X|Y]$",
+        "$\\mathbb{E}[\\mathbb{E}[X|Y]]$",
+        "$\\mathbb{E}[X] \\cdot \\mathbb{E}[Y]$",
+        "$\\text{Var}(\\mathbb{E}[X|Y])$"
+      ],
+      "correctIndex": 1,
+      "explanation": "Espérance totale : $\\mathbb{E}[X] = \\mathbb{E}[\\mathbb{E}[X|Y]]$ (intégrer sur $Y$ l'espérance conditionnelle)."
+    }
+  ],
+  "convergences": [
+    {
+      "question": "La convergence presque sûre implique...",
+      "options": [
+        "Rien d'autre",
+        "La convergence en probabilité",
+        "La convergence $L^2$",
+        "La convergence en loi uniquement"
+      ],
+      "correctIndex": 1,
+      "explanation": "Implications : p.s. $\\Rightarrow$ probabilité $\\Rightarrow$ loi. La réciproque est fausse."
+    },
+    {
+      "question": "La convergence en loi vers une constante $c$ est équivalente à...",
+      "options": [
+        "La convergence p.s. vers $c$",
+        "La convergence en probabilité vers $c$",
+        "La convergence $L^1$ vers $c$",
+        "Aucune autre convergence"
+      ],
+      "correctIndex": 1,
+      "explanation": "Cas particulier : $X_n \\xrightarrow{\\mathcal{L}} c$ constante $\\Leftrightarrow X_n \\xrightarrow{\\mathbb{P}} c$."
+    }
+  ],
+  "espaces_proba": [
+    {
+      "question": "Une tribu sur $\\Omega$ doit être stable par...",
+      "options": [
+        "Union finie seulement",
+        "Complémentaire et union dénombrable",
+        "Intersection uniquement",
+        "Produit cartésien"
+      ],
+      "correctIndex": 1,
+      "explanation": "Une tribu est stable par complémentaire et union dénombrable (donc aussi par intersection dénombrable)."
+    },
+    {
+      "question": "Le lemme de Borel-Cantelli affirme que si $\\sum \\mathbb{P}(A_n) < \\infty$, alors...",
+      "options": [
+        "$\\mathbb{P}(\\limsup A_n) = 1$",
+        "$\\mathbb{P}(\\limsup A_n) = 0$",
+        "$\\mathbb{P}(\\bigcup A_n) = 0$",
+        "$\\mathbb{P}(\\bigcap A_n) = 1$"
+      ],
+      "correctIndex": 1,
+      "explanation": "Borel-Cantelli : si $\\sum \\mathbb{P}(A_n) < \\infty$, alors p.s. seul un nombre fini d'événements se réalisent."
+    }
   ]
 }
