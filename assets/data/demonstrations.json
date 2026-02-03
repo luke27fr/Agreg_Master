@@ -19,12 +19,12 @@
       "tags": ["groupes", "cardinal"],
       "videos": [
         {
-          "titre": "Théorème de Lagrange - Explication détaillée",
-          "url": "https://www.youtube.com/watch?v=example",
+          "titre": "Théorème de Lagrange - Cours et démonstration",
+          "url": "https://www.youtube.com/results?search_query=theoreme+lagrange+groupes+demonstration+agregation",
           "plateforme": "youtube",
           "dureeMinutes": 15,
-          "auteur": "Cours de maths",
-          "description": "Démonstration complète avec exemples"
+          "auteur": "Recherche YouTube",
+          "description": "Recherche de vidéos sur le théorème de Lagrange"
         }
       ],
       "difficulte": 3,
@@ -48,12 +48,12 @@
       "tags": ["dérivation", "extremum"],
       "videos": [
         {
-          "titre": "Théorème de Rolle - Démonstration géométrique",
-          "url": "https://www.youtube.com/watch?v=example2",
+          "titre": "Théorème de Rolle - Démonstration",
+          "url": "https://www.youtube.com/results?search_query=theoreme+rolle+demonstration+agregation",
           "plateforme": "youtube",
           "dureeMinutes": 10,
-          "auteur": "Maths Agreg",
-          "description": "Interprétation géométrique et preuve"
+          "auteur": "Recherche YouTube",
+          "description": "Recherche de vidéos sur le théorème de Rolle"
         }
       ],
       "difficulte": 2,
@@ -78,12 +78,12 @@
       "tags": ["continuité", "connexité"],
       "videos": [
         {
-          "titre": "TVI - Démonstration et applications",
-          "url": "https://www.youtube.com/watch?v=example3",
+          "titre": "Théorème des valeurs intermédiaires",
+          "url": "https://www.youtube.com/results?search_query=theoreme+valeurs+intermediaires+demonstration",
           "plateforme": "youtube",
           "dureeMinutes": 12,
-          "auteur": "Analyse Sup",
-          "description": "Preuve complète avec exemples d'application"
+          "auteur": "Recherche YouTube",
+          "description": "Recherche de vidéos sur le TVI"
         }
       ],
       "difficulte": 2,
@@ -108,12 +108,12 @@
       "tags": ["arithmétique", "PGCD"],
       "videos": [
         {
-          "titre": "Identité de Bézout - Algorithme d'Euclide étendu",
-          "url": "https://www.youtube.com/watch?v=example4",
+          "titre": "Identité de Bézout - Algorithme d'Euclide",
+          "url": "https://www.youtube.com/results?search_query=bezout+euclide+demonstration+agregation",
           "plateforme": "youtube",
           "dureeMinutes": 18,
-          "auteur": "Algèbre Agreg",
-          "description": "Démonstration et algorithme pratique"
+          "auteur": "Recherche YouTube",
+          "description": "Recherche de vidéos sur l'identité de Bézout"
         }
       ],
       "difficulte": 3,
@@ -138,12 +138,12 @@
       "tags": ["suites", "compacité"],
       "videos": [
         {
-          "titre": "Bolzano-Weierstrass - Méthode de dichotomie",
-          "url": "https://www.youtube.com/watch?v=example5",
+          "titre": "Bolzano-Weierstrass - Démonstration",
+          "url": "https://www.youtube.com/results?search_query=bolzano+weierstrass+demonstration",
           "plateforme": "youtube",
           "dureeMinutes": 14,
-          "auteur": "Analyse Avancée",
-          "description": "Construction détaillée par intervalles emboîtés"
+          "auteur": "Recherche YouTube",
+          "description": "Recherche de vidéos sur Bolzano-Weierstrass"
         }
       ],
       "difficulte": 3,
@@ -169,12 +169,12 @@
       "tags": ["réduction", "polynôme caractéristique"],
       "videos": [
         {
-          "titre": "Cayley-Hamilton - Deux preuves élégantes",
-          "url": "https://www.youtube.com/watch?v=example6",
+          "titre": "Cayley-Hamilton - Démonstration",
+          "url": "https://www.youtube.com/results?search_query=cayley+hamilton+demonstration+agregation",
           "plateforme": "youtube",
           "dureeMinutes": 20,
-          "auteur": "Réduction Endo",
-          "description": "Preuve par triangulation et par comatrice"
+          "auteur": "Recherche YouTube",
+          "description": "Recherche de vidéos sur Cayley-Hamilton"
         }
       ],
       "difficulte": 4,
@@ -198,12 +198,12 @@
       ],
       "videos": [
         {
-          "titre": "Théorème Spectral - Démonstration complète",
-          "url": "https://www.youtube.com/watch?v=example7",
+          "titre": "Théorème Spectral - Démonstration",
+          "url": "https://www.youtube.com/results?search_query=theoreme+spectral+demonstration+agregation",
           "plateforme": "youtube",
           "dureeMinutes": 25,
-          "auteur": "Espaces Euclidiens",
-          "description": "Preuve par récurrence avec orthogonalité"
+          "auteur": "Recherche YouTube",
+          "description": "Recherche de vidéos sur le théorème spectral"
         }
       ],
       "difficulte": 5,
@@ -230,12 +230,12 @@
       "tags": ["intégration", "Lebesgue"],
       "videos": [
         {
-          "titre": "Convergence Dominée - Preuve par Fatou",
-          "url": "https://www.youtube.com/watch?v=example8",
+          "titre": "Convergence Dominée - Démonstration",
+          "url": "https://www.youtube.com/results?search_query=convergence+dominee+demonstration+lebesgue",
           "plateforme": "youtube",
           "dureeMinutes": 22,
-          "auteur": "Intégration Lebesgue",
-          "description": "Démonstration avec lemme de Fatou"
+          "auteur": "Recherche YouTube",
+          "description": "Recherche de vidéos sur la convergence dominée"
         }
       ],
       "difficulte": 5,
@@ -260,12 +260,12 @@
       "tags": ["approximation", "polynômes"],
       "videos": [
         {
-          "titre": "Weierstrass - Polynômes de Bernstein",
-          "url": "https://www.youtube.com/watch?v=example9",
+          "titre": "Weierstrass - Approximation",
+          "url": "https://www.youtube.com/results?search_query=weierstrass+approximation+polynomes+demonstration",
           "plateforme": "youtube",
           "dureeMinutes": 18,
-          "auteur": "Approximation Fonctionnelle",
-          "description": "Construction et convergence des polynômes de Bernstein"
+          "auteur": "Recherche YouTube",
+          "description": "Recherche de vidéos sur Weierstrass"
         }
       ],
       "difficulte": 4,
@@ -290,12 +290,12 @@
       "tags": ["point fixe", "espaces complets"],
       "videos": [
         {
-          "titre": "Point Fixe de Banach - Applications",
-          "url": "https://www.youtube.com/watch?v=example10",
+          "titre": "Point Fixe de Banach - Démonstration",
+          "url": "https://www.youtube.com/results?search_query=point+fixe+banach+demonstration",
           "plateforme": "youtube",
           "dureeMinutes": 16,
-          "auteur": "Espaces Métriques",
-          "description": "Preuve et applications aux EDO"
+          "auteur": "Recherche YouTube",
+          "description": "Recherche de vidéos sur le théorème du point fixe"
         }
       ],
       "difficulte": 4,
@@ -319,12 +319,12 @@
       "lecons": [121, 122],
       "videos": [
         {
-          "titre": "Lemme de Gauss - Démonstration élégante",
-          "url": "https://www.youtube.com/watch?v=example11",
+          "titre": "Lemme de Gauss - Démonstration",
+          "url": "https://www.youtube.com/results?search_query=lemme+gauss+arithmetique+demonstration",
           "plateforme": "youtube",
           "dureeMinutes": 8,
-          "auteur": "Arithmétique Fondamentale",
-          "description": "Preuve courte avec Bézout"
+          "auteur": "Recherche YouTube",
+          "description": "Recherche de vidéos sur le lemme de Gauss"
         }
       ],
       "difficulte": 2,
@@ -350,12 +350,12 @@
       "tags": ["groupes", "Sylow"],
       "videos": [
         {
-          "titre": "Premier Théorème de Sylow - Actions de groupes",
-          "url": "https://www.youtube.com/watch?v=example12",
+          "titre": "Premier Théorème de Sylow - Démonstration",
+          "url": "https://www.youtube.com/results?search_query=theoreme+sylow+demonstration+agregation",
           "plateforme": "youtube",
           "dureeMinutes": 28,
-          "auteur": "Théorie des Groupes",
-          "description": "Preuve détaillée par action sur les parties"
+          "auteur": "Recherche YouTube",
+          "description": "Recherche de vidéos sur les théorèmes de Sylow"
         }
       ],
       "difficulte": 5,
