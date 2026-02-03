@@ -1,0 +1,144 @@
+{
+  "livres": [
+    {
+      "id": "gourdon_algebre",
+      "titre": "Les Maths en Tête - Algèbre",
+      "auteur": "Xavier Gourdon",
+      "editeur": "Ellipses",
+      "domaine": "Algèbre",
+      "niveau": "Agrégation",
+      "description": "Référence incontournable pour l'algèbre. Très complet avec de nombreux exercices.",
+      "lecons": [101, 102, 103, 104, 105, 106, 108, 120, 121, 122, 123, 126, 141, 142, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 170, 171]
+    },
+    {
+      "id": "gourdon_analyse",
+      "titre": "Les Maths en Tête - Analyse",
+      "auteur": "Xavier Gourdon",
+      "editeur": "Ellipses",
+      "domaine": "Analyse",
+      "niveau": "Agrégation",
+      "description": "Complément essentiel pour l'analyse. Couvre tout le programme avec rigueur.",
+      "lecons": [201, 202, 203, 204, 205, 208, 213, 214, 215, 219, 220, 221, 223, 226, 228, 229, 230, 234, 235, 236, 239, 241, 243, 245, 246, 250, 253]
+    },
+    {
+      "id": "rouviere",
+      "titre": "Petit guide de calcul différentiel",
+      "auteur": "François Rouvière",
+      "editeur": "Cassini",
+      "domaine": "Analyse",
+      "niveau": "Agrégation",
+      "description": "Excellent pour le calcul différentiel et les théorèmes d'inversion.",
+      "lecons": [214, 215, 219]
+    },
+    {
+      "id": "zuily_queffelec",
+      "titre": "Analyse pour l'agrégation",
+      "auteur": "Zuily & Queffélec",
+      "editeur": "Dunod",
+      "domaine": "Analyse",
+      "niveau": "Agrégation",
+      "description": "Très complet sur l'analyse. Style rigoureux et pédagogique.",
+      "lecons": [201, 202, 203, 204, 205, 213, 228, 229, 230, 234, 241, 243, 246, 250]
+    },
+    {
+      "id": "perrin",
+      "titre": "Cours d'algèbre",
+      "auteur": "Daniel Perrin",
+      "editeur": "Ellipses",
+      "domaine": "Algèbre",
+      "niveau": "Agrégation",
+      "description": "Approche géométrique de l'algèbre. Excellent pour la théorie de Galois.",
+      "lecons": [120, 121, 122, 123, 141]
+    },
+    {
+      "id": "caldero_germoni",
+      "titre": "Histoires hédonistes de groupes et de géométries",
+      "auteur": "Caldero & Germoni",
+      "editeur": "Calvage & Mounet",
+      "domaine": "Algèbre",
+      "niveau": "Agrégation",
+      "description": "Approche originale de la théorie des groupes avec applications géométriques.",
+      "lecons": [101, 103, 104, 105, 106, 108, 161]
+    },
+    {
+      "id": "berhuy",
+      "titre": "Algèbre - Le grand combat",
+      "auteur": "Grégory Berhuy",
+      "editeur": "Calvage & Mounet",
+      "domaine": "Algèbre",
+      "niveau": "Agrégation",
+      "description": "Style pédagogique unique. Nombreuses remarques et exercices.",
+      "lecons": [150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 170, 171]
+    },
+    {
+      "id": "rudin",
+      "titre": "Real and Complex Analysis",
+      "auteur": "Walter Rudin",
+      "editeur": "McGraw-Hill",
+      "domaine": "Analyse",
+      "niveau": "Avancé",
+      "description": "Classique international. En anglais mais incontournable.",
+      "lecons": [234, 245, 250]
+    },
+    {
+      "id": "williams",
+      "titre": "Probability with Martingales",
+      "auteur": "David Williams",
+      "editeur": "Cambridge",
+      "domaine": "Probabilités",
+      "niveau": "Avancé",
+      "description": "Excellent pour les probabilités avancées et les martingales.",
+      "lecons": [261, 262, 264]
+    },
+    {
+      "id": "ouvrard",
+      "titre": "Probabilités 2",
+      "auteur": "Jean-Yves Ouvrard",
+      "editeur": "Cassini",
+      "domaine": "Probabilités",
+      "niveau": "Agrégation",
+      "description": "Référence française pour les probabilités niveau agrégation.",
+      "lecons": [261, 262, 264]
+    },
+    {
+      "id": "combes",
+      "titre": "Algèbre et géométrie",
+      "auteur": "Bernard Combes",
+      "editeur": "Ellipses",
+      "domaine": "Algèbre",
+      "niveau": "Agrégation",
+      "description": "Bon équilibre entre théorie et applications géométriques.",
+      "lecons": [150, 151, 160, 161, 170, 171]
+    },
+    {
+      "id": "fresnel",
+      "titre": "Méthodes modernes en géométrie",
+      "auteur": "Jean Fresnel",
+      "editeur": "Hermann",
+      "domaine": "Géométrie",
+      "niveau": "Agrégation",
+      "description": "Approche moderne de la géométrie avec les outils algébriques.",
+      "lecons": [160, 161, 170, 171]
+    }
+  ],
+  "ressources_en_ligne": [
+    {
+      "id": "agreg_interne",
+      "titre": "Site de l'agrégation interne",
+      "url": "https://agreg.org",
+      "description": "Ressources officielles, rapports de jury, annales."
+    },
+    {
+      "id": "bibmath",
+      "titre": "Bibmath",
+      "url": "https://www.bibmath.net",
+      "description": "Cours et exercices de mathématiques."
+    },
+    {
+      "id": "exo7",
+      "titre": "Exo7",
+      "url": "http://exo7.emath.fr",
+      "description": "Vidéos et exercices corrigés."
+    }
+  ]
+}

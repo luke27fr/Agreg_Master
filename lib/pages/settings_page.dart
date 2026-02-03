@@ -4,6 +4,8 @@ import '../services/score_service.dart';
 import '../services/favorites_service.dart';
 import '../services/notes_service.dart';
 import '../services/reading_service.dart';
+import '../services/streak_service.dart';
+import 'export_pdf_page.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -132,6 +134,23 @@ class _SettingsPageState extends State<SettingsPage> {
 
           const SizedBox(height: 24),
 
+          // Section Export
+          _buildSectionTitle('Export'),
+          _buildCard(isDark, [
+            ListTile(
+              leading: const Icon(Icons.picture_as_pdf, color: Colors.red),
+              title: const Text('Exporter en PDF'),
+              subtitle: const Text('Créer un PDF de vos fiches'),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const ExportPdfPage()),
+              ),
+            ),
+          ]),
+
+          const SizedBox(height: 24),
+
           // Section Données
           _buildSectionTitle('Données'),
           _buildCard(isDark, [
@@ -178,6 +197,18 @@ class _SettingsPageState extends State<SettingsPage> {
                     await NotesService().deleteNote(n);
                   }
                 },
+              ),
+            ),
+            const Divider(height: 1),
+            ListTile(
+              leading: const Icon(Icons.local_fire_department, color: Colors.orange),
+              title: const Text('Réinitialiser les streaks'),
+              subtitle: const Text('Remettre à zéro votre série'),
+              onTap: () => _showResetDialog(
+                context,
+                'Réinitialiser les streaks ?',
+                'Cette action remettra votre série de jours consécutifs à zéro.',
+                () => StreakService().resetAll(),
               ),
             ),
           ]),

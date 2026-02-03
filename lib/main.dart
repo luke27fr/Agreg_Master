@@ -18,6 +18,8 @@ import 'package:agreg_master/services/favorites_service.dart';
 import 'package:agreg_master/services/notes_service.dart';
 import 'package:agreg_master/services/settings_service.dart';
 import 'package:agreg_master/services/reading_service.dart';
+import 'package:agreg_master/services/streak_service.dart';
+import 'package:agreg_master/services/badge_service.dart';
 import 'fiche_page.dart';
 
 void main() async {
@@ -29,6 +31,8 @@ void main() async {
     NotesService().loadNotes(),
     SettingsService().loadSettings(),
     ReadingService().loadReadingProgress(),
+    StreakService().loadData(),
+    BadgeService().loadData(),
   ]);
   runApp(const AgregMasterApp());
 }

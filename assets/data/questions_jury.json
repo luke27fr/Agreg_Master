@@ -1,0 +1,134 @@
+{
+  "questions": [
+    {
+      "lecon": 101,
+      "questions": [
+        "Pouvez-vous donner un exemple d'action de groupe qui n'est pas fidèle ?",
+        "Quelle est la différence entre orbite et classe de conjugaison ?",
+        "Comment utilise-t-on la formule de Burnside en pratique ?",
+        "Pouvez-vous énoncer et démontrer l'équation aux classes ?",
+        "Applications du lemme de Burnside au dénombrement de colliers ?"
+      ]
+    },
+    {
+      "lecon": 104,
+      "questions": [
+        "Énoncer et démontrer les théorèmes de Sylow.",
+        "Comment classifie-t-on les groupes d'ordre pq ?",
+        "Pourquoi tout groupe d'ordre p² est abélien ?",
+        "Donner un exemple de groupe non abélien d'ordre 8.",
+        "Quelle est la structure des groupes abéliens finis ?"
+      ]
+    },
+    {
+      "lecon": 105,
+      "questions": [
+        "Démontrer que Aₙ est simple pour n ≥ 5.",
+        "Comment calcule-t-on la signature d'une permutation ?",
+        "Quels sont les générateurs de Sₙ ?",
+        "Quelle est la structure des classes de conjugaison de Sₙ ?",
+        "Lien entre signature et discriminant d'un polynôme ?"
+      ]
+    },
+    {
+      "lecon": 120,
+      "questions": [
+        "Énoncer et démontrer le théorème chinois.",
+        "Quels sont les inversibles de ℤ/nℤ ?",
+        "Comment calcule-t-on l'indicatrice d'Euler ?",
+        "Application à la cryptographie RSA ?",
+        "Quels sont les carrés dans ℤ/pℤ ?"
+      ]
+    },
+    {
+      "lecon": 153,
+      "questions": [
+        "Énoncer et démontrer Cayley-Hamilton.",
+        "Quelle est la relation entre polynôme minimal et caractéristique ?",
+        "Comment utilise-t-on le lemme des noyaux ?",
+        "Conditions de diagonalisabilité ?",
+        "Qu'est-ce que la décomposition de Dunford ?"
+      ]
+    },
+    {
+      "lecon": 158,
+      "questions": [
+        "Démontrer le théorème spectral.",
+        "Pourquoi les valeurs propres d'une matrice symétrique sont réelles ?",
+        "Qu'est-ce qu'une matrice positive ?",
+        "Comment définit-on la racine carrée d'une matrice positive ?",
+        "Applications aux formes quadratiques ?"
+      ]
+    },
+    {
+      "lecon": 205,
+      "questions": [
+        "Énoncer et démontrer le théorème du point fixe de Banach.",
+        "Énoncer le théorème de Baire avec démonstration.",
+        "Applications du point fixe à Cauchy-Lipschitz ?",
+        "Qu'est-ce qu'un ensemble maigre ?",
+        "Exemple de fonction continue nulle part dérivable ?"
+      ]
+    },
+    {
+      "lecon": 220,
+      "questions": [
+        "Énoncer et démontrer Cauchy-Lipschitz.",
+        "Qu'est-ce que le lemme de Gronwall ?",
+        "Prolongement maximal des solutions ?",
+        "Dépendance par rapport aux conditions initiales ?",
+        "Systèmes différentiels linéaires à coefficients constants ?"
+      ]
+    },
+    {
+      "lecon": 228,
+      "questions": [
+        "Démontrer le théorème de Rolle.",
+        "Énoncer les théorèmes des accroissements finis.",
+        "Qu'est-ce qu'une fonction convexe ? Caractérisations ?",
+        "Inégalité de Jensen ?",
+        "Lien entre dérivabilité et continuité ?"
+      ]
+    },
+    {
+      "lecon": 234,
+      "questions": [
+        "Énoncer et démontrer le théorème de convergence dominée.",
+        "Différence entre intégrale de Riemann et de Lebesgue ?",
+        "Qu'est-ce que le lemme de Fatou ?",
+        "Théorème de Fubini-Tonelli ?",
+        "Complétude de Lᵖ ?"
+      ]
+    },
+    {
+      "lecon": 241,
+      "questions": [
+        "Convergence simple vs uniforme : exemples et contre-exemples ?",
+        "Théorème de Dini ?",
+        "Peut-on dériver une limite de fonctions ?",
+        "Peut-on intégrer terme à terme une série ?",
+        "Théorème d'interversion limite-intégrale ?"
+      ]
+    },
+    {
+      "lecon": 246,
+      "questions": [
+        "Énoncer le théorème de Parseval.",
+        "Convergence ponctuelle des séries de Fourier ?",
+        "Régularité et décroissance des coefficients ?",
+        "Phénomène de Gibbs ?",
+        "Application au calcul de ∑1/n² ?"
+      ]
+    },
+    {
+      "lecon": 262,
+      "questions": [
+        "Énoncer la loi des grands nombres (faible et forte).",
+        "Énoncer et démontrer le TCL.",
+        "Différence entre convergence en loi et en probabilité ?",
+        "Qu'est-ce qu'une fonction caractéristique ?",
+        "Théorème de Lévy ?"
+      ]
+    }
+  ]
+}

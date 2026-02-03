@@ -10,6 +10,8 @@ import 'package:agreg_master/pages/quiz_page.dart';
 import 'package:agreg_master/services/favorites_service.dart';
 import 'package:agreg_master/services/notes_service.dart';
 import 'package:agreg_master/services/score_service.dart';
+import 'package:agreg_master/services/streak_service.dart';
+import 'package:agreg_master/services/reading_service.dart';
 
 /// Custom builder for <glossary> tags that renders them as clickable links
 class GlossaryElementBuilder extends MarkdownElementBuilder {
@@ -88,6 +90,15 @@ class _FichePageState extends State<FichePage> {
     _favoritesService.addListener(_onDataChanged);
     _notesService.addListener(_onDataChanged);
     _loadNotes();
+    // Enregistrer l'activité de lecture
+    _trackReading();
+  }
+
+  Future<void> _trackReading() async {
+    // Marquer comme lu
+    await ReadingService().markAsRead(_ficheId);
+    // Enregistrer l'activité pour les streaks
+    await StreakService().recordActivity('fiches');
   }
 
   @override

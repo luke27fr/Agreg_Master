@@ -6,9 +6,42 @@ import 'demonstrations_page.dart';
 import 'exercices_page.dart';
 import 'planificateur_page.dart';
 import 'simulation_page.dart';
+import 'oral_simulation_page.dart';
+import 'bibliographie_page.dart';
+import 'questions_jury_page.dart';
+import 'badges_page.dart';
+import 'pomodoro_page.dart';
+import '../services/streak_service.dart';
+import '../services/badge_service.dart';
 
-class AgregationHubPage extends StatelessWidget {
+class AgregationHubPage extends StatefulWidget {
   const AgregationHubPage({super.key});
+
+  @override
+  State<AgregationHubPage> createState() => _AgregationHubPageState();
+}
+
+class _AgregationHubPageState extends State<AgregationHubPage> {
+  final StreakService _streakService = StreakService();
+  final BadgeService _badgeService = BadgeService();
+
+  @override
+  void initState() {
+    super.initState();
+    _streakService.addListener(_onDataChanged);
+    _badgeService.addListener(_onDataChanged);
+  }
+
+  @override
+  void dispose() {
+    _streakService.removeListener(_onDataChanged);
+    _badgeService.removeListener(_onDataChanged);
+    super.dispose();
+  }
+
+  void _onDataChanged() {
+    if (mounted) setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +55,49 @@ class AgregationHubPage extends StatelessWidget {
         leading: const BackButton(),
         title: const Text('Préparation Agrégation', style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
+        actions: [
+          // Badge count
+          IconButton(
+            icon: Stack(
+              children: [
+                const Icon(Icons.emoji_events),
+                if (_badgeService.unlockedCount > 0)
+                  Positioned(
+                    right: 0,
+                    top: 0,
+                    child: Container(
+                      padding: const EdgeInsets.all(2),
+                      decoration: const BoxDecoration(
+                        color: Colors.amber,
+                        shape: BoxShape.circle,
+                      ),
+                      constraints: const BoxConstraints(minWidth: 14, minHeight: 14),
+                      child: Text(
+                        '${_badgeService.unlockedCount}',
+                        style: const TextStyle(fontSize: 8, color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const BadgesPage()),
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Streak card
+            _buildStreakCard(isDark),
+
+            const SizedBox(height: 16),
+
             // Bannière
             Container(
               padding: const EdgeInsets.all(20),
@@ -76,6 +146,22 @@ class AgregationHubPage extends StatelessWidget {
             ),
             const SizedBox(height: 12),
 
+            // Simulation Oral (mise en avant)
+            _buildWideFeatureCard(
+              context,
+              isDark,
+              icon: Icons.record_voice_over,
+              title: 'Simulation Oral',
+              subtitle: 'Tirage de 2 leçons + préparation + présentation',
+              color: Colors.deepPurple,
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const OralSimulationPage()),
+              ),
+            ),
+
+            const SizedBox(height: 12),
+
             Row(
               children: [
                 Expanded(
@@ -102,6 +188,40 @@ class AgregationHubPage extends StatelessWidget {
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(builder: (_) => const DeveloppementsPage()),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 12),
+
+            Row(
+              children: [
+                Expanded(
+                  child: _buildFeatureCard(
+                    context,
+                    icon: Icons.help_outline,
+                    title: 'Questions jury',
+                    subtitle: 'Se préparer',
+                    color: Colors.orange,
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const QuestionsJuryPage()),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _buildFeatureCard(
+                    context,
+                    icon: Icons.library_books,
+                    title: 'Bibliographie',
+                    subtitle: 'Livres conseillés',
+                    color: Colors.teal,
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const BibliographiePage()),
                     ),
                   ),
                 ),
@@ -183,23 +303,62 @@ class AgregationHubPage extends StatelessWidget {
 
             // Section Organisation
             const Text(
-              'Organisation',
+              'Organisation & Productivité',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
+            const SizedBox(height: 12),
+
+            Row(
+              children: [
+                Expanded(
+                  child: _buildFeatureCard(
+                    context,
+                    icon: Icons.calendar_month,
+                    title: 'Planificateur',
+                    subtitle: 'Organiser',
+                    color: Colors.orange,
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const PlanificateurPage()),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _buildFeatureCard(
+                    context,
+                    icon: Icons.timer_outlined,
+                    title: 'Pomodoro',
+                    subtitle: 'Focus mode',
+                    color: Colors.red,
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const PomodoroPage()),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
             const SizedBox(height: 12),
 
             _buildWideFeatureCard(
               context,
               isDark,
-              icon: Icons.calendar_month,
-              title: 'Planificateur de révision',
-              subtitle: 'Organisez vos révisions jour par jour',
-              color: Colors.orange,
+              icon: Icons.emoji_events,
+              title: 'Mes badges',
+              subtitle: '${_badgeService.unlockedCount}/${_badgeService.totalCount} badges débloqués',
+              color: Colors.amber,
               onTap: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const PlanificateurPage()),
+                MaterialPageRoute(builder: (_) => const BadgesPage()),
               ),
             ),
+
+            const SizedBox(height: 24),
+
+            // Objectifs du jour
+            _buildDailyObjectivesCard(isDark),
 
             const SizedBox(height: 24),
 
@@ -226,14 +385,148 @@ class AgregationHubPage extends StatelessWidget {
                   const SizedBox(height: 12),
                   _buildConseil('Maîtrisez parfaitement 2 développements par leçon'),
                   _buildConseil('Travaillez les leçons par thème et non par numéro'),
-                  _buildConseil('Pratiquez régulièrement les simulations écrites'),
+                  _buildConseil('Pratiquez régulièrement les simulations'),
                   _buildConseil('Révisez les contre-exemples classiques'),
-                  _buildConseil('Connaissez les démonstrations des théorèmes fondamentaux'),
+                  _buildConseil('Anticipez les questions du jury'),
                 ],
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildStreakCard(bool isDark) {
+    final streak = _streakService.currentStreak;
+    final longestStreak = _streakService.longestStreak;
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: streak > 0
+              ? [Colors.orange, Colors.deepOrange]
+              : [Colors.grey[400]!, Colors.grey[600]!],
+        ),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        children: [
+          Text(
+            streak > 0 ? '🔥' : '💤',
+            style: const TextStyle(fontSize: 40),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  streak > 0 ? '$streak jour${streak > 1 ? 's' : ''} de suite !' : 'Pas de streak actif',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  'Record : $longestStreak jours',
+                  style: const TextStyle(color: Colors.white70, fontSize: 12),
+                ),
+              ],
+            ),
+          ),
+          if (streak > 0)
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Row(
+                children: [
+                  const Icon(Icons.local_fire_department, color: Colors.white, size: 16),
+                  const SizedBox(width: 4),
+                  Text(
+                    '$streak',
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDailyObjectivesCard(bool isDark) {
+    final objectives = _streakService.todayObjectives;
+    final completionRate = _streakService.getTodayCompletionRate();
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: isDark ? const Color(0xFF1E1E1E) : Colors.white,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(Icons.flag, color: Colors.green),
+              const SizedBox(width: 8),
+              const Expanded(
+                child: Text(
+                  'Objectifs du jour',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              Text(
+                '${(completionRate * 100).round()}%',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: completionRate >= 1 ? Colors.green : Colors.orange,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(4),
+            child: LinearProgressIndicator(
+              value: completionRate,
+              backgroundColor: Colors.grey.withOpacity(0.2),
+              valueColor: AlwaysStoppedAnimation(
+                completionRate >= 1 ? Colors.green : Colors.orange,
+              ),
+              minHeight: 6,
+            ),
+          ),
+          const SizedBox(height: 16),
+          ...objectives.values.map((obj) => Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: Row(
+              children: [
+                Icon(
+                  obj.isCompleted ? Icons.check_circle : Icons.circle_outlined,
+                  color: obj.isCompleted ? Colors.green : Colors.grey,
+                  size: 20,
+                ),
+                const SizedBox(width: 8),
+                Expanded(child: Text(obj.title)),
+                Text(
+                  '${obj.progress}/${obj.target}${obj.unit.isNotEmpty ? ' ${obj.unit}' : ''}',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: obj.isCompleted ? Colors.green : Colors.grey,
+                  ),
+                ),
+              ],
+            ),
+          )),
+        ],
       ),
     );
   }

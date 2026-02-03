@@ -7,6 +7,8 @@ import 'package:markdown/markdown.dart' as md;
 import '../models/quiz_model.dart';
 import '../services/score_service.dart';
 import '../services/settings_service.dart';
+import '../services/streak_service.dart';
+import '../services/badge_service.dart';
 
 class QuizPage extends StatefulWidget {
   final String title;
@@ -119,6 +121,12 @@ class _QuizPageState extends State<QuizPage> {
     if (widget.ficheId != null) {
       await ScoreService().saveScore(widget.ficheId!, score, total, wrongIndices: wrongIndices);
     }
+    
+    // Enregistrer l'activité pour les streaks
+    await StreakService().recordActivity('quiz');
+    
+    // Vérifier les badges
+    await BadgeService().checkAndUnlockBadges();
     
     String message;
     IconData icon;
