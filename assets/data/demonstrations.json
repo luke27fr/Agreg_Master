@@ -16,7 +16,19 @@
         "Un groupe d'ordre premier est cyclique"
       ],
       "lecons": [104],
-      "tags": ["groupes", "cardinal"]
+      "tags": ["groupes", "cardinal"],
+      "videos": [
+        {
+          "titre": "Théorème de Lagrange - Explication détaillée",
+          "url": "https://www.youtube.com/watch?v=example",
+          "plateforme": "youtube",
+          "dureeMinutes": 15,
+          "auteur": "Cours de maths",
+          "description": "Démonstration complète avec exemples"
+        }
+      ],
+      "difficulte": 3,
+      "remarque": "Fondamental en théorie des groupes finis"
     },
     {
       "id": "rolle",
@@ -33,7 +45,19 @@
         "Inégalité des accroissements finis"
       ],
       "lecons": [228],
-      "tags": ["dérivation", "extremum"]
+      "tags": ["dérivation", "extremum"],
+      "videos": [
+        {
+          "titre": "Théorème de Rolle - Démonstration géométrique",
+          "url": "https://www.youtube.com/watch?v=example2",
+          "plateforme": "youtube",
+          "dureeMinutes": 10,
+          "auteur": "Maths Agreg",
+          "description": "Interprétation géométrique et preuve"
+        }
+      ],
+      "difficulte": 2,
+      "remarque": "Cas particulier du TAF avec f(a) = f(b)"
     },
     {
       "id": "tvi",

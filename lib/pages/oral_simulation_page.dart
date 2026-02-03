@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'jury_virtuel_page.dart';
 
 class OralSimulationPage extends StatefulWidget {
   const OralSimulationPage({super.key});
@@ -116,6 +117,25 @@ class _OralSimulationPageState extends State<OralSimulationPage> {
       _remainingSeconds = _presentationMinutes * 60;
     });
     _startTimer();
+  }
+
+  void _startJurySession() {
+    _timer?.cancel();
+    
+    if (_selectedLecon == null) return;
+    
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => JuryVirtuelPage(
+          leconId: _selectedLecon!['titre'] ?? 'lecon',
+          leconTitre: _selectedLecon!['titre'] ?? 'Leçon',
+        ),
+      ),
+    ).then((_) {
+      // Après le jury, terminer la simulation
+      _endSimulation();
+    });
   }
 
   void _endSimulation() {
@@ -682,21 +702,37 @@ class _OralSimulationPageState extends State<OralSimulationPage> {
           ),
         ),
 
-        // Bouton terminer
+        // Boutons
         Padding(
           padding: const EdgeInsets.all(16),
-          child: SizedBox(
-            width: double.infinity,
-            child: ElevatedButton.icon(
-              onPressed: _endSimulation,
-              icon: const Icon(Icons.stop),
-              label: const Text('Terminer la présentation'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(vertical: 16),
+          child: Column(
+            children: [
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: _startJurySession,
+                  icon: const Icon(Icons.gavel),
+                  label: const Text('Questions du jury'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.purple,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                  ),
+                ),
               ),
-            ),
+              const SizedBox(height: 12),
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton.icon(
+                  onPressed: _endSimulation,
+                  icon: const Icon(Icons.stop),
+                  label: const Text('Terminer sans jury'),
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ],

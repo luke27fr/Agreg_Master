@@ -24,6 +24,11 @@ import 'package:agreg_master/services/spaced_repetition_service.dart';
 import 'package:agreg_master/services/lecon_progress_service.dart';
 import 'package:agreg_master/services/examen_blanc_service.dart';
 import 'package:agreg_master/services/mind_map_service.dart';
+import 'package:agreg_master/services/smart_planner_service.dart';
+import 'package:agreg_master/services/jury_virtuel_service.dart';
+import 'package:agreg_master/services/structured_notes_service.dart';
+import 'package:agreg_master/services/competition_service.dart';
+import 'package:agreg_master/services/wellness_service.dart';
 import 'fiche_page.dart';
 
 void main() async {
@@ -42,6 +47,11 @@ void main() async {
     ExamenBlancService().loadExamens(),
     ExamenBlancService().loadResults(),
     MindMapService().loadMindMap(),
+    SmartPlannerService().loadData(),
+    JuryVirtuelService().loadData(),
+    StructuredNotesService().loadData(),
+    CompetitionService().loadData(),
+    WellnessService().loadData(),
   ]);
   runApp(const AgregMasterApp());
 }

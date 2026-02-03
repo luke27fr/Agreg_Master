@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
 import 'package:markdown/markdown.dart' as md;
+import 'package:url_launcher/url_launcher.dart';
 
 class DemonstrationsPage extends StatefulWidget {
   const DemonstrationsPage({super.key});
@@ -225,6 +226,68 @@ class _DemonstrationsPageState extends State<DemonstrationsPage> {
             ),
             
             const SizedBox(height: 12),
+
+            // Vidéos et ressources
+            if (demo['videos'] != null && (demo['videos'] as List).isNotEmpty) ...[
+              const Text(
+                'Ressources vidéo',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+              ),
+              const SizedBox(height: 8),
+              ...(demo['videos'] as List).map((video) {
+                return Container(
+                  margin: const EdgeInsets.only(bottom: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.red.withOpacity(0.05),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.red.withOpacity(0.2)),
+                  ),
+                  child: ListTile(
+                    dense: true,
+                    leading: const Icon(Icons.play_circle, color: Colors.red),
+                    title: Text(
+                      video['titre'] as String,
+                      style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+                    ),
+                    subtitle: Text(
+                      '${video['dureeMinutes']} min${video['auteur'] != null ? ' • ${video['auteur']}' : ''}',
+                      style: const TextStyle(fontSize: 11),
+                    ),
+                    trailing: const Icon(Icons.open_in_new, size: 16),
+                    onTap: () => _launchVideo(video['url'] as String),
+                  ),
+                );
+              }),
+              const SizedBox(height: 12),
+            ],
+
+            // Difficulté et remarque
+            if (demo['difficulte'] != null || demo['remarque'] != null) ...[
+              Row(
+                children: [
+                  if (demo['difficulte'] != null) ...[
+                    const Icon(Icons.star, size: 14, color: Colors.amber),
+                    const SizedBox(width: 4),
+                    Text(
+                      'Difficulté: ${demo['difficulte']}/5',
+                      style: const TextStyle(fontSize: 11, color: Colors.grey),
+                    ),
+                  ],
+                  if (demo['remarque'] != null) ...[
+                    const SizedBox(width: 16),
+                    const Icon(Icons.info, size: 14, color: Colors.blue),
+                    const SizedBox(width: 4),
+                    Expanded(
+                      child: Text(
+                        demo['remarque'] as String,
+                        style: const TextStyle(fontSize: 11, color: Colors.grey, fontStyle: FontStyle.italic),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+              const SizedBox(height: 12),
+            ],
             
             // Preuve (masquée en mode récitation)
             if (_showProofs) ...[
@@ -305,6 +368,19 @@ class _DemonstrationsPageState extends State<DemonstrationsPage> {
         ),
       ),
     );
+  }
+
+  Future<void> _launchVideo(String url) async {
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Impossible d\'ouvrir la vidéo')),
+        );
+      }
+    }
   }
 
   void _showProofDialog(BuildContext context, Map<String, dynamic> demo) {

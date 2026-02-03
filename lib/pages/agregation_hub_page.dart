@@ -15,11 +15,18 @@ import 'spaced_repetition_page.dart';
 import 'lecon_progress_page.dart';
 import 'examen_blanc_page.dart';
 import 'mind_map_page.dart';
+import 'smart_planner_page.dart';
+import 'jury_virtuel_page.dart';
+import 'structured_notes_page.dart';
+import 'competition_page.dart';
+import 'wellness_page.dart';
 import '../services/streak_service.dart';
 import '../services/badge_service.dart';
 import '../services/spaced_repetition_service.dart';
 import '../services/lecon_progress_service.dart';
 import '../services/examen_blanc_service.dart';
+import '../services/structured_notes_service.dart';
+import '../services/wellness_service.dart';
 
 class AgregationHubPage extends StatefulWidget {
   const AgregationHubPage({super.key});
@@ -33,6 +40,7 @@ class _AgregationHubPageState extends State<AgregationHubPage> {
   final BadgeService _badgeService = BadgeService();
   final SpacedRepetitionService _srsService = SpacedRepetitionService();
   final LeconProgressService _progressService = LeconProgressService();
+  final WellnessService _wellnessService = WellnessService();
 
   @override
   void initState() {
@@ -41,6 +49,7 @@ class _AgregationHubPageState extends State<AgregationHubPage> {
     _badgeService.addListener(_onDataChanged);
     _srsService.addListener(_onDataChanged);
     _progressService.addListener(_onDataChanged);
+    _wellnessService.addListener(_onDataChanged);
   }
 
   @override
@@ -49,6 +58,7 @@ class _AgregationHubPageState extends State<AgregationHubPage> {
     _badgeService.removeListener(_onDataChanged);
     _srsService.removeListener(_onDataChanged);
     _progressService.removeListener(_onDataChanged);
+    _wellnessService.removeListener(_onDataChanged);
     super.dispose();
   }
 
@@ -106,10 +116,41 @@ class _AgregationHubPageState extends State<AgregationHubPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Streak card
-            _buildStreakCard(isDark),
+          // Wellness alert (si présent)
+          if (_wellnessService.activeAlerts.isNotEmpty)
+            Container(
+              margin: const EdgeInsets.only(bottom: 16),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.orange.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.orange),
+              ),
+              child: Row(
+                children: [
+                  const Icon(Icons.warning, color: Colors.orange),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      '${_wellnessService.activeAlerts.length} alerte${_wellnessService.activeAlerts.length > 1 ? 's' : ''} bien-être',
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const WellnessPage()),
+                    ),
+                    child: const Text('Voir'),
+                  ),
+                ],
+              ),
+            ),
 
-            const SizedBox(height: 16),
+          // Streak card
+          _buildStreakCard(isDark),
+
+          const SizedBox(height: 16),
 
             // Bannière
             Container(
@@ -263,13 +304,13 @@ class _AgregationHubPageState extends State<AgregationHubPage> {
                 Expanded(
                   child: _buildFeatureCard(
                     context,
-                    icon: Icons.help_outline,
-                    title: 'Questions jury',
-                    subtitle: 'Se préparer',
-                    color: Colors.orange,
+                    icon: Icons.gavel,
+                    title: 'Jury Virtuel',
+                    subtitle: 'Simulation interactive',
+                    color: Colors.deepPurple,
                     onTap: () => Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (_) => const QuestionsJuryPage()),
+                      MaterialPageRoute(builder: (_) => const JuryVirtuelMainPage()),
                     ),
                   ),
                 ),
@@ -277,13 +318,13 @@ class _AgregationHubPageState extends State<AgregationHubPage> {
                 Expanded(
                   child: _buildFeatureCard(
                     context,
-                    icon: Icons.library_books,
-                    title: 'Bibliographie',
-                    subtitle: 'Livres conseillés',
-                    color: Colors.teal,
+                    icon: Icons.note_alt,
+                    title: 'Mes Notes',
+                    subtitle: 'Notes structurées',
+                    color: Colors.pink,
                     onTap: () => Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (_) => const BibliographiePage()),
+                      MaterialPageRoute(builder: (_) => const StructuredNotesPage()),
                     ),
                   ),
                 ),
@@ -385,6 +426,22 @@ class _AgregationHubPageState extends State<AgregationHubPage> {
             ),
             const SizedBox(height: 12),
 
+            // Planning Intelligent
+            _buildWideFeatureCard(
+              context,
+              isDark,
+              icon: Icons.event_note,
+              title: 'Planning Intelligent',
+              subtitle: 'Organisation optimisée jusqu\'au concours',
+              color: Colors.cyan,
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const SmartPlannerPage()),
+              ),
+            ),
+
+            const SizedBox(height: 12),
+
             Row(
               children: [
                 Expanded(
@@ -419,17 +476,36 @@ class _AgregationHubPageState extends State<AgregationHubPage> {
 
             const SizedBox(height: 12),
 
-            _buildWideFeatureCard(
-              context,
-              isDark,
-              icon: Icons.emoji_events,
-              title: 'Mes badges',
-              subtitle: '${_badgeService.unlockedCount}/${_badgeService.totalCount} badges débloqués',
-              color: Colors.amber,
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const BadgesPage()),
-              ),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildFeatureCard(
+                    context,
+                    icon: Icons.emoji_events,
+                    title: 'Mes badges',
+                    subtitle: '${_badgeService.unlockedCount} débloqués',
+                    color: Colors.amber,
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const BadgesPage()),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _buildFeatureCard(
+                    context,
+                    icon: Icons.leaderboard,
+                    title: 'Compétition',
+                    subtitle: 'Classement',
+                    color: Colors.deepPurple,
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const CompetitionPage()),
+                    ),
+                  ),
+                ),
+              ],
             ),
 
             const SizedBox(height: 24),

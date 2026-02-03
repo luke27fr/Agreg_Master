@@ -114,7 +114,7 @@ class ExamenBlancResult {
   // Scores par exercice
   final Map<int, double> scoresExercices; // index -> score
   final double scoreTotal;
-  final double bareme Total;
+  final double baremeTotal;
   
   // Auto-évaluation
   final String? notesEtudiant;
@@ -133,9 +133,9 @@ class ExamenBlancResult {
     this.difficultes = const {},
   });
 
-  double get note() => (scoreTotal / baremeTotal * 20).clamp(0, 20);
+  double get note => (scoreTotal / baremeTotal * 20).clamp(0, 20);
   
-  String get mention() {
+  String get mention {
     if (note >= 16) return 'Très bien';
     if (note >= 14) return 'Bien';
     if (note >= 12) return 'Assez bien';
@@ -179,7 +179,7 @@ class ExamenBlancStatistics {
   final int totalExamens;
   final int examensTermines;
   final double noteMoyenne;
-  final double tempsmoyen;
+  final double tempsMoyen;
   final Map<String, int> repartitionNotes; // tranche -> nombre
   final List<ExamenBlancResult> meilleurs;
 
