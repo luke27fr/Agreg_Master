@@ -2,7 +2,7 @@
 
 > [!NOTE]
 > ### 1. Définitions et Fondamentaux
-> Une suite $(u_n)$ est une application de $\mathbb{N}$ dans $\mathbb{R}$ (ou $\mathbb{C}$).
+> Une suite $(u_n)$ est une application de $\mathbb{N}$ dans $\mathbb{R}$ ou $\mathbb{C}$.
 > * **Convergence :** $u_n \to \ell$ si $\forall \varepsilon > 0, \exists N, \forall n \geq N, |u_n - \ell| < \varepsilon$.
 > * **Suite bornée :** $\exists M, \forall n, |u_n| \leq M$. Toute suite convergente est bornée.
 > * **Suite monotone :** Croissante : $u_{n+1} \geq u_n$. Décroissante : $u_{n+1} \leq u_n$.

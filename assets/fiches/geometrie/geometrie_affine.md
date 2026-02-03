@@ -37,7 +37,7 @@
 > * **Q2 :** Une application affine bijective est-elle toujours inversible comme application affine ?
 >   * **Rép :** Oui, et l'inverse est aussi affine (partie linéaire = inverse de la partie linéaire).
 > * **Q3 :** Qu'est-ce qu'une homothétie ?
->   * **Rép :** Application affine $h$ telle que $\vec{h} = \lambda \text{Id}$. Centre : unique point fixe (si $\lambda \neq 1$).
+>   * **Rép :** Application affine $h$ telle que $\vec{h} = \lambda \text{Id}$. Centre : unique point fixe si $\lambda \neq 1$.
 
 ### 5. Références Bibliographiques
 * **M. Audin**, *Géométrie* — Excellente approche moderne de la géométrie affine.

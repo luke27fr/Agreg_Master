@@ -6,7 +6,7 @@
 > * **Coefficients :** Pour $f$ de période $2\pi$ : $a_n = \frac{1}{\pi}\int_{-\pi}^{\pi} f(t)\cos(nt)dt$, $b_n = \frac{1}{\pi}\int_{-\pi}^{\pi} f(t)\sin(nt)dt$.
 > * **Forme exponentielle :** $c_n = \frac{1}{2\pi}\int_{-\pi}^{\pi} f(t)e^{-int}dt$. Série : $\sum c_n e^{int}$.
 > * **Relation :** $c_0 = a_0/2$, $c_n = (a_n - ib_n)/2$, $c_{-n} = \bar{c_n}$ si $f$ réelle.
-> * **Parseval :** $\frac{1}{2\pi}\int |f|^2 = \sum |c_n|^2$ (pour $f \in L^2$).
+> * **Parseval :** $\frac{1}{2\pi}\int |f|^2 = \sum |c_n|^2$ pour $f \in L^2$.
 > * **Convergence $L^2$ :** La série de Fourier converge vers $f$ dans $L^2$.
 > * **Convergence ponctuelle :** Si $f$ est [$C^1$](def:c1) par morceaux, convergence vers $\frac{f(x^+) + f(x^-)}{2}$.
 > * **Phénomène de Gibbs :** Oscillations près des discontinuités (dépassement d'environ 9%).

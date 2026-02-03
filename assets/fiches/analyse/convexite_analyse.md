@@ -5,7 +5,7 @@
 > La convexité est une propriété géométrique avec de nombreuses applications analytiques.
 > * **Fonction [convexe](def:convexe) :** $f(\lambda x + (1-\lambda)y) \leq \lambda f(x) + (1-\lambda)f(y)$ pour $\lambda \in [0,1]$.
 > * **Épigraphe :** $\text{epi}(f) = \{(x, t) : t \geq f(x)\}$. $f$ convexe ssi épigraphe convexe.
-> * **Inégalité des pentes :** $f$ convexe ssi $\frac{f(y)-f(x)}{y-x}$ croît en $y$ (ou $x$).
+> * **Inégalité des pentes :** $f$ convexe ssi $\frac{f(y)-f(x)}{y-x}$ croît en $y$ ou $x$.
 > * **Dérivée :** $f$ convexe et dérivable $\Leftrightarrow$ $f'$ croissante $\Leftrightarrow$ $f''$ $\geq 0$ (si existe).
 > * **Inégalité de Jensen :** $f(\mathbb{E}[X]) \leq \mathbb{E}[f(X)]$ pour $f$ convexe et $X$ variable aléatoire.
 > * **Stricte convexité :** Inégalité stricte pour $\lambda \in ]0,1[$ et $x \neq y$.
@@ -24,7 +24,7 @@
 > **Énoncé :** Montrer que $\sqrt[n]{a_1 \cdots a_n} \leq \frac{a_1 + \cdots + a_n}{n}$ pour $a_i > 0$.
 >
 > **Solution Détaillée :**
-> 1. **Fonction :** $f(x) = -\ln(x)$ est convexe sur $]0, +\infty[$ (car $f''(x) = 1/x^2 > 0$).
+> 1. **Fonction :** $f(x) = -\ln(x)$ est convexe sur $]0, +\infty[$ car $f''(x) = 1/x^2 > 0$.
 > 2. **Jensen discret :** $f\left(\frac{1}{n}\sum a_i\right) \leq \frac{1}{n}\sum f(a_i)$.
 > 3. **Application :** $-\ln\left(\frac{a_1 + \cdots + a_n}{n}\right) \leq \frac{1}{n}\sum (-\ln a_i) = -\ln\sqrt[n]{a_1 \cdots a_n}$.
 > 4. **Passage à l'exp :** $\frac{a_1 + \cdots + a_n}{n} \geq \sqrt[n]{a_1 \cdots a_n}$ (en inversant l'inégalité car $-\ln$ décroissante).

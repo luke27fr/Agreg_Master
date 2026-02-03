@@ -23,9 +23,9 @@
 > **Énoncé :** Calculer $\lim_{n \to \infty} \int_0^{+\infty} \frac{n \sin(x/n)}{x(1 + x^2)} dx$.
 >
 > **Solution Détaillée :**
-> 1. **Convergence simple :** $\frac{n \sin(x/n)}{x} \to 1$ quand $n \to \infty$ (car $\frac{\sin u}{u} \to 1$).
+> 1. **Convergence simple :** $\frac{n \sin(x/n)}{x} \to 1$ quand $n \to \infty$ car $\frac{\sin u}{u} \to 1$.
 >    Donc $f_n(x) = \frac{n \sin(x/n)}{x(1 + x^2)} \to \frac{1}{1 + x^2}$.
-> 2. **Domination :** $|n \sin(x/n)| \leq |x|$ (car $|\sin u| \leq |u|$).
+> 2. **Domination :** $|n \sin(x/n)| \leq |x|$ car $|\sin u| \leq |u|$.
 >    Donc $|f_n(x)| \leq \frac{1}{1 + x^2}$ qui est intégrable sur $[0, +\infty[$.
 > 3. **Convergence dominée :** $\lim_{n} \int f_n = \int (\lim_{n} f_n) = \int_0^{+\infty} \frac{dx}{1 + x^2} = \frac{\pi}{2}$.
 

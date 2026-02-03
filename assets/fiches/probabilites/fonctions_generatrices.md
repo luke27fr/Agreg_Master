@@ -33,7 +33,7 @@
 > [!QUESTION]
 > ### 4. Questions de Jury
 > * **Q1 :** Pourquoi la fonction caractéristique est-elle préférée ?
->   * **Rép :** Elle existe toujours (car $|e^{itX}| = 1$), caractérise la loi, et est utile pour le TCL.
+>   * **Rép :** Elle existe toujours car $|e^{itX}| = 1$, caractérise la loi, et est utile pour le TCL.
 > * **Q2 :** Quelle est la fonction caractéristique de $\mathcal{N}(0, 1)$ ?
 >   * **Rép :** $\varphi(t) = e^{-t^2/2}$.
 > * **Q3 :** Comment utiliser les fonctions génératrices pour les processus de branchement ?

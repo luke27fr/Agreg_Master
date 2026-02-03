@@ -7,7 +7,7 @@
 > * **Lois marginales :** $\mathbb{P}(X \in B) = \mathbb{P}((X, Y) \in B \times \mathbb{R})$.
 > * **Densité jointe :** $f_{X,Y}(x, y)$ telle que $\mathbb{P}((X, Y) \in A) = \iint_A f_{X,Y}(x, y) dx dy$.
 > * **Marginales :** $f_X(x) = \int f_{X,Y}(x, y) dy$.
-> * **[Indépendance](def:independance) :** $f_{X,Y}(x, y) = f_X(x) f_Y(y)$ (ou $\mathbb{P}(X \in A, Y \in B) = \mathbb{P}(X \in A)\mathbb{P}(Y \in B)$).
+> * **[Indépendance](def:independance) :** $f_{X,Y}(x, y) = f_X(x) f_Y(y)$, ou $\mathbb{P}(X \in A, Y \in B) = \mathbb{P}(X \in A)\mathbb{P}(Y \in B)$.
 > * **[Covariance](def:covariance) :** $\text{Cov}(X, Y) = \mathbb{E}[XY] - \mathbb{E}[X]\mathbb{E}[Y]$.
 > * **Corrélation :** $\rho(X, Y) = \frac{\text{Cov}(X, Y)}{\sigma_X \sigma_Y} \in [-1, 1]$.
 

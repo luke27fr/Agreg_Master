@@ -38,7 +38,7 @@
 > * **Q2 :** Quelle est la dimension de l'espace des solutions d'une EDL d'ordre $n$ ?
 >   * **Rép :** $n$ (si les coefficients sont continus et $a_n \neq 0$ ).
 > * **Q3 :** Comment résoudre une équation d'Euler $t^2 y'' + aty' + by = 0$ ?
->   * **Rép :** Changement $t = e^s$ (ou $y = t^r$) ramène à coefficients constants.
+>   * **Rép :** Changement $t = e^s$ ou $y = t^r$ ramène à coefficients constants.
 
 ### 5. Références Bibliographiques
 * **X. Gourdon**, *Analyse* — La référence pour l'agrégation, très complet.

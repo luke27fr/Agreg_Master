@@ -5,7 +5,7 @@
 > La [compacité](def:compact) est une propriété de "finitude topologique" fondamentale en analyse.
 > * **Définition :** $K$ est compact si de tout recouvrement ouvert on peut extraire un sous-recouvrement **fini**.
 > * **En dimension finie :** Compact $\Leftrightarrow$ fermé et borné (Borel-Lebesgue).
-> * **Bolzano-Weierstrass :** Compact $\Leftrightarrow$ toute suite admet une sous-suite convergente (dans $K$).
+> * **Bolzano-Weierstrass :** Compact $\Leftrightarrow$ toute suite admet une sous-suite convergente dans $K$.
 > * **Image continue :** L'image d'un compact par une fonction continue est compacte.
 > * **Extrema :** Fonction continue sur un compact $\Rightarrow$ atteint ses bornes.
 > * **Uniformité :** Fonction continue sur un compact $\Rightarrow$ uniformément continue (Heine).

@@ -25,7 +25,7 @@
 >
 > **Solution Détaillée :**
 > 1. **Si $n = p$ premier :** Soit $\bar{a} \neq \bar{0}$ dans $\mathbb{Z}/p\mathbb{Z}$.
->    Alors $\gcd(a, p) = 1$ (car $p \nmid a$). Par Bézout : $au + pv = 1$, donc $\bar{a} \cdot \bar{u} = \bar{1}$.
+>    Alors $\gcd(a, p) = 1$ car $p \nmid a$. Par Bézout : $au + pv = 1$, donc $\bar{a} \cdot \bar{u} = \bar{1}$.
 >    Ainsi $\bar{a}$ est inversible. C'est un corps.
 > 2. **Si $n$ n'est pas premier :** $n = ab$ avec $1 < a, b < n$.
 >    Alors $\bar{a} \cdot \bar{b} = \bar{n} = \bar{0}$ avec $\bar{a}, \bar{b} \neq \bar{0}$.
