@@ -1024,6 +1024,638 @@
       ],
       "lecons": [105],
       "tags": ["Gauss", "systèmes linéaires"]
+    },
+    {
+      "id": "ex_theoreme_spectral_app",
+      "titre": "Application du théorème spectral",
+      "domaine": "Algèbre",
+      "niveau": "Difficile",
+      "enonce": "Soit A matrice symétrique réelle d'ordre n avec toutes valeurs propres > 0. Montrer qu'il existe une unique matrice symétrique B telle que B² = A.",
+      "indication": "Utiliser la diagonalisation orthogonale.",
+      "solution": [
+        "Par le théorème spectral, A = PDP^T où P orthogonale et D = diag(λ₁,...,λₙ) avec λᵢ > 0.",
+        "Posons B = P√D P^T où √D = diag(√λ₁,...,√λₙ).",
+        "Alors B² = P√D P^T · P√D P^T = P√D · √D P^T = PDP^T = A.",
+        "Unicité : Si B₁² = B₂² = A et B₁,B₂ symétriques, elles commutent et ont les mêmes vecteurs propres. Donc B₁ = B₂."
+      ],
+      "lecons": [157, 159],
+      "tags": ["théorème spectral", "matrice racine carrée"]
+    },
+    {
+      "id": "ex_lemme_riemann_lebesgue",
+      "titre": "Lemme de Riemann-Lebesgue",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Soit f intégrable sur ℝ. Montrer que lim_{n→∞} ∫ f(x)sin(nx)dx = 0.",
+      "indication": "Commencer par les fonctions en escalier.",
+      "solution": [
+        "Étape 1 : Si f = 𝟙_{[a,b]}, alors ∫ sin(nx)dx = [−cos(nx)/n]_a^b → 0 quand n→∞.",
+        "Étape 2 : Par linéarité, vrai pour toute fonction en escalier.",
+        "Étape 3 : Si f intégrable, ∀ε>0, ∃g en escalier tq ‖f-g‖₁ < ε.",
+        "|∫f sin(nx)dx| ≤ |∫g sin(nx)dx| + |∫(f-g)sin(nx)dx| ≤ ε + ‖f-g‖₁ < 2ε pour n assez grand."
+      ],
+      "lecons": [241, 243],
+      "tags": ["Riemann-Lebesgue", "intégrale", "Fourier"]
+    },
+    {
+      "id": "ex_cauchy_lipschitz",
+      "titre": "Théorème de Cauchy-Lipschitz",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Soit y' = y² avec y(0) = 1. Montrer que la solution explose en temps fini et déterminer le temps d'explosion.",
+      "indication": "Séparer les variables.",
+      "solution": [
+        "Équation à variables séparables : dy/y² = dx.",
+        "Intégration : −1/y = x + C. Avec y(0)=1 : C = −1.",
+        "Donc y(x) = 1/(1−x).",
+        "La solution existe pour x < 1 et explose quand x → 1⁻.",
+        "Temps d'explosion : T_max = 1."
+      ],
+      "lecons": [218, 219],
+      "tags": ["équations différentielles", "explosion", "Cauchy-Lipschitz"]
+    },
+    {
+      "id": "ex_inegalite_jensen",
+      "titre": "Inégalité de Jensen et applications",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Soit X variable aléatoire positive d'espérance μ. Montrer que E[1/X] ≥ 1/μ (inégalité de Jensen).",
+      "indication": "f(x) = 1/x est convexe sur ℝ₊*.",
+      "solution": [
+        "La fonction f(x) = 1/x est convexe sur ]0,+∞[ (f'' = 2/x³ > 0).",
+        "Par l'inégalité de Jensen : E[f(X)] ≥ f(E[X]).",
+        "Donc E[1/X] ≥ 1/E[X] = 1/μ.",
+        "Égalité ssi X constant p.s."
+      ],
+      "lecons": [241, 260],
+      "tags": ["Jensen", "convexité", "probabilités"]
+    },
+    {
+      "id": "ex_theoreme_rang_noyau",
+      "titre": "Théorème du rang - Application",
+      "domaine": "Algèbre",
+      "niveau": "Facile",
+      "enonce": "Soit f : ℝ⁴ → ℝ³ application linéaire de rang 2. Déterminer dim(Ker f).",
+      "indication": "Théorème du rang.",
+      "solution": [
+        "Par le théorème du rang : dim(E) = dim(Ker f) + rg(f).",
+        "Donc 4 = dim(Ker f) + 2.",
+        "D'où dim(Ker f) = 2."
+      ],
+      "lecons": [106, 110],
+      "tags": ["rang", "noyau", "dimension"]
+    },
+    {
+      "id": "ex_critere_eisenstein",
+      "titre": "Critère d'Eisenstein pour l'irréductibilité",
+      "domaine": "Algèbre",
+      "niveau": "Moyen",
+      "enonce": "Montrer que X⁴ + X³ + X² + X + 1 est irréductible sur ℚ.",
+      "indication": "Composer avec X+1 puis Eisenstein.",
+      "solution": [
+        "Posons P(X) = X⁴ + X³ + X² + X + 1 = (X⁵-1)/(X-1).",
+        "Considérons Q(X) = P(X+1) = [(X+1)⁵-1]/X = X⁴ + 5X³ + 10X² + 10X + 5.",
+        "Pour p=5 : 5|5, 5|10, 5|10, 5|5, mais 25∤5.",
+        "Par Eisenstein, Q irréductible sur ℚ.",
+        "Donc P(X) = Q(X-1) aussi irréductible."
+      ],
+      "lecons": [120, 122],
+      "tags": ["Eisenstein", "irréductibilité", "polynômes"]
+    },
+    {
+      "id": "ex_tcl_application",
+      "titre": "Théorème Central Limite - Application",
+      "domaine": "Probabilités",
+      "niveau": "Moyen",
+      "enonce": "On lance 10000 fois une pièce équilibrée. Estimer P(4900 ≤ S ≤ 5100) où S = nombre de piles.",
+      "indication": "Utiliser l'approximation normale.",
+      "solution": [
+        "S ~ Bin(10000, 1/2). E[S] = 5000, Var(S) = 2500, σ = 50.",
+        "Par le TCL, (S-5000)/50 ≈ N(0,1) pour n grand.",
+        "P(4900 ≤ S ≤ 5100) = P(-2 ≤ Z ≤ 2) où Z ~ N(0,1).",
+        "≈ Φ(2) - Φ(-2) = 2Φ(2) - 1 ≈ 2×0.9772 - 1 = 0.9544 ≈ 95%."
+      ],
+      "lecons": [262, 265],
+      "tags": ["TCL", "approximation normale", "binomiale"]
+    },
+    {
+      "id": "ex_decomposition_dunford",
+      "titre": "Décomposition de Dunford",
+      "domaine": "Algèbre",
+      "niveau": "Difficile",
+      "enonce": "Montrer que toute matrice A ∈ M_n(ℂ) s'écrit de manière unique A = D + N où D diagonalisable, N nilpotente, et DN = ND.",
+      "indication": "Réduction de Jordan.",
+      "solution": [
+        "Par réduction de Jordan, A = PJP⁻¹ où J = D' + N' (D' diagonale, N' strictement triangulaire supérieure).",
+        "Posons D = PD'P⁻¹ et N = PN'P⁻¹.",
+        "Alors A = D + N, D diagonalisable, N nilpotente (car N' nilpotente).",
+        "DN = ND car D'N' = N'D' (commuent dans J).",
+        "Unicité : Si A = D₁+N₁ = D₂+N₂ avec commutation, montrer D₁=D₂ et N₁=N₂ par annulation mutuelle."
+      ],
+      "lecons": [157, 159],
+      "tags": ["Dunford", "diagonalisation", "nilpotent", "Jordan"]
+    },
+    {
+      "id": "ex_formule_stirling",
+      "titre": "Formule de Stirling",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Montrer que n! ~ √(2πn)(n/e)ⁿ quand n → ∞.",
+      "indication": "Utiliser la formule de Wallis ou l'intégrale de Gauss.",
+      "solution": [
+        "Posons uₙ = n!/[√n (n/e)ⁿ]. On veut montrer uₙ → √(2π).",
+        "Méthode : ln(uₙ) = ln(n!) - ½ln(n) - n(ln(n)-1).",
+        "Par la formule d'Euler-Maclaurin ou comparaison série-intégrale :",
+        "ln(n!) = Σ₁ⁿ ln(k) ≈ ∫₁ⁿ ln(x)dx = n ln(n) - n + 1.",
+        "Analyse fine donne ln(uₙ) → ½ln(2π), donc uₙ → √(2π)."
+      ],
+      "lecons": [233, 239],
+      "tags": ["Stirling", "équivalent", "factorielle"]
+    },
+    {
+      "id": "ex_theoreme_weierstrass",
+      "titre": "Théorème d'approximation de Weierstrass",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Montrer que tout polynôme trigonométrique dense dans C(𝕋) (fonctions continues 2π-périodiques).",
+      "indication": "Utiliser les polynômes de Bernstein ou Stone-Weierstrass.",
+      "solution": [
+        "Version trigonométrique de Weierstrass : Les combinaisons linéaires de {1, cos(nx), sin(nx)} sont denses dans C(𝕋).",
+        "Preuve via Stone-Weierstrass : L'algèbre des polynômes trigonométriques sépare les points, contient les constantes, et est fermée par conjugaison complexe.",
+        "Donc elle est dense dans C(𝕋).",
+        "Conséquence : Toute fonction continue 2π-périodique peut être approchée uniformément par sa série de Fourier tronquée."
+      ],
+      "lecons": [241, 244],
+      "tags": ["Weierstrass", "approximation", "densité"]
+    },
+    {
+      "id": "ex_theoreme_bolzano_weierstrass",
+      "titre": "Bolzano-Weierstrass",
+      "domaine": "Analyse",
+      "niveau": "Facile",
+      "enonce": "Soit (xₙ) suite bornée dans ℝ. Montrer qu'elle admet une sous-suite convergente.",
+      "indication": "Dichotomie sur les intervalles.",
+      "solution": [
+        "(xₙ) bornée : ∃M, ∀n, xₙ ∈ [−M,M].",
+        "Dichotomie : [−M,M] contient une infinité de termes. Le découper en [−M,0] et [0,M]. L'un contient une infinité de termes.",
+        "Répéter : construire une suite d'intervalles emboîtés [aₖ,bₖ] de longueur bₖ−aₖ → 0, chacun contenant une infinité de xₙ.",
+        "Extraire xₙₖ ∈ [aₖ,bₖ]. Par construction, c'est une suite de Cauchy, donc convergente dans ℝ (complet)."
+      ],
+      "lecons": [233, 227],
+      "tags": ["Bolzano-Weierstrass", "compacité", "extraction"]
+    },
+    {
+      "id": "ex_lemme_fatou",
+      "titre": "Lemme de Fatou",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Soit (fₙ) suite de fonctions positives mesurables. Montrer que ∫ liminf fₙ ≤ liminf ∫ fₙ.",
+      "indication": "Utiliser le théorème de convergence monotone.",
+      "solution": [
+        "Posons gₙ = inf_{k≥n} fₖ. Alors gₙ ↗ liminf fₙ et gₙ ≤ fₙ.",
+        "Par convergence monotone : ∫ liminf fₙ = ∫ lim gₙ = lim ∫ gₙ.",
+        "Comme gₙ ≤ fₙ, on a ∫ gₙ ≤ ∫ fₙ.",
+        "Donc lim ∫ gₙ ≤ liminf ∫ fₙ.",
+        "Conclusion : ∫ liminf fₙ ≤ liminf ∫ fₙ."
+      ],
+      "lecons": [250, 251],
+      "tags": ["Fatou", "mesure", "Lebesgue", "intégration"]
+    },
+    {
+      "id": "ex_theoreme_arzela_ascoli",
+      "titre": "Théorème d'Ascoli - Application",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Soit (fₙ) suite de fonctions C¹ sur [0,1] telles que |fₙ(0)| ≤ 1 et |f'ₙ| ≤ 1 partout. Montrer qu'on peut extraire une sous-suite uniformément convergente.",
+      "indication": "Ascoli : équicontinuité + bornitude.",
+      "solution": [
+        "Bornitude : |fₙ(x)| = |fₙ(0) + ∫₀ˣ f'ₙ(t)dt| ≤ 1 + x ≤ 2 sur [0,1]. Donc (fₙ) bornée.",
+        "Équicontinuité : |fₙ(x)−fₙ(y)| = |∫_y^x f'ₙ(t)dt| ≤ |x−y| (par |f'ₙ| ≤ 1).",
+        "Donc pour ε>0, prendre δ=ε : |x−y|<δ ⟹ |fₙ(x)−fₙ(y)|<ε uniformément en n.",
+        "Par Ascoli, on peut extraire une sous-suite uniformément convergente."
+      ],
+      "lecons": [244, 228],
+      "tags": ["Ascoli", "équicontinuité", "compacité"]
+    },
+    {
+      "id": "ex_theoreme_hahn_banach_app",
+      "titre": "Hahn-Banach - Séparation",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Soit C convexe fermé dans ℝⁿ et x ∉ C. Montrer qu'il existe un hyperplan séparant x et C.",
+      "indication": "Minimiser la distance de x à C.",
+      "solution": [
+        "C fermé et convexe ⟹ ∃! y ∈ C tel que d(x,C) = ‖x−y‖ (projection).",
+        "Posons φ(z) = ⟨z−y, x−y⟩.",
+        "Pour tout c ∈ C, par convexité de C : ⟨c−y, x−y⟩ ≤ 0 (angle obtus car y = proj).",
+        "Donc φ(c) ≤ 0 < φ(x) = ‖x−y‖².",
+        "L'hyperplan H = {z : φ(z) = 0} sépare x et C."
+      ],
+      "lecons": [208, 213],
+      "tags": ["Hahn-Banach", "séparation", "convexité"]
+    },
+    {
+      "id": "ex_inversion_fourier",
+      "titre": "Transformée de Fourier et inversion",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Calculer la transformée de Fourier de f(x) = e^(−|x|) et montrer la formule d'inversion.",
+      "indication": "Intégrer séparément sur ℝ₊ et ℝ₋.",
+      "solution": [
+        "ℱ[f](ξ) = ∫ e^(−|x|) e^(−2iπξx) dx = ∫₀^∞ e^(−x(1+2iπξ)) dx + ∫_{−∞}^0 e^(x(1−2iπξ)) dx.",
+        "= 1/(1+2iπξ) + 1/(1−2iπξ) = 2/(1+4π²ξ²).",
+        "Inversion : f(x) = ∫ ℱ[f](ξ) e^(2iπξx) dξ.",
+        "Pour x=0 : e^0 = 1 = ∫ 2/(1+4π²ξ²) dξ (vérifié)."
+      ],
+      "lecons": [246, 247],
+      "tags": ["Fourier", "transformée", "inversion"]
+    },
+    {
+      "id": "ex_markov_tchebychev",
+      "titre": "Inégalités de Markov et Tchebychev",
+      "domaine": "Probabilités",
+      "niveau": "Facile",
+      "enonce": "Soit X ≥ 0 avec E[X] = 2. Donner une borne supérieure pour P(X ≥ 10).",
+      "indication": "Inégalité de Markov.",
+      "solution": [
+        "Par Markov : P(X ≥ a) ≤ E[X]/a.",
+        "Donc P(X ≥ 10) ≤ 2/10 = 0.2 = 20%.",
+        "Amélioration avec Tchebychev (si on connaît Var) : P(|X−μ| ≥ kσ) ≤ 1/k²."
+      ],
+      "lecons": [260, 265],
+      "tags": ["Markov", "Tchebychev", "concentration"]
+    },
+    {
+      "id": "ex_theoreme_riesz",
+      "titre": "Théorème de représentation de Riesz",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Soit H espace de Hilbert et φ : H → ℝ forme linéaire continue. Montrer qu'il existe unique y ∈ H tel que φ(x) = ⟨x,y⟩.",
+      "indication": "Utiliser Ker(φ) et sa projection orthogonale.",
+      "solution": [
+        "Si φ = 0, prendre y = 0. Sinon, Ker(φ) ≠ H.",
+        "Ker(φ) est fermé (φ continue). Soit z ∈ Ker(φ)⊥ avec z ≠ 0.",
+        "Pour tout x : φ(x − φ(x)/φ(z) · z) = 0, donc x − φ(x)/φ(z) · z ∈ Ker(φ).",
+        "Par orthogonalité : ⟨x, z⟩ = φ(x)/φ(z) · ⟨z,z⟩.",
+        "Posons y = φ(z)/‖z‖² · z. Alors φ(x) = ⟨x,y⟩."
+      ],
+      "lecons": [207, 209],
+      "tags": ["Riesz", "dualité", "Hilbert"]
+    },
+    {
+      "id": "ex_point_fixe_banach",
+      "titre": "Théorème de point fixe de Banach",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Résoudre x = cos(x) par la méthode de point fixe. Montrer la convergence.",
+      "indication": "Montrer que f(x) = cos(x) est contractante sur un intervalle.",
+      "solution": [
+        "Sur [0,1], |f'(x)| = |−sin(x)| ≤ sin(1) < 1. Donc f est k-contractante avec k = sin(1) ≈ 0.84.",
+        "Par le théorème de Banach, f a un unique point fixe dans [0,1].",
+        "Méthode itérative : x₀ = 0.5, xₙ₊₁ = cos(xₙ).",
+        "Convergence : |xₙ − x*| ≤ kⁿ|x₀ − x*| → 0.",
+        "Résultat numérique : x* ≈ 0.739085..."
+      ],
+      "lecons": [228, 232],
+      "tags": ["point fixe", "Banach", "contraction"]
+    },
+    {
+      "id": "ex_lemme_gronwall",
+      "titre": "Lemme de Gronwall",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Soit u(t) ≥ 0 vérifiant u(t) ≤ a + b∫₀ᵗ u(s)ds pour t ≥ 0. Montrer que u(t) ≤ ae^(bt).",
+      "indication": "Poser v(t) = ∫₀ᵗ u(s)ds.",
+      "solution": [
+        "Posons v(t) = ∫₀ᵗ u(s)ds. Alors v'(t) = u(t) ≤ a + bv(t).",
+        "Donc v'(t) − bv(t) ≤ a.",
+        "Multiplions par e^(−bt) : (ve^(−bt))' ≤ ae^(−bt).",
+        "Intégration : ve^(−bt) ≤ (a/b)(1−e^(−bt)) ≤ a/b.",
+        "Donc v(t) ≤ (a/b)e^(bt). Et u(t) ≤ a + bv(t) ≤ a + a(e^(bt)−1) = ae^(bt)."
+      ],
+      "lecons": [218, 219],
+      "tags": ["Gronwall", "inégalité", "ED"]
+    },
+    {
+      "id": "ex_topologie_compacite",
+      "titre": "Compacité et continuité",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Soit f : [0,1] → ℝ continue. Montrer que f atteint son maximum.",
+      "indication": "Théorème des bornes atteintes.",
+      "solution": [
+        "[0,1] est compact (fermé borné dans ℝ).",
+        "f continue sur un compact.",
+        "Par le théorème des bornes atteintes, f atteint son supremum et son infimum.",
+        "Donc ∃x₀ ∈ [0,1] tel que f(x₀) = max f."
+      ],
+      "lecons": [228, 230],
+      "tags": ["compacité", "maximum", "continuité"]
+    },
+    {
+      "id": "ex_densite_q_dans_r",
+      "titre": "Densité de ℚ dans ℝ",
+      "domaine": "Analyse",
+      "niveau": "Facile",
+      "enonce": "Montrer que ℚ est dense dans ℝ : pour tout x ∈ ℝ et ε > 0, il existe r ∈ ℚ tel que |x−r| < ε.",
+      "indication": "Utiliser la partie entière.",
+      "solution": [
+        "Soit x ∈ ℝ, ε > 0. Choisir n ∈ ℕ* tel que 1/n < ε.",
+        "Soit p = ⌊nx⌋ (partie entière de nx).",
+        "Alors p ≤ nx < p+1, donc p/n ≤ x < (p+1)/n.",
+        "|x − p/n| < 1/n < ε.",
+        "Donc r = p/n ∈ ℚ convient."
+      ],
+      "lecons": [226, 230],
+      "tags": ["densité", "rationnels", "topologie"]
+    },
+    {
+      "id": "ex_theoreme_lagrange_groupes",
+      "titre": "Théorème de Lagrange",
+      "domaine": "Algèbre",
+      "niveau": "Facile",
+      "enonce": "Montrer que dans un groupe fini G, l'ordre de tout élément divise l'ordre du groupe.",
+      "indication": "Considérer le sous-groupe engendré par l'élément.",
+      "solution": [
+        "Soit a ∈ G. Le sous-groupe H = ⟨a⟩ = {e, a, a², ..., a^(k−1)} où k = ordre de a.",
+        "|H| = k (ordre de a).",
+        "Par le théorème de Lagrange : |H| divise |G|.",
+        "Donc k divise |G|."
+      ],
+      "lecons": [101, 104],
+      "tags": ["Lagrange", "ordre", "groupes finis"]
+    },
+    {
+      "id": "ex_dual_lp",
+      "titre": "Dual de Lᵖ",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Montrer que le dual de Lᵖ est Lᵍ où 1/p + 1/q = 1 (pour 1 < p < ∞).",
+      "indication": "Utiliser Hölder et Radon-Nikodym.",
+      "solution": [
+        "Soit φ ∈ (Lᵖ)*. Définir la mesure ν par ν(A) = φ(𝟙_A).",
+        "Par Radon-Nikodym, ∃g mesurable telle que ν(A) = ∫_A g dμ.",
+        "Montrer que g ∈ Lᵍ et φ(f) = ∫ fg dμ.",
+        "Réciproquement, pour g ∈ Lᵍ, φ_g(f) = ∫fg est dans (Lᵖ)* par Hölder.",
+        "Conclusion : (Lᵖ)* ≅ Lᵍ isométriquement."
+      ],
+      "lecons": [250, 251],
+      "tags": ["dualité", "Lp", "Hölder", "Radon-Nikodym"]
+    },
+    {
+      "id": "ex_theoreme_tvi",
+      "titre": "Théorème des valeurs intermédiaires",
+      "domaine": "Analyse",
+      "niveau": "Facile",
+      "enonce": "Montrer que l'équation x³ − x − 1 = 0 admet au moins une solution dans [1,2].",
+      "indication": "TVI.",
+      "solution": [
+        "Posons f(x) = x³ − x − 1.",
+        "f continue sur [1,2] (polynôme).",
+        "f(1) = 1 − 1 − 1 = −1 < 0.",
+        "f(2) = 8 − 2 − 1 = 5 > 0.",
+        "Par le TVI, ∃c ∈ ]1,2[ tel que f(c) = 0."
+      ],
+      "lecons": [214, 226],
+      "tags": ["TVI", "équation", "continuité"]
+    },
+    {
+      "id": "ex_formule_taylor",
+      "titre": "Formule de Taylor avec reste intégral",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Soit f ∈ Cⁿ⁺¹([a,b]). Établir Taylor-Lagrange avec reste intégral.",
+      "indication": "IPP répétées.",
+      "solution": [
+        "f(b) = f(a) + ∫_a^b f'(t)dt.",
+        "IPP : f'(t) = f'(a) + ∫_a^t f''(s)ds.",
+        "Donc ∫_a^b f'(t)dt = f'(a)(b−a) + ∫_a^b ∫_a^t f''(s)ds dt.",
+        "En répétant n fois (IPP), on obtient :",
+        "f(b) = Σ_{k=0}^n f^(k)(a)(b−a)^k/k! + Rₙ(b)",
+        "où Rₙ(b) = (1/n!) ∫_a^b (b−t)ⁿ f^(n+1)(t)dt."
+      ],
+      "lecons": [214, 216],
+      "tags": ["Taylor", "IPP", "reste intégral"]
+    },
+    {
+      "id": "ex_theoreme_rolle",
+      "titre": "Théorème de Rolle - Application",
+      "domaine": "Analyse",
+      "niveau": "Facile",
+      "enonce": "Montrer que le polynôme P(X) = X³ − 3X + 1 a exactement 3 racines réelles distinctes.",
+      "indication": "Étudier P' et compter les extrema.",
+      "solution": [
+        "P'(X) = 3X² − 3 = 0 ⟹ X = ±1.",
+        "P(−1) = −1 + 3 + 1 = 3 > 0, P(1) = 1 − 3 + 1 = −1 < 0.",
+        "P(−∞) = −∞, P(+∞) = +∞.",
+        "Par TVI : une racine dans ]−∞,−1[, une dans ]−1,1[, une dans ]1,+∞[.",
+        "Donc 3 racines réelles distinctes."
+      ],
+      "lecons": [214, 216],
+      "tags": ["Rolle", "racines", "polynômes"]
+    },
+    {
+      "id": "ex_esperance_variance_binomiale",
+      "titre": "Calcul d'espérance et variance - Loi binomiale",
+      "domaine": "Probabilités",
+      "niveau": "Facile",
+      "enonce": "Soit X ~ Bin(n,p). Retrouver E[X] et Var(X) sans utiliser les formules.",
+      "indication": "Écrire X = X₁ + ... + Xₙ avec Xᵢ ~ Ber(p) i.i.d.",
+      "solution": [
+        "X = X₁ + ... + Xₙ où Xᵢ ~ Ber(p) indépendants.",
+        "E[Xᵢ] = 0·(1−p) + 1·p = p.",
+        "Par linéarité : E[X] = Σ E[Xᵢ] = np.",
+        "Var(Xᵢ) = E[Xᵢ²] − E[Xᵢ]² = p − p² = p(1−p).",
+        "Par indépendance : Var(X) = Σ Var(Xᵢ) = np(1−p)."
+      ],
+      "lecons": [260, 261],
+      "tags": ["binomiale", "espérance", "variance"]
+    },
+    {
+      "id": "ex_orthogonalisation_gram_schmidt",
+      "titre": "Gram-Schmidt",
+      "domaine": "Algèbre",
+      "niveau": "Moyen",
+      "enonce": "Orthonormaliser la famille (v₁,v₂,v₃) = ((1,1,0), (1,0,1), (0,1,1)) dans ℝ³.",
+      "indication": "Procédé de Gram-Schmidt.",
+      "solution": [
+        "e₁ = v₁/‖v₁‖ = (1,1,0)/√2 = (1/√2, 1/√2, 0).",
+        "u₂ = v₂ − ⟨v₂,e₁⟩e₁ = (1,0,1) − (1/√2)·(1/√2,1/√2,0) = (1,0,1) − (1/2,1/2,0) = (1/2, −1/2, 1).",
+        "e₂ = u₂/‖u₂‖ = (1/2,−1/2,1)/√(1/4+1/4+1) = (1/2,−1/2,1)·(2/√6) = (1/√6, −1/√6, 2/√6).",
+        "u₃ = v₃ − ⟨v₃,e₁⟩e₁ − ⟨v₃,e₂⟩e₂ (calculs...).",
+        "e₃ = u₃/‖u₃‖."
+      ],
+      "lecons": [109, 142],
+      "tags": ["Gram-Schmidt", "orthonormalisation", "produit scalaire"]
+    },
+    {
+      "id": "ex_inegalite_cauchy_schwarz",
+      "titre": "Inégalité de Cauchy-Schwarz",
+      "domaine": "Algèbre",
+      "niveau": "Facile",
+      "enonce": "Montrer que pour u,v dans un espace préhilbertien : |⟨u,v⟩| ≤ ‖u‖·‖v‖.",
+      "indication": "Étudier ‖u + tv‖² pour t ∈ ℝ.",
+      "solution": [
+        "Pour tout t ∈ ℝ : ‖u + tv‖² ≥ 0.",
+        "Développement : ⟨u+tv, u+tv⟩ = ‖u‖² + 2t⟨u,v⟩ + t²‖v‖² ≥ 0.",
+        "C'est un trinôme en t, toujours ≥ 0.",
+        "Donc Δ ≤ 0 : 4⟨u,v⟩² − 4‖u‖²‖v‖² ≤ 0.",
+        "D'où |⟨u,v⟩| ≤ ‖u‖·‖v‖ (Cauchy-Schwarz)."
+      ],
+      "lecons": [108, 109],
+      "tags": ["Cauchy-Schwarz", "produit scalaire", "inégalité"]
+    },
+    {
+      "id": "ex_determinant_vandermonde",
+      "titre": "Déterminant de Vandermonde",
+      "domaine": "Algèbre",
+      "niveau": "Moyen",
+      "enonce": "Calculer det(V) pour V = [[1,x₁,x₁²],[1,x₂,x₂²],[1,x₃,x₃²]].",
+      "indication": "Factoriser par les différences xᵢ − xⱼ.",
+      "solution": [
+        "Formule générale : det(V_n) = ∏_{i<j} (xⱼ − xᵢ).",
+        "Pour n=3 : det(V) = (x₂−x₁)(x₃−x₁)(x₃−x₂).",
+        "Vérification par développement ou récurrence.",
+        "Interprétation : det(V) = 0 ⟺ deux xᵢ égaux ⟺ colonnes liées."
+      ],
+      "lecons": [103, 105],
+      "tags": ["Vandermonde", "déterminant", "polynômes"]
+    },
+    {
+      "id": "ex_critere_dalembert",
+      "titre": "Critère de d'Alembert",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Étudier la convergence de Σ nⁿ/n! en utilisant le critère de d'Alembert.",
+      "indication": "Calculer uₙ₊₁/uₙ.",
+      "solution": [
+        "uₙ = nⁿ/n!.",
+        "uₙ₊₁/uₙ = (n+1)^(n+1)/(n+1)! · n!/nⁿ = [(n+1)/n]ⁿ = (1 + 1/n)ⁿ.",
+        "lim uₙ₊₁/uₙ = e > 1.",
+        "Par d'Alembert, la série DIVERGE."
+      ],
+      "lecons": [233, 239],
+      "tags": ["d'Alembert", "séries", "convergence"]
+    },
+    {
+      "id": "ex_polynome_interpolation_lagrange",
+      "titre": "Interpolation de Lagrange",
+      "domaine": "Algèbre",
+      "niveau": "Moyen",
+      "enonce": "Trouver le polynôme P de degré ≤ 2 tel que P(0)=1, P(1)=2, P(2)=5.",
+      "indication": "Utiliser les polynômes de Lagrange.",
+      "solution": [
+        "Polynômes de base : L₀ = (X−1)(X−2)/2, L₁ = −X(X−2), L₂ = X(X−1)/2.",
+        "P(X) = 1·L₀ + 2·L₁ + 5·L₂.",
+        "= (X−1)(X−2)/2 − 2X(X−2) + 5X(X−1)/2.",
+        "Simplifions : P(X) = X² + 1.",
+        "Vérif : P(0)=1, P(1)=2, P(2)=5 ✓"
+      ],
+      "lecons": [120, 126],
+      "tags": ["interpolation", "Lagrange", "polynômes"]
+    },
+    {
+      "id": "ex_formule_bayes",
+      "titre": "Formule de Bayes - Diagnostic médical",
+      "domaine": "Probabilités",
+      "niveau": "Moyen",
+      "enonce": "Maladie rare (1%). Test sensibilité 99%, spécificité 95%. Si test positif, quelle probabilité d'être réellement malade ?",
+      "indication": "Bayes : P(M|T⁺).",
+      "solution": [
+        "P(M) = 0.01, P(M^c) = 0.99.",
+        "P(T⁺|M) = 0.99 (sensibilité), P(T⁺|M^c) = 0.05 (faux positif).",
+        "P(T⁺) = P(T⁺|M)P(M) + P(T⁺|M^c)P(M^c) = 0.99×0.01 + 0.05×0.99 = 0.0594.",
+        "P(M|T⁺) = P(T⁺|M)P(M)/P(T⁺) = 0.0099/0.0594 ≈ 0.167 ≈ 17%.",
+        "Conclusion surprenante : seulement 17% de chance d'être malade !"
+      ],
+      "lecons": [260, 263],
+      "tags": ["Bayes", "probabilités conditionnelles", "diagnostic"]
+    },
+    {
+      "id": "ex_theoreme_tchebychev_polynomes",
+      "titre": "Polynômes de Tchebychev",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Montrer que Tₙ(cos θ) = cos(nθ) définit un polynôme de degré n.",
+      "indication": "Récurrence avec cos((n+1)θ) + cos((n−1)θ) = 2cos(θ)cos(nθ).",
+      "solution": [
+        "Posons Tₙ(x) tel que Tₙ(cos θ) = cos(nθ).",
+        "T₀(x) = 1, T₁(x) = x.",
+        "Relation de récurrence : cos((n+1)θ) + cos((n−1)θ) = 2cos(θ)cos(nθ).",
+        "Donc Tₙ₊₁(cos θ) = 2cos(θ)Tₙ(cos θ) − Tₙ₋₁(cos θ).",
+        "D'où Tₙ₊₁(x) = 2xTₙ(x) − Tₙ₋₁(x).",
+        "Par récurrence, Tₙ est un polynôme de degré n (coefficient dominant 2^(n−1))."
+      ],
+      "lecons": [241, 244],
+      "tags": ["Tchebychev", "polynômes orthogonaux", "récurrence"]
+    },
+    {
+      "id": "ex_theoreme_fubini",
+      "titre": "Théorème de Fubini",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Calculer ∫∫_D xy dxdy où D = {(x,y) : x² + y² ≤ 1, x,y ≥ 0}.",
+      "indication": "Coordonnées polaires.",
+      "solution": [
+        "D = quart de disque unité (premier quadrant).",
+        "Coordonnées polaires : x = r cos(θ), y = r sin(θ), dxdy = r dr dθ.",
+        "D : 0 ≤ r ≤ 1, 0 ≤ θ ≤ π/2.",
+        "∫∫ xy dxdy = ∫₀^(π/2) ∫₀¹ r²cos(θ)sin(θ) · r dr dθ.",
+        "= [∫₀¹ r³ dr] · [∫₀^(π/2) cos(θ)sin(θ) dθ] = (1/4) · (1/2) = 1/8."
+      ],
+      "lecons": [245, 247],
+      "tags": ["Fubini", "intégrale double", "polaires"]
+    },
+    {
+      "id": "ex_suite_adjacente",
+      "titre": "Suites adjacentes",
+      "domaine": "Analyse",
+      "niveau": "Facile",
+      "enonce": "Soit uₙ = Σ₁ⁿ 1/k et vₙ = uₙ − ln(n). Montrer que (vₙ) converge.",
+      "indication": "Montrer que vₙ est décroissante et minorée.",
+      "solution": [
+        "vₙ₊₁ − vₙ = 1/(n+1) − ln(1 + 1/n).",
+        "Par concavité de ln : ln(1+h) > h − h²/2 pour h petit.",
+        "Donc vₙ₊₁ − vₙ < 0, la suite décroît.",
+        "De plus, ∫ₖ^(k+1) dx/x < 1/k donne vₙ > 0 (minorée).",
+        "Suite décroissante minorée ⟹ convergente. Limite = γ ≈ 0.577 (constante d'Euler)."
+      ],
+      "lecons": [233, 214],
+      "tags": ["suites adjacentes", "Euler", "convergence"]
+    },
+    {
+      "id": "ex_decomposition_polaire",
+      "titre": "Décomposition polaire",
+      "domaine": "Algèbre",
+      "niveau": "Difficile",
+      "enonce": "Toute matrice inversible A ∈ GLₙ(ℝ) s'écrit A = OP où O orthogonale et P symétrique définie positive.",
+      "indication": "Considérer A^T A.",
+      "solution": [
+        "Posons S = A^T A. S est symétrique définie positive (⟨Sx,x⟩ = ‖Ax‖² > 0 pour x ≠ 0).",
+        "Par théorème spectral, ∃P symétrique définie positive unique telle que P² = S.",
+        "Posons O = AP⁻¹.",
+        "O^T O = (AP⁻¹)^T AP⁻¹ = P⁻¹ A^T A P⁻¹ = P⁻¹ P² P⁻¹ = I.",
+        "Donc O orthogonale et A = OP."
+      ],
+      "lecons": [157, 159],
+      "tags": ["décomposition polaire", "orthogonale", "théorème spectral"]
+    },
+    {
+      "id": "ex_theoreme_stone_weierstrass",
+      "titre": "Stone-Weierstrass",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Montrer que les polynômes sont denses dans C([0,1]).",
+      "indication": "Stone-Weierstrass ou Bernstein.",
+      "solution": [
+        "L'ensemble P des polynômes sur [0,1] est une sous-algèbre de C([0,1]).",
+        "P contient les constantes (polynomial degré 0).",
+        "P sépare les points : si x ≠ y, alors P(x) = x ≠ y = P(y).",
+        "Par Stone-Weierstrass, P est dense dans C([0,1]).",
+        "Donc toute fonction continue sur [0,1] peut être approchée uniformément par des polynômes."
+      ],
+      "lecons": [244, 230],
+      "tags": ["Stone-Weierstrass", "approximation", "densité"]
     }
   ]
 }
