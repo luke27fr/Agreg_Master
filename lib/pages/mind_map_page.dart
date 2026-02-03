@@ -77,23 +77,20 @@ class _MindMapPageState extends State<MindMapPage> with SingleTickerProviderStat
         // Sélecteur de domaine
         Container(
           padding: const EdgeInsets.all(16),
-          child: Row(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text('Domaine : ', style: TextStyle(fontWeight: FontWeight.bold)),
-              const SizedBox(width: 8),
-              Expanded(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      _buildDomaineChip('Algèbre'),
-                      const SizedBox(width: 8),
-                      _buildDomaineChip('Analyse'),
-                      const SizedBox(width: 8),
-                      _buildDomaineChip('Géométrie'),
-                    ],
-                  ),
-                ),
+              const SizedBox(height: 8),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  _buildDomaineChip('Algèbre'),
+                  _buildDomaineChip('Analyse'),
+                  _buildDomaineChip('Géométrie'),
+                  _buildDomaineChip('Probabilités'),
+                ],
               ),
             ],
           ),
