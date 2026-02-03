@@ -14,7 +14,7 @@
 > [!WARNING]
 > ### 2. Pièges à éviter
 > * **Vecteur propre nul :** Le vecteur $\vec{0}$ n'est **jamais** un vecteur propre par définition !
-> * **Multiplicité :** Distinguer multiplicité algébrique (dans $\chi_f$) et géométrique ($\dim E_\lambda$). On a toujours $1 \leq m_g(\lambda) \leq m_a(\lambda)$.
+> * **Multiplicité :** Distinguer multiplicité algébrique (dans $\chi_f$) et géométrique (i.e. $\dim E_\lambda$). On a toujours $1 \leq m_g(\lambda) \leq m_a(\lambda)$.
 > * **Diagonalisable sur $\mathbb{R}$ vs $\mathbb{C}$ :** Une matrice réelle peut être diagonalisable sur $\mathbb{C}$ mais pas sur $\mathbb{R}$ (ex: rotation).
 > * **Polynôme minimal :** $\mu_f$ et $\chi_f$ ont les mêmes racines mais pas les mêmes multiplicités.
 > * **Cayley-Hamilton :** $\chi_f(f) = 0$ (l'endomorphisme annule son polynôme caractéristique). Mais $\chi_f \neq \mu_f$ en général.

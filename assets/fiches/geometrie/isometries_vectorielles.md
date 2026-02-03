@@ -38,7 +38,7 @@
 > * **Q2 :** $SO_n(\mathbb{R})$ est-il connexe ?
 >   * **Rép :** Oui, pour tout $n \geq 1$.
 > * **Q3 :** Quelles sont les isométries de $\mathbb{R}^2$ ?
->   * **Rép :** Rotations ($SO_2$) et réflexions (symétries par rapport à une droite).
+>   * **Rép :** Rotations (groupe $SO_2$) et réflexions (symétries par rapport à une droite).
 
 ### 5. Références Bibliographiques
 * **X. Gourdon**, *Algèbre* (Réduction, groupes).

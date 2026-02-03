@@ -14,7 +14,7 @@
 > [!WARNING]
 > ### 2. Pièges à éviter
 > * **Points fixes :** Ensemble des points fixes = sous-espace affine de direction $\ker(\vec{f} - \text{Id})$.
-> * **Translation :** Pas de point fixe, mais direction propre ($\vec{f} = \text{Id}$).
+> * **Translation :** Pas de point fixe, mais direction propre (car $\vec{f} = \text{Id}$).
 > * **Composition :** $\overrightarrow{g \circ f} = \vec{g} \circ \vec{f}$.
 > * **Affinité ≠ application linéaire :** Une affinité qui ne fixe pas l'origine n'est pas linéaire.
 > * **Bijectivité :** $f$ bijective ssi $\vec{f}$ bijective (ssi $\det(\vec{f}) \neq 0$).

@@ -5,7 +5,7 @@
 > Soit $(X_n)$ une suite de v.a. et $X$ une v.a.
 > * **Convergence presque sûre (p.s.) :** $\mathbb{P}(\lim_{n \to \infty} X_n = X) = 1$.
 > * **Convergence en probabilité :** $\forall \varepsilon > 0$, $\mathbb{P}(|X_n - X| > \varepsilon) \to 0$.
-> * **Convergence en moyenne d'ordre $p$ ($L^p$) :** $\mathbb{E}[|X_n - X|^p] \to 0$.
+> * **Convergence en moyenne d'ordre $p$ (dans $L^p$) :** $\mathbb{E}[|X_n - X|^p] \to 0$.
 > * **Convergence en loi :** $F_{X_n}(x) \to F_X(x)$ aux points de continuité de $F_X$.
 > * **Implications :**
 >   - p.s. $\Rightarrow$ probabilité $\Rightarrow$ loi
