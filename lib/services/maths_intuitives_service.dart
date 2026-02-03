@@ -37,7 +37,7 @@ class MathsIntuitivesService extends ChangeNotifier {
         nom: 'Les Fondations',
         description: 'Les briques de base qui soutiennent toutes les maths',
         emoji: '🏗️',
-        conceptIds: ['espaces-vectoriels', 'dimension', 'applications-lineaires', 'groupes', 'anneaux', 'theoreme-rang'],
+        conceptIds: ['espaces-vectoriels', 'dimension', 'applications-lineaires', 'groupes', 'anneaux', 'theoreme-rang', 'tenseurs'],
       ),
       CategorieIntuitive(
         nom: 'Voir l\'Invisible',
@@ -49,25 +49,25 @@ class MathsIntuitivesService extends ChangeNotifier {
         nom: 'Les Super-Pouvoirs',
         description: 'Théorèmes puissants qui résolvent tout',
         emoji: '⚡',
-        conceptIds: ['valeurs-propres', 'diagonalisation', 'theoreme-spectral', 'theoreme-point-fixe', 'theoreme-implicite', 'inegalites'],
+        conceptIds: ['valeurs-propres', 'diagonalisation', 'theoreme-spectral', 'theoreme-point-fixe', 'theoreme-implicite', 'inegalites', 'galois', 'theoreme-galois-groupes-finis'],
       ),
       CategorieIntuitive(
         nom: 'Formes et Espaces',
         description: 'Géométrie moderne et abstraite',
         emoji: '🎨',
-        conceptIds: ['produit-scalaire', 'convexite', 'compacite', 'topologie', 'isometries'],
+        conceptIds: ['produit-scalaire', 'convexite', 'compacite', 'topologie', 'isometries', 'varietes-differentielles', 'courbure', 'formes-differentielles'],
       ),
       CategorieIntuitive(
         nom: 'Le Hasard Apprivoisé',
         description: 'Comprendre l\'incertitude avec les probabilités',
         emoji: '🎲',
-        conceptIds: ['esperance', 'variance', 'loi-normale', 'convergence-en-loi', 'probabilites-conditionnelles'],
+        conceptIds: ['esperance', 'variance', 'loi-normale', 'convergence-en-loi', 'probabilites-conditionnelles', 'calcul-stochastique'],
       ),
       CategorieIntuitive(
         nom: 'Analyses Avancées',
         description: 'Outils puissants pour l\'analyse moderne',
         emoji: '🔬',
-        conceptIds: ['analyse-complexe', 'mesure-lebesgue'],
+        conceptIds: ['analyse-complexe', 'mesure-lebesgue', 'espaces-hilbert', 'espaces-banach', 'theoreme-ascoli', 'theoreme-hahn-banach', 'polynomes-orthogonaux', 'espace-metrique'],
       ),
     ];
   }
@@ -1714,6 +1714,739 @@ Sans Lebesgue, pas de probabilités modernes, pas d'EDP modernes, pas d'analyse 
           'EDP (solutions faibles)',
           'Traitement du signal (espaces L²)',
           'Finance (calcul stochastique)',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'tenseurs',
+        titre: 'Tenseurs',
+        domaine: 'algèbre',
+        niveauAgregation: 4,
+        difficulteIntuitive: 4,
+        analogieSimple: 'Généralisation des matrices à plusieurs "dimensions" d\'indices.',
+        questionCle: 'Comment manipuler des objets avec plusieurs directions à la fois ?',
+        explicationIntuitive: '''Un tenseur, c'est comme un tableau multidimensionnel de nombres.
+
+• **Scalaire** (tenseur d'ordre 0) : Un nombre. Ex: 5
+• **Vecteur** (ordre 1) : Liste de nombres. Ex: [1, 2, 3]
+• **Matrice** (ordre 2) : Tableau 2D. Ex: [[1,2],[3,4]]
+• **Tenseur ordre 3** : Cube de nombres. Ex: image RGB (largeur × hauteur × couleur)
+• **Tenseur ordre n** : Hyper-cube n-dimensionnel
+
+**Notation** : Un tenseur T a des composantes T^{i₁i₂...iₙ} avec plusieurs indices.
+
+**Opérations** :
+• **Produit tensoriel** : u ⊗ v crée un tenseur d'ordre supérieur
+• **Contraction** : "Tracer" sur des indices (généralise la trace de matrice)
+• **Changement de base** : Les tenseurs se transforment de manière covariante/contravariante
+
+Les tenseurs sont le langage naturel de la géométrie différentielle et de la physique moderne !''',
+        exempleConcret: '''**Image couleur** : Tenseur 3D (largeur × hauteur × RGB). Chaque pixel = 3 nombres (rouge, vert, bleu).
+
+**Vidéo** : Tenseur 4D (largeur × hauteur × couleur × temps). C'est un "hyper-cube" de données.
+
+**Relativité générale** : Le tenseur métrique g_μν décrit la courbure de l'espace-temps. Les équations d'Einstein sont des équations sur des tenseurs !
+
+**Mécanique** : Le tenseur des contraintes σ_ij décrit les forces internes dans un matériau (compression, cisaillement...).
+
+**Deep Learning** : Les réseaux de neurones manipulent des tenseurs ! Convolution = opération tensorielle. TensorFlow et PyTorch sont nommés d'après les tenseurs.''',
+        lienAvecLycee: 'Une matrice est un tenseur d\'ordre 2. Tu manipules déjà des tenseurs sans le savoir ! Les tenseurs généralisent : ordre 3, 4, 5... pour des situations plus complexes.',
+        pourquoiCestImportant: '''Les tenseurs unifient et généralisent :
+
+• **Géométrie différentielle** : Courbure (tenseur de Riemann R^i_{jkl})
+• **Relativité générale** : Équations d'Einstein = équations tensorielles
+• **Mécanique des milieux continus** : Tenseur des contraintes, déformations
+• **Deep Learning** : Toutes les opérations sont tensorielles
+• **Physique quantique** : États intriqués = tenseurs
+
+**Calcul tensoriel** : Règles de transformation par changement de coordonnées (covariance/contravariance).''',
+        visualisation: 'Un vecteur = liste 1D. Une matrice = grille 2D. Un tenseur ordre 3 = cube 3D (comme un Rubik\'s Cube de nombres). Ordre 4 = hyper-cube 4D (impossible à visualiser directement, mais on peut le manipuler mathématiquement).',
+        prerequisTerminale: ['Vecteurs', 'Matrices', 'Produit matriciel'],
+        ideesFausses: [
+          '❌ "Tenseur = matrice" → NON ! Les matrices sont des tenseurs d\'ordre 2, mais il y a des ordres supérieurs',
+          '❌ "On ne peut pas visualiser les tenseurs" → Pour ordre 3, oui (cube). Au-delà, non, mais on peut les manipuler algébriquement',
+          '❌ "Tenseur = tableau multidimensionnel" → Presque, mais un vrai tenseur doit se transformer correctement par changement de base',
+        ],
+        anecdote: 'Einstein (1915) a dû apprendre le calcul tensoriel de Ricci et Levi-Civita pour formuler la relativité générale. Il a dit : "Je ne savais pas que les mathématiciens avaient déjà inventé ce dont j\'avais besoin !" Les tenseurs existaient depuis les années 1890 (géométrie différentielle).',
+        applicationsReelles: [
+          'Deep Learning (TensorFlow, PyTorch)',
+          'Relativité générale (courbure de l\'espace-temps)',
+          'Mécanique des fluides (tenseur des contraintes)',
+          'Vision par ordinateur (convolutions = opérations tensorielles)',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'varietes-differentielles',
+        titre: 'Variétés Différentielles',
+        domaine: 'géométrie',
+        niveauAgregation: 4,
+        difficulteIntuitive: 5,
+        analogieSimple: 'Un espace courbe qui "ressemble localement" à ℝⁿ.',
+        questionCle: 'Comment faire du calcul différentiel sur des surfaces courbes ?',
+        explicationIntuitive: '''Une variété, c'est un espace qui est localement (= en zoomant) plat comme ℝⁿ, mais globalement courbe.
+
+**Exemples** :
+• **Cercle S¹** : Localement, ça ressemble à une ligne (ℝ). Mais globalement, c'est fermé sur soi-même.
+• **Sphère S²** : Localement plat (carte de la Terre), mais globalement courbe.
+• **Tore** : Surface d'un donut. Localement ℝ², globalement tordue.
+
+**Idée clé** : On "colle" des morceaux plats (cartes) pour construire un espace courbe. Chaque carte = homéomorphisme local avec ℝⁿ.
+
+**Dimension** : dim(variété) = dimension locale (ex: sphère = variété de dim 2 dans ℝ³).
+
+**Calcul sur variétés** : On peut définir des dérivées, intégrales, courbures... comme si on était dans ℝⁿ localement, puis on "recolle" globalement.
+
+Les variétés généralisent les surfaces courbes de ℝ³ à des espaces abstraits.''',
+        exempleConcret: '''**Surface de la Terre** : Localement plate (tu ne vois pas la courbure), mais globalement sphérique. Les cartes géographiques = "cartes locales" de la variété S².
+
+**Espace des configurations d'un robot** : Un bras robot à 3 articulations → espace de configurations = produit de 3 cercles = tore T³ (variété de dim 3).
+
+**Relativité générale** : L'espace-temps est une variété 4D courbe (pseudo-riemannienne). La gravité = courbure de cette variété.
+
+**Optimisation sur variétés** : Trouver le plus court chemin sur une sphère (géodésique = grand cercle). Utilisé en robotique.
+
+**Apprentissage de variétés** : Les données haute-dimension vivent souvent sur une variété de dimension plus faible (manifold learning).''',
+        lienAvecLycee: 'Tu connais la sphère x² + y² + z² = 1 (surface courbe dans ℝ³). Une variété généralise : c\'est un espace qui peut vivre dans un espace de dimension supérieure (ou être défini abstraitement).',
+        pourquoiCestImportant: '''Les variétés sont le cadre de la géométrie moderne :
+
+• **Relativité générale** : Espace-temps = variété 4D courbe
+• **Robotique** : Espace des configurations = variété (souvent un tore)
+• **Topologie** : Classification des variétés (genre, caractéristique d'Euler...)
+• **EDP** : Solutions sur des variétés (Laplacien sur sphère...)
+• **Machine Learning** : Manifold learning, géométrie de l'information
+
+**Outils** : Champs de vecteurs, formes différentielles, courbure de Riemann, théorème de Gauss-Bonnet...''',
+        visualisation: 'Imagine la Terre. Si tu zoomes sur Paris, ça ressemble à un plan (ℝ²). Mais si tu dézoomes, tu vois la courbure (sphère). Une variété = espace qui est localement plat mais peut être globalement courbe.',
+        prerequisTerminale: ['Surfaces', 'Équations paramétriques', 'Sphère'],
+        ideesFausses: [
+          '❌ "Variété = surface dans ℝ³" → NON ! Il existe des variétés abstraites (non plongées)',
+          '❌ "On peut toujours plonger une variété dans ℝⁿ" → OUI (théorème de Whitney) mais ça peut nécessiter une grande dimension n',
+          '❌ "Variété = espace vectoriel" → NON ! Une sphère n\'est PAS un espace vectoriel',
+        ],
+        anecdote: 'Poincaré (1895-1904) a créé la topologie algébrique pour classifier les variétés. Sa conjecture (toute variété 3D simplement connexe = sphère S³) est restée ouverte 100 ans ! Perelman l\'a résolue en 2003 avec le flot de Ricci (analyse + géométrie). Médailles Fields refusée.',
+        applicationsReelles: [
+          'Relativité générale (Einstein)',
+          'Robotique (planification de mouvement)',
+          'Vision par ordinateur (reconnaissance de formes)',
+          'Machine Learning (manifold learning, t-SNE)',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'courbure',
+        titre: 'Courbure',
+        domaine: 'géométrie',
+        niveauAgregation: 4,
+        difficulteIntuitive: 4,
+        analogieSimple: 'Mesure de "combien" un espace est courbe.',
+        questionCle: 'Comment quantifier si un espace est plat ou courbe ?',
+        explicationIntuitive: '''La courbure mesure à quel point un espace s'écarte de l'espace plat (euclidien).
+
+**En dimension 2** (surfaces) :
+• **Courbure de Gauss** K en un point
+  - K > 0 : surface "bombée" comme une sphère (elliptique)
+  - K = 0 : surface plate comme un cylindre ou un plan
+  - K < 0 : surface "en selle" comme un col de montagne (hyperbolique)
+
+**Propriété magique** (Theorema Egregium de Gauss) : La courbure est INTRINSÈQUE. Elle ne dépend pas de comment la surface est plongée dans ℝ³ !
+
+Exemple : Une feuille plate (K=0) reste de courbure 0 même si tu la roules en cylindre ! C'est pour ça qu'on peut dérouler un cylindre en rectangle plat.
+
+**En dimension n** : Tenseur de courbure de Riemann R^i_{jkl}. Très compliqué, mais encode toute l'information sur la courbure.''',
+        exempleConcret: '''**Cylindre vs Sphère** : Un cylindre a K = 0 (on peut le "dérouler" en rectangle plat). Une sphère a K > 0 (impossible à aplatir sans déchirer → c'est pour ça que les cartes de la Terre sont toujours déformées !).
+
+**Géométrie non-euclidienne** : Sur une sphère, la somme des angles d'un triangle > 180° (courbure positive). Sur une selle (K<0), somme < 180°.
+
+**Relativité générale** : La masse courbe l'espace-temps. La gravité = géodésiques (plus courts chemins) dans un espace courbe. Équations d'Einstein : R_μν - Rg_μν/2 = 8πG T_μν (courbure = énergie).
+
+**GPS** : Doit tenir compte de la courbure de l'espace-temps (relativité) pour être précis ! Erreur de ~10 km/jour sinon.
+
+**Trou noir** : Courbure infinie au centre (singularité). L'espace-temps est tellement courbé que même la lumière ne peut s'échapper.''',
+        lienAvecLycee: 'Tu connais le rayon de courbure d\'une courbe paramétrée. La courbure d\'une surface généralise cette idée en 2D. Pour une sphère de rayon R, la courbure K = 1/R².',
+        pourquoiCestImportant: '''La courbure est centrale en géométrie et physique :
+
+• **Théorème de Gauss-Bonnet** : ∫∫K dA = 2πχ(M) (courbure totale = caractéristique d'Euler). Relie géométrie et topologie !
+• **Relativité générale** : Courbure de l'espace-temps
+• **Géométrie riemannienne** : Étude des espaces courbes
+• **Vision 3D** : Reconstruction de surfaces par la courbure
+
+**Types de courbure** : Courbure de Gauss (intrinsèque), courbure moyenne (extrinsèque), courbure sectionnelle...''',
+        visualisation: 'Imagine une fourmi sur une sphère. Pour elle (2D), l\'espace est courbe : les triangles ont des angles > 180°, les lignes droites (géodésiques) se rejoignent... C\'est la courbure intrinsèque.',
+        prerequisTerminale: ['Courbure d\'une courbe', 'Rayon de courbure'],
+        ideesFausses: [
+          '❌ "Cylindre = courbe" → NON ! Courbure intrinsèque K = 0 (on peut le dérouler)',
+          '❌ "La courbure dépend du plongement dans ℝ³" → NON ! C\'est intrinsèque (Theorema Egregium)',
+          '❌ "Courbure positive partout = espace fini" → OUI pour les variétés complètes (Bonnet-Myers)',
+        ],
+        anecdote: 'Gauss (1827) a découvert que la courbure d\'une surface est INTRINSÈQUE (Theorema Egregium = "théorème remarquable"). Il l\'a appelé ainsi car il était lui-même étonné du résultat ! Cette découverte a mené à la géométrie différentielle moderne et, indirectement, à la relativité d\'Einstein.',
+        applicationsReelles: [
+          'Relativité générale (Einstein)',
+          'Vision par ordinateur (reconstruction 3D)',
+          'Infographie (surfaces courbes, subdivision)',
+          'Géodésie (forme de la Terre)',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'galois',
+        titre: 'Théorie de Galois',
+        domaine: 'algèbre',
+        niveauAgregation: 4,
+        difficulteIntuitive: 5,
+        analogieSimple: 'Comprendre les racines d\'un polynôme via les symétries qui les échangent.',
+        questionCle: 'Pourquoi n\'existe-t-il pas de formule pour résoudre x⁵ + x + 1 = 0 ?',
+        explicationIntuitive: '''Équations de degré 2 : formule du discriminant (-b±√Δ)/2a. Degré 3 et 4 : formules existent (compliquées). Degré ≥ 5 : PAS DE FORMULE GÉNÉRALE !
+
+**Pourquoi ?** Galois a montré que la résolubilité par radicaux dépend du "groupe de Galois" du polynôme.
+
+**Idée géniale** : Étudier les SYMÉTRIES entre les racines.
+
+• Degré 2 : Groupe S₂ (échanger 2 racines) → résoluble
+• Degré 3,4 : Groupes résolubles → formules existent
+• Degré ≥ 5 : Groupe S₅ NON résoluble → PAS de formule générale !
+
+**Groupe de Galois** : Ensemble des permutations des racines qui préservent les relations algébriques.
+
+**Correspondance de Galois** : Bijection entre sous-groupes de Gal(P) et extensions de corps. Magnifique structure !
+
+C'est l'un des sommets de l'algèbre : connecter équations, groupes, et corps.''',
+        exempleConcret: '''**x² - 2 = 0** : Racines {√2, -√2}. Groupe de Galois = ℤ/2ℤ (échanger les deux racines). Résoluble → formule existe.
+
+**x⁵ - x - 1 = 0** : Groupe de Galois = S₅ (groupe symétrique d'ordre 120). NON résoluble → AUCUNE formule en radicaux !
+
+**Constructibilité à la règle et au compas** : Doubler le cube (x³ = 2) est impossible car [ℚ(∛2):ℚ] = 3 (pas une puissance de 2). Application de Galois !
+
+**Extensions de corps** : ℚ ⊂ ℚ(√2) ⊂ ℚ(√2, √3) ... Chaque extension correspond à un sous-groupe.
+
+**Cryptographie** : Courbes elliptiques sur corps finis (liens avec Galois).''',
+        lienAvecLycee: 'Tu résous x² + px + q = 0 avec la formule du discriminant. Galois explique POURQUOI cette formule existe pour degré 2, et pourquoi elle n\'existe PAS pour degré ≥ 5 (en général).',
+        pourquoiCestImportant: '''La théorie de Galois unifie algèbre et théorie des groupes :
+
+• **Résolubilité** : Critère pour savoir si un polynôme a une formule
+• **Constructibilité** : Trisection de l'angle, duplication du cube (impossibles !)
+• **Corps finis** : F_q, utilisés en cryptographie et codes correcteurs
+• **Théorie des nombres algébriques** : Extensions, anneaux d'entiers
+
+**Théorème fondamental** : Correspondance Galois = bijection sous-groupes ↔ sous-corps.''',
+        visualisation: 'Imagine les racines d\'un polynôme comme les sommets d\'un polygone. Le groupe de Galois = symétries qui échangent les sommets en préservant la structure algébrique. Plus le groupe est "simple", plus le polynôme est facile à résoudre.',
+        prerequisTerminale: ['Racines de polynômes', 'Formule du discriminant'],
+        ideesFausses: [
+          '❌ "Aucune équation degré 5 n\'a de formule" → FAUX ! Certaines oui (ex: x⁵-1=0). Mais pas de formule GÉNÉRALE',
+          '❌ "Galois a prouvé qu\'on ne peut pas résoudre x⁵=0" → NON ! x⁵=0 est trivial. C\'est x⁵+x+1=0 qui pose problème',
+          '❌ "Groupe de Galois = groupe de permutations quelconque" → NON ! C\'est un sous-groupe de Sₙ avec des contraintes',
+        ],
+        anecdote: 'Galois (1811-1832) a écrit sa théorie la veille de son duel mortel (à 20 ans !). Lettre à un ami : "Je n\'ai pas le temps..." Il a révolutionné les maths mais n\'a jamais vu l\'impact de son travail. Reconnaissance posthume : Liouville publie ses travaux en 1846. Aujourd\'hui : un des piliers de l\'algèbre moderne.',
+        applicationsReelles: [
+          'Théorie des nombres (corps de nombres)',
+          'Cryptographie (courbes elliptiques)',
+          'Codes correcteurs (corps finis)',
+          'Impossibilité de certaines constructions géométriques',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'calcul-stochastique',
+        titre: 'Calcul Stochastique',
+        domaine: 'probabilités',
+        niveauAgregation: 4,
+        difficulteIntuitive: 5,
+        analogieSimple: 'Calcul différentiel + hasard = étude de processus aléatoires dans le temps.',
+        questionCle: 'Comment modéliser des phénomènes qui évoluent aléatoirement ?',
+        explicationIntuitive: '''Le calcul stochastique étudie les processus aléatoires qui évoluent dans le temps, comme le mouvement brownien.
+
+**Mouvement brownien B(t)** : Trajectoire aléatoire continue mais... nulle part dérivable ! C'est le modèle du "chaos complet" continu.
+
+**Propriétés** :
+• B(0) = 0
+• Accroissements indépendants
+• B(t) ~ 𝒩(0, t) (loi normale)
+• Trajectoires continues mais de variation infinie
+
+**Équation différentielle stochastique (EDS)** : dX_t = μ(X_t)dt + σ(X_t)dB_t
+
+Partie déterministe (μdt) + partie aléatoire (σdB_t).
+
+**Formule d'Itô** : Généralisation de la formule de dérivation pour les processus stochastiques. SURPRISE : (dB_t)² = dt (pas 0 !). C'est la formule la plus importante du calcul stochastique.''',
+        exempleConcret: '''**Prix d'actions** : Modèle de Black-Scholes : dS_t = μS_t dt + σS_t dB_t (mouvement brownien géométrique). Utilisé pour pricer les options (Prix Nobel 1997).
+
+**Particule dans un fluide** : Grains de pollen dans l'eau (expérience de Perrin, 1908). Mouvement = brownien (preuve de l'existence des atomes !).
+
+**Taux d'intérêt** : Modèles de Vasicek, CIR... EDS pour modéliser l'évolution aléatoire des taux.
+
+**Diffusion de la chaleur** : Avec source aléatoire. EDP stochastique.
+
+**Neurosciences** : Modèles de neurones avec bruit (firing aléatoire).''',
+        lienAvecLycee: 'Tu connais les équations différentielles f\'(t) = ... Le calcul stochastique ajoute du HASARD : dX_t = ... dt + ... dB_t (partie déterministe + partie aléatoire).',
+        pourquoiCestImportant: '''Le calcul stochastique est fondamental en finance et physique :
+
+• **Finance** : Pricing d'options (Black-Scholes), gestion de risque
+• **Physique** : Mécanique statistique, mouvement brownien
+• **Filtrage** : Filtre de Kalman (estimation en temps réel avec bruit)
+• **Biologie** : Modèles de populations avec fluctuations aléatoires
+
+**Théorèmes clés** : Formule d'Itô, théorème de Girsanov, théorème de représentation de martingales...''',
+        visualisation: 'Imagine une particule qui se déplace aléatoirement (marche aléatoire continue). À chaque instant dt, elle bouge un peu dans une direction aléatoire. Limite (dt→0) = mouvement brownien. Trajectoire = zigzag continu infiniment fin.',
+        prerequisTerminale: ['Probabilités', 'Variables aléatoires', 'Loi normale'],
+        ideesFausses: [
+          '❌ "Le mouvement brownien est dérivable" → NON ! Nulle part dérivable (trajectoires fractales)',
+          '❌ "dB_t = 0" → NON ! dB_t ~ 𝒩(0,dt), donc (dB_t)² = dt (formule d\'Itô)',
+          '❌ "C\'est juste du bruit blanc" → Plus subtil : processus à accroissements indépendants gaussiens',
+        ],
+        anecdote: 'Bachelier (1900, thèse) a inventé le calcul stochastique AVANT Einstein (mouvement brownien, 1905) ! Il l\'a utilisé pour modéliser les prix d\'actions à la bourse de Paris. Ignoré pendant 50 ans, redécouvert dans les années 1960. Aujourd\'hui : base de toute la finance quantitative.',
+        applicationsReelles: [
+          'Finance (Black-Scholes, pricing d\'options)',
+          'Filtrage (Kalman pour GPS, missiles...)',
+          'Biologie (dynamiques de populations)',
+          'Physique (équations de Langevin)',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'espaces-hilbert',
+        titre: 'Espaces de Hilbert',
+        domaine: 'analyse',
+        niveauAgregation: 5,
+        difficulteIntuitive: 4,
+        analogieSimple: 'Espace vectoriel de dimension INFINIE avec un produit scalaire et "complet".',
+        questionCle: 'Comment faire de la géométrie en dimension infinie ?',
+        explicationIntuitive: '''Un espace de Hilbert, c'est un espace vectoriel (possiblement infini) avec :
+1. Un produit scalaire ⟨·,·⟩ (angles et longueurs)
+2. Complétude : Toute suite de Cauchy converge
+
+**Exemple prototype** : L²([0,1]) = espace des fonctions de carré intégrable.
+
+**Produit scalaire** : ⟨f,g⟩ = ∫₀¹ f(x)g(x) dx
+
+**Norme** : ‖f‖ = √⟨f,f⟩ = √∫f²
+
+**Pourquoi "complet" ?** Dans ℝ, toute suite de Cauchy (qui "se rapproche d'elle-même") converge. Dans un Hilbert, pareil ! Pas de "trous".
+
+**Dimension** : Peut être infinie ! Mais on a quand même des bases (orthonormées) : séries de Fourier, polynômes de Legendre...
+
+Les espaces de Hilbert généralisent ℝⁿ à l'infini. Toute l'intuition géométrique (orthogonalité, projection...) reste valable !''',
+        exempleConcret: '''**L²(ℝ)** : Fonctions de carré intégrable. Base : transformée de Fourier (ondelettes).
+
+**ℓ²** : Suites (xₙ) avec Σ|xₙ|² < ∞. Produit scalaire : ⟨x,y⟩ = Σxₙyₙ. C'est ℝ^∞ "bien défini" !
+
+**Mécanique quantique** : L'état d'un système quantique = vecteur dans un Hilbert ! Les observables = opérateurs auto-adjoints. Tout le formalisme quantique repose sur Hilbert.
+
+**Traitement du signal** : Un signal = vecteur dans L². Filtrer = projeter sur un sous-espace.
+
+**EDP** : Solutions faibles vivent dans des Hilbert (espaces de Sobolev H¹, H²...).''',
+        lienAvecLycee: 'ℝⁿ avec le produit scalaire usuel est un Hilbert (dimension finie). Un espace de Hilbert, c\'est "ℝ^∞ avec produit scalaire", mais bien défini (complétude).',
+        pourquoiCestImportant: '''Les espaces de Hilbert sont LE cadre de l'analyse fonctionnelle :
+
+• **Mécanique quantique** : Espace des états = Hilbert
+• **EDP** : Théorie spectrale, espaces de Sobolev
+• **Traitement du signal** : Filtrage optimal, décompositions (Fourier, ondelettes)
+• **Approximation** : Projection sur sous-espaces (meilleure approximation L²)
+
+**Théorèmes fondamentaux** : Projection sur convexe fermé, Riesz (dualité), Lax-Milgram (EDP), théorème spectral (opérateurs compacts)...''',
+        visualisation: 'Imagine ℝ³ : tu peux projeter orthogonalement sur un plan, mesurer des angles, des longueurs... Un Hilbert, c\'est pareil mais en dimension infinie ! Les fonctions jouent le rôle des vecteurs.',
+        prerequisTerminale: ['Produit scalaire', 'Orthogonalité', 'Projection'],
+        ideesFausses: [
+          '❌ "Dimension infinie ⟹ pas de base" → NON ! Il existe des bases orthonormées (Hilbert séparable)',
+          '❌ "L² = fonctions continues" → NON ! Contient des fonctions discontinues (ex: fonctions en escalier)',
+          '❌ "Hilbert = Banach" → Hilbert ⊂ Banach (Hilbert a un produit scalaire, Banach juste une norme)',
+        ],
+        anecdote: 'Hilbert (début 20e) a étudié ces espaces pour les équations intégrales. Von Neumann (1927) a axiomatisé la mécanique quantique dans un Hilbert. Dirac (notation bra-ket |ψ⟩) utilisait intuitivement les Hilbert avant la rigueur mathématique. Aujourd\'hui, Hilbert est au cœur de la physique moderne.',
+        applicationsReelles: [
+          'Mécanique quantique (espace des états)',
+          'Traitement du signal (compression, filtrage)',
+          'EDP (solutions faibles)',
+          'Statistiques (régression en dim infinie)',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'espaces-banach',
+        titre: 'Espaces de Banach',
+        domaine: 'analyse',
+        niveauAgregation: 5,
+        difficulteIntuitive: 4,
+        analogiaSimple: 'Espace vectoriel normé (avec une notion de "longueur") et complet.',
+        questionCle: 'Comment généraliser ℝⁿ en dimension infinie avec une norme ?',
+        explicationIntuitive: '''Un espace de Banach = espace vectoriel normé complet.
+
+**Norme** : ‖·‖ mesure la "longueur" (séparation, homogénéité, inégalité triangulaire).
+
+**Complet** : Toute suite de Cauchy converge (pas de "trous").
+
+**Exemples** :
+• ℝⁿ avec ‖x‖ = √(x₁² + ... + xₙ²) : Banach
+• C([0,1]) = fonctions continues sur [0,1], ‖f‖_∞ = sup|f| : Banach
+• Lᵖ = fonctions avec ∫|f|ᵖ < ∞, ‖f‖_p = (∫|f|ᵖ)^(1/p) : Banach
+• ℓᵖ = suites avec Σ|xₙ|ᵖ < ∞ : Banach
+
+**Hilbert ⊂ Banach** : Tout Hilbert est Banach (la norme vient du produit scalaire), mais l'inverse est faux (Lᵖ pour p≠2 n'est pas Hilbert).
+
+La complétude est CRUCIALE : elle garantit que les limites existent.''',
+        exempleConcret: '''**Équations différentielles** : Existence de solutions via point fixe de Banach. Si T est contractante dans un Banach, elle a un unique point fixe.
+
+**EDP** : Espaces de Sobolev W^{k,p} (Banach). Solutions faibles des EDP vivent dans ces espaces.
+
+**Analyse numérique** : Convergence d'algorithmes itératifs (théorème de point fixe).
+
+**Optimisation** : Descente de gradient dans des Banach (problèmes infini-dimensionnels).
+
+**Approximation** : Théorème de Stone-Weierstrass (généralisation aux Banach).''',
+        lienAvecLycee: 'ℝ avec |·| est un Banach. Les Banach généralisent : espaces de fonctions, de suites... avec une notion de "longueur" et sans trous.',
+        pourquoiCestImportant: '''Les Banach sont le cadre de l'analyse fonctionnelle :
+
+• **Théorème de Hahn-Banach** : Extension de formes linéaires continues
+• **Théorème de Banach-Steinhaus** : Convergence uniforme
+• **Théorème de l'application ouverte** : Image d'un Banach complet par surjection continue = Banach
+• **EDP** : Espaces de Sobolev, solutions faibles
+
+**Dualité** : Le dual d'un Banach (formes linéaires continues) a une structure riche.''',
+        visualisation: 'Imagine un espace de fonctions. La norme mesure "à quel point f est grande". Complétude garantit qu\'une suite de fonctions qui "se rapproche d\'elle-même" converge vers une fonction de l\'espace (pas de fuite).',
+        prerequisTerminale: ['Norme', 'Complétude', 'Suite de Cauchy'],
+        ideesFausses: [
+          '❌ "Banach = Hilbert" → NON ! Hilbert a en plus un produit scalaire',
+          '❌ "Toute norme vient d\'un produit scalaire" → NON ! (contre-ex : ‖·‖₁, ‖·‖_∞)',
+          '❌ "Dimension finie ⟹ automatiquement complet" → OUI ! Mais il faut le prouver',
+        ],
+        anecdote: 'Banach (années 1920-1930, école polonaise) a fondé l\'analyse fonctionnelle moderne. Avec Steinhaus et Mazur, il a créé toute la théorie dans les cafés de Lviv ! Le "Livre écossais" (Scottish Book) contient des problèmes posés au café. Certains restent ouverts aujourd\'hui.',
+        applicationsReelles: [
+          'EDP (existence/unicité de solutions)',
+          'Optimisation en dimension infinie',
+          'Théorie du contrôle',
+          'Approximation de fonctions',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'theoreme-ascoli',
+        titre: 'Théorème d\'Ascoli',
+        domaine: 'analyse',
+        niveauAgregation: 4,
+        difficulteIntuitive: 4,
+        analogieSimple: 'Caractériser les ensembles compacts de fonctions continues.',
+        questionCle: 'Quand une suite de fonctions a-t-elle une sous-suite convergente ?',
+        explicationIntuitive: '''Le théorème d'Ascoli caractérise la compacité dans C([a,b]), l'espace des fonctions continues.
+
+**Énoncé** : Un ensemble ℱ ⊂ C([a,b]) est relativement compact ssi :
+1. **Équicontinuité** : Toutes les fonctions de ℱ varient "uniformément peu"
+2. **Bornitude ponctuelle** : Pour tout x, {f(x) : f ∈ ℱ} est borné
+
+**Intuition** : 
+• Bornitude : Les fonctions ne vont pas à l'infini
+• Équicontinuité : Elles ne "zigzaguent" pas arbitrairement vite
+
+Résultat : De toute suite dans ℱ, on peut extraire une sous-suite qui converge uniformément.
+
+**Application** : Existence de solutions d'EDP, théorèmes de point fixe (Schauder), approximation...''',
+        exempleConcret: '''**Équations différentielles** : Pour montrer qu'une ED y' = f(x,y) a une solution, on construit une suite de fonctions approchées (Picard). Ascoli garantit qu'on peut en extraire une convergente → solution !
+
+**Optimisation** : Minimiser ∫₀¹ f'² sous contrainte f(0)=0, f(1)=1. L'ensemble des fonctions candidates est équicontinu. Ascoli garantit l'existence d'un minimiseur.
+
+**Approximation** : Suite de polynômes qui approximent une fonction continue. Si les polynômes sont équicontinus, on peut extraire une sous-suite convergente.
+
+**Contrôle optimal** : Existence de trajectoires optimales via compacité (Ascoli).''',
+        lienAvecLycee: 'Tu sais qu\'une suite de nombres bornée a une sous-suite convergente (Bolzano-Weierstrass). Ascoli généralise aux FONCTIONS : sous quelles conditions une suite de fonctions a-t-elle une sous-suite convergente ?',
+        pourquoiCestImportant: '''Ascoli est l'outil d'existence par excellence :
+
+• **EDP** : Méthode de compacité (extraire des sous-suites convergentes)
+• **Calcul des variations** : Existence de minimiseurs
+• **Point fixe de Schauder** : Généralisation de Brouwer en dim infinie
+• **Approximation** : Théorèmes de densité
+
+Sans Ascoli, beaucoup de théorèmes d'existence s'effondrent !''',
+        visualisation: 'Imagine des courbes qui ne "sautent" jamais beaucoup (équicontinuité) et qui restent dans une bande horizontale (bornitude). De toute suite infinie de telles courbes, tu peux extraire une sous-suite qui converge vers une courbe limite.',
+        prerequisTerminale: ['Continuité uniforme', 'Suites de fonctions', 'Convergence uniforme'],
+        ideesFausses: [
+          '❌ "Équicontinuité = continuité uniforme" → Lié mais différent. Équicontinuité = uniforme pour toute la famille',
+          '❌ "Bornitude suffit" → NON ! Il faut aussi l\'équicontinuité (sinon oscillations infinies)',
+          '❌ "Valable dans tout espace de Banach" → NON ! Spécifique à C(K) compact',
+        ],
+        anecdote: 'Ascoli (1883-1884) a prouvé ce théorème pour les fonctions continues. Arzelà (1895) l\'a complété. Aujourd\'hui, c\'est UN des théorèmes les plus utilisés en analyse : quasi toute preuve d\'existence d\'EDP l\'utilise !',
+        applicationsReelles: [
+          'EDP (existence de solutions)',
+          'Calcul des variations (minimisation de fonctionnelles)',
+          'Théorie du contrôle optimal',
+          'Approximation de fonctions',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'theoreme-hahn-banach',
+        titre: 'Théorème de Hahn-Banach',
+        domaine: 'analyse',
+        niveauAgregation: 4,
+        difficulteIntuitive: 5,
+        analogieSimple: 'On peut toujours "prolonger" une forme linéaire d\'un sous-espace à tout l\'espace.',
+        questionCle: 'Comment étendre une fonctionnelle linéaire sans perdre ses propriétés ?',
+        explicationIntuitive: '''Le théorème de Hahn-Banach dit : Si φ est une forme linéaire continue sur un sous-espace F ⊂ E, alors on peut la prolonger à tout E en gardant la même norme.
+
+**Formulation géométrique** : Soient C convexe et x ∉ C. Il existe un hyperplan séparant x et C.
+
+**Intuition** : Tu peux toujours "séparer" deux convexes disjoints par un plan. C'est une forme de "théorème de séparation".
+
+**Conséquences** :
+• Le dual E* (formes linéaires continues) est "assez gros"
+• Tout sous-espace fermé a un supplémentaire topologique
+• Existence de fonctionnelles séparatrices
+
+C'est un théorème d'EXISTENCE pure (non-constructif). Il utilise l'axiome du choix (ou Zorn).''',
+        exempleConcret: '''**Optimisation** : Trouver un prix (forme linéaire) séparant deux ensembles de portefeuilles.
+
+**EDP** : Existence de solutions par dualité (Lax-Milgram utilise Hahn-Banach implicitement).
+
+**Analyse convexe** : Sous-différentiel, théorèmes de séparation.
+
+**Théorie des jeux** : Hyperplans séparateurs en économie mathématique.
+
+**Approximation** : Si f ∉ F (sous-espace), il existe une forme linéaire φ telle que φ(f) ≠ 0 mais φ = 0 sur F (séparation).''',
+        lienAvecLycee: 'En dimension finie, prolonger une forme linéaire est facile (compléter la base). Hahn-Banach dit : ça marche aussi en dimension INFINIE (avec les bonnes hypothèses).',
+        pourquoiCestImportant: '''Hahn-Banach est l'un des 3 piliers de l'analyse fonctionnelle :
+
+• **Dualité** : Garantit que E* (dual) est assez riche
+• **Séparation** : Hyperplans séparateurs (convexité)
+• **Théorème de Riesz** : Représentation du dual de Hilbert
+• **Lemme de Farkas** : Programmation linéaire (séparation de polyèdres)
+
+Applications en optimisation, EDP, théorie du contrôle, économie...''',
+        visualisation: 'Imagine un plan F dans ℝ³ avec une forme linéaire φ définie dessus. Hahn-Banach dit : tu peux étendre φ à tout ℝ³ en gardant ses propriétés. En dim infinie, c\'est moins évident mais ça marche !',
+        prerequisTerminale: ['Formes linéaires', 'Dualité'],
+        ideesFausses: [
+          '❌ "Le prolongement est unique" → NON ! En général, il y a une infinité de prolongements',
+          '❌ "Ça marche sans l\'axiome du choix" → Pour les espaces séparables oui, mais en général il faut Zorn/choix',
+          '❌ "C\'est juste un résultat théorique" → NON ! Utilisé constamment en optimisation et EDP',
+        ],
+        anecdote: 'Hahn (1927) et Banach (1929) ont prouvé indépendamment ce théorème. Hahn utilisait le lemme de Zorn, Banach l\'axiome du choix. Controverse : ces axiomes sont "non-constructifs" (ils garantissent l\'existence sans donner de méthode). Certains mathématiciens (constructivistes) rejettent Hahn-Banach !',
+        applicationsReelles: [
+          'Optimisation convexe (dualité)',
+          'Programmation linéaire (Farkas)',
+          'EDP (existence par dualité)',
+          'Économie (hyperplans séparateurs)',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'formes-differentielles',
+        titre: 'Formes Différentielles',
+        domaine: 'géométrie',
+        niveauAgregation: 4,
+        difficulteIntuitive: 5,
+        analogieSimple: 'Objets qu\'on peut "intégrer" sur des courbes, surfaces, volumes...',
+        questionCle: 'Comment généraliser l\'intégration à des espaces courbes ?',
+        explicationIntuitive: '''Les formes différentielles généralisent les "choses qu'on intègre".
+
+**Forme 0** (fonction) : f(x,y,z) → intégration sur un point
+**Forme 1** (1-forme) : f dx + g dy + h dz → intégration sur une courbe (travail d'une force)
+**Forme 2** (2-forme) : f dx∧dy + ... → intégration sur une surface (flux)
+**Forme 3** (3-forme) : f dx∧dy∧dz → intégration sur un volume
+
+**Opération clé : produit extérieur ∧**
+• dx ∧ dy = -dy ∧ dx (anti-symétrique)
+• dx ∧ dx = 0
+• Généralise le produit vectoriel et le déterminant
+
+**Différentielle extérieure d** : d(forme k) = forme (k+1). Généralise grad, rot, div !
+
+**Théorème de Stokes** : ∫_M dω = ∫_{∂M} ω. UNIFIE Green, Ostrogradski, Stokes classique !''',
+        exempleConcret: '''**Électromagnétisme** : Équations de Maxwell s'écrivent élégamment avec des formes différentielles ! dF = 0 et d⋆F = J (F = forme électromagnétique).
+
+**Mécanique analytique** : La forme symplectique ω = Σ dpᵢ∧dqᵢ décrit l'espace des phases. Les équations de Hamilton : dH est fermée.
+
+**Aire d'une surface** : Intégrer une 2-forme sur la surface.
+
+**Théorème de Stokes** : ∫∫ rot(F⃗)·n⃗ dS = ∫ F⃗·dl (circulation = flux du rotationnel). Cas particulier de ∫dω = ∫ω sur le bord.
+
+**Topologie différentielle** : Cohomologie de de Rham. Formes fermées / formes exactes = invariant topologique !''',
+        lienAvecLycee: 'Tu calcules des intégrales de fonctions (∫f dx), du travail (∫F⃗·dl), du flux (∫∫F⃗·n⃗ dS). Les formes différentielles UNIFIENT tout ça en un seul formalisme !',
+        pourquoiCestImportant: '''Les formes différentielles sont le langage universel de la géométrie :
+
+• **Théorème de Stokes** : Unifie tous les théorèmes d'intégration (Green, Ostrogradski...)
+• **Électromagnétisme** : Formulation élégante de Maxwell
+• **Mécanique** : Mécanique symplectique, Hamilton
+• **Topologie** : Cohomologie de de Rham (invariants topologiques)
+
+C'est le formalisme moderne pour l'intégration sur variétés.''',
+        visualisation: 'Une 1-forme = champ de plans (en chaque point, un plan infinitésimal). Intégrer une 1-forme sur une courbe = compter combien de fois la courbe traverse ces plans. 2-forme = champ de volumes infinitésimaux.',
+        prerequisTerminale: ['Intégrales', 'Travail d\'une force', 'Flux'],
+        ideesFausses: [
+          '❌ "Forme différentielle = fonction" → NON ! Les fonctions sont des 0-formes (cas particulier)',
+          '❌ "dx dy = dy dx" → NON ! dx∧dy = -dy∧dx (produit extérieur anti-symétrique)',
+          '❌ "Ça sert uniquement en géométrie" → NON ! Utilisé en physique, topologie, EDP...',
+        ],
+        anecdote: 'Cartan (père, 1890s) a développé le calcul extérieur (formes différentielles). Son fils Cartan (1920-1930) l\'a utilisé pour la géométrie différentielle moderne. De Rham (1931) a connecté formes différentielles et topologie algébrique (cohomologie). Révolution !',
+        applicationsReelles: [
+          'Électromagnétisme (Maxwell)',
+          'Mécanique analytique (Hamilton, Lagrange)',
+          'Topologie (cohomologie)',
+          'Relativité générale (formes différentielles sur variétés)',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'theoreme-galois-groupes-finis',
+        titre: 'Théorèmes de Sylow',
+        domaine: 'algèbre',
+        niveauAgregation: 5,
+        difficulteIntuitive: 4,
+        analogieSimple: 'Tout groupe fini a des sous-groupes de taille "puissance de nombre premier".',
+        questionCle: 'Comment trouver la structure cachée d\'un groupe fini ?',
+        explicationIntuitive: '''Les théorèmes de Sylow sont des outils pour comprendre la structure des groupes finis.
+
+**Énoncé (simplifié)** : Soit G un groupe d'ordre n = p^k · m (p premier, p ne divise pas m).
+1. Il existe un sous-groupe de G d'ordre p^k (sous-groupe de Sylow)
+2. Tous les p-Sylow sont conjugués (similaires)
+3. Le nombre n_p de p-Sylow vérifie : n_p ≡ 1 (mod p) et n_p divise m
+
+**Application** : Ces théorèmes permettent de classifier les groupes d'ordre petit, de prouver qu'un groupe n'est pas simple, de trouver sa décomposition...
+
+**Exemple** : Groupe d'ordre 15 = 3×5. Il a un unique 3-Sylow et un unique 5-Sylow, tous deux normaux. Donc G ≅ ℤ/15ℤ (cyclique).
+
+Les théorèmes de Sylow révèlent la "structure primaire" d'un groupe fini.''',
+        exempleConcret: '''**Classification des groupes d'ordre 12** : 12 = 2²×3. Sylow dit : n₂ ∈ {1,3}, n₃ ∈ {1,4}. Analyse des cas → 5 groupes possibles (ℤ/12ℤ, D₆, A₄, ℤ/6ℤ×ℤ/2ℤ, Q₁₂).
+
+**Rubik's Cube** : Le groupe du Rubik a un ordre divisible par 2, 3, 5, 7. Sylow aide à comprendre sa structure.
+
+**Cristallographie** : Les 230 groupes d'espace. Sylow aide à les classifier.
+
+**Cryptographie** : Choisir des groupes pour RSA/ECC. Sylow aide à analyser leur structure.''',
+        lienAvecLycee: 'Tu connais le théorème de Lagrange : l\'ordre d\'un sous-groupe divise l\'ordre du groupe. Sylow va plus loin : il GARANTIT l\'existence de sous-groupes d\'ordres spécifiques (puissances de premiers).',
+        pourquoiCestImportant: '''Sylow est l'outil central de la théorie des groupes finis :
+
+• **Classification** : Déterminer tous les groupes d'ordre n
+• **Simplicité** : Prouver qu'un groupe n'est pas simple
+• **Structure** : Trouver les sous-groupes normaux, décomposition
+• **Applications** : Cryptographie, théorie de Galois
+
+**Théorème de Burnside** : Un groupe d'ordre p^a q^b (p,q premiers) est résoluble (utilise Sylow).''',
+        visualisation: 'Imagine décomposer un nombre en facteurs premiers : 12 = 2²×3. Sylow dit : il existe des sous-groupes "correspondant" à chaque facteur premier (ordre 4 pour 2², ordre 3 pour 3).',
+        prerequisTerminale: ['Groupes', 'Ordre d\'un groupe', 'Théorème de Lagrange'],
+        ideesFausses: [
+          '❌ "Il existe un unique p-Sylow" → NON ! Mais ils sont conjugués (isomorphes)',
+          '❌ "Sylow marche en dimension infinie" → NON ! Spécifique aux groupes FINIS',
+          '❌ "n_p = 1 toujours" → NON ! Ça dépend du groupe (mais c\'est un critère de normalité)',
+        ],
+        anecdote: 'Sylow (1872, thèse) a prouvé ces théorèmes à 27 ans. Il a ensuite... arrêté les maths et enseigné dans un lycée en Norvège ! Ses 3 théorèmes sont restés, utilisés chaque jour par des milliers de mathématiciens. Parfois, un seul article suffit pour l\'immortalité.',
+        applicationsReelles: [
+          'Classification des groupes finis',
+          'Cryptographie (structure de groupes)',
+          'Théorie de Galois (groupes de Galois)',
+          'Physique (groupes de symétrie)',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'polynomes-orthogonaux',
+        titre: 'Polynômes Orthogonaux',
+        domaine: 'analyse',
+        niveauAgregation: 4,
+        difficulteIntuitive: 3,
+        analogieSimple: 'Familles de polynômes perpendiculaires les uns aux autres (au sens du produit scalaire).',
+        questionCle: 'Comment créer une "base" de polynômes bien adaptée à un problème ?',
+        explicationIntuitive: '''Les polynômes orthogonaux sont des familles {P₀, P₁, P₂, ...} telles que ⟨Pₙ, Pₘ⟩ = 0 si n ≠ m.
+
+**Produit scalaire** : ⟨f,g⟩ = ∫ f(x)g(x)w(x)dx (w = poids)
+
+**Familles classiques** :
+• **Legendre** : [-1,1], w=1. Utilisés en physique (moments multipolaires)
+• **Tchebychev** : [-1,1], w=1/√(1-x²). Minimisent l'erreur d'approximation
+• **Hermite** : ℝ, w=e^(-x²). Fonctions propres de l'oscillateur quantique
+• **Laguerre** : [0,∞), w=e^(-x). Atome d'hydrogène (quantique)
+
+**Propriétés** :
+• Récurrence à 3 termes : Pₙ₊₁ = (x-aₙ)Pₙ - bₙPₙ₋₁
+• Racines toutes réelles et distinctes
+• Meilleure approximation polynomiale (au sens L²)
+
+**Application** : Décomposer une fonction en série de polynômes orthogonaux (comme Fourier mais avec polynômes).''',
+        exempleConcret: '''**Approximation** : Approcher f(x) = e^x sur [-1,1] par un polynôme de degré 5. Les polynômes de Legendre donnent la MEILLEURE approximation L².
+
+**Méthode des éléments finis** : Résolution numérique d'EDP. On projette sur des polynômes orthogonaux (Legendre, Tchebychev...).
+
+**Quadrature de Gauss** : Intégration numérique ultra-précise. Les points = zéros des polynômes orthogonaux ! Intègre exactement les polynômes de degré ≤ 2n-1 avec n points.
+
+**Mécanique quantique** : Polynômes de Hermite → états de l'oscillateur harmonique. Polynômes de Laguerre → orbitales de l'atome d'hydrogène.
+
+**Traitement du signal** : Décomposition en polynômes de Tchebychev (filtres).''',
+        lienAvecLycee: 'Tu connais les polynômes 1, x, x², x³... Les polynômes orthogonaux sont des combinaisons linéaires de ceux-ci, mais choisis pour être perpendiculaires (au sens du produit scalaire L²).',
+        pourquoiCestImportant: '''Les polynômes orthogonaux sont omniprésents en analyse numérique :
+
+• **Approximation** : Meilleure approximation polynomiale (projection L²)
+• **Intégration numérique** : Quadrature de Gauss (très efficace !)
+• **EDP** : Méthode spectrale (décomposition en polynômes)
+• **Physique** : Fonctions propres d'opérateurs (Hermite, Laguerre)
+
+**Théorie spectrale** : Ce sont souvent des fonctions propres d'opérateurs différentiels.''',
+        visualisation: 'Imagine les vecteurs ē₁, ē₂, ē₃ orthogonaux dans ℝ³. Les polynômes orthogonaux sont pareils, mais dans l\'espace des fonctions ! P₀, P₁, P₂... sont "perpendiculaires" au sens de ⟨Pₙ,Pₘ⟩ = 0.',
+        prerequisTerminale: ['Polynômes', 'Produit scalaire', 'Orthogonalité'],
+        ideesFausses: [
+          '❌ "Les polynômes orthogonaux sont uniques" → NON ! Dépend du poids w(x) et de l\'intervalle',
+          '❌ "Hermite, Legendre... sont des noms aléatoires" → NON ! Chacun correspond à un poids spécifique',
+          '❌ "On peut orthogonaliser 1, x, x² avec Gram-Schmidt" → OUI ! C\'est exactement comme ça qu\'on les construit',
+        ],
+        anecdote: 'Legendre (1785) a introduit ses polynômes pour l\'astronomie (calcul de trajectoires). Tchebychev (1854) pour minimiser l\'erreur d\'interpolation. Hermite (1864) les a trouvés en physique. Ces polynômes "apparaissent" naturellement dans plein de problèmes différents ! Convergence remarquable.',
+        applicationsReelles: [
+          'Intégration numérique (quadrature de Gauss)',
+          'Approximation de fonctions',
+          'Mécanique quantique (fonctions d\'onde)',
+          'Traitement du signal (filtres polynomiaux)',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'espace-metrique',
+        titre: 'Espaces Métriques',
+        domaine: 'analyse',
+        niveauAgregation: 5,
+        difficulteIntuitive: 3,
+        analogieSimple: 'Un ensemble avec une notion de "distance" entre éléments.',
+        questionCle: 'Comment généraliser la notion de distance au-delà de ℝⁿ ?',
+        explicationIntuitive: '''Un espace métrique (E, d), c'est un ensemble E avec une fonction distance d qui vérifie :
+1. **Séparation** : d(x,y) = 0 ⟺ x = y
+2. **Symétrie** : d(x,y) = d(y,x)
+3. **Inégalité triangulaire** : d(x,z) ≤ d(x,y) + d(y,z)
+
+**Exemples** :
+• ℝⁿ avec d(x,y) = ‖x-y‖ (distance euclidienne)
+• Distance Manhattan : d(x,y) = |x₁-y₁| + |x₂-y₂| (grille de ville)
+• Distance discrète : d(x,y) = 0 si x=y, sinon 1
+• C([0,1]) avec d(f,g) = sup|f-g| (norme infinie)
+
+**Ce qu'on peut faire avec une distance** :
+• Définir ouverts et fermés
+• Parler de continuité
+• Définir la compacité
+• Étudier les suites de Cauchy et la complétude
+
+Les métriques généralisent la géométrie à des espaces abstraits (fonctions, suites, graphes...).''',
+        exempleConcret: '''**GPS / Navigation** : Distance sur Terre = distance géodésique (arc de grand cercle sur la sphère), pas distance euclidienne dans ℝ³ !
+
+**Reconnaissance de formes** : Distance entre deux images = norme L² des pixels. Deux images "proches" sont similaires.
+
+**Génétique** : Distance de Hamming entre ADN (nombre de différences). ATCG vs ATCC a distance 1.
+
+**Réseaux** : Distance entre nœuds = nombre d'arêtes du plus court chemin (distance de graphe).
+
+**Édition de texte** : Distance de Levenshtein (nombre d'opérations pour transformer un mot en un autre). "chat" → "chien" : distance 3.''',
+        lienAvecLycee: 'La distance euclidienne d(A,B) = ‖AB⃗‖ dans le plan ou l\'espace est un cas particulier. Les espaces métriques généralisent : tout ensemble avec une "distance" raisonnable.',
+        pourquoiCestImportant: '''Les espaces métriques fondent toute la topologie :
+
+• **Convergence** : xₙ → x ⟺ d(xₙ, x) → 0
+• **Continuité** : f continue ⟺ d(xₙ,x)→0 ⟹ d(f(xₙ),f(x))→0
+• **Compacité** : Bolzano-Weierstrass, Heine-Borel
+• **Complétude** : Banach, Hilbert sont des métriques complètes
+
+**Théorème de point fixe de Banach** : Dans un métrique complet, toute contraction a un unique point fixe.''',
+        visualisation: 'Imagine un réseau de villes. La distance = temps de trajet (pas nécessairement la distance à vol d\'oiseau). C\'est un espace métrique ! Chaque notion de "proximité" raisonnable définit une métrique.',
+        prerequisTerminale: ['Distance', 'Norme', 'Inégalité triangulaire'],
+        ideesFausses: [
+          '❌ "Distance = norme" → NON ! Norme ⟹ métrique, mais il existe des métriques sans norme sous-jacente',
+          '❌ "La distance euclidienne est la seule" → NON ! Manhattan, Tchebychev, Hamming... plein de distances utiles',
+          '❌ "Métrique ⟹ espace vectoriel" → NON ! Un graphe avec distance de graphe est métrique, pas vectoriel',
+        ],
+        anecdote: 'Fréchet (1906) a introduit les espaces métriques pour unifier analyse et topologie. Avant, chaque espace (ℝ, C([0,1]), suites...) était étudié séparément. Les espaces métriques ont UNIFIÉ le tout. Hausdorff (1914) a développé la topologie générale (encore plus abstrait : sans distance).',
+        applicationsReelles: [
+          'Algorithmes de clustering (k-means)',
+          'Reconnaissance de formes (distance entre images)',
+          'Bioinformatique (distance entre séquences ADN)',
+          'Réseaux (distance de graphe, routage)',
         ],
       ),
 
