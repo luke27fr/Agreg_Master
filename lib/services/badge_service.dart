@@ -21,23 +21,23 @@ class BadgeService extends ChangeNotifier {
   bool get isLoaded => _isLoaded;
 
   // Définition des badges
-  static final List<Badge> allBadges = [
+  static final List<AchievementBadge> allBadges = [
     // Badges de démarrage
-    Badge(
+    AchievementBadge(
       id: 'first_fiche',
       title: 'Premier pas',
       description: 'Lire votre première fiche',
       icon: '📖',
       category: BadgeCategory.beginner,
     ),
-    Badge(
+    AchievementBadge(
       id: 'first_quiz',
       title: 'Première évaluation',
       description: 'Compléter votre premier quiz',
       icon: '✅',
       category: BadgeCategory.beginner,
     ),
-    Badge(
+    AchievementBadge(
       id: 'first_perfect',
       title: 'Sans faute !',
       description: 'Obtenir 100% à un quiz',
@@ -46,21 +46,21 @@ class BadgeService extends ChangeNotifier {
     ),
 
     // Badges de régularité
-    Badge(
+    AchievementBadge(
       id: 'streak_3',
       title: 'Régulier',
       description: '3 jours consécutifs de révision',
       icon: '🔥',
       category: BadgeCategory.streak,
     ),
-    Badge(
+    AchievementBadge(
       id: 'streak_7',
       title: 'Une semaine !',
       description: '7 jours consécutifs de révision',
       icon: '🔥🔥',
       category: BadgeCategory.streak,
     ),
-    Badge(
+    AchievementBadge(
       id: 'streak_30',
       title: 'Un mois !',
       description: '30 jours consécutifs de révision',
@@ -69,28 +69,28 @@ class BadgeService extends ChangeNotifier {
     ),
 
     // Badges de quantité
-    Badge(
+    AchievementBadge(
       id: 'fiches_10',
       title: 'Lecteur assidu',
       description: 'Lire 10 fiches',
       icon: '📚',
       category: BadgeCategory.reading,
     ),
-    Badge(
+    AchievementBadge(
       id: 'fiches_all',
       title: 'Encyclopédie',
       description: 'Lire toutes les fiches',
       icon: '🎓',
       category: BadgeCategory.reading,
     ),
-    Badge(
+    AchievementBadge(
       id: 'quiz_10',
       title: 'Quiz master',
       description: 'Compléter 10 quiz',
       icon: '🧠',
       category: BadgeCategory.quiz,
     ),
-    Badge(
+    AchievementBadge(
       id: 'quiz_50',
       title: 'Expert',
       description: 'Compléter 50 quiz',
@@ -99,21 +99,21 @@ class BadgeService extends ChangeNotifier {
     ),
 
     // Badges de performance
-    Badge(
+    AchievementBadge(
       id: 'perfect_5',
       title: 'Perfectionniste',
       description: '5 quiz parfaits',
       icon: '⭐',
       category: BadgeCategory.quiz,
     ),
-    Badge(
+    AchievementBadge(
       id: 'average_80',
       title: 'Excellent niveau',
       description: 'Moyenne générale > 80%',
       icon: '🌟',
       category: BadgeCategory.performance,
     ),
-    Badge(
+    AchievementBadge(
       id: 'all_categories',
       title: 'Polyvalent',
       description: 'Quiz réussi dans chaque catégorie',
@@ -122,21 +122,21 @@ class BadgeService extends ChangeNotifier {
     ),
 
     // Badges spéciaux
-    Badge(
+    AchievementBadge(
       id: 'night_owl',
       title: 'Oiseau de nuit',
       description: 'Réviser après minuit',
       icon: '🦉',
       category: BadgeCategory.special,
     ),
-    Badge(
+    AchievementBadge(
       id: 'early_bird',
       title: 'Lève-tôt',
       description: 'Réviser avant 6h du matin',
       icon: '🐦',
       category: BadgeCategory.special,
     ),
-    Badge(
+    AchievementBadge(
       id: 'favorite_collector',
       title: 'Collectionneur',
       description: 'Avoir 10 fiches en favoris',
@@ -196,12 +196,12 @@ class BadgeService extends ChangeNotifier {
   }
 
   /// Déverrouille un badge
-  Future<Badge?> unlock(String badgeId) async {
+  Future<AchievementBadge?> unlock(String badgeId) async {
     if (_unlockedBadges.contains(badgeId)) return null;
     
     final badge = allBadges.firstWhere(
       (b) => b.id == badgeId,
-      orElse: () => Badge(id: '', title: '', description: '', icon: '', category: BadgeCategory.beginner),
+      orElse: () => AchievementBadge(id: '', title: '', description: '', icon: '', category: BadgeCategory.beginner),
     );
     
     if (badge.id.isEmpty) return null;
@@ -230,8 +230,8 @@ class BadgeService extends ChangeNotifier {
   double get completionRate => totalCount > 0 ? unlockedCount / totalCount : 0;
 
   /// Vérifie et déverrouille les badges en fonction de l'état actuel
-  Future<List<Badge>> checkAndUnlockBadges() async {
-    final newBadges = <Badge>[];
+  Future<List<AchievementBadge>> checkAndUnlockBadges() async {
+    final newBadges = <AchievementBadge>[];
     
     final scoreService = ScoreService();
     final streakService = StreakService();
@@ -316,14 +316,14 @@ class BadgeService extends ChangeNotifier {
   }
 }
 
-class Badge {
+class AchievementBadge {
   final String id;
   final String title;
   final String description;
   final String icon;
   final BadgeCategory category;
 
-  const Badge({
+  const AchievementBadge({
     required this.id,
     required this.title,
     required this.description,

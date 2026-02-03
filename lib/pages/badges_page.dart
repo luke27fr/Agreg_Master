@@ -66,7 +66,7 @@ class _BadgesPageState extends State<BadgesPage> {
     final totalCount = _badgeService.totalCount;
 
     // Grouper les badges par catégorie
-    final badgesByCategory = <BadgeCategory, List<Badge>>{};
+    final badgesByCategory = <BadgeCategory, List<AchievementBadge>>{};
     for (var badge in BadgeService.allBadges) {
       badgesByCategory.putIfAbsent(badge.category, () => []).add(badge);
     }
@@ -168,7 +168,7 @@ class _BadgesPageState extends State<BadgesPage> {
     );
   }
 
-  Widget _buildBadgeCard(Badge badge, bool isUnlocked, bool isDark) {
+  Widget _buildBadgeCard(AchievementBadge badge, bool isUnlocked, bool isDark) {
     return GestureDetector(
       onTap: () => _showBadgeDetails(badge, isUnlocked),
       child: Container(
@@ -213,7 +213,7 @@ class _BadgesPageState extends State<BadgesPage> {
     );
   }
 
-  void _showBadgeDetails(Badge badge, bool isUnlocked) {
+  void _showBadgeDetails(AchievementBadge badge, bool isUnlocked) {
     final unlockDate = _badgeService.getUnlockDate(badge.id);
     
     showDialog(
