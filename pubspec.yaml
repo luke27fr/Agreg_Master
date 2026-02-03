@@ -32,7 +32,7 @@ flutter:
     - assets/fiches/analyse/
     - assets/fiches/probabilites/      
     - assets/fiches/geometrie/ 
-    - assets/data/quiz.json 
+    - assets/data/
     - assets/glossaire.json
 
     

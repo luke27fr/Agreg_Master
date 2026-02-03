@@ -1,0 +1,799 @@
+{
+  "algebre": [
+    {
+      "numero": 101,
+      "titre": "Groupe opérant sur un ensemble. Exemples et applications.",
+      "points_cles": [
+        "Définition d'une action de groupe",
+        "Orbites et stabilisateurs",
+        "Formule des classes",
+        "Équation aux classes",
+        "Applications : Burnside, dénombrement"
+      ],
+      "developpements": ["burnside", "sylow", "equation_classes"],
+      "prerequis": ["groupes_structures", "groupes_finis"]
+    },
+    {
+      "numero": 102,
+      "titre": "Groupe des nombres complexes de module 1. Sous-groupes des racines de l'unité. Applications.",
+      "points_cles": [
+        "Structure de $\\mathbb{U}$",
+        "Racines n-ièmes de l'unité",
+        "Polynômes cyclotomiques",
+        "Sous-groupes finis de $\\mathbb{U}$",
+        "Applications géométriques"
+      ],
+      "developpements": ["cyclotomiques", "gauss_regulier"],
+      "prerequis": ["reels_complexes", "polynomes"]
+    },
+    {
+      "numero": 103,
+      "titre": "Conjugaison dans un groupe. Exemples de sous-groupes distingués et de groupes quotients.",
+      "points_cles": [
+        "Classes de conjugaison",
+        "Centralisateur, normalisateur",
+        "Sous-groupes distingués",
+        "Groupes quotients",
+        "Théorèmes d'isomorphisme"
+      ],
+      "developpements": ["simplicite_An", "centre_p_groupe"],
+      "prerequis": ["groupes_structures"]
+    },
+    {
+      "numero": 104,
+      "titre": "Groupes finis. Exemples et applications.",
+      "points_cles": [
+        "Théorème de Lagrange",
+        "Théorèmes de Sylow",
+        "Groupes abéliens finis",
+        "Groupes diédraux, symétriques",
+        "Classification des petits groupes"
+      ],
+      "developpements": ["sylow", "abeliens_finis", "classification_ordre_pq"],
+      "prerequis": ["groupes_structures", "groupes_finis"]
+    },
+    {
+      "numero": 105,
+      "titre": "Groupe des permutations d'un ensemble fini. Applications.",
+      "points_cles": [
+        "Cycles, transpositions",
+        "Signature",
+        "Groupe alterné",
+        "Simplicité de $A_n$",
+        "Actions sur les polynômes"
+      ],
+      "developpements": ["simplicite_An", "discriminant"],
+      "prerequis": ["groupes_structures", "groupes_finis"]
+    },
+    {
+      "numero": 106,
+      "titre": "Groupe linéaire d'un espace vectoriel de dimension finie E, sous-groupes de GL(E).",
+      "points_cles": [
+        "Structure de $GL_n(K)$",
+        "Sous-groupes classiques (SL, O, U, Sp)",
+        "Générateurs de $GL_n(K)$",
+        "Centre de $GL_n(K)$",
+        "Commutateur"
+      ],
+      "developpements": ["cartan_dieudonne", "generateurs_gln"],
+      "prerequis": ["geometrie_matricielle", "espaces_euclidiens"]
+    },
+    {
+      "numero": 108,
+      "titre": "Exemples de parties génératrices d'un groupe. Applications.",
+      "points_cles": [
+        "Générateurs d'un groupe",
+        "Groupe monogène, cyclique",
+        "Générateurs de $S_n$, $GL_n$",
+        "Cayley et graphes de Cayley",
+        "Présentations de groupes"
+      ],
+      "developpements": ["generateurs_gln", "generateurs_Sn"],
+      "prerequis": ["groupes_structures"]
+    },
+    {
+      "numero": 120,
+      "titre": "Anneaux $\\mathbb{Z}/n\\mathbb{Z}$. Applications.",
+      "points_cles": [
+        "Structure d'anneau",
+        "Inversibles, indicatrice d'Euler",
+        "Théorème chinois",
+        "Carrés dans $\\mathbb{Z}/p\\mathbb{Z}$",
+        "Cryptographie RSA"
+      ],
+      "developpements": ["chinois", "rsa", "quadratique_reciprocite"],
+      "prerequis": ["arithmetique_z", "anneaux_corps"]
+    },
+    {
+      "numero": 121,
+      "titre": "Nombres premiers. Applications.",
+      "points_cles": [
+        "Infinité des premiers",
+        "Décomposition unique",
+        "Théorème de Dirichlet (énoncé)",
+        "Répartition des premiers",
+        "Tests de primalité"
+      ],
+      "developpements": ["infinitude_premiers", "tchebychev"],
+      "prerequis": ["arithmetique_z"]
+    },
+    {
+      "numero": 122,
+      "titre": "Anneaux principaux. Applications.",
+      "points_cles": [
+        "Définition et exemples",
+        "Lemme de Gauss",
+        "PGCD, PPCM",
+        "Anneaux euclidiens",
+        "Entiers de Gauss"
+      ],
+      "developpements": ["gauss_entiers", "deux_carres"],
+      "prerequis": ["anneaux_corps", "arithmetique_z"]
+    },
+    {
+      "numero": 123,
+      "titre": "Corps finis. Applications.",
+      "points_cles": [
+        "Existence et unicité",
+        "Structure multiplicative",
+        "Polynômes irréductibles",
+        "Frobenius",
+        "Codes correcteurs"
+      ],
+      "developpements": ["existence_corps_finis", "codes_cycliques"],
+      "prerequis": ["anneaux_corps", "polynomes"]
+    },
+    {
+      "numero": 126,
+      "titre": "Exemples d'équations en arithmétique.",
+      "points_cles": [
+        "Équations diophantiennes",
+        "Sommes de carrés",
+        "Équation de Pell-Fermat",
+        "Descente infinie",
+        "Équations modulaires"
+      ],
+      "developpements": ["deux_carres", "pell_fermat"],
+      "prerequis": ["arithmetique_z"]
+    },
+    {
+      "numero": 141,
+      "titre": "Polynômes irréductibles à une indéterminée.",
+      "points_cles": [
+        "Critères d'irréductibilité",
+        "Eisenstein",
+        "Réduction modulo p",
+        "Polynômes cyclotomiques",
+        "Irréductibles sur $\\mathbb{R}$, $\\mathbb{C}$"
+      ],
+      "developpements": ["eisenstein", "cyclotomiques_irreductibles"],
+      "prerequis": ["polynomes", "anneaux_corps"]
+    },
+    {
+      "numero": 142,
+      "titre": "PGCD et PPCM, algorithmes de calcul. Applications.",
+      "points_cles": [
+        "Algorithme d'Euclide",
+        "Bézout",
+        "Complexité",
+        "Fractions continues",
+        "Applications cryptographiques"
+      ],
+      "developpements": ["fractions_continues", "euclide_etendu"],
+      "prerequis": ["arithmetique_z", "polynomes"]
+    },
+    {
+      "numero": 150,
+      "titre": "Dimension d'un espace vectoriel. Rang. Exemples et applications.",
+      "points_cles": [
+        "Théorème de la base incomplète",
+        "Rang d'une application linéaire",
+        "Rang d'une matrice",
+        "Formule du rang",
+        "Hyperplans"
+      ],
+      "developpements": ["rang_matrice", "base_incomplete"],
+      "prerequis": ["espaces_vectoriels"]
+    },
+    {
+      "numero": 151,
+      "titre": "Sous-espaces affines d'un espace vectoriel. Parallélisme.",
+      "points_cles": [
+        "Espaces affines",
+        "Barycentres",
+        "Parallélisme, intersection",
+        "Applications affines",
+        "Repères affines"
+      ],
+      "developpements": ["theoreme_thales", "barycentres"],
+      "prerequis": ["espaces_vectoriels"]
+    },
+    {
+      "numero": 152,
+      "titre": "Déterminant. Exemples et applications.",
+      "points_cles": [
+        "Formes n-linéaires alternées",
+        "Calcul par développement",
+        "Déterminant d'un endomorphisme",
+        "Cramer",
+        "Volume et orientation"
+      ],
+      "developpements": ["vandermonde", "cramer"],
+      "prerequis": ["geometrie_matricielle"]
+    },
+    {
+      "numero": 153,
+      "titre": "Polynômes d'endomorphisme en dimension finie. Réduction d'un endomorphisme.",
+      "points_cles": [
+        "Polynôme minimal",
+        "Cayley-Hamilton",
+        "Lemme des noyaux",
+        "Sous-espaces caractéristiques",
+        "Diagonalisation, trigonalisation"
+      ],
+      "developpements": ["cayley_hamilton", "dunford"],
+      "prerequis": ["reduction_endomorphismes", "polynomes"]
+    },
+    {
+      "numero": 154,
+      "titre": "Sous-espaces stables par un endomorphisme ou une famille d'endomorphismes.",
+      "points_cles": [
+        "Sous-espaces stables",
+        "Commutant",
+        "Réduction simultanée",
+        "Sous-espaces caractéristiques",
+        "Théorème de Burnside"
+      ],
+      "developpements": ["burnside_matrices", "reduction_simultanee"],
+      "prerequis": ["reduction_endomorphismes"]
+    },
+    {
+      "numero": 155,
+      "titre": "Endomorphismes diagonalisables en dimension finie.",
+      "points_cles": [
+        "Caractérisation",
+        "CNS de diagonalisabilité",
+        "Projecteurs spectraux",
+        "Commutant",
+        "Matrices semblables"
+      ],
+      "developpements": ["projecteurs_spectraux", "diagonalisation_simultanee"],
+      "prerequis": ["reduction_endomorphismes"]
+    },
+    {
+      "numero": 156,
+      "titre": "Exponentielle de matrices. Applications.",
+      "points_cles": [
+        "Définition et convergence",
+        "Propriétés (produit, inverse)",
+        "Calcul via réduction",
+        "Équations différentielles",
+        "exp(A+B)"
+      ],
+      "developpements": ["exp_matrices", "eq_diff_systemes"],
+      "prerequis": ["reduction_endomorphismes", "series_fonctions"]
+    },
+    {
+      "numero": 157,
+      "titre": "Endomorphismes trigonalisables. Endomorphismes nilpotents.",
+      "points_cles": [
+        "Caractérisation",
+        "Trigonalisation sur $\\mathbb{C}$",
+        "Nilpotents : indice",
+        "Jordan (énoncé)",
+        "Dunford"
+      ],
+      "developpements": ["jordan", "dunford"],
+      "prerequis": ["reduction_endomorphismes"]
+    },
+    {
+      "numero": 158,
+      "titre": "Matrices symétriques réelles, matrices hermitiennes.",
+      "points_cles": [
+        "Diagonalisation orthogonale",
+        "Valeurs propres réelles",
+        "Théorème spectral",
+        "Rayleigh",
+        "Matrices positives"
+      ],
+      "developpements": ["spectral", "rayleigh"],
+      "prerequis": ["espaces_euclidiens", "reduction_endomorphismes"]
+    },
+    {
+      "numero": 159,
+      "titre": "Formes linéaires et dualité en dimension finie.",
+      "points_cles": [
+        "Dual, base duale",
+        "Bidual",
+        "Orthogonal",
+        "Transposée",
+        "Formes bilinéaires"
+      ],
+      "developpements": ["dualite", "bilineaires"],
+      "prerequis": ["espaces_vectoriels", "formes_quadratiques"]
+    },
+    {
+      "numero": 160,
+      "titre": "Endomorphismes remarquables d'un espace euclidien.",
+      "points_cles": [
+        "Adjoint",
+        "Endomorphismes symétriques, orthogonaux",
+        "Endomorphismes positifs",
+        "Décomposition polaire",
+        "Racine carrée"
+      ],
+      "developpements": ["decomposition_polaire", "racine_carree"],
+      "prerequis": ["espaces_euclidiens"]
+    },
+    {
+      "numero": 161,
+      "titre": "Distances et isométries d'un espace affine euclidien.",
+      "points_cles": [
+        "Distance dans un espace affine",
+        "Isométries : classification",
+        "Déplacements",
+        "Groupe des isométries",
+        "Théorème de Cartan-Dieudonné"
+      ],
+      "developpements": ["cartan_dieudonne", "classification_isometries"],
+      "prerequis": ["espaces_euclidiens", "rotations"]
+    },
+    {
+      "numero": 162,
+      "titre": "Systèmes d'équations linéaires. Opérations élémentaires, pivot de Gauss.",
+      "points_cles": [
+        "Pivot de Gauss",
+        "Forme échelonnée",
+        "Rang",
+        "Complexité",
+        "Applications numériques"
+      ],
+      "developpements": ["gauss_pivot", "lu_decomposition"],
+      "prerequis": ["systemes_lineaires", "geometrie_matricielle"]
+    },
+    {
+      "numero": 170,
+      "titre": "Formes quadratiques sur un espace vectoriel de dimension finie.",
+      "points_cles": [
+        "Forme polaire",
+        "Base orthogonale",
+        "Signature (Sylvester)",
+        "Classification",
+        "Coniques et quadriques"
+      ],
+      "developpements": ["sylvester", "classification_quadriques"],
+      "prerequis": ["formes_quadratiques"]
+    },
+    {
+      "numero": 171,
+      "titre": "Formes quadratiques réelles. Coniques. Applications.",
+      "points_cles": [
+        "Positivité",
+        "Réduction",
+        "Coniques : équation réduite",
+        "Classification des coniques",
+        "Foyers, directrices"
+      ],
+      "developpements": ["coniques", "sylvester"],
+      "prerequis": ["formes_quadratiques", "courbes_planes"]
+    }
+  ],
+  "analyse": [
+    {
+      "numero": 201,
+      "titre": "Espaces de fonctions. Exemples et applications.",
+      "points_cles": [
+        "Espaces $C^k$, $L^p$",
+        "Normes usuelles",
+        "Complétude",
+        "Densité (polynômes, $C^\\infty$)",
+        "Stone-Weierstrass"
+      ],
+      "developpements": ["stone_weierstrass", "densite_polynomes"],
+      "prerequis": ["espaces_normes", "suites_fonctions"]
+    },
+    {
+      "numero": 202,
+      "titre": "Exemples de parties denses et applications.",
+      "points_cles": [
+        "$\\mathbb{Q}$ dense dans $\\mathbb{R}$",
+        "Polynômes denses dans $C([a,b])$",
+        "Fonctions $C^\\infty$ à support compact",
+        "Théorème de Baire",
+        "Applications"
+      ],
+      "developpements": ["weierstrass", "baire_applications"],
+      "prerequis": ["topologie", "espaces_normes"]
+    },
+    {
+      "numero": 203,
+      "titre": "Utilisation de la notion de compacité.",
+      "points_cles": [
+        "Définitions équivalentes",
+        "Compacts de $\\mathbb{R}^n$",
+        "Théorème des bornes atteintes",
+        "Ascoli",
+        "Applications"
+      ],
+      "developpements": ["ascoli", "compacite_applications"],
+      "prerequis": ["topologie", "compacite"]
+    },
+    {
+      "numero": 204,
+      "titre": "Connexité. Exemples et applications.",
+      "points_cles": [
+        "Connexité, connexité par arcs",
+        "Composantes connexes",
+        "Théorème des valeurs intermédiaires",
+        "Image continue d'un connexe",
+        "Applications"
+      ],
+      "developpements": ["tvi", "connexite_applications"],
+      "prerequis": ["connexite", "topologie"]
+    },
+    {
+      "numero": 205,
+      "titre": "Espaces complets. Exemples et applications.",
+      "points_cles": [
+        "Définition, caractérisation",
+        "Point fixe de Banach",
+        "Théorème de Baire",
+        "Complétude de $C([a,b])$, $L^p$",
+        "Applications"
+      ],
+      "developpements": ["banach_point_fixe", "baire"],
+      "prerequis": ["espaces_normes", "compacite"]
+    },
+    {
+      "numero": 208,
+      "titre": "Espaces vectoriels normés, applications linéaires continues.",
+      "points_cles": [
+        "Norme d'opérateur",
+        "Équivalence des normes en dim finie",
+        "Dual topologique",
+        "Opérateurs compacts",
+        "Exemples"
+      ],
+      "developpements": ["equivalence_normes", "riesz"],
+      "prerequis": ["espaces_normes"]
+    },
+    {
+      "numero": 213,
+      "titre": "Espaces de Hilbert. Bases hilbertiennes.",
+      "points_cles": [
+        "Produit scalaire, orthogonalité",
+        "Projection orthogonale",
+        "Bases hilbertiennes",
+        "Parseval, Bessel",
+        "Riesz"
+      ],
+      "developpements": ["parseval", "riesz_hilbert"],
+      "prerequis": ["espaces_prehilbertiens"]
+    },
+    {
+      "numero": 214,
+      "titre": "Théorème d'inversion locale, théorème des fonctions implicites.",
+      "points_cles": [
+        "Énoncés et démonstrations",
+        "Difféomorphismes locaux",
+        "Sous-variétés",
+        "Applications géométriques",
+        "Extrema liés"
+      ],
+      "developpements": ["inversion_locale", "implicites"],
+      "prerequis": ["calcul_differentiel"]
+    },
+    {
+      "numero": 215,
+      "titre": "Applications différentiables définies sur un ouvert de $\\mathbb{R}^n$.",
+      "points_cles": [
+        "Différentielle, gradient",
+        "Dérivées partielles",
+        "Théorème de Schwarz",
+        "Formule de Taylor",
+        "Extrema"
+      ],
+      "developpements": ["taylor_plusieurs_variables", "extrema"],
+      "prerequis": ["calcul_differentiel"]
+    },
+    {
+      "numero": 219,
+      "titre": "Problèmes d'extremums.",
+      "points_cles": [
+        "Extrema libres",
+        "Conditions nécessaires (gradient nul)",
+        "Conditions suffisantes (hessienne)",
+        "Extrema liés (Lagrange)",
+        "Applications"
+      ],
+      "developpements": ["lagrange", "extrema_applications"],
+      "prerequis": ["calcul_differentiel"]
+    },
+    {
+      "numero": 220,
+      "titre": "Équations différentielles $X' = f(t,X)$. Exemples.",
+      "points_cles": [
+        "Cauchy-Lipschitz",
+        "Existence, unicité",
+        "Prolongement des solutions",
+        "Lemme de Gronwall",
+        "Exemples"
+      ],
+      "developpements": ["cauchy_lipschitz", "gronwall"],
+      "prerequis": ["eq_diff_lineaires"]
+    },
+    {
+      "numero": 221,
+      "titre": "Équations différentielles linéaires. Systèmes d'équations différentielles.",
+      "points_cles": [
+        "Structure des solutions",
+        "Wronskien",
+        "Variation de la constante",
+        "Exponentielle de matrice",
+        "Systèmes à coefficients constants"
+      ],
+      "developpements": ["wronskien", "eq_diff_systemes"],
+      "prerequis": ["eq_diff_lineaires"]
+    },
+    {
+      "numero": 223,
+      "titre": "Suites numériques. Convergence, valeurs d'adhérence.",
+      "points_cles": [
+        "Critères de convergence",
+        "Suites extraites",
+        "Bolzano-Weierstrass",
+        "Critère de Cauchy",
+        "Séries"
+      ],
+      "developpements": ["bolzano_weierstrass", "cesaro"],
+      "prerequis": ["suites_reelles"]
+    },
+    {
+      "numero": 226,
+      "titre": "Suites vectorielles et réelles définies par une relation de récurrence.",
+      "points_cles": [
+        "Suites arithmético-géométriques",
+        "Récurrences linéaires",
+        "Point fixe",
+        "Étude qualitative",
+        "Systèmes dynamiques discrets"
+      ],
+      "developpements": ["recurrences_lineaires", "point_fixe_suites"],
+      "prerequis": ["suites_reelles"]
+    },
+    {
+      "numero": 228,
+      "titre": "Continuité, dérivabilité des fonctions réelles d'une variable réelle.",
+      "points_cles": [
+        "Définitions, caractérisations",
+        "Théorème des valeurs intermédiaires",
+        "Rolle, accroissements finis",
+        "Dérivées successives",
+        "Fonctions convexes"
+      ],
+      "developpements": ["rolle_af", "convexite"],
+      "prerequis": ["derivation"]
+    },
+    {
+      "numero": 229,
+      "titre": "Fonctions monotones. Fonctions convexes.",
+      "points_cles": [
+        "Continuité des monotones",
+        "Dérivabilité presque partout",
+        "Caractérisation des convexes",
+        "Inégalités (Jensen, etc.)",
+        "Applications"
+      ],
+      "developpements": ["jensen", "monotone_derivable"],
+      "prerequis": ["derivation", "integration"]
+    },
+    {
+      "numero": 230,
+      "titre": "Séries de nombres réels ou complexes. Comportement des restes.",
+      "points_cles": [
+        "Convergence absolue",
+        "Critères (comparaison, d'Alembert, Cauchy)",
+        "Séries alternées",
+        "Produit de Cauchy",
+        "Sommation"
+      ],
+      "developpements": ["produit_cauchy", "series_alternees"],
+      "prerequis": ["series_numeriques"]
+    },
+    {
+      "numero": 234,
+      "titre": "Fonctions et espaces de fonctions Lebesgue-intégrables.",
+      "points_cles": [
+        "Intégrale de Lebesgue",
+        "Espaces $L^p$",
+        "Convergence dominée",
+        "Fubini",
+        "Complétude"
+      ],
+      "developpements": ["convergence_dominee", "fubini"],
+      "prerequis": ["integration_lebesgue"]
+    },
+    {
+      "numero": 235,
+      "titre": "Intégrales dépendant d'un paramètre, dérivation et limite sous le signe $\\int$.",
+      "points_cles": [
+        "Continuité sous $\\int$",
+        "Dérivation sous $\\int$",
+        "Théorème de convergence dominée",
+        "Applications (Gamma, transformées)",
+        "Exemples"
+      ],
+      "developpements": ["derivation_integrale", "fonction_gamma"],
+      "prerequis": ["integration", "convergences_integrales"]
+    },
+    {
+      "numero": 236,
+      "titre": "Illustrer par des exemples quelques méthodes de calcul d'intégrales.",
+      "points_cles": [
+        "Intégration par parties",
+        "Changement de variable",
+        "Fractions rationnelles",
+        "Intégrales de Wallis",
+        "Résidus (mention)"
+      ],
+      "developpements": ["wallis", "calculs_integrales"],
+      "prerequis": ["integration"]
+    },
+    {
+      "numero": 239,
+      "titre": "Fonctions définies par une intégrale dépendant d'un paramètre.",
+      "points_cles": [
+        "Gamma, Bêta",
+        "Transformée de Fourier",
+        "Transformée de Laplace",
+        "Régularité",
+        "Applications"
+      ],
+      "developpements": ["fonction_gamma", "fourier_L1"],
+      "prerequis": ["integration", "convergences_integrales"]
+    },
+    {
+      "numero": 241,
+      "titre": "Suites et séries de fonctions. Exemples et contre-exemples.",
+      "points_cles": [
+        "Convergence simple, uniforme",
+        "Continuité de la limite",
+        "Dérivation, intégration terme à terme",
+        "Théorème de Dini",
+        "Contre-exemples"
+      ],
+      "developpements": ["dini", "contre_exemples_cv"],
+      "prerequis": ["suites_fonctions"]
+    },
+    {
+      "numero": 243,
+      "titre": "Séries entières, rayon de convergence. Exemples et applications.",
+      "points_cles": [
+        "Rayon de convergence",
+        "Propriétés sur le disque ouvert",
+        "Développements usuels",
+        "Équations différentielles",
+        "Fonctions analytiques"
+      ],
+      "developpements": ["series_entieres_eq_diff", "abel"],
+      "prerequis": ["series_entieres"]
+    },
+    {
+      "numero": 245,
+      "titre": "Fonctions holomorphes sur un ouvert de $\\mathbb{C}$.",
+      "points_cles": [
+        "Définition, Cauchy-Riemann",
+        "Analyticité",
+        "Intégrale de Cauchy",
+        "Principe du maximum",
+        "Résidus"
+      ],
+      "developpements": ["cauchy_integrale", "residus"],
+      "prerequis": ["fonctions_holomorphes"]
+    },
+    {
+      "numero": 246,
+      "titre": "Séries de Fourier. Exemples et applications.",
+      "points_cles": [
+        "Coefficients de Fourier",
+        "Convergence (L², ponctuelle)",
+        "Parseval",
+        "Régularité et décroissance",
+        "Applications (équations de la chaleur)"
+      ],
+      "developpements": ["parseval_fourier", "dirichlet"],
+      "prerequis": ["series_fourier"]
+    },
+    {
+      "numero": 250,
+      "titre": "Transformation de Fourier. Applications.",
+      "points_cles": [
+        "Définition sur $L^1$",
+        "Inversion",
+        "Plancherel",
+        "Convolution",
+        "Applications (EDP, probabilités)"
+      ],
+      "developpements": ["plancherel", "fourier_convolution"],
+      "prerequis": ["series_fourier", "integration_lebesgue"]
+    },
+    {
+      "numero": 253,
+      "titre": "Utilisation de la notion de convexité en analyse.",
+      "points_cles": [
+        "Fonctions convexes",
+        "Inégalités (Jensen, Hölder, Minkowski)",
+        "Ensembles convexes",
+        "Hahn-Banach géométrique",
+        "Applications en optimisation"
+      ],
+      "developpements": ["holder_minkowski", "jensen"],
+      "prerequis": ["derivation", "espaces_normes"]
+    },
+    {
+      "numero": 261,
+      "titre": "Loi d'une variable aléatoire : caractérisations, exemples, applications.",
+      "points_cles": [
+        "Fonction de répartition",
+        "Densité",
+        "Fonction caractéristique",
+        "Lois usuelles",
+        "Moments"
+      ],
+      "developpements": ["fonction_caracteristique", "lois_usuelles"],
+      "prerequis": ["variables_densite", "esperance_variance"]
+    },
+    {
+      "numero": 262,
+      "titre": "Modes de convergence d'une suite de variables aléatoires.",
+      "points_cles": [
+        "Convergence p.s., en proba, en loi, $L^p$",
+        "Implications",
+        "Contre-exemples",
+        "Loi des grands nombres",
+        "Théorème central limite"
+      ],
+      "developpements": ["lgn", "tcl"],
+      "prerequis": ["convergences"]
+    },
+    {
+      "numero": 264,
+      "titre": "Variables aléatoires discrètes. Exemples et applications.",
+      "points_cles": [
+        "Lois discrètes usuelles",
+        "Fonction génératrice",
+        "Espérance, variance",
+        "Processus de Poisson",
+        "Files d'attente"
+      ],
+      "developpements": ["poisson", "generatrice"],
+      "prerequis": ["denombrement", "variables_discretes"]
+    },
+    {
+      "numero": 265,
+      "titre": "Exemples d'études et d'applications de fonctions usuelles.",
+      "points_cles": [
+        "Exponentielle, logarithme",
+        "Fonctions trigonométriques",
+        "Gamma, Bêta",
+        "Fonctions spéciales",
+        "Applications"
+      ],
+      "developpements": ["gamma_beta", "stirling"],
+      "prerequis": ["derivation", "integration"]
+    },
+    {
+      "numero": 266,
+      "titre": "Théorèmes de convergence dominée, monotone. Exemples d'applications.",
+      "points_cles": [
+        "Énoncés précis",
+        "Lemme de Fatou",
+        "Applications aux séries",
+        "Calculs d'intégrales",
+        "Interversions"
+      ],
+      "developpements": ["convergence_dominee", "fatou"],
+      "prerequis": ["convergences_integrales", "integration_lebesgue"]
+    }
+  ]
+}

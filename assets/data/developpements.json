@@ -1,0 +1,404 @@
+{
+  "developpements": [
+    {
+      "id": "sylow",
+      "titre": "Théorèmes de Sylow",
+      "domaine": "Algèbre",
+      "niveau": "Classique",
+      "duree_min": 12,
+      "lecons": [101, 104],
+      "prerequis": ["Action de groupe", "Formule des classes"],
+      "plan": [
+        "1. Premier théorème de Sylow (existence)",
+        "2. Deuxième théorème (conjugaison)",
+        "3. Troisième théorème (nombre de p-Sylow)",
+        "4. Application : groupes d'ordre pq"
+      ],
+      "points_cles": [
+        "Action par translation",
+        "Équation aux classes",
+        "Congruence modulo p"
+      ]
+    },
+    {
+      "id": "simplicite_An",
+      "titre": "Simplicité du groupe alterné $A_n$ pour $n \\geq 5$",
+      "domaine": "Algèbre",
+      "niveau": "Classique",
+      "duree_min": 15,
+      "lecons": [103, 105],
+      "prerequis": ["Cycles, signature", "Sous-groupes distingués"],
+      "plan": [
+        "1. Les 3-cycles engendrent $A_n$",
+        "2. Les 3-cycles sont conjugués dans $A_n$ (n≥5)",
+        "3. Preuve de simplicité",
+        "4. Cas n=5 : isomorphisme avec groupe des rotations de l'icosaèdre"
+      ],
+      "points_cles": [
+        "Lemme : produit de transpositions",
+        "Conjugaison dans $S_n$ vs $A_n$"
+      ]
+    },
+    {
+      "id": "burnside",
+      "titre": "Lemme de Burnside et applications",
+      "domaine": "Algèbre",
+      "niveau": "Classique",
+      "duree_min": 10,
+      "lecons": [101],
+      "prerequis": ["Action de groupe", "Orbites"],
+      "plan": [
+        "1. Énoncé : |X/G| = moyenne des points fixes",
+        "2. Démonstration",
+        "3. Application : colliers de perles",
+        "4. Application : coloriage de polyèdres"
+      ],
+      "points_cles": [
+        "Double comptage",
+        "Exemples numériques"
+      ]
+    },
+    {
+      "id": "cartan_dieudonne",
+      "titre": "Théorème de Cartan-Dieudonné",
+      "domaine": "Algèbre",
+      "niveau": "Difficile",
+      "duree_min": 15,
+      "lecons": [106, 161],
+      "prerequis": ["Réflexions", "Groupe orthogonal"],
+      "plan": [
+        "1. Énoncé : toute isométrie est produit de réflexions",
+        "2. Borne sur le nombre de réflexions",
+        "3. Démonstration par récurrence",
+        "4. Applications : classification des isométries"
+      ],
+      "points_cles": [
+        "Réflexion par rapport à un hyperplan",
+        "Décomposition constructive"
+      ]
+    },
+    {
+      "id": "cayley_hamilton",
+      "titre": "Théorème de Cayley-Hamilton",
+      "domaine": "Algèbre",
+      "niveau": "Classique",
+      "duree_min": 12,
+      "lecons": [153],
+      "prerequis": ["Polynôme caractéristique", "Trigonalisation"],
+      "plan": [
+        "1. Énoncé",
+        "2. Preuve par trigonalisation (sur $\\mathbb{C}$)",
+        "3. Extension à tout corps",
+        "4. Applications : calcul de puissances, inverse"
+      ],
+      "points_cles": [
+        "Densité des matrices trigonalisables",
+        "Comatrice"
+      ]
+    },
+    {
+      "id": "dunford",
+      "titre": "Décomposition de Dunford",
+      "domaine": "Algèbre",
+      "niveau": "Classique",
+      "duree_min": 12,
+      "lecons": [153, 157],
+      "prerequis": ["Polynôme minimal", "Lemme des noyaux"],
+      "plan": [
+        "1. Énoncé : u = d + n avec d diagonalisable, n nilpotent",
+        "2. Unicité sous condition de commutation",
+        "3. Démonstration via sous-espaces caractéristiques",
+        "4. Calcul explicite"
+      ],
+      "points_cles": [
+        "Lemme des noyaux",
+        "Interpolation de Lagrange"
+      ]
+    },
+    {
+      "id": "spectral",
+      "titre": "Théorème spectral",
+      "domaine": "Algèbre",
+      "niveau": "Classique",
+      "duree_min": 12,
+      "lecons": [158, 160],
+      "prerequis": ["Matrices symétriques", "Diagonalisation"],
+      "plan": [
+        "1. Énoncé : diagonalisation en base orthonormée",
+        "2. Valeurs propres réelles",
+        "3. Orthogonalité des espaces propres",
+        "4. Applications : formes quadratiques, inertie"
+      ],
+      "points_cles": [
+        "Preuve par récurrence sur la dimension",
+        "Projecteurs spectraux"
+      ]
+    },
+    {
+      "id": "deux_carres",
+      "titre": "Somme de deux carrés",
+      "domaine": "Algèbre",
+      "niveau": "Classique",
+      "duree_min": 12,
+      "lecons": [122, 126],
+      "prerequis": ["Entiers de Gauss", "Anneaux principaux"],
+      "plan": [
+        "1. Caractérisation : n = a² + b² ssi...",
+        "2. Primalité dans $\\mathbb{Z}[i]$",
+        "3. Critère sur les diviseurs premiers",
+        "4. Exemples et algorithme"
+      ],
+      "points_cles": [
+        "-1 est un carré mod p ssi p ≡ 1 [4]",
+        "Factorisation unique dans $\\mathbb{Z}[i]$"
+      ]
+    },
+    {
+      "id": "stone_weierstrass",
+      "titre": "Théorème de Stone-Weierstrass",
+      "domaine": "Analyse",
+      "niveau": "Classique",
+      "duree_min": 15,
+      "lecons": [201, 202],
+      "prerequis": ["Algèbres de fonctions", "Compacité"],
+      "plan": [
+        "1. Énoncé (version réelle)",
+        "2. Lemme : approximation de |x|",
+        "3. Clôture par treillis",
+        "4. Version complexe et contre-exemple"
+      ],
+      "points_cles": [
+        "Séparante, contient les constantes",
+        "Weierstrass comme corollaire"
+      ]
+    },
+    {
+      "id": "ascoli",
+      "titre": "Théorème d'Ascoli",
+      "domaine": "Analyse",
+      "niveau": "Classique",
+      "duree_min": 12,
+      "lecons": [203],
+      "prerequis": ["Équicontinuité", "Compacité"],
+      "plan": [
+        "1. Définition : équicontinuité, borné",
+        "2. Énoncé : caractérisation des compacts de C(K)",
+        "3. Démonstration",
+        "4. Applications : équations différentielles"
+      ],
+      "points_cles": [
+        "Extraction diagonale",
+        "Totalement borné = précompact"
+      ]
+    },
+    {
+      "id": "banach_point_fixe",
+      "titre": "Théorème du point fixe de Banach",
+      "domaine": "Analyse",
+      "niveau": "Facile",
+      "duree_min": 10,
+      "lecons": [205, 220],
+      "prerequis": ["Espaces complets", "Applications contractantes"],
+      "plan": [
+        "1. Énoncé",
+        "2. Démonstration (suite des itérés)",
+        "3. Vitesse de convergence",
+        "4. Applications : Cauchy-Lipschitz, équations intégrales"
+      ],
+      "points_cles": [
+        "Estimation de l'erreur",
+        "Unicité du point fixe"
+      ]
+    },
+    {
+      "id": "baire",
+      "titre": "Théorème de Baire et applications",
+      "domaine": "Analyse",
+      "niveau": "Classique",
+      "duree_min": 12,
+      "lecons": [202, 205],
+      "prerequis": ["Espaces complets", "Ouverts denses"],
+      "plan": [
+        "1. Énoncé",
+        "2. Démonstration",
+        "3. Application : fonctions nulle part dérivables",
+        "4. Application : Banach-Steinhaus"
+      ],
+      "points_cles": [
+        "Intersection dénombrable d'ouverts denses",
+        "Ensemble maigre"
+      ]
+    },
+    {
+      "id": "cauchy_lipschitz",
+      "titre": "Théorème de Cauchy-Lipschitz",
+      "domaine": "Analyse",
+      "niveau": "Classique",
+      "duree_min": 15,
+      "lecons": [220],
+      "prerequis": ["Point fixe de Banach", "Équations intégrales"],
+      "plan": [
+        "1. Énoncé (local)",
+        "2. Reformulation en équation intégrale",
+        "3. Application du point fixe",
+        "4. Prolongement maximal"
+      ],
+      "points_cles": [
+        "Condition de Lipschitz",
+        "Lemme de Gronwall"
+      ]
+    },
+    {
+      "id": "inversion_locale",
+      "titre": "Théorème d'inversion locale",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "duree_min": 15,
+      "lecons": [214],
+      "prerequis": ["Différentiabilité", "Point fixe"],
+      "plan": [
+        "1. Énoncé",
+        "2. Lemme préliminaire (perturbation de l'identité)",
+        "3. Démonstration",
+        "4. Application : fonctions implicites"
+      ],
+      "points_cles": [
+        "Différentielle inversible",
+        "Difféomorphisme local"
+      ]
+    },
+    {
+      "id": "convergence_dominee",
+      "titre": "Théorème de convergence dominée",
+      "domaine": "Analyse",
+      "niveau": "Classique",
+      "duree_min": 12,
+      "lecons": [234, 266],
+      "prerequis": ["Intégrale de Lebesgue", "Convergence p.s."],
+      "plan": [
+        "1. Énoncé précis",
+        "2. Démonstration via Fatou",
+        "3. Applications : interversion limite-intégrale",
+        "4. Contre-exemple sans domination"
+      ],
+      "points_cles": [
+        "Fonction dominante intégrable",
+        "Convergence dans $L^1$"
+      ]
+    },
+    {
+      "id": "fourier_L1",
+      "titre": "Transformée de Fourier dans $L^1$",
+      "domaine": "Analyse",
+      "niveau": "Classique",
+      "duree_min": 12,
+      "lecons": [250],
+      "prerequis": ["Intégrale de Lebesgue", "Convolution"],
+      "plan": [
+        "1. Définition et propriétés de base",
+        "2. Lemme de Riemann-Lebesgue",
+        "3. Formule d'inversion",
+        "4. Application : équation de la chaleur"
+      ],
+      "points_cles": [
+        "Continuité, tend vers 0 à l'infini",
+        "Convolution ↔ produit"
+      ]
+    },
+    {
+      "id": "parseval_fourier",
+      "titre": "Égalité de Parseval pour les séries de Fourier",
+      "domaine": "Analyse",
+      "niveau": "Classique",
+      "duree_min": 10,
+      "lecons": [213, 246],
+      "prerequis": ["Séries de Fourier", "Espaces de Hilbert"],
+      "plan": [
+        "1. Coefficients de Fourier",
+        "2. Base hilbertienne de $L^2$",
+        "3. Égalité de Parseval",
+        "4. Applications : calcul de séries"
+      ],
+      "points_cles": [
+        "$\\sum |c_n|^2 = \\frac{1}{2\\pi}\\int |f|^2$",
+        "Exemples de calculs"
+      ]
+    },
+    {
+      "id": "fonction_gamma",
+      "titre": "Fonction Gamma d'Euler",
+      "domaine": "Analyse",
+      "niveau": "Classique",
+      "duree_min": 12,
+      "lecons": [235, 239, 265],
+      "prerequis": ["Intégrales impropres", "Dérivation sous l'intégrale"],
+      "plan": [
+        "1. Définition et convergence",
+        "2. Équation fonctionnelle Γ(x+1) = xΓ(x)",
+        "3. Prolongement méromorphe",
+        "4. Formule de Stirling"
+      ],
+      "points_cles": [
+        "Γ(n+1) = n!",
+        "Pôles aux entiers négatifs"
+      ]
+    },
+    {
+      "id": "lgn",
+      "titre": "Loi (forte) des grands nombres",
+      "domaine": "Probabilités",
+      "niveau": "Classique",
+      "duree_min": 12,
+      "lecons": [262],
+      "prerequis": ["Variables indépendantes", "Espérance"],
+      "plan": [
+        "1. Énoncé (version L²)",
+        "2. Démonstration via Tchebychev",
+        "3. Version forte (énoncé)",
+        "4. Applications : méthode de Monte-Carlo"
+      ],
+      "points_cles": [
+        "Indépendance, même loi",
+        "Convergence p.s."
+      ]
+    },
+    {
+      "id": "tcl",
+      "titre": "Théorème central limite",
+      "domaine": "Probabilités",
+      "niveau": "Classique",
+      "duree_min": 15,
+      "lecons": [262],
+      "prerequis": ["Fonctions caractéristiques", "Convergence en loi"],
+      "plan": [
+        "1. Énoncé",
+        "2. Preuve via fonctions caractéristiques",
+        "3. Vitesse de convergence (Berry-Esseen)",
+        "4. Applications : intervalles de confiance"
+      ],
+      "points_cles": [
+        "Normalisation",
+        "Lévy : φ_n → φ implique convergence en loi"
+      ]
+    },
+    {
+      "id": "wallis",
+      "titre": "Intégrales de Wallis et formule de Stirling",
+      "domaine": "Analyse",
+      "niveau": "Facile",
+      "duree_min": 10,
+      "lecons": [236, 265],
+      "prerequis": ["Intégration par parties", "Équivalents"],
+      "plan": [
+        "1. Calcul des intégrales de Wallis",
+        "2. Relation de récurrence",
+        "3. Équivalent de W_n",
+        "4. Formule de Stirling"
+      ],
+      "points_cles": [
+        "$W_n \\sim \\sqrt{\\pi/(2n)}$",
+        "$n! \\sim \\sqrt{2\\pi n}(n/e)^n$"
+      ]
+    }
+  ]
+}

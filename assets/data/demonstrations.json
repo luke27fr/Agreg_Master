@@ -1,0 +1,228 @@
+{
+  "demonstrations": [
+    {
+      "id": "lagrange",
+      "titre": "Théorème de Lagrange (ordre d'un sous-groupe)",
+      "domaine": "Algèbre",
+      "enonce": "Si $H$ est un sous-groupe de $G$ fini, alors $|H|$ divise $|G|$.",
+      "preuve": [
+        "On considère la relation d'équivalence : $x \\sim y \\Leftrightarrow x^{-1}y \\in H$.",
+        "Les classes d'équivalence sont les classes à gauche $gH = \\{gh : h \\in H\\}$.",
+        "Toutes les classes ont le même cardinal $|H|$ (car $g \\cdot : H \\to gH$ est une bijection).",
+        "Les classes partitionnent $G$, donc $|G| = [G:H] \\cdot |H|$."
+      ],
+      "corollaires": [
+        "L'ordre d'un élément divise l'ordre du groupe",
+        "Un groupe d'ordre premier est cyclique"
+      ],
+      "lecons": [104],
+      "tags": ["groupes", "cardinal"]
+    },
+    {
+      "id": "rolle",
+      "titre": "Théorème de Rolle",
+      "domaine": "Analyse",
+      "enonce": "Si $f : [a,b] \\to \\mathbb{R}$ est continue sur $[a,b]$, dérivable sur $]a,b[$, et $f(a) = f(b)$, alors $\\exists c \\in ]a,b[$ tel que $f'(c) = 0$.",
+      "preuve": [
+        "Si $f$ est constante, $f' = 0$ partout.",
+        "Sinon, $f$ atteint son max ou min en un point intérieur $c$ (Weierstrass).",
+        "En ce point, $f'(c) = 0$ (condition nécessaire d'extremum)."
+      ],
+      "corollaires": [
+        "Théorème des accroissements finis",
+        "Inégalité des accroissements finis"
+      ],
+      "lecons": [228],
+      "tags": ["dérivation", "extremum"]
+    },
+    {
+      "id": "tvi",
+      "titre": "Théorème des valeurs intermédiaires",
+      "domaine": "Analyse",
+      "enonce": "Si $f : [a,b] \\to \\mathbb{R}$ est continue et $y$ est entre $f(a)$ et $f(b)$, alors $\\exists c \\in [a,b]$ tel que $f(c) = y$.",
+      "preuve": [
+        "On suppose $f(a) < y < f(b)$ (l'autre cas est symétrique).",
+        "Soit $A = \\{x \\in [a,b] : f(x) \\leq y\\}$. $A$ est non vide ($a \\in A$) et majoré.",
+        "Soit $c = \\sup A$. Par continuité, $f(c) = y$.",
+        "Si $f(c) < y$, on pourrait prolonger au-delà de $c$. Si $f(c) > y$, on aurait $c \\notin \\overline{A}$."
+      ],
+      "corollaires": [
+        "Image continue d'un intervalle est un intervalle",
+        "Théorème de Bolzano (version avec $f(a)f(b) < 0$)"
+      ],
+      "lecons": [204, 228],
+      "tags": ["continuité", "connexité"]
+    },
+    {
+      "id": "bezout",
+      "titre": "Identité de Bézout",
+      "domaine": "Algèbre",
+      "enonce": "Si $\\gcd(a,b) = d$, alors $\\exists u,v \\in \\mathbb{Z}$ tels que $au + bv = d$.",
+      "preuve": [
+        "Soit $I = \\{ax + by : x,y \\in \\mathbb{Z}\\}$. C'est un idéal de $\\mathbb{Z}$.",
+        "Comme $\\mathbb{Z}$ est principal, $I = d'\\mathbb{Z}$ pour un certain $d' > 0$.",
+        "On a $d' | a$ et $d' | b$ donc $d' | d$.",
+        "Inversement, $d | d'$ car $d' \\in I$ s'écrit $d' = ax + by$ avec $d|a$ et $d|b$.",
+        "Donc $d = d'$."
+      ],
+      "corollaires": [
+        "Lemme de Gauss",
+        "Théorème de Bézout généralisé"
+      ],
+      "lecons": [121, 142],
+      "tags": ["arithmétique", "PGCD"]
+    },
+    {
+      "id": "bolzano_weierstrass",
+      "titre": "Théorème de Bolzano-Weierstrass",
+      "domaine": "Analyse",
+      "enonce": "Toute suite bornée de réels admet une sous-suite convergente.",
+      "preuve": [
+        "Soit $(x_n)$ bornée dans $[a,b]$.",
+        "Dichotomie : l'un des intervalles $[a, (a+b)/2]$ ou $[(a+b)/2, b]$ contient une infinité de termes.",
+        "On construit par récurrence des intervalles emboîtés $[a_n, b_n]$ avec $b_n - a_n = (b-a)/2^n$.",
+        "L'intersection contient un unique point $\\ell$.",
+        "La sous-suite des termes dans chaque intervalle converge vers $\\ell$."
+      ],
+      "corollaires": [
+        "Les compacts de $\\mathbb{R}^n$ sont les fermés bornés",
+        "Théorème de Weierstrass (bornes atteintes)"
+      ],
+      "lecons": [203, 223],
+      "tags": ["suites", "compacité"]
+    },
+    {
+      "id": "cayley_hamilton_demo",
+      "titre": "Théorème de Cayley-Hamilton",
+      "domaine": "Algèbre",
+      "enonce": "Toute matrice annule son polynôme caractéristique : $\\chi_A(A) = 0$.",
+      "preuve": [
+        "Méthode 1 (sur $\\mathbb{C}$) : $A$ est semblable à une triangulaire $T$.",
+        "On vérifie que $\\chi_T(T) = 0$ (calcul direct avec les blocs).",
+        "Méthode 2 (générale) : utiliser la comatrice.",
+        "$(XI - A) \\cdot \\text{Com}(XI-A)^T = \\det(XI-A) \\cdot I = \\chi_A(X) \\cdot I$.",
+        "La comatrice est polynomiale en $X$, on peut substituer $A$ à $X$."
+      ],
+      "corollaires": [
+        "Le polynôme minimal divise le polynôme caractéristique",
+        "Degré du polynôme minimal ≤ n"
+      ],
+      "lecons": [153],
+      "tags": ["réduction", "polynôme caractéristique"]
+    },
+    {
+      "id": "spectral_demo",
+      "titre": "Théorème spectral (matrices symétriques réelles)",
+      "domaine": "Algèbre",
+      "enonce": "Toute matrice symétrique réelle est diagonalisable dans une base orthonormée.",
+      "preuve": [
+        "Étape 1 : Les valeurs propres sont réelles.",
+        "Si $Ax = \\lambda x$ avec $x \\neq 0$, alors $\\lambda \\|x\\|^2 = \\langle Ax, x \\rangle = \\langle x, Ax \\rangle = \\bar{\\lambda} \\|x\\|^2$.",
+        "Étape 2 : Espaces propres orthogonaux.",
+        "Si $Ax = \\lambda x$ et $Ay = \\mu y$ avec $\\lambda \\neq \\mu$, alors $\\langle x, y \\rangle = 0$.",
+        "Étape 3 : Récurrence sur la dimension.",
+        "Soit $\\lambda$ une valeur propre, $F = \\ker(A - \\lambda I)$. Alors $F^\\perp$ est stable par $A$."
+      ],
+      "corollaires": [
+        "Classification des quadriques",
+        "Théorème de Sylvester (signature)"
+      ],
+      "lecons": [158, 170],
+      "tags": ["diagonalisation", "formes quadratiques"]
+    },
+    {
+      "id": "convergence_dominee_demo",
+      "titre": "Théorème de convergence dominée",
+      "domaine": "Analyse",
+      "enonce": "Si $f_n \\to f$ p.p., $|f_n| \\leq g$ intégrable, alors $\\int f_n \\to \\int f$.",
+      "preuve": [
+        "Par Fatou appliqué à $g + f_n \\geq 0$ : $\\int (g+f) \\leq \\liminf \\int (g + f_n)$.",
+        "Donc $\\int f \\leq \\liminf \\int f_n$.",
+        "Par Fatou appliqué à $g - f_n \\geq 0$ : $\\int (g-f) \\leq \\liminf \\int (g - f_n)$.",
+        "Donc $\\int f \\geq \\limsup \\int f_n$.",
+        "On a donc $\\liminf = \\limsup = \\int f$."
+      ],
+      "corollaires": [
+        "Dérivation sous le signe intégrale",
+        "Convergence dans $L^1$"
+      ],
+      "lecons": [234, 266],
+      "tags": ["intégration", "Lebesgue"]
+    },
+    {
+      "id": "weierstrass_demo",
+      "titre": "Théorème d'approximation de Weierstrass",
+      "domaine": "Analyse",
+      "enonce": "Toute fonction continue sur $[a,b]$ est limite uniforme de polynômes.",
+      "preuve": [
+        "On se ramène à $[0,1]$ par changement de variable.",
+        "Polynômes de Bernstein : $B_n(f)(x) = \\sum_{k=0}^n f(k/n) \\binom{n}{k} x^k (1-x)^{n-k}$.",
+        "On montre que $B_n(f) \\to f$ uniformément.",
+        "Utilise la continuité uniforme de $f$ sur $[0,1]$ compact.",
+        "Estimation via l'inégalité de Bienaymé-Tchebychev."
+      ],
+      "corollaires": [
+        "Stone-Weierstrass (généralisation)",
+        "Densité des polynômes trigonométriques"
+      ],
+      "lecons": [201, 202],
+      "tags": ["approximation", "polynômes"]
+    },
+    {
+      "id": "point_fixe_banach",
+      "titre": "Théorème du point fixe de Banach",
+      "domaine": "Analyse",
+      "enonce": "Soit $(E,d)$ complet et $f : E \\to E$ contractante ($d(f(x),f(y)) \\leq k \\cdot d(x,y)$ avec $k < 1$). Alors $f$ a un unique point fixe.",
+      "preuve": [
+        "Unicité : si $f(x) = x$ et $f(y) = y$, alors $d(x,y) = d(f(x),f(y)) \\leq k \\cdot d(x,y)$, donc $d(x,y) = 0$.",
+        "Existence : soit $x_0 \\in E$ et $x_{n+1} = f(x_n)$.",
+        "$d(x_{n+1}, x_n) \\leq k^n d(x_1, x_0)$.",
+        "$(x_n)$ est de Cauchy : $d(x_{n+p}, x_n) \\leq \\frac{k^n}{1-k} d(x_1, x_0)$.",
+        "Par complétude, $x_n \\to \\ell$. Par continuité de $f$, $f(\\ell) = \\ell$."
+      ],
+      "corollaires": [
+        "Cauchy-Lipschitz",
+        "Théorème d'inversion locale"
+      ],
+      "lecons": [205, 220],
+      "tags": ["point fixe", "espaces complets"]
+    },
+    {
+      "id": "gauss_lemme",
+      "titre": "Lemme de Gauss",
+      "domaine": "Algèbre",
+      "enonce": "Si $a | bc$ et $\\gcd(a,b) = 1$, alors $a | c$.",
+      "preuve": [
+        "Par Bézout, $\\exists u, v$ tels que $au + bv = 1$.",
+        "Donc $auc + bvc = c$.",
+        "Or $a | auc$ et $a | bvc$ (car $a | bc$).",
+        "Donc $a | c$."
+      ],
+      "corollaires": [
+        "Unicité de la décomposition en facteurs premiers",
+        "Irréductibilité de $\\mathbb{Z} \\to \\mathbb{Q}$ (Gauss)"
+      ],
+      "lecons": [121, 122],
+      "tags": ["arithmétique", "divisibilité"]
+    },
+    {
+      "id": "sylow_premier",
+      "titre": "Premier théorème de Sylow",
+      "domaine": "Algèbre",
+      "enonce": "Si $p^k$ divise $|G|$, alors $G$ possède un sous-groupe d'ordre $p^k$.",
+      "preuve": [
+        "Action de $G$ sur l'ensemble $X$ des parties à $p^k$ éléments.",
+        "Pour $A \\in X$, $|G \\cdot A| = [G : \\text{Stab}(A)]$ divise $|G|$.",
+        "On montre que $|X| \\not\\equiv 0 \\pmod{p}$ (formule de Lucas).",
+        "Donc $\\exists A$ avec $|G \\cdot A| \\not\\equiv 0 \\pmod{p}$.",
+        "Cela implique $|\\text{Stab}(A)| \\geq p^k$, et l'inclusion donne l'égalité."
+      ],
+      "corollaires": [
+        "Existence des p-sous-groupes de Sylow",
+        "Théorème de Cauchy (cas particulier)"
+      ],
+      "lecons": [101, 104],
+      "tags": ["groupes", "Sylow"]
+    }
+  ]
+}

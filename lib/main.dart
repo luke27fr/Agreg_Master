@@ -12,6 +12,7 @@ import 'package:agreg_master/pages/stats_page.dart';
 import 'package:agreg_master/pages/review_page.dart';
 import 'package:agreg_master/pages/flashcards_page.dart';
 import 'package:agreg_master/pages/settings_page.dart';
+import 'package:agreg_master/pages/agregation_hub_page.dart';
 import 'package:agreg_master/services/score_service.dart';
 import 'package:agreg_master/services/favorites_service.dart';
 import 'package:agreg_master/services/notes_service.dart';
@@ -560,6 +561,28 @@ class _ThemesScreenState extends State<ThemesScreen> {
               _buildStatsCard(),
 
               const SizedBox(height: 16),
+
+              // Bouton accès rapide Préparation Agrégation
+              Container(
+                width: double.infinity,
+                margin: const EdgeInsets.only(bottom: 12),
+                child: ElevatedButton.icon(
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const AgregationHubPage()),
+                  ),
+                  icon: const Icon(Icons.school, size: 20),
+                  label: const Text('Préparation Agrégation'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF1A237E),
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+              ),
 
               // 3. Boutons rapides (Révision, Stats, Flashcards, Favoris)
               Row(

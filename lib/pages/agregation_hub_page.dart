@@ -1,0 +1,357 @@
+import 'package:flutter/material.dart';
+import 'lecons_page.dart';
+import 'developpements_page.dart';
+import 'contre_exemples_page.dart';
+import 'demonstrations_page.dart';
+import 'exercices_page.dart';
+import 'planificateur_page.dart';
+import 'simulation_page.dart';
+
+class AgregationHubPage extends StatelessWidget {
+  const AgregationHubPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return Scaffold(
+      backgroundColor: isDark ? const Color(0xFF121212) : const Color(0xFFF5F7FA),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: const BackButton(),
+        title: const Text('Préparation Agrégation', style: TextStyle(fontWeight: FontWeight.bold)),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Bannière
+            Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF1A237E), Color(0xFF3949AB)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: const Row(
+                children: [
+                  Icon(Icons.school, size: 48, color: Colors.white),
+                  SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Agrégation de Mathématiques',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          'Tous les outils pour réussir',
+                          style: TextStyle(color: Colors.white70),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 24),
+
+            // Section Oral
+            const Text(
+              'Préparation Oral',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 12),
+
+            Row(
+              children: [
+                Expanded(
+                  child: _buildFeatureCard(
+                    context,
+                    icon: Icons.menu_book,
+                    title: 'Leçons',
+                    subtitle: '70+ leçons',
+                    color: Colors.blue,
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const LeconsPage()),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _buildFeatureCard(
+                    context,
+                    icon: Icons.science,
+                    title: 'Développements',
+                    subtitle: 'Plans détaillés',
+                    color: Colors.purple,
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const DeveloppementsPage()),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 12),
+
+            Row(
+              children: [
+                Expanded(
+                  child: _buildFeatureCard(
+                    context,
+                    icon: Icons.warning_amber,
+                    title: 'Contre-exemples',
+                    subtitle: 'Erreurs classiques',
+                    color: Colors.red,
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const ContreExemplesPage()),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _buildFeatureCard(
+                    context,
+                    icon: Icons.functions,
+                    title: 'Démonstrations',
+                    subtitle: 'Théorèmes clés',
+                    color: Colors.green,
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const DemonstrationsPage()),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 12),
+
+            _buildWideFeatureCard(
+              context,
+              isDark,
+              icon: Icons.fitness_center,
+              title: 'Exercices classiques',
+              subtitle: 'Entraînez-vous sur les incontournables',
+              color: Colors.indigo,
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const ExercicesPage()),
+              ),
+            ),
+
+            const SizedBox(height: 24),
+
+            // Section Écrit
+            const Text(
+              'Préparation Écrit',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 12),
+
+            _buildWideFeatureCard(
+              context,
+              isDark,
+              icon: Icons.timer,
+              title: 'Simulation Écrit',
+              subtitle: 'Entraînez-vous en conditions réelles (5h)',
+              color: const Color(0xFF1A237E),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const SimulationPage()),
+              ),
+            ),
+
+            const SizedBox(height: 24),
+
+            // Section Organisation
+            const Text(
+              'Organisation',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 12),
+
+            _buildWideFeatureCard(
+              context,
+              isDark,
+              icon: Icons.calendar_month,
+              title: 'Planificateur de révision',
+              subtitle: 'Organisez vos révisions jour par jour',
+              color: Colors.orange,
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const PlanificateurPage()),
+              ),
+            ),
+
+            const SizedBox(height: 24),
+
+            // Conseils
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: isDark ? const Color(0xFF1E1E1E) : Colors.white,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Row(
+                    children: [
+                      Icon(Icons.lightbulb, color: Colors.amber),
+                      SizedBox(width: 8),
+                      Text(
+                        'Conseils de préparation',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  _buildConseil('Maîtrisez parfaitement 2 développements par leçon'),
+                  _buildConseil('Travaillez les leçons par thème et non par numéro'),
+                  _buildConseil('Pratiquez régulièrement les simulations écrites'),
+                  _buildConseil('Révisez les contre-exemples classiques'),
+                  _buildConseil('Connaissez les démonstrations des théorèmes fondamentaux'),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFeatureCard(
+    BuildContext context, {
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      color: isDark ? const Color(0xFF1E1E1E) : Colors.white,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: color.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(icon, color: color),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                title,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                subtitle,
+                style: TextStyle(color: Colors.grey[600], fontSize: 12),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildWideFeatureCard(
+    BuildContext context,
+    bool isDark, {
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      color: isDark ? const Color(0xFF1E1E1E) : Colors.white,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: color.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(icon, color: color, size: 28),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      subtitle,
+                      style: TextStyle(color: Colors.grey[600], fontSize: 13),
+                    ),
+                  ],
+                ),
+              ),
+              const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildConseil(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Icon(Icons.check, size: 16, color: Colors.green),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              text,
+              style: TextStyle(color: Colors.grey[700], fontSize: 13),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
