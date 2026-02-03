@@ -13,7 +13,6 @@ class _MindMapPageState extends State<MindMapPage> with SingleTickerProviderStat
   final MindMapService _service = MindMapService();
   late TabController _tabController;
   String _selectedDomaine = 'Algèbre';
-  String? _selectedNodeId;
 
   @override
   void initState() {
@@ -106,10 +105,6 @@ class _MindMapPageState extends State<MindMapPage> with SingleTickerProviderStat
             ),
           ),
         ),
-
-        // Détails du nœud sélectionné
-        if (_selectedNodeId != null)
-          _buildNodeDetails(_service.getNode(_selectedNodeId!)!, isDark),
       ],
     );
   }
@@ -160,22 +155,20 @@ class _MindMapPageState extends State<MindMapPage> with SingleTickerProviderStat
   }
 
   Widget _buildNodeCard(MindMapNode node, bool isDark) {
-    final isSelected = _selectedNodeId == node.id;
     final hasPrereq = node.prerequisIds.isNotEmpty;
     final hasNext = node.suivantIds.isNotEmpty;
 
-    return GestureDetector(
-      onTap: () => setState(() => _selectedNodeId = node.id),
+    return InkWell(
+      onTap: () => _showNodeDialog(node),
+      borderRadius: BorderRadius.circular(12),
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: isSelected 
-              ? const Color(0xFF1A237E)
-              : (isDark ? const Color(0xFF1E1E1E) : Colors.white),
+          color: isDark ? const Color(0xFF1E1E1E) : Colors.white,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: isSelected ? const Color(0xFF1A237E) : Colors.grey.withOpacity(0.3),
-            width: isSelected ? 2 : 1,
+            color: _getTypeColor(node.type).withOpacity(0.3),
+            width: 1.5,
           ),
         ),
         child: Column(
@@ -187,16 +180,15 @@ class _MindMapPageState extends State<MindMapPage> with SingleTickerProviderStat
                 Icon(
                   _getNodeIcon(node.type),
                   size: 16,
-                  color: isSelected ? Colors.white : _getTypeColor(node.type),
+                  color: _getTypeColor(node.type),
                 ),
                 const SizedBox(width: 6),
                 Flexible(
                   child: Text(
                     node.titre,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 13,
-                      color: isSelected ? Colors.white : null,
                     ),
                   ),
                 ),
@@ -207,147 +199,30 @@ class _MindMapPageState extends State<MindMapPage> with SingleTickerProviderStat
               mainAxisSize: MainAxisSize.min,
               children: [
                 if (hasPrereq)
-                  Icon(
+                  const Icon(
                     Icons.arrow_upward,
                     size: 12,
-                    color: isSelected ? Colors.white70 : Colors.orange,
+                    color: Colors.orange,
                   ),
                 if (hasPrereq) const SizedBox(width: 4),
                 if (hasNext)
-                  Icon(
+                  const Icon(
                     Icons.arrow_downward,
                     size: 12,
-                    color: isSelected ? Colors.white70 : Colors.green,
+                    color: Colors.green,
                   ),
                 if (hasNext) const SizedBox(width: 4),
                 Text(
                   node.type,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 10,
-                    color: isSelected ? Colors.white70 : Colors.grey,
+                    color: Colors.grey,
                   ),
                 ),
               ],
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildNodeDetails(MindMapNode node, bool isDark) {
-    final prereqs = _service.getPrerequisites(node.id);
-    final next = _service.getNextNodes(node.id);
-
-    return Container(
-      margin: const EdgeInsets.all(16),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: isDark ? const Color(0xFF1E1E1E) : Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, -2),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            children: [
-              Icon(_getNodeIcon(node.type), color: _getTypeColor(node.type)),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  node.titre,
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-              ),
-              IconButton(
-                icon: const Icon(Icons.close),
-                onPressed: () => setState(() => _selectedNodeId = null),
-              ),
-            ],
-          ),
-
-          if (node.description != null) ...[
-            const SizedBox(height: 12),
-            Text(node.description!),
-          ],
-
-          if (node.motsCles.isNotEmpty) ...[
-            const SizedBox(height: 12),
-            Wrap(
-              spacing: 6,
-              runSpacing: 6,
-              children: node.motsCles.map((mot) {
-                return Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: Colors.blue.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Text(
-                    mot,
-                    style: const TextStyle(fontSize: 11, color: Colors.blue),
-                  ),
-                );
-              }).toList(),
-            ),
-          ],
-
-          if (prereqs.isNotEmpty) ...[
-            const SizedBox(height: 16),
-            const Text(
-              'Prérequis :',
-              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.orange),
-            ),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 6,
-              runSpacing: 6,
-              children: prereqs.map((n) {
-                return Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: Colors.orange.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.orange.withOpacity(0.3)),
-                  ),
-                  child: Text(n.titre, style: const TextStyle(fontSize: 12)),
-                );
-              }).toList(),
-            ),
-          ],
-
-          if (next.isNotEmpty) ...[
-            const SizedBox(height: 16),
-            const Text(
-              'Permet d\'aborder :',
-              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
-            ),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 6,
-              runSpacing: 6,
-              children: next.map((n) {
-                return Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: Colors.green.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.green.withOpacity(0.3)),
-                  ),
-                  child: Text(n.titre, style: const TextStyle(fontSize: 12)),
-                );
-              }).toList(),
-            ),
-          ],
-        ],
       ),
     );
   }
@@ -491,6 +366,229 @@ class _MindMapPageState extends State<MindMapPage> with SingleTickerProviderStat
       selectedColor: const Color(0xFF1A237E),
       labelStyle: TextStyle(
         color: isSelected ? Colors.white : null,
+      ),
+    );
+  }
+
+  void _showNodeDialog(MindMapNode node) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        contentPadding: EdgeInsets.zero,
+        content: Container(
+          width: MediaQuery.of(context).size.width * 0.85,
+          constraints: const BoxConstraints(maxHeight: 600),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // En-tête
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [_getTypeColor(node.type), _getTypeColor(node.type).withOpacity(0.7)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(_getNodeIcon(node.type), color: Colors.white, size: 28),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Text(
+                            node.titre,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.3),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(_getLevelIcon(node.niveau), color: Colors.white, size: 14),
+                              const SizedBox(width: 4),
+                              Text(
+                                'Niveau ${node.niveau}',
+                                style: const TextStyle(color: Colors.white, fontSize: 12),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.3),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              ...List.generate(node.difficulte, (_) => const Icon(Icons.star, size: 12, color: Colors.white)),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              // Contenu
+              Flexible(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Description
+                      if (node.description != null && node.description!.isNotEmpty) ...[
+                        const Text(
+                          'Description',
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(node.description!, style: const TextStyle(fontSize: 14)),
+                        const SizedBox(height: 20),
+                      ],
+
+                      // Prérequis (cliquables)
+                      if (node.prerequisIds.isNotEmpty) ...[
+                        const Row(
+                          children: [
+                            Icon(Icons.arrow_back, size: 18, color: Colors.orange),
+                            SizedBox(width: 6),
+                            Text(
+                              'Prérequis',
+                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: node.prerequisIds.map((id) {
+                            final prereqNode = _service.getNode(id);
+                            if (prereqNode == null) return const SizedBox.shrink();
+                            return InkWell(
+                              onTap: () {
+                                Navigator.of(context).pop();
+                                _showNodeDialog(prereqNode);
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                decoration: BoxDecoration(
+                                  color: _getTypeColor(prereqNode.type).withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(20),
+                                  border: Border.all(color: _getTypeColor(prereqNode.type)),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(_getNodeIcon(prereqNode.type), size: 14, color: _getTypeColor(prereqNode.type)),
+                                    const SizedBox(width: 6),
+                                    Text(
+                                      prereqNode.titre,
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        color: _getTypeColor(prereqNode.type),
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 4),
+                                    Icon(Icons.touch_app, size: 12, color: _getTypeColor(prereqNode.type).withOpacity(0.7)),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                        const SizedBox(height: 20),
+                      ],
+
+                      // Concepts suivants (cliquables)
+                      if (node.suivantIds.isNotEmpty) ...[
+                        const Row(
+                          children: [
+                            Icon(Icons.arrow_forward, size: 18, color: Colors.green),
+                            SizedBox(width: 6),
+                            Text(
+                              'Concepts suivants',
+                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: node.suivantIds.map((id) {
+                            final nextNode = _service.getNode(id);
+                            if (nextNode == null) return const SizedBox.shrink();
+                            return InkWell(
+                              onTap: () {
+                                Navigator.of(context).pop();
+                                _showNodeDialog(nextNode);
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                decoration: BoxDecoration(
+                                  color: _getTypeColor(nextNode.type).withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(20),
+                                  border: Border.all(color: _getTypeColor(nextNode.type)),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(_getNodeIcon(nextNode.type), size: 14, color: _getTypeColor(nextNode.type)),
+                                    const SizedBox(width: 6),
+                                    Text(
+                                      nextNode.titre,
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        color: _getTypeColor(nextNode.type),
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 4),
+                                    Icon(Icons.touch_app, size: 12, color: _getTypeColor(nextNode.type).withOpacity(0.7)),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Fermer'),
+          ),
+        ],
       ),
     );
   }
