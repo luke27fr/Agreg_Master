@@ -7,6 +7,9 @@ import 'package:markdown/markdown.dart' as md;
 import 'dart:convert';
 import 'package:agreg_master/models/quiz_model.dart';
 import 'package:agreg_master/pages/quiz_page.dart';
+import 'package:agreg_master/services/favorites_service.dart';
+import 'package:agreg_master/services/notes_service.dart';
+import 'package:agreg_master/services/score_service.dart';
 
 /// Custom builder for <glossary> tags that renders them as clickable links
 class GlossaryElementBuilder extends MarkdownElementBuilder {
@@ -64,6 +67,17 @@ class _FichePageState extends State<FichePage> {
   // Variables d'état
   List<QuizQuestion> quizQuestions = [];
   Map<String, String> _glossaire = {};
+  
+  // Services
+  final FavoritesService _favoritesService = FavoritesService();
+  final NotesService _notesService = NotesService();
+  final ScoreService _scoreService = ScoreService();
+  
+  // Controller pour les notes
+  final TextEditingController _notesController = TextEditingController();
+  bool _isEditingNotes = false;
+
+  String get _ficheId => widget.assetPath.split('/').last.replaceAll('.md', '');
 
   @override
   void initState() {
@@ -71,6 +85,33 @@ class _FichePageState extends State<FichePage> {
     _loadContent();
     _loadQuiz();
     _loadGlossaire();
+    _favoritesService.addListener(_onDataChanged);
+    _notesService.addListener(_onDataChanged);
+    _loadNotes();
+  }
+
+  @override
+  void dispose() {
+    _favoritesService.removeListener(_onDataChanged);
+    _notesService.removeListener(_onDataChanged);
+    _notesController.dispose();
+    super.dispose();
+  }
+
+  void _onDataChanged() {
+    if (mounted) setState(() {});
+  }
+
+  void _loadNotes() {
+    final note = _notesService.getNote(_ficheId);
+    if (note != null) {
+      _notesController.text = note.content;
+    }
+  }
+
+  Future<void> _saveNotes() async {
+    await _notesService.saveNote(_ficheId, _notesController.text);
+    setState(() => _isEditingNotes = false);
   }
 
   // Chargement du glossaire depuis JSON (81 définitions)
@@ -175,6 +216,10 @@ class _FichePageState extends State<FichePage> {
 
     final fileName = widget.assetPath.split('/').last.replaceAll('.md', '');
     final title = _titleCase(fileName);
+    final isFavorite = _favoritesService.isFavorite(_ficheId);
+    final hasNote = _notesService.hasNote(_ficheId);
+    final score = _scoreService.getScore(_ficheId);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     // Découpage : blockquotes entiers (>) en un segment chacun, reste en texte/formules.
     final segments = _splitContentWithMath(_content);
@@ -184,12 +229,60 @@ class _FichePageState extends State<FichePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
+        actions: [
+          // Score badge
+          if (score != null)
+            Center(
+              child: Container(
+                margin: const EdgeInsets.only(right: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: _getScoreColor(score.percentage).withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  '${score.percentage.round()}%',
+                  style: TextStyle(
+                    color: _getScoreColor(score.percentage),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ),
+          // Bouton Notes
+          IconButton(
+            icon: Icon(
+              hasNote ? Icons.note : Icons.note_add_outlined,
+              color: hasNote ? Colors.blue : null,
+            ),
+            onPressed: () => _showNotesDialog(context),
+            tooltip: 'Notes personnelles',
+          ),
+          // Bouton Favoris
+          IconButton(
+            icon: Icon(
+              isFavorite ? Icons.star : Icons.star_border,
+              color: isFavorite ? Colors.amber : null,
+            ),
+            onPressed: () => _favoritesService.toggleFavorite(_ficheId),
+            tooltip: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris',
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: bodyRows,
+          children: [
+            ...bodyRows,
+            // Section notes si présente
+            if (hasNote) ...[
+              const SizedBox(height: 24),
+              _buildNotesPreview(isDark),
+            ],
+            const SizedBox(height: 80), // Espace pour le FAB
+          ],
         ),
       ),
       floatingActionButton: quizQuestions.isNotEmpty
@@ -201,6 +294,7 @@ class _FichePageState extends State<FichePage> {
                     builder: (context) => QuizPage(
                       title: title,
                       questions: quizQuestions,
+                      ficheId: _ficheId,
                     ),
                   ),
                 );
@@ -211,6 +305,103 @@ class _FichePageState extends State<FichePage> {
               foregroundColor: Colors.white,
             )
           : null,
+    );
+  }
+
+  Color _getScoreColor(double percentage) {
+    if (percentage >= 80) return Colors.green;
+    if (percentage >= 60) return Colors.orange;
+    return Colors.red;
+  }
+
+  Widget _buildNotesPreview(bool isDark) {
+    final note = _notesService.getNote(_ficheId);
+    if (note == null) return const SizedBox.shrink();
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: isDark ? Colors.blue.withOpacity(0.1) : Colors.blue[50],
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.blue.withOpacity(0.3)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(Icons.note, color: Colors.blue, size: 20),
+              const SizedBox(width: 8),
+              const Text(
+                'Mes notes',
+                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
+              ),
+              const Spacer(),
+              IconButton(
+                icon: const Icon(Icons.edit, size: 18),
+                onPressed: () => _showNotesDialog(context),
+                padding: EdgeInsets.zero,
+                constraints: const BoxConstraints(),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            note.content,
+            style: TextStyle(color: isDark ? Colors.white70 : Colors.grey[800]),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showNotesDialog(BuildContext context) {
+    final note = _notesService.getNote(_ficheId);
+    _notesController.text = note?.content ?? '';
+
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Row(
+          children: [
+            Icon(Icons.note, color: Colors.blue),
+            SizedBox(width: 8),
+            Text('Notes personnelles'),
+          ],
+        ),
+        content: SizedBox(
+          width: double.maxFinite,
+          child: TextField(
+            controller: _notesController,
+            maxLines: 8,
+            decoration: const InputDecoration(
+              hintText: 'Ajoutez vos notes ici...',
+              border: OutlineInputBorder(),
+            ),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('Annuler'),
+          ),
+          if (note != null)
+            TextButton(
+              onPressed: () {
+                _notesService.deleteNote(_ficheId);
+                Navigator.pop(ctx);
+              },
+              child: const Text('Supprimer', style: TextStyle(color: Colors.red)),
+            ),
+          ElevatedButton(
+            onPressed: () {
+              _notesService.saveNote(_ficheId, _notesController.text);
+              Navigator.pop(ctx);
+            },
+            child: const Text('Enregistrer'),
+          ),
+        ],
+      ),
     );
   }
   /// Regroupe les segments en « lignes » : texte + formules inline dans un Wrap (fluide),

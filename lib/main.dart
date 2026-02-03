@@ -4,31 +4,68 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-// Tes imports existants
+// Imports
 import 'package:agreg_master/models/quiz_model.dart';
 import 'package:agreg_master/pages/quiz_page.dart';
+import 'package:agreg_master/pages/search_page.dart';
+import 'package:agreg_master/pages/stats_page.dart';
+import 'package:agreg_master/pages/review_page.dart';
 import 'package:agreg_master/services/score_service.dart';
+import 'package:agreg_master/services/favorites_service.dart';
+import 'package:agreg_master/services/notes_service.dart';
+import 'package:agreg_master/services/settings_service.dart';
 import 'fiche_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await ScoreService().loadScores();
+  // Charger tous les services
+  await Future.wait([
+    ScoreService().loadScores(),
+    FavoritesService().loadFavorites(),
+    NotesService().loadNotes(),
+    SettingsService().loadSettings(),
+  ]);
   runApp(const AgregMasterApp());
 }
 
-class AgregMasterApp extends StatelessWidget {
+class AgregMasterApp extends StatefulWidget {
   const AgregMasterApp({super.key});
+
+  @override
+  State<AgregMasterApp> createState() => _AgregMasterAppState();
+}
+
+class _AgregMasterAppState extends State<AgregMasterApp> {
+  final SettingsService _settingsService = SettingsService();
+
+  @override
+  void initState() {
+    super.initState();
+    _settingsService.addListener(_onSettingsChanged);
+  }
+
+  @override
+  void dispose() {
+    _settingsService.removeListener(_onSettingsChanged);
+    super.dispose();
+  }
+
+  void _onSettingsChanged() {
+    if (mounted) setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Agreg Master',
       debugShowCheckedModeBanner: false,
+      themeMode: _settingsService.themeMode,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF1A237E), // Bleu Nuit Profond
+          seedColor: const Color(0xFF1A237E),
           primary: const Color(0xFF1A237E),
-          surface: const Color(0xFFF5F7FA), // Gris très clair pour le fond
+          surface: const Color(0xFFF5F7FA),
+          brightness: Brightness.light,
         ),
         useMaterial3: true,
         textTheme: GoogleFonts.poppinsTextTheme(),
@@ -46,6 +83,32 @@ class AgregMasterApp extends StatelessWidget {
         cardTheme: CardThemeData(
           elevation: 4,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        ),
+      ),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF1A237E),
+          primary: const Color(0xFF3949AB),
+          surface: const Color(0xFF121212),
+          brightness: Brightness.dark,
+        ),
+        useMaterial3: true,
+        textTheme: GoogleFonts.poppinsTextTheme(ThemeData.dark().textTheme),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.transparent,
+          foregroundColor: Colors.white,
+          elevation: 0,
+          centerTitle: false,
+          titleTextStyle: TextStyle(
+            color: Colors.white,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        cardTheme: CardThemeData(
+          elevation: 4,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          color: const Color(0xFF1E1E1E),
         ),
       ),
       home: const ThemesScreen(),
@@ -89,17 +152,21 @@ class _ThemesScreenState extends State<ThemesScreen> {
   int _totalFiches = 0;
   bool _loading = true;
   final ScoreService _scoreService = ScoreService();
+  final FavoritesService _favoritesService = FavoritesService();
+  final SettingsService _settingsService = SettingsService();
 
   @override
   void initState() {
     super.initState();
     _loadManifest();
     _scoreService.addListener(_onScoreChanged);
+    _favoritesService.addListener(_onScoreChanged);
   }
 
   @override
   void dispose() {
     _scoreService.removeListener(_onScoreChanged);
+    _favoritesService.removeListener(_onScoreChanged);
     super.dispose();
   }
 
@@ -233,6 +300,166 @@ class _ThemesScreenState extends State<ThemesScreen> {
     );
   }
 
+  // --- Bouton rapide ---
+  Widget _buildQuickButton({
+    required IconData icon,
+    required String label,
+    required Color color,
+    required VoidCallback onTap,
+    String? badge,
+  }) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+        decoration: BoxDecoration(
+          color: isDark ? Colors.grey[850] : Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(color: Colors.grey.withOpacity(0.1), blurRadius: 4)
+          ],
+        ),
+        child: Column(
+          children: [
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Icon(icon, color: color, size: 28),
+                if (badge != null)
+                  Positioned(
+                    right: -8,
+                    top: -4,
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Text(
+                        badge,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+            const SizedBox(height: 4),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                color: isDark ? Colors.white70 : Colors.grey[700],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // --- Dialog Favoris ---
+  void _showFavoritesDialog(BuildContext context) async {
+    final favorites = _favoritesService.favorites.toList();
+    
+    if (favorites.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Aucun favori pour le moment')),
+      );
+      return;
+    }
+
+    // Charger le manifest pour trouver les chemins des fiches
+    final manifestJson = await rootBundle.loadString('assets/fiches/manifest.json');
+    final manifest = jsonDecode(manifestJson) as Map<String, dynamic>;
+    final themes = manifest['themes'] as List<dynamic>;
+
+    // Construire une map ficheId -> assetPath
+    final pathMap = <String, String>{};
+    for (var theme in themes) {
+      final themePath = theme['path'] as String;
+      final files = (theme['files'] as List<dynamic>).cast<String>();
+      for (var file in files) {
+        final ficheId = file.replaceAll('.md', '');
+        pathMap[ficheId] = '$themePath/$file';
+      }
+    }
+
+    if (!context.mounted) return;
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (ctx) => DraggableScrollableSheet(
+        initialChildSize: 0.5,
+        minChildSize: 0.3,
+        maxChildSize: 0.9,
+        expand: false,
+        builder: (_, controller) => Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  const Icon(Icons.star, color: Colors.amber),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Mes Favoris (${favorites.length})',
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: ListView.builder(
+                controller: controller,
+                itemCount: favorites.length,
+                itemBuilder: (_, index) {
+                  final ficheId = favorites[index];
+                  final path = pathMap[ficheId];
+                  
+                  return ListTile(
+                    leading: const Icon(Icons.article),
+                    title: Text(ficheId),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.close, color: Colors.red),
+                      onPressed: () {
+                        _favoritesService.removeFavorite(ficheId);
+                        Navigator.pop(ctx);
+                        if (favorites.length > 1) {
+                          _showFavoritesDialog(context);
+                        }
+                      },
+                    ),
+                    onTap: path != null
+                        ? () {
+                            Navigator.pop(ctx);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => FichePage(assetPath: path),
+                              ),
+                            );
+                          }
+                        : null,
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   // --- Grand Quiz ---
   Future<void> _startGeneralQuiz(BuildContext context) async {
     try {
@@ -264,15 +491,19 @@ class _ThemesScreenState extends State<ThemesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final favCount = _favoritesService.favorites.length;
+    final reviewCount = _scoreService.getFichesToReview().length;
+    
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F7FA),
+      backgroundColor: isDark ? const Color(0xFF121212) : const Color(0xFFF5F7FA),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // 1. En-tête Salutation
+              // 1. En-tête avec actions
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -284,20 +515,34 @@ class _ThemesScreenState extends State<ThemesScreen> {
                         "Bonjour !",
                         style: TextStyle(fontSize: 16, color: Colors.grey[600]),
                       ),
-                      const Text(
+                      Text(
                         "Agreg Master",
                         style: TextStyle(
                           fontSize: 28, 
                           fontWeight: FontWeight.bold, 
-                          color: Color(0xFF1A237E)
+                          color: isDark ? Colors.white : const Color(0xFF1A237E)
                         ),
                       ),
                     ],
                   ),
-                  const CircleAvatar(
-                    radius: 25,
-                    backgroundColor: Color(0xFF1A237E),
-                    child: Icon(Icons.school, color: Colors.white),
+                  Row(
+                    children: [
+                      // Bouton Recherche
+                      IconButton(
+                        icon: const Icon(Icons.search),
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const SearchPage()),
+                        ),
+                        tooltip: 'Rechercher',
+                      ),
+                      // Bouton Mode sombre
+                      IconButton(
+                        icon: Icon(isDark ? Icons.light_mode : Icons.dark_mode),
+                        onPressed: () => _settingsService.toggleDarkMode(),
+                        tooltip: isDark ? 'Mode clair' : 'Mode sombre',
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -307,10 +552,56 @@ class _ThemesScreenState extends State<ThemesScreen> {
               // 2. Carte Résumé (Stats)
               _buildStatsCard(),
 
-              const SizedBox(height: 30),
-              const Text(
+              const SizedBox(height: 16),
+
+              // 3. Boutons rapides (Révision, Stats, Favoris)
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildQuickButton(
+                      icon: Icons.psychology,
+                      label: 'Révision',
+                      badge: reviewCount > 0 ? '$reviewCount' : null,
+                      color: Colors.orange,
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const ReviewPage()),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _buildQuickButton(
+                      icon: Icons.bar_chart,
+                      label: 'Stats',
+                      color: Colors.purple,
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const StatsPage()),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _buildQuickButton(
+                      icon: Icons.star,
+                      label: 'Favoris',
+                      badge: favCount > 0 ? '$favCount' : null,
+                      color: Colors.amber,
+                      onTap: () => _showFavoritesDialog(context),
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 24),
+              Text(
                 "Matières",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black87),
+                style: TextStyle(
+                  fontSize: 20, 
+                  fontWeight: FontWeight.bold, 
+                  color: isDark ? Colors.white : Colors.black87
+                ),
               ),
               const SizedBox(height: 15),
 
@@ -353,10 +644,10 @@ class _ThemesScreenState extends State<ThemesScreen> {
                               },
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: isDark ? const Color(0xFF1E1E1E) : Colors.white,
                                   borderRadius: BorderRadius.circular(20),
                                   boxShadow: [
-                                    BoxShadow(color: Colors.grey.withOpacity(0.1), blurRadius: 5, offset: const Offset(0, 2))
+                                    BoxShadow(color: Colors.grey.withOpacity(isDark ? 0.05 : 0.1), blurRadius: 5, offset: const Offset(0, 2))
                                   ],
                                 ),
                                 child: Padding(
@@ -444,20 +735,23 @@ class FichesListScreen extends StatefulWidget {
 
 class _FichesListScreenState extends State<FichesListScreen> {
   final ScoreService _scoreService = ScoreService();
+  final FavoritesService _favoritesService = FavoritesService();
 
   @override
   void initState() {
     super.initState();
-    _scoreService.addListener(_onScoreChanged);
+    _scoreService.addListener(_onDataChanged);
+    _favoritesService.addListener(_onDataChanged);
   }
 
   @override
   void dispose() {
-    _scoreService.removeListener(_onScoreChanged);
+    _scoreService.removeListener(_onDataChanged);
+    _favoritesService.removeListener(_onDataChanged);
     super.dispose();
   }
 
-  void _onScoreChanged() {
+  void _onDataChanged() {
     if (mounted) setState(() {});
   }
   
@@ -552,16 +846,17 @@ class _FichesListScreenState extends State<FichesListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final avgScore = _scoreService.getAverageForFiches(widget.theme.files);
     final completedCount = _scoreService.getCompletedCount(widget.theme.files);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F7FA),
+      backgroundColor: isDark ? const Color(0xFF121212) : const Color(0xFFF5F7FA),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: const BackButton(color: Color(0xFF1A237E)),
-        title: Text(widget.theme.label, style: const TextStyle(color: Color(0xFF1A237E), fontWeight: FontWeight.bold)),
+        leading: BackButton(color: isDark ? Colors.white : const Color(0xFF1A237E)),
+        title: Text(widget.theme.label, style: TextStyle(color: isDark ? Colors.white : const Color(0xFF1A237E), fontWeight: FontWeight.bold)),
         centerTitle: true,
       ),
       body: Column(
@@ -571,9 +866,9 @@ class _FichesListScreenState extends State<FichesListScreen> {
             margin: const EdgeInsets.all(20),
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: isDark ? const Color(0xFF1E1E1E) : Colors.white,
               borderRadius: BorderRadius.circular(16),
-              boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.1), blurRadius: 5)],
+              boxShadow: [BoxShadow(color: Colors.grey.withOpacity(isDark ? 0.05 : 0.1), blurRadius: 5)],
             ),
             child: Row(
               children: [
@@ -634,22 +929,23 @@ class _FichesListScreenState extends State<FichesListScreen> {
                 final file = widget.theme.files[index];
                 final ficheId = file.replaceAll('.md', '');
                 final score = _scoreService.getScore(ficheId);
+                final isFavorite = _favoritesService.isFavorite(ficheId);
                 
                 return Container(
                   margin: const EdgeInsets.only(bottom: 12),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: isDark ? const Color(0xFF1E1E1E) : Colors.white,
                     borderRadius: BorderRadius.circular(15),
-                    boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.05), blurRadius: 5)],
+                    boxShadow: [BoxShadow(color: Colors.grey.withOpacity(isDark ? 0.05 : 0.1), blurRadius: 5)],
                   ),
                   child: ListTile(
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                     leading: Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                         color: score != null 
                             ? _getScoreColor(score.percentage).withOpacity(0.1)
-                            : const Color(0xFF1A237E).withOpacity(0.1),
+                            : (isDark ? Colors.grey[800] : const Color(0xFF1A237E).withOpacity(0.1)),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Icon(
@@ -658,7 +954,7 @@ class _FichesListScreenState extends State<FichesListScreen> {
                             : Icons.article,
                         color: score != null 
                             ? _getScoreColor(score.percentage)
-                            : const Color(0xFF1A237E),
+                            : (isDark ? Colors.grey[400] : const Color(0xFF1A237E)),
                         size: 20,
                       ),
                     ),
@@ -672,12 +968,27 @@ class _FichesListScreenState extends State<FichesListScreen> {
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        _buildScoreBadge(ficheId),
-                        const SizedBox(width: 8),
+                        // Bouton Favoris
                         IconButton(
-                          icon: const Icon(Icons.quiz, color: Color(0xFF1A237E), size: 20),
+                          icon: Icon(
+                            isFavorite ? Icons.star : Icons.star_border,
+                            color: isFavorite ? Colors.amber : Colors.grey,
+                            size: 20,
+                          ),
+                          onPressed: () => _favoritesService.toggleFavorite(ficheId),
+                          tooltip: isFavorite ? "Retirer des favoris" : "Ajouter aux favoris",
+                          padding: EdgeInsets.zero,
+                          constraints: const BoxConstraints(),
+                        ),
+                        const SizedBox(width: 4),
+                        _buildScoreBadge(ficheId),
+                        const SizedBox(width: 4),
+                        IconButton(
+                          icon: Icon(Icons.quiz, color: isDark ? Colors.blue[300] : const Color(0xFF1A237E), size: 20),
                           onPressed: () => _startFicheQuiz(context, ficheId),
                           tooltip: "Quiz de cette fiche",
+                          padding: EdgeInsets.zero,
+                          constraints: const BoxConstraints(),
                         ),
                       ],
                     ),

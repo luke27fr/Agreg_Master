@@ -27,6 +27,7 @@ class _QuizPageState extends State<QuizPage> {
   bool isAnswered = false;
   int? selectedOption;
   int score = 0;
+  List<int> wrongIndices = []; // Track des questions ratées
 
   static md.ExtensionSet get _latexExtensionSet => md.ExtensionSet(
     [LatexBlockSyntax(), ...md.ExtensionSet.gitHubFlavored.blockSyntaxes],
@@ -41,6 +42,8 @@ class _QuizPageState extends State<QuizPage> {
       isAnswered = true;
       if (index == question.correctIndex) {
         score++;
+      } else {
+        wrongIndices.add(currentIndex); // Enregistrer l'erreur
       }
     });
   }
@@ -63,7 +66,7 @@ class _QuizPageState extends State<QuizPage> {
     
     // Sauvegarder le score si on a un ficheId
     if (widget.ficheId != null) {
-      await ScoreService().saveScore(widget.ficheId!, score, total);
+      await ScoreService().saveScore(widget.ficheId!, score, total, wrongIndices: wrongIndices);
     }
     
     String message;
