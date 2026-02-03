@@ -4,8 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
 import 'package:markdown/markdown.dart' as md;
-
 import '../widgets/global_search_button.dart';
+import '../pages/search_page.dart';
 
 class DeveloppementsPage extends StatefulWidget {
   const DeveloppementsPage({super.key});
@@ -65,6 +65,82 @@ class _DeveloppementsPageState extends State<DeveloppementsPage> {
       default:
         return Colors.grey;
     }
+  }
+
+  // Termes mathématiques importants à rendre cliquables
+  static const _termsImportants = [
+    'Sylow', 'groupe', 'sous-groupe', 'anneau', 'corps', 'morphisme',
+    'matrice', 'déterminant', 'valeur propre', 'diagonalisation',
+    'polynôme', 'racine', 'théorème', 'lemme', 'corollaire',
+    'série', 'suite', 'convergence', 'limite', 'continuité',
+    'dérivée', 'intégrale', 'différentielle', 'espace vectoriel',
+    'norme', 'distance', 'topologie', 'compact', 'connexe',
+    'Hilbert', 'Banach', 'Fourier', 'Laplace', 'Cauchy',
+    'Gauss', 'Lagrange', 'Newton', 'Euler', 'Riemann',
+    'isométrie', 'rotation', 'symétrie', 'translation',
+    'probabilité', 'variable aléatoire', 'espérance', 'variance',
+    'loi normale', 'TCL', 'loi des grands nombres',
+  ];
+
+  Widget _buildClickableText(String text, BuildContext context, bool isDark) {
+    final words = text.split(' ');
+    final spans = <InlineSpan>[];
+
+    for (int i = 0; i < words.length; i++) {
+      final word = words[i];
+      final cleanWord = word.replaceAll(RegExp(r'[^\w\séàèùâêîôûëïü-]'), '').toLowerCase();
+      
+      bool isImportant = false;
+      String? matchedTerm;
+      for (final term in _termsImportants) {
+        if (cleanWord.contains(term.toLowerCase())) {
+          isImportant = true;
+          matchedTerm = term;
+          break;
+        }
+      }
+
+      if (isImportant) {
+        spans.add(WidgetSpan(
+          alignment: PlaceholderAlignment.baseline,
+          baseline: TextBaseline.alphabetic,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const SearchPage()),
+              );
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: Colors.blue.shade700, width: 1.5)),
+              ),
+              child: Text(
+                word,
+                style: TextStyle(
+                  color: Colors.blue.shade700,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                ),
+              ),
+            ),
+          ),
+        ));
+      } else {
+        spans.add(TextSpan(text: word));
+      }
+
+      if (i < words.length - 1) {
+        spans.add(const TextSpan(text: ' '));
+      }
+    }
+
+    return RichText(
+      text: TextSpan(
+        style: TextStyle(fontSize: 14, color: isDark ? Colors.white70 : Colors.black87),
+        children: spans,
+      ),
+    );
   }
 
   @override
@@ -237,6 +313,50 @@ class _DeveloppementsPageState extends State<DeveloppementsPage> {
     );
   }
 
+  void _showLeconInfo(BuildContext context, int numero) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Row(
+          children: [
+            const Icon(Icons.school, color: Color(0xFF1A237E)),
+            const SizedBox(width: 8),
+            Text('Leçon $numero'),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Cette leçon peut être consultée dans la section "Leçons d\'oral".',
+              style: TextStyle(fontSize: 14),
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'Ce développement peut être utilisé pour cette leçon.',
+              style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('Fermer'),
+          ),
+          ElevatedButton.icon(
+            onPressed: () {
+              Navigator.pop(ctx);
+              Navigator.pushNamed(context, '/lecons');
+            },
+            icon: const Icon(Icons.arrow_forward),
+            label: const Text('Voir les leçons'),
+          ),
+        ],
+      ),
+    );
+  }
+
   void _showDevDetails(BuildContext context, Map<String, dynamic> dev) {
     showModalBottomSheet(
       context: context,
@@ -299,61 +419,115 @@ class _DeveloppementsPageState extends State<DeveloppementsPage> {
 
               const SizedBox(height: 24),
 
-              // Plan
-              const Text(
-                'Plan du développement',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              // Plan (avec mots cliquables)
+              Row(
+                children: [
+                  const Text(
+                    'Plan du développement',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(width: 8),
+                  Tooltip(
+                    message: 'Les termes importants sont cliquables',
+                    child: Icon(Icons.info_outline, size: 16, color: Colors.grey[600]),
+                  ),
+                ],
               ),
               const SizedBox(height: 8),
-              ...((dev['plan'] as List).map((step) => Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Icon(Icons.arrow_right, color: Color(0xFF1A237E)),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: MarkdownBody(
-                        data: step,
-                        styleSheet: MarkdownStyleSheet(p: const TextStyle(fontSize: 14)),
-                        extensionSet: _latexExtensionSet,
-                        builders: {'latex': LatexElementBuilder()},
-                      ),
+              ...((dev['plan'] as List).map((step) {
+                // Si le step contient du LaTeX ($ ou $$), utiliser MarkdownBody
+                if ((step as String).contains(r'$')) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Icon(Icons.arrow_right, color: Color(0xFF1A237E)),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: MarkdownBody(
+                            data: step,
+                            styleSheet: MarkdownStyleSheet(p: const TextStyle(fontSize: 14)),
+                            extensionSet: _latexExtensionSet,
+                            builders: {'latex': LatexElementBuilder()},
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ))),
+                  );
+                } else {
+                  // Sinon, texte cliquable
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Icon(Icons.arrow_right, color: Color(0xFF1A237E)),
+                        const SizedBox(width: 8),
+                        Expanded(child: _buildClickableText(step, context, false)),
+                      ],
+                    ),
+                  );
+                }
+              })),
 
               const SizedBox(height: 24),
 
-              // Points clés
-              const Text(
-                'Points clés à ne pas oublier',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              // Points clés (avec mots cliquables)
+              Row(
+                children: [
+                  const Text(
+                    'Points clés à ne pas oublier',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(width: 8),
+                  Tooltip(
+                    message: 'Les termes importants sont cliquables',
+                    child: Icon(Icons.info_outline, size: 16, color: Colors.grey[600]),
+                  ),
+                ],
               ),
               const SizedBox(height: 8),
-              ...((dev['points_cles'] as List).map((point) => Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Icon(Icons.lightbulb, color: Colors.amber, size: 20),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: MarkdownBody(
-                        data: point,
-                        styleSheet: MarkdownStyleSheet(p: const TextStyle(fontSize: 14)),
-                        extensionSet: _latexExtensionSet,
-                        builders: {'latex': LatexElementBuilder()},
-                      ),
+              ...((dev['points_cles'] as List).map((point) {
+                // Si le point contient du LaTeX ($ ou $$), utiliser MarkdownBody
+                if ((point as String).contains(r'$')) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Icon(Icons.lightbulb, color: Colors.amber, size: 20),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: MarkdownBody(
+                            data: point,
+                            styleSheet: MarkdownStyleSheet(p: const TextStyle(fontSize: 14)),
+                            extensionSet: _latexExtensionSet,
+                            builders: {'latex': LatexElementBuilder()},
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ))),
+                  );
+                } else {
+                  // Sinon, texte cliquable
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Icon(Icons.lightbulb, color: Colors.amber, size: 20),
+                        const SizedBox(width: 8),
+                        Expanded(child: _buildClickableText(point, context, false)),
+                      ],
+                    ),
+                  );
+                }
+              })),
 
               const SizedBox(height: 24),
 
-              // Prérequis
+              // Prérequis (cliquables)
               const Text(
                 'Prérequis',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -362,15 +536,36 @@ class _DeveloppementsPageState extends State<DeveloppementsPage> {
               Wrap(
                 spacing: 8,
                 runSpacing: 8,
-                children: (dev['prerequis'] as List).map((req) => Chip(
-                  label: Text(req),
-                  backgroundColor: Colors.orange.withOpacity(0.1),
+                children: (dev['prerequis'] as List).map((req) => InkWell(
+                  onTap: () {
+                    Navigator.pop(ctx); // Fermer le modal
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const SearchPage(),
+                      ),
+                    ).then((_) {
+                      // Pré-remplir la recherche avec le prérequis
+                      // Note: Cela nécessiterait de passer un paramètre à SearchPage
+                    });
+                  },
+                  child: Chip(
+                    label: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(req),
+                        const SizedBox(width: 4),
+                        const Icon(Icons.search, size: 14),
+                      ],
+                    ),
+                    backgroundColor: Colors.orange.withOpacity(0.1),
+                  ),
                 )).toList(),
               ),
 
               const SizedBox(height: 24),
 
-              // Leçons compatibles
+              // Leçons compatibles (cliquables)
               const Text(
                 'Leçons compatibles',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -379,9 +574,22 @@ class _DeveloppementsPageState extends State<DeveloppementsPage> {
               Wrap(
                 spacing: 8,
                 runSpacing: 8,
-                children: (dev['lecons'] as List).map((num) => Chip(
-                  label: Text('Leçon $num'),
-                  backgroundColor: const Color(0xFF1A237E).withOpacity(0.1),
+                children: (dev['lecons'] as List).map((num) => InkWell(
+                  onTap: () {
+                    Navigator.pop(ctx); // Fermer le modal
+                    _showLeconInfo(context, num);
+                  },
+                  child: Chip(
+                    label: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text('Leçon $num'),
+                        const SizedBox(width: 4),
+                        const Icon(Icons.open_in_new, size: 14),
+                      ],
+                    ),
+                    backgroundColor: const Color(0xFF1A237E).withOpacity(0.1),
+                  ),
                 )).toList(),
               ),
 
