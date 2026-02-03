@@ -980,6 +980,28 @@ class _ExamenRunningPageState extends State<ExamenRunningPage> {
                               ),
                             ],
                           ),
+                        ] else ...[
+                          const SizedBox(height: 8),
+                          Container(
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: Colors.orange.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: Colors.orange.withOpacity(0.3)),
+                            ),
+                            child: Row(
+                              children: [
+                                const Icon(Icons.hourglass_empty, size: 16, color: Colors.orange),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Text(
+                                    'Correction bientôt disponible • En attendant, essayez de résoudre seul${question.indication != null ? ' avec l\'indication ci-dessus' : ''} !',
+                                    style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic, color: Colors.orange.shade800),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ],
                     ),
