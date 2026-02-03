@@ -195,6 +195,7 @@ class _OralSimulationPageState extends State<OralSimulationPage> {
               ),
         title: const Text('Simulation Oral', style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
+        actions: const [GlobalSearchButton()],
       ),
       body: _buildBody(isDark),
     );
