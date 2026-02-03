@@ -17,7 +17,7 @@
 > * **Angle orienté :** En dimension 2, l'angle est orienté. En dimension 3, l'axe est orienté.
 > * **Quaternions unitaires :** $q$ et $-q$ représentent la **même** rotation.
 > * **Gimbal lock :** Les angles d'Euler ont une singularité (perte d'un degré de liberté).
-> * **[Valeurs propres](def:valeur_propre) :** Une rotation 3D a pour valeurs propres $1$, $e^{i\theta}$, $e^{-i\theta}$ (sur $\mathbb{C}$).
+> * **[Valeurs propres](def:valeur_propre) :** Une rotation 3D a pour valeurs propres $1$, $e^{i\theta}$, $e^{-i\theta}$ sur $\mathbb{C}$.
 
 > [!TIP]
 > ### 3. Exercice Type : Rotation 3D

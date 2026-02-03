@@ -28,7 +28,7 @@
 > 2. **Discriminant :** Le discriminant $\Delta$ de $\chi_A$ est un polynôme en les coefficients de $A$.
 > 3. **Non-nullité :** L'ensemble $\{\Delta \neq 0\}$ est un ouvert de Zariski, donc dense.
 > 4. **Approximation :** Toute matrice $A$ est limite de matrices $A_\epsilon$ avec valeurs propres distinctes.
-> 5. **Conclusion :** Les matrices diagonalisables (sur $\mathbb{C}$) sont denses dans $\mathcal{M}_n(\mathbb{C})$.
+> 5. **Conclusion :** Les matrices diagonalisables sur $\mathbb{C}$ sont denses dans $\mathcal{M}_n(\mathbb{C})$.
 
 > [!QUESTION]
 > ### 4. Questions de Jury
