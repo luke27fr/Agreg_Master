@@ -408,15 +408,18 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Calculer les coefficients de Fourier de f(x) = |x| sur [-π,π].',
                 indication: 'Fonction paire, donc bₙ = 0.',
+                correction: 'f paire ⟹ bₙ = 0. a₀ = (1/π)∫₀^π x dx = π/2. aₙ = (2/π)∫₀^π x cos(nx)dx. IPP : aₙ = (2/π)[x sin(nx)/n]₀^π - (2/πn)∫₀^π sin(nx)dx = 0 + (2/πn²)[cos(nx)]₀^π = (2/πn²)(cos(nπ)-1). Si n pair : aₙ=0. Si n impair : aₙ = -4/(πn²).',
                 points: 3,
               ),
               QuestionExamen(
                 enonce: 'Montrer que la série de Fourier converge uniformément vers f.',
                 indication: 'f est C¹ par morceaux.',
+                correction: 'f est continue sur [-π,π] et C¹ par morceaux (dérivable sauf en 0). Par le théorème de Dirichlet, la série de Fourier converge ponctuellement vers f. De plus, |aₙ| = 4/(πn²) = O(1/n²), série absolument convergente. Par convergence normale, la série converge uniformément vers f.',
                 points: 2,
               ),
               QuestionExamen(
                 enonce: 'En déduire que ∑_{k impair} 1/k² = π²/8.',
+                correction: 'f(x) = π/2 + Σ_{n impair} [-4/(πn²)]cos(nx). En x=0 : |0| = 0 = π/2 - (4/π)Σ_{n impair} 1/n². Donc Σ_{n impair} 1/n² = π²/8. (Formule classique : ζ(2) = π²/6, et Σ_{pair} 1/n² = (1/4)ζ(2) = π²/24, donc Σ_{impair} = π²/6 - π²/24 = π²/8.)',
                 points: 2,
               ),
             ],
@@ -428,10 +431,12 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Résoudre y\'\' - 2y\' + y = x·e^x.',
                 indication: 'Racine double r=1.',
+                correction: 'Équation caractéristique : r² - 2r + 1 = 0 ⟹ r = 1 (double). Solution homogène : y_h = (C₁ + C₂x)e^x. Pour une solution particulière, racine double ⟹ chercher y_p = (ax³)e^x. Dérivées : y\'_p = (3ax² + ax³)e^x, y\"_p = (6ax + 6ax² + ax³)e^x. Substitution : (6ax + 6ax² + ax³ - 6ax² - 2ax³ + ax³)e^x = xe^x ⟹ 6ax = x ⟹ a = 1/6. Solution générale : y = (C₁ + C₂x + x³/6)e^x.',
                 points: 4,
               ),
               QuestionExamen(
                 enonce: 'Résoudre le problème de Cauchy avec y(0)=1, y\'(0)=0.',
+                correction: 'y(0) = C₁ = 1. y\'(x) = [C₂ + C₂x + x²/2 + (C₁ + C₂x + x³/6)]e^x. y\'(0) = C₂ + C₁ = C₂ + 1 = 0 ⟹ C₂ = -1. Solution : y(x) = (1 - x + x³/6)e^x.',
                 points: 2,
               ),
             ],
@@ -443,10 +448,12 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'X ~ N(μ,σ²). Calculer E[(X-μ)⁴].',
                 indication: 'Utiliser la fonction génératrice des moments.',
+                correction: 'Posons Z = (X-μ)/σ ~ N(0,1). Alors E[(X-μ)⁴] = σ⁴E[Z⁴]. Pour Z ~ N(0,1), E[Z⁴] = ∫ z⁴ (1/√2π)e^(-z²/2)dz. Par IPP répétées ou formule des moments : E[Z^(2k)] = (2k-1)!! = (2k)!/(2^k k!). Donc E[Z⁴] = 3. Résultat : E[(X-μ)⁴] = 3σ⁴.',
                 points: 4,
               ),
               QuestionExamen(
                 enonce: 'Application : coefficient d\'aplatissement (kurtosis).',
+                correction: 'Le coefficient d\'aplatissement (kurtosis) est défini par Kurt(X) = E[(X-μ)⁴]/σ⁴ - 3. Pour X ~ N(μ,σ²), Kurt(X) = 3σ⁴/σ⁴ - 3 = 0. La loi normale a un kurtosis nul (référence). Kurtosis > 0 : distribution leptokurtique (queues épaisses, pic étroit). Kurtosis < 0 : platykurtique (queues fines, pic aplati).',
                 points: 3,
               ),
             ],
@@ -469,10 +476,12 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Soit H espace de Hilbert, F sous-espace fermé. Montrer que tout x ∈ H s\'écrit uniquement x = y + z avec y ∈ F, z ∈ F⊥.',
                 indication: 'Minimiser ‖x - y‖ pour y ∈ F.',
+                correction: 'Existence : Soit y = proj_F(x) le projeté orthogonal (minimise ‖x-y‖). Alors z = x - y vérifie ⟨z, f⟩ = 0 pour tout f ∈ F (condition d\'orthogonalité), donc z ∈ F⊥. Unicité : Si x = y₁ + z₁ = y₂ + z₂, alors y₁-y₂ = z₂-z₁ ∈ F ∩ F⊥ = {0}. Donc y₁=y₂ et z₁=z₂.',
                 points: 4,
               ),
               QuestionExamen(
                 enonce: 'Montrer que P_F : x ↦ y est une application linéaire continue.',
+                correction: 'Linéarité : P_F(αx + βx\') = αP_F(x) + βP_F(x\') car la projection minimise une norme (fonction convexe). Continuité : ‖P_F(x)‖ ≤ ‖x‖ (la projection ne peut qu\'augmenter la distance à 0 ou la diminuer). Donc ‖P_F‖ ≤ 1, P_F est continue.',
                 points: 2,
               ),
             ],
@@ -483,10 +492,12 @@ class ExamenBlancService extends ChangeNotifier {
             questions: [
               QuestionExamen(
                 enonce: 'Soit (eₙ) système orthonormal. Montrer que pour tout x, ∑|⟨x,eₙ⟩|² ≤ ‖x‖² (Bessel).',
+                correction: 'Soit S_N = Σ_{n=1}^N ⟨x,eₙ⟩eₙ la somme partielle. C\'est le projeté de x sur Vect(e₁,...,e_N). Par Pythagore : ‖x‖² = ‖S_N‖² + ‖x-S_N‖² ≥ ‖S_N‖² = Σ_{n=1}^N |⟨x,eₙ⟩|². En passant à la limite N→∞ : Σ|⟨x,eₙ⟩|² ≤ ‖x‖² (inégalité de Bessel).',
                 points: 4,
               ),
               QuestionExamen(
                 enonce: 'Caractériser les bases hilbertiennes via l\'égalité de Parseval.',
+                correction: '(eₙ) est une base hilbertienne ⟺ Vect(eₙ) est dense dans H ⟺ égalité de Parseval : ‖x‖² = Σ|⟨x,eₙ⟩|² pour tout x. Autrement dit, l\'inégalité de Bessel devient une égalité ⟺ le projeté orthogonal sur Vect(eₙ) = x lui-même ⟺ densité.',
                 points: 4,
               ),
             ],
@@ -497,10 +508,12 @@ class ExamenBlancService extends ChangeNotifier {
             questions: [
               QuestionExamen(
                 enonce: 'Montrer que (e^{inx})_{n∈ℤ} est une base hilbertienne de L²([-π,π]).',
+                correction: 'Produit scalaire : ⟨f,g⟩ = (1/2π)∫_{-π}^π f(x)g̅(x)dx. Orthonormalité : ⟨e^{imx}, e^{inx}⟩ = (1/2π)∫_{-π}^π e^{i(m-n)x}dx = δ_{mn}. Densité : Les polynômes trigonométriques (combinaisons finies de e^{inx}) sont denses dans C([-π,π]) par théorème de Weierstrass trigonométrique, et C dense dans L². Donc Vect(e^{inx}) dense dans L², c\'est une base hilbertienne.',
                 points: 4,
               ),
               QuestionExamen(
                 enonce: 'En déduire Parseval pour les séries de Fourier.',
+                correction: 'Égalité de Parseval : ‖f‖²_{L²} = Σ_{n∈ℤ} |cₙ|² où cₙ = ⟨f, e^{inx}⟩. En termes de coefficients réels : (1/π)∫_{-π}^π |f(x)|²dx = a₀²/2 + Σ_{n≥1} (aₙ² + bₙ²). Identité fondamentale pour les séries de Fourier.',
                 points: 2,
               ),
             ],
