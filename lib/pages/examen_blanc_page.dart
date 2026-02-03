@@ -950,6 +950,37 @@ class _ExamenRunningPageState extends State<ExamenRunningPage> {
                             ),
                           ),
                         ],
+                        if (question.correction != null) ...[
+                          const SizedBox(height: 8),
+                          ExpansionTile(
+                            tilePadding: EdgeInsets.zero,
+                            title: Row(
+                              children: [
+                                const Icon(Icons.school, size: 16, color: Colors.green),
+                                const SizedBox(width: 8),
+                                const Text(
+                                  'Voir la correction',
+                                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.green),
+                                ),
+                              ],
+                            ),
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                  color: Colors.green.withOpacity(0.05),
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(color: Colors.green.withOpacity(0.3)),
+                                ),
+                                child: Text(
+                                  question.correction!,
+                                  style: const TextStyle(fontSize: 13),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ],
                     ),
                   );
