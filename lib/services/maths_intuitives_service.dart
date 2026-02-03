@@ -37,31 +37,31 @@ class MathsIntuitivesService extends ChangeNotifier {
         nom: 'Les Fondations',
         description: 'Les briques de base qui soutiennent toutes les maths',
         emoji: '🏗️',
-        conceptIds: ['espaces-vectoriels', 'dimension', 'applications-lineaires', 'groupes'],
+        conceptIds: ['espaces-vectoriels', 'dimension', 'applications-lineaires', 'groupes', 'anneaux'],
       ),
       CategorieIntuitive(
         nom: 'Voir l\'Invisible',
         description: 'Concepts pour comprendre l\'infini et le changement',
         emoji: '🔮',
-        conceptIds: ['limite', 'continuite', 'derivabilite', 'integrale', 'series'],
+        conceptIds: ['limite', 'continuite', 'derivabilite', 'integrale', 'series-numeriques'],
       ),
       CategorieIntuitive(
         nom: 'Les Super-Pouvoirs',
         description: 'Théorèmes puissants qui résolvent tout',
         emoji: '⚡',
-        conceptIds: ['valeurs-propres', 'diagonalisation', 'theoreme-spectral', 'fonction-implicite'],
+        conceptIds: ['valeurs-propres', 'diagonalisation', 'theoreme-spectral'],
       ),
       CategorieIntuitive(
         nom: 'Formes et Espaces',
         description: 'Géométrie moderne et abstraite',
         emoji: '🎨',
-        conceptIds: ['produit-scalaire', 'orthogonalite', 'convexite', 'topologie'],
+        conceptIds: ['produit-scalaire', 'convexite', 'compacite'],
       ),
       CategorieIntuitive(
         nom: 'Le Hasard Apprivoisé',
         description: 'Comprendre l\'incertitude avec les probabilités',
         emoji: '🎲',
-        conceptIds: ['esperance', 'variance', 'loi-normale', 'convergence-proba'],
+        conceptIds: ['esperance', 'variance', 'loi-normale', 'convergence-en-loi'],
       ),
     ];
   }
@@ -560,7 +560,534 @@ De plus, la loi normale a des propriétés mathématiques magnifiques : somme de
         ],
       ),
 
-      // Ajoutez plus de concepts ici...
+      // ============ SUITE DES CONCEPTS ============
+
+      ConceptIntuitif(
+        id: 'continuite',
+        titre: 'Continuité',
+        domaine: 'analyse',
+        niveauAgregation: 5,
+        difficulteIntuitive: 1,
+        analogieSimple: 'Tracer une courbe sans lever le crayon.',
+        questionCle: 'Comment décrire une fonction "sans sauts" ?',
+        explicationIntuitive: '''Une fonction est continue si tu peux tracer sa courbe sans lever ton crayon du papier. Pas de trous, pas de sauts brusques !
+
+**Définition intuitive** : f est continue en a si, quand x s'approche de a, f(x) s'approche de f(a). En notation : lim(x→a) f(x) = f(a).
+
+C'est l'idée de "proche du proche" : si deux entrées sont proches, leurs sorties sont proches aussi.
+
+**Visualisation** : Imagine que tu zoomes infiniment sur le graphe. Si ça reste "lisse" (pas de cassure), c'est continu !
+
+Les fonctions continues sont les "gentilles" : pas de surprises, pas de comportement bizarre. C'est pour ça qu'on les aime en maths.''',
+        exempleConcret: '''**Température au cours de la journée** : Continue ! Elle ne peut pas passer de 20°C à 35°C instantanément.
+
+**Prix d'une action en bourse** : Continue pendant les heures de marché, mais discontinue à l'ouverture (saut de prix overnight).
+
+**Fonction "partie entière" ⌊x⌋** : DISCONTINUE ! Elle fait des sauts à chaque entier (ex: ⌊2.9⌋ = 2, ⌊3⌋ = 3).
+
+**Compression d'image JPEG** : Utilise des fonctions continues (ondelettes, cosinus) pour représenter l'image sans "cassures" visuelles.''',
+        lienAvecLycee: 'Tu sais déjà qu\'une fonction polynomiale, exponentielle, ou trigonométrique est continue partout. Les seuls problèmes : divisions par zéro, racines de négatifs... La continuité, c\'est "pas de trous dans le graphe".',
+        pourquoiCestImportant: '''La continuité garantit des propriétés essentielles :
+
+• **Théorème des valeurs intermédiaires (TVI)** : Si f est continue sur [a,b] et prend deux valeurs, elle prend toutes les valeurs entre les deux ! Application : résolution d'équations f(x) = 0.
+
+• **Théorème des bornes atteintes** : Sur un compact, f continue atteint son max et son min (pas juste "s'en approche").
+
+• **Approximation** : Théorème de Weierstrass : toute fonction continue peut être approximée par des polynômes !
+
+En physique, presque tous les phénomènes naturels sont continus (position, vitesse, température...).''',
+        visualisation: 'Imagine un fil tendu. Continu = le fil ne se casse jamais. Discontinu = le fil a des coupures ou des nœuds avec des sauts.',
+        prerequisTerminale: ['Limites', 'Fonctions usuelles', 'Théorème des valeurs intermédiaires'],
+        ideesFausses: [
+          '❌ "Dérivable ⟹ continu" → OUI ! Mais "continu ⟹ dérivable" → NON ! (contre-ex : |x| en 0)',
+          '❌ "Continue = lisse" → NON ! |x| est continue mais a un "coin" en 0',
+          '❌ "On peut toujours prolonger par continuité" → NON ! sin(1/x) en 0 oscille infiniment',
+        ],
+        anecdote: 'Weierstrass (1872) a choqué le monde mathématique en construisant une fonction CONTINUE PARTOUT mais DÉRIVABLE NULLE PART ! C\'était considéré comme un "monstre". Aujourd\'hui, on sait que ces fonctions sont en fait... la majorité ! (Théorème de Baire)',
+        applicationsReelles: [
+          'Trajectoires de robots (planification de mouvement continu)',
+          'Modèles économiques (évolution progressive des prix)',
+          'Traitement du signal (interpolation)',
+          'Compression audio/vidéo (représentations lisses)',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'derivabilite',
+        titre: 'Dérivabilité',
+        domaine: 'analyse',
+        niveauAgregation: 5,
+        difficulteIntuitive: 2,
+        analogieSimple: 'La vitesse instantanée d\'un objet en mouvement.',
+        questionCle: 'Comment mesurer la pente d\'une courbe en un point précis ?',
+        explicationIntuitive: '''La dérivée f'(a) mesure la "pente" de la courbe en un point. C'est le taux de variation instantané.
+
+**Idée physique** : Si f(t) est ta position au temps t, alors f'(t) est ta vitesse à l'instant t. Pour la mesurer, tu calcules (distance parcourue) / (temps écoulé) sur un intervalle de plus en plus court.
+
+**Définition** : f'(a) = lim(h→0) [f(a+h) - f(a)] / h
+
+Géométriquement, c'est la pente de la tangente au graphe en (a, f(a)).
+
+**Pourquoi c'est puissant ?** La dérivée transforme un problème global (comment varie f ?) en un problème local (quelle est la pente ici ?). Une fois qu'on connaît f'(x) partout, on peut reconstruire f (à une constante près) !''',
+        exempleConcret: '''**Voiture** : Position f(t), vitesse f'(t), accélération f''(t). Si tu connais l'accélération, tu peux prédire la vitesse future !
+
+**Économie** : Coût total C(q) → coût marginal C'(q) = "combien coûte une unité de plus ?"
+
+**Optimisation** : Maximiser un profit ? Cherche où la dérivée = 0 (sommet de la courbe).
+
+**Apprentissage automatique** : La descente de gradient utilise la dérivée pour minimiser l'erreur d'un réseau de neurones. C'est littéralement "suivre la pente descendante".''',
+        lienAvecLycee: 'Tu calcules déjà des dérivées : (x²)' = 2x, (sin)' = cos... Le nombre dérivé f'(a) est la limite du taux d\'accroissement. La tangente a pour équation y = f(a) + f\'(a)(x-a).',
+        pourquoiCestImportant: '''La dérivée est l'outil n°1 pour étudier les variations :
+
+• **Théorème de Rolle / TAF** : Si f'(x) > 0, alors f croît. Point critique (f'(a)=0) = possible extremum.
+• **Développements limités** : f(a+h) ≈ f(a) + f'(a)h + O(h²). Approximation linéaire locale !
+• **Équations différentielles** : f'(x) = g(x,f) décrit des dynamiques (croissance populations, circuits électriques, mécanique...)
+• **Optimisation** : Trouver le maximum/minimum d'une fonction.
+
+En physique, presque toutes les lois sont des équations différentielles (Newton, Maxwell, Schrödinger...).''',
+        visualisation: 'Zoome infiniment sur un point de la courbe. Si ça ressemble de plus en plus à une droite, cette droite est la tangente, et sa pente est f\'(a).',
+        prerequisTerminale: ['Taux d\'accroissement', 'Limite', 'Tangente', 'Dérivées usuelles'],
+        ideesFausses: [
+          '❌ "Dérivable ⟹ continue" → OUI ! Dérivable est plus fort que continu',
+          '❌ "Continue ⟹ dérivable" → NON ! |x| est continue mais non dérivable en 0 (coin pointu)',
+          '❌ "f\'(a) = 0 ⟹ extremum" → NON ! Peut être un point d\'inflexion (ex: x³ en 0)',
+        ],
+        anecdote: 'Newton et Leibniz ont inventé le calcul différentiel indépendamment (fin 17e). Leur dispute de priorité fut LÉGENDAIRE ! Aujourd\'hui, on utilise la notation de Leibniz (dy/dx) mais les idées de Newton (fluxions). Le calcul a révolutionné la physique.',
+        applicationsReelles: [
+          'GPS : calcul de trajectoires optimales',
+          'IA : backpropagation dans les réseaux de neurones',
+          'Finance : sensibilité d\'un portefeuille (les "grecques" : delta, gamma...)',
+          'Médecine : modèles de diffusion de médicaments',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'series-numeriques',
+        titre: 'Séries Numériques',
+        domaine: 'analyse',
+        niveauAgregation: 5,
+        difficulteIntuitive: 2,
+        analogieSimple: 'Additionner une infinité de nombres : converge ou explose ?',
+        questionCle: 'Peut-on donner un sens à 1 + 1/2 + 1/4 + 1/8 + ... ?',
+        explicationIntuitive: '''Une série, c'est additionner les termes d'une suite : S = u₀ + u₁ + u₂ + ...
+
+**Question centrale** : La somme infinie a-t-elle une valeur finie (convergence) ou tend-elle vers l'infini (divergence) ?
+
+**Intuition géométrique** : Imagine empiler des briques de hauteurs u₀, u₁, u₂... La tour s'arrête-t-elle à une hauteur finie ou grimpe-t-elle à l'infini ?
+
+**Exemple** : 1 + 1/2 + 1/4 + 1/8 + ... = 2 (suite géométrique de raison 1/2). Chaque terme divise par 2, donc ça converge !
+
+**Contre-exemple** : 1 + 1/2 + 1/3 + 1/4 + ... = +∞ (série harmonique). Même si les termes → 0, la somme diverge (lentement mais sûrement) !
+
+**Règle d'or** : Pour converger, il faut que uₙ → 0 RAPIDEMENT. Si uₙ → 0 "lentement", ça peut diverger.''',
+        exempleConcret: '''**Paradoxe de Zénon** : Pour aller d'ici à là, tu dois parcourir 1/2, puis 1/4, puis 1/8... Somme = 1, tu arrives !
+
+**Intérêts composés** : Si tu places 1€ avec 10% d'intérêt chaque année pendant une infinité d'années, ça diverge. Mais si le taux → 0, ça peut converger.
+
+**Probabilité** : La probabilité de gagner au moins une fois en jouant une infinité de fois (avec P(gagner) = pₙ) est liée à la convergence de Σpₙ.
+
+**Physique quantique** : Calcul de l'énergie d'un système = somme infinie de contributions. Si elle diverge, le modèle est malade (problème de renormalisation) !''',
+        lienAvecLycee: 'Tu connais les suites géométriques : Σ rⁿ converge si |r| < 1, diverge sinon. Les séries généralisent : au lieu de Σ rⁿ, on a Σ uₙ avec n\'importe quelle suite.',
+        pourquoiCestImportant: '''Les séries permettent de représenter des nombres et des fonctions :
+
+• **Développements décimaux** : 0.333... = 3/10 + 3/100 + 3/1000 + ... = 1/3 (série convergente)
+• **Fonctions comme séries** : eˣ = 1 + x + x²/2! + x³/3! + ... (série entière)
+• **Séries de Fourier** : Décomposer un signal en somme de sinus/cosinus
+• **Probabilités** : Fonction génératrice, espérance = série
+
+**Critères de convergence** : Comparaison, d'Alembert, Cauchy, intégrale... tout un arsenal pour décider !''',
+        visualisation: 'Imagine des dominos qui tombent et avancent de uₙ à chaque fois. Si la distance totale parcourue est finie, la série converge. Sinon, les dominos vont à l\'infini !',
+        prerequisTerminale: ['Suites géométriques', 'Limite de suite', 'Sommes partielles'],
+        ideesFausses: [
+          '❌ "Si uₙ → 0, alors Σuₙ converge" → NON ! La série harmonique diverge malgré uₙ→0',
+          '❌ "Si Σuₙ converge, alors uₙ → 0" → OUI ! C\'est une condition nécessaire',
+          '❌ "1-1+1-1+1-... = 1/2" → FAUX ! Cette série diverge (oscille)',
+        ],
+        anecdote: 'Euler a calculé ζ(2) = 1 + 1/4 + 1/9 + 1/16 + ... = π²/6. QUOI ?! π apparaît dans une somme de carrés ! C\'est le problème de Bâle (1734), qui a fait sa célébrité. Résultat magnifique et totalement inattendu.',
+        applicationsReelles: [
+          'Calcul de π avec une précision arbitraire (séries de Ramanujan)',
+          'Analyse spectrale (séries de Fourier pour traiter les sons)',
+          'Probabilités (séries génératrices)',
+          'Physique (perturbations en mécanique quantique)',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'convexite',
+        titre: 'Convexité',
+        domaine: 'analyse',
+        niveauAgregation: 4,
+        difficulteIntuitive: 2,
+        analogieSimple: 'Une courbe "creuse vers le bas" comme un bol.',
+        questionCle: 'Comment décrire une fonction qui "courbe toujours dans le même sens" ?',
+        explicationIntuitive: '''Une fonction f est convexe si, entre deux points, la courbe reste EN DESSOUS de la corde (le segment qui relie les deux points).
+
+**Test visuel** : Trace deux points sur le graphe. Le segment qui les relie doit rester AU-DESSUS de la courbe. Si oui : convexe ! Sinon : concave ou ni l'un ni l'autre.
+
+**Inégalité de convexité** : f(λa + (1-λ)b) ≤ λf(a) + (1-λ)f(b) pour tout λ ∈ [0,1].
+
+En gros : "la moyenne des valeurs ≥ la valeur de la moyenne". Un barycentre de deux points du graphe reste au-dessus du graphe.
+
+**Test avec dérivée** : Si f'' ≥ 0, alors f est convexe (la dérivée croît = la pente augmente).''',
+        exempleConcret: '''**Bol de soupe** : Convexe ! Si tu mets une règle entre deux bords, elle ne touche pas le fond.
+
+**Fonction x²** : Convexe partout. La parabole "sourit" (U).
+
+**Fonction -x²** : Concave (∩).
+
+**Inégalité AM-GM** : (a+b)/2 ≥ √(ab) découle de la convexité de f(x) = -ln(x).
+
+**Machine learning** : Les fonctions de coût convexes garantissent un unique minimum global. Si non convexe, plein de minima locaux = problème !
+
+**Économie** : Rendements décroissants = fonction de production concave.''',
+        lienAvecLycee: 'Tu étudies déjà la convexité avec le signe de f". Si f" > 0, la courbe est "tournée vers le haut" (convexe). Points d\'inflexion : où f" change de signe.',
+        pourquoiCestImportant: '''La convexité simplifie énormément les problèmes d'optimisation :
+
+• **Optimisation** : Si f est convexe, tout minimum local est global ! Pas de "pièges".
+• **Inégalités** : Inégalité de Jensen : E[f(X)] ≥ f(E[X]) si f convexe.
+• **Algorithmes** : La descente de gradient converge vers le minimum pour f convexe.
+• **Géométrie** : Un ensemble convexe (boule, polygone convexe) a des propriétés agréables (intersection de convexes = convexe).
+
+En économie, finance, ML, optimisation : la convexité est PARTOUT.''',
+        visualisation: 'Imagine tendre un élastique entre deux points du graphe. Si l\'élastique touche la courbe uniquement aux extrémités (et reste au-dessus partout), c\'est convexe. Si l\'élastique passe en dessous, c\'est concave.',
+        prerequisTerminale: ['Dérivée seconde', 'Tableau de variations', 'Points d\'inflexion'],
+        ideesFausses: [
+          '❌ "Convexe = croissant" → NON ! x² est convexe mais décroît sur ℝ⁻',
+          '❌ "Si f\'(a) = 0 et f convexe, alors a est un min" → OUI ! C\'est un théorème',
+          '❌ "Convexe ⟹ dérivable" → NON ! |x| est convexe mais non dérivable en 0',
+        ],
+        anecdote: 'L\'inégalité de Jensen (1906) unifie des dizaines d\'inégalités classiques (AM-GM, Cauchy-Schwarz, Hölder...) sous une seule idée : la convexité ! Elle est au cœur de la théorie de l\'information (entropie).',
+        applicationsReelles: [
+          'Optimisation en ML (fonctions de coût convexes)',
+          'Finance (gestion de portefeuille, convexité du prix des options)',
+          'Économie (utilité marginale décroissante = concavité)',
+          'Traitement d\'images (régularisation convexe)',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'theoreme-spectral',
+        titre: 'Théorème Spectral',
+        domaine: 'algèbre',
+        niveauAgregation: 5,
+        difficulteIntuitive: 4,
+        analogieSimple: 'Toute matrice symétrique a une base de vecteurs propres orthogonaux.',
+        questionCle: 'Comment simplifier radicalement les matrices symétriques ?',
+        explicationIntuitive: '''Le théorème spectral dit : Si A est une matrice symétrique réelle, alors :
+1. Toutes ses valeurs propres sont RÉELLES (pas de nombres complexes)
+2. Ses vecteurs propres peuvent être choisis ORTHOGONAUX entre eux
+3. A est diagonalisable dans une base orthonormée
+
+**Traduction** : Dans le "bon" repère (les vecteurs propres), A devient diagonale ET les axes sont perpendiculaires !
+
+**Pourquoi c'est magique ?** Les matrices symétriques sont PARTOUT en physique, géométrie, statistiques. Le théorème spectral dit qu'elles ont une structure ultra-simple : étirements le long d'axes perpendiculaires.
+
+**Exemple** : Une ellipse. Dans un repère quelconque, son équation est compliquée (termes croisés xy). Mais dans le bon repère (axes = vecteurs propres), c'est juste x²/a² + y²/b² = 1. Simple !''',
+        exempleConcret: '''**Inertie d'un solide** : La matrice d'inertie I est symétrique. Ses vecteurs propres = axes principaux d'inertie (perpendiculaires). Dans ce repère, les calculs de rotation deviennent triviaux !
+
+**Analyse en Composantes Principales (ACP)** : Réduire la dimension des données. On diagonalise la matrice de covariance (symétrique) → vecteurs propres = directions de plus grande variance.
+
+**Équations de physique** : En mécanique quantique, les observables sont des matrices symétriques (hermitiennes). Leurs valeurs propres = valeurs mesurables. Le théorème spectral garantit qu'elles sont réelles !
+
+**Vibrations** : Un système de masses et ressorts. La matrice décrivant le système est symétrique. Ses vecteurs propres = modes normaux de vibration (indépendants et orthogonaux).''',
+        lienAvecLycee: 'Tu sais diagonaliser des matrices 2×2. Le théorème spectral dit : pour les matrices symétriques, c\'est TOUJOURS possible, et mieux : les vecteurs propres sont perpendiculaires.',
+        pourquoiCestImportant: '''Le théorème spectral est central dans presque toutes les sciences :
+
+• **Géométrie** : Classification des formes quadratiques (ellipses, hyperboles, paraboles)
+• **Probabilités** : ACP, décomposition de matrices de covariance
+• **Physique quantique** : Principe fondamental : les observables sont des opérateurs hermitiens, dont le spectre est réel
+• **Optimisation** : Étude des extrema de fonctions quadratiques
+• **Traitement du signal** : Filtres, compression (JPEG utilise la décomposition spectrale !)
+
+C'est un des théorèmes les plus utilisés en pratique.''',
+        visualisation: 'Imagine un ressort tendu dans l\'espace 3D. Il définit une matrice symétrique. Les vecteurs propres montrent les directions naturelles d\'étirement/compression. Ils sont perpendiculaires = axes naturels du système.',
+        prerequisTerminale: ['Matrices', 'Valeurs propres', 'Vecteurs propres', 'Orthogonalité'],
+        ideesFausses: [
+          '❌ "Toute matrice a des valeurs propres réelles" → NON ! Seulement les symétriques (réelles) ou hermitiennes (complexes)',
+          '❌ "Symétrique ⟹ inversible" → NON ! La matrice nulle est symétrique mais non inversible',
+          '❌ "Les vecteurs propres sont automatiquement orthogonaux" → NON ! Seulement pour des valeurs propres DISTINCTES',
+        ],
+        anecdote: 'Hilbert (début 20e) a généralisé le théorème spectral aux espaces de dimension INFINIE ! C\'est le théorème spectral pour les opérateurs compacts. Aujourd\'hui, il sous-tend toute la mécanique quantique moderne.',
+        applicationsReelles: [
+          'Google PageRank (matrice symétrique du graphe du web)',
+          'Reconnaissance faciale (eigenfaces = vecteurs propres de la covariance)',
+          'Compression d\'images (JPEG, PCA)',
+          'Physique quantique (états propres = vecteurs propres)',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'groupes',
+        titre: 'Groupes',
+        domaine: 'algèbre',
+        niveauAgregation: 5,
+        difficulteIntuitive: 3,
+        analogieSimple: 'Un ensemble avec une opération qui "compose bien" les éléments.',
+        questionCle: 'Comment formaliser l\'idée de "symétries" ?',
+        explicationIntuitive: '''Un groupe (G, ∗), c'est un ensemble G avec une opération ∗ qui satisfait 4 propriétés :
+1. **Fermeture** : a ∗ b est dans G
+2. **Associativité** : (a ∗ b) ∗ c = a ∗ (b ∗ c)
+3. **Élément neutre** : Il existe e tel que a ∗ e = a pour tout a
+4. **Inverse** : Pour tout a, il existe a⁻¹ tel que a ∗ a⁻¹ = e
+
+**Intuition** : Un groupe décrit des "transformations" qu'on peut composer, annuler (inverse), et qui ont une "action nulle" (neutre).
+
+**Exemple concret** : Les rotations du carré. Tu peux composer deux rotations (ex: 90° puis 180° = 270°), il y a une rotation neutre (0°), et chaque rotation a une inverse (90° inverse = 270°).
+
+Les groupes unifient plein de structures : nombres, symétries, permutations, matrices inversibles...''',
+        exempleConcret: '''**Rubik's Cube** : L'ensemble des configurations forme un groupe ! Chaque mouvement est réversible, on peut les composer, il y a un mouvement neutre (ne rien faire).
+
+**Cryptographie** : RSA utilise le groupe (ℤ/nℤ)× (entiers modulo n inversibles). La sécurité repose sur la difficulté de calculer des inverses.
+
+**Symétries d'un cristal** : En physique des solides, les symétries forment un groupe. Cela permet de classifier les cristaux (230 groupes d'espace différents) !
+
+**Musique** : Les transpositions forment un groupe (ℤ/12ℤ, les 12 notes). Transposer deux fois = composition.
+
+**Équations polynomiales** : Le groupe de Galois d'un polynôme encode la structure de ses racines. Théorème d'Abel : pas de formule pour deg ≥ 5 car le groupe S₅ n'est pas résoluble.''',
+        lienAvecLycee: 'Tu connais déjà des groupes sans le savoir ! (ℝ,+), (ℝ*,×), les rotations du plan... Ce sont tous des groupes. La théorie des groupes généralise et unifie ces exemples.',
+        pourquoiCestImportant: '''Les groupes sont au cœur de toutes les mathématiques modernes :
+
+• **Symétries** : Tout objet symétrique a un "groupe de symétries" associé
+• **Théorie de Galois** : Résolution d'équations polynomiales (ou non-résolution !)
+• **Physique** : Les lois de conservation découlent de symétries (théorème de Noether). Exemple : conservation de l'énergie ↔ invariance temporelle
+• **Cryptographie** : RSA, courbes elliptiques
+• **Topologie** : Groupe fondamental π₁ (homotopie)
+
+Lagrange : "L'ordre d'un sous-groupe divise l'ordre du groupe." Simple mais ultra-puissant !''',
+        visualisation: 'Imagine un polygone régulier (hexagone). Ses symétries (rotations + réflexions) forment un groupe. Tu peux composer deux symétries, chacune a une inverse, il y a la symétrie "ne rien faire".',
+        prerequisTerminale: ['Opérations', 'Bijections', 'Symétries géométriques'],
+        ideesFausses: [
+          '❌ "Groupe ⟹ commutatif" → NON ! Les matrices GL_n ou les permutations ne commutent pas',
+          '❌ "L\'inverse est unique" → OUI ! C\'est prouvable à partir des axiomes',
+          '❌ "Un groupe a un nombre fini d\'éléments" → NON ! (ℝ,+) est un groupe infini',
+        ],
+        anecdote: 'Galois est mort à 20 ans dans un duel (1832), la veille au soir il a écrit ses découvertes en urgence. Il a créé la théorie des groupes et résolu un problème vieux de 300 ans : pourquoi il n\'existe pas de formule générale pour les polynômes de degré ≥ 5 ? Génie tragique.',
+        applicationsReelles: [
+          'Cryptographie (RSA, ECC)',
+          'Physique des particules (groupes de Lie)',
+          'Cristallographie (groupes de symétrie)',
+          'Résolution d\'équations (Galois)',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'anneaux',
+        titre: 'Anneaux',
+        domaine: 'algèbre',
+        niveauAgregation: 4,
+        difficulteIntuitive: 3,
+        analogieSimple: 'Un ensemble avec addition et multiplication, comme ℤ.',
+        questionCle: 'Comment généraliser l\'arithmétique des entiers ?',
+        explicationIntuitive: '''Un anneau (A, +, ×), c'est un ensemble avec deux opérations :
+• (A, +) est un groupe abélien (addition)
+• × est associative et distributive sur +
+
+**Idée** : Généraliser ℤ. On peut additionner, soustraire (inverse), multiplier. Mais pas toujours diviser !
+
+**Exemples** :
+• ℤ, ℚ, ℝ, ℂ : anneaux classiques
+• ℤ/nℤ : entiers modulo n
+• Polynômes ℝ[X]
+• Matrices M_n(ℝ) (attention : non commutatif !)
+
+**Différence avec corps** : Dans un anneau, on ne peut pas toujours diviser. Dans un corps (ℚ, ℝ, ℂ), tout élément non nul est inversible.''',
+        exempleConcret: '''**Arithmétique modulaire** : ℤ/7ℤ = {0,1,2,3,4,5,6} avec opérations modulo 7. C'est un anneau (et même un corps car 7 est premier).
+
+**Polynômes** : ℝ[X] est un anneau. Tu peux additionner et multiplier des polynômes, mais "diviser" ne donne pas toujours un polynôme (ex: 1/X).
+
+**Matrices 2×2** : M_2(ℝ) est un anneau, mais NON COMMUTATIF ! AB ≠ BA en général.
+
+**Cryptographie** : RSA utilise l'anneau ℤ/nℤ. Chiffrer et déchiffrer = opérations dans cet anneau.
+
+**Codage** : Les codes correcteurs d'erreurs (Reed-Solomon) utilisent des anneaux de polynômes sur des corps finis.''',
+        lienAvecLycee: 'Tu manipules déjà des anneaux : ℤ (entiers), ℚ (rationnels), ℝ[X] (polynômes). La théorie des anneaux généralise et unifie ces structures.',
+        pourquoiCestImportant: '''Les anneaux permettent de faire de l'arithmétique abstraite :
+
+• **Division euclidienne** : Généralisation (anneaux euclidiens : ℤ, 𝕂[X]...)
+• **PGCD, Bézout** : Fonctionnent dans les anneaux principaux
+• **Idéaux** : Généralisation des "multiples de n" dans ℤ
+• **Quotients** : Construire de nouveaux anneaux (ex: ℂ = ℝ[X]/(X²+1))
+
+Applications : cryptographie, codes correcteurs, géométrie algébrique.''',
+        visualisation: 'Imagine un anneau comme une "mini-arithmétique". Tu peux faire +, -, × mais pas toujours ÷. C\'est comme jouer avec les entiers mais dans un univers plus général.',
+        prerequisTerminale: ['Entiers ℤ', 'Polynômes', 'Opérations'],
+        ideesFausses: [
+          '❌ "Anneau ⟹ on peut diviser" → NON ! Seulement dans les corps',
+          '❌ "Anneau ⟹ commutatif" → NON ! Les matrices forment un anneau non commutatif',
+          '❌ "ab = 0 ⟹ a = 0 ou b = 0" → NON ! Contre-ex : ℤ/6ℤ, on a 2×3 = 0 mod 6',
+        ],
+        anecdote: 'Dedekind et Kronecker (fin 19e) ont développé la théorie des anneaux pour résoudre le dernier théorème de Fermat ! L\'idée : travailler dans des anneaux d\'entiers de corps de nombres. Ça n\'a pas suffi (Wiles l\'a prouvé en 1995), mais ça a créé toute l\'algèbre commutative moderne.',
+        applicationsReelles: [
+          'Cryptographie (RSA, courbes elliptiques)',
+          'Codes correcteurs d\'erreurs (polynômes sur corps finis)',
+          'Théorie des nombres (anneaux d\'entiers algébriques)',
+          'Géométrie algébrique (anneaux de polynômes)',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'compacite',
+        titre: 'Compacité',
+        domaine: 'analyse',
+        niveauAgregation: 5,
+        difficulteIntuitive: 4,
+        analogieSimple: 'Un ensemble "fermé et borné" (en dimension finie).',
+        questionCle: 'Quels ensembles ont de "bonnes propriétés" ?',
+        explicationIntuitive: '''En dimension finie (ℝⁿ), compact = fermé + borné. Simple !
+
+Mais la vraie définition (dimension infinie) : "De tout recouvrement par des ouverts, on peut extraire un sous-recouvrement fini."
+
+**Intuition** : Un compact, c'est un espace qu'on peut "contrôler" avec un nombre FINI d'ouverts. Pas besoin d'une infinité !
+
+**Pourquoi c'est important ?** Les compacts ont des propriétés magiques :
+• Toute fonction continue sur un compact atteint son max et son min (théorème des bornes atteintes)
+• Toute suite a une sous-suite convergente (Bolzano-Weierstrass)
+• Un compact est "presque fini" en termes de propriétés
+
+**Exemples** : [0,1] est compact. [0,+∞) ne l'est pas (non borné). ]0,1[ ne l'est pas (pas fermé).''',
+        exempleConcret: '''**Optimisation** : Maximiser f continue sur un compact K garantit que le max existe ! Sur un non-compact, le max peut ne pas exister (ex: f(x) = x sur [0,+∞)).
+
+**Théorème de Heine** : Sur un compact, toute fonction continue est UNIFORMÉMENT continue. Super utile pour les approximations.
+
+**Convergence** : Suite dans un compact → sous-suite convergente (Bolzano-Weierstrass). Pas vrai sur ℝ !
+
+**Physique** : Espace des phases compact → système stable (pas d'échappement à l'infini).
+
+**Géométrie** : Variété compacte = "fermée sur elle-même" (ex: sphère, tore). Pas de "bord" qui part à l'infini.''',
+        lienAvecLycee: 'Un segment [a,b] est compact. Une fonction continue sur [a,b] atteint son max et son min (théorème des bornes). C\'est le prototype du compact !',
+        pourquoiCestImportant: '''La compacité garantit des théorèmes d'existence :
+
+• **Théorème des bornes atteintes** : f continue sur compact atteint son max et son min
+• **Bolzano-Weierstrass** : Extraction de sous-suites convergentes
+• **Heine** : Continuité ⟹ continuité uniforme
+• **Ascoli** : Caractérisation des compacts de fonctions continues
+• **Point fixe** : Théorèmes de point fixe (Brouwer, Schauder)
+
+En dimension infinie, la compacité est RARE mais PRÉCIEUSE.''',
+        visualisation: 'Imagine un ballon fermé (boule fermée ⊂ ℝ³). C\'est compact : il a une taille finie et contient sa frontière. Un cylindre infini n\'est PAS compact (pas borné). Un ballon ouvert non plus (pas fermé).',
+        prerequisTerminale: ['Fermés', 'Bornés', 'Segment [a,b]', 'Théorème des bornes'],
+        ideesFausses: [
+          '❌ "Compact = fermé" → NON ! Il faut aussi être borné (en dim finie)',
+          '❌ "Fermé + borné = compact" → OUI en dim finie, FAUX en dim infinie !',
+          '❌ "Image d\'un compact par f continue = compact" → OUI ! (théorème)',
+        ],
+        anecdote: 'Le théorème de Heine-Borel (fin 19e) caractérise les compacts de ℝⁿ : fermé + borné. Mais en dimension infinie, cette équivalence ÉCHOUE ! La boule fermée unité de ℓ² n\'est PAS compacte. La topologie devient subtile.',
+        applicationsReelles: [
+          'Optimisation (existence de min/max)',
+          'EDP (théorèmes d\'existence via compacité)',
+          'Approximation (théorème de Weierstrass)',
+          'Contrôle optimal (solutions compactes)',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'variance',
+        titre: 'Variance',
+        domaine: 'probabilités',
+        niveauAgregation: 5,
+        difficulteIntuitive: 1,
+        analogieSimple: 'Mesure de "dispersion" autour de la moyenne.',
+        questionCle: 'Les valeurs sont-elles concentrées ou éparpillées ?',
+        explicationIntuitive: '''L'espérance E(X) donne le "centre" des valeurs. La variance Var(X) mesure à quel point les valeurs s'éloignent de ce centre.
+
+**Formule** : Var(X) = E[(X - E(X))²] = E(X²) - E(X)²
+
+**Intuition** : On prend chaque valeur, on calcule son écart au centre, on élève au carré (pour avoir du positif), et on moyenne.
+
+**Écart-type** : σ = √Var(X). C'est plus intuitif car il a la même unité que X.
+
+**Règle empirique** (loi normale) : 
+• 68% des valeurs dans [μ-σ, μ+σ]
+• 95% dans [μ-2σ, μ+2σ]
+• 99.7% dans [μ-3σ, μ+3σ]
+
+Grande variance = valeurs très dispersées. Petite variance = valeurs concentrées autour de la moyenne.''',
+        exempleConcret: '''**Notes d'examen** : Classe A : moyenne 12, écart-type 1 (notes entre 11 et 13). Classe B : moyenne 12, écart-type 5 (notes entre 2 et 20). Même moyenne, dispersion très différente !
+
+**Bourse** : Un actif à forte variance = très risqué (cours peut varier beaucoup). Faible variance = stable.
+
+**Contrôle qualité** : Fabriquer des pièces de 10mm avec variance faible = bonne précision. Variance élevée = défauts.
+
+**Climat** : Ville A : température moyenne 15°C, variance faible (climat stable). Ville B : moyenne 15°C, variance élevée (hivers froids, étés chauds).''',
+        lienAvecLycee: 'Tu calcules déjà l\'écart-type des séries statistiques. Var(X) généralise cette idée aux variables aléatoires. C\'est la "moyenne des carrés des écarts".',
+        pourquoiCestImportant: '''La variance quantifie l'incertitude :
+
+• **Loi des grands nombres** : Moyenne empirique → E(X) quand n→∞
+• **Théorème Central Limite** : Somme de VA → loi normale de variance σ²/n
+• **Inégalité de Bienaymé-Tchebychev** : P(|X-μ| ≥ kσ) ≤ 1/k²
+• **Finance** : Variance du portefeuille = risque. Minimiser la variance à rendement fixé (Markowitz)
+
+Propriété linéaire : Var(aX+b) = a²Var(X) (attention au carré !).''',
+        visualisation: 'Imagine un histogramme. Variance faible = pic étroit (valeurs concentrées). Variance élevée = courbe étalée (valeurs dispersées). L\'écart-type est la "largeur typique" de la distribution.',
+        prerequisTerminale: ['Moyenne', 'Écart-type', 'Variable aléatoire'],
+        ideesFausses: [
+          '❌ "Var(X+Y) = Var(X) + Var(Y)" → NON ! Seulement si X et Y indépendants',
+          '❌ "Var(2X) = 2Var(X)" → NON ! Var(2X) = 4Var(X) (carré !)',
+          '❌ "Variance nulle ⟹ X constant" → OUI ! (X = constante presque sûrement)',
+        ],
+        anecdote: 'L\'écart-type σ a été introduit par Pearson (1894). Avant, on utilisait la "déviation moyenne absolue" E|X-μ|, mais σ a de meilleures propriétés mathématiques (dérivable, lien avec la loi normale via le TCL).',
+        applicationsReelles: [
+          'Finance (mesure du risque)',
+          'Contrôle qualité (Six Sigma)',
+          'Machine Learning (normalisation des données)',
+          'Sondages (marges d\'erreur)',
+        ],
+      ),
+
+      ConceptIntuitif(
+        id: 'convergence-en-loi',
+        titre: 'Convergence en Loi',
+        domaine: 'probabilités',
+        niveauAgregation: 5,
+        difficulteIntuitive: 3,
+        analogieSimple: 'Les distributions se rapprochent, même si les variables ne convergent pas.',
+        questionCle: 'Comment dire que Xₙ "ressemble de plus en plus" à X ?',
+        explicationIntuitive: '''Il existe plusieurs notions de convergence pour les variables aléatoires. La convergence en loi est la plus faible :
+
+**Définition** : Xₙ converge en loi vers X si P(Xₙ ≤ x) → P(X ≤ x) pour tout x.
+
+**Intuition** : Les distributions de Xₙ ressemblent de plus en plus à celle de X. Les histogrammes convergent.
+
+**ATTENTION** : Les Xₙ elles-mêmes ne convergent PAS forcément ! Seules leurs lois convergent.
+
+**Exemple** : Lancer n fois une pièce. Sₙ = nombre de piles / n. Alors Sₙ converge en loi vers une gaussienne (TCL), même si Sₙ ne "converge" pas au sens habituel (elle fluctue toujours).
+
+**Théorème Central Limite** : (X₁ + ... + Xₙ - nμ) / (σ√n) → 𝒩(0,1) en loi. C'est LE théorème fondamental !''',
+        exempleConcret: '''**Sondages** : Si on sonde n personnes, la proportion observée suit (approximativement) une loi normale pour n grand (TCL). La "marge d'erreur" vient de la variance.
+
+**Erreurs de mesure** : Additionner plein de petites erreurs indépendantes → loi normale (TCL). C'est pourquoi la gaussienne est partout !
+
+**Files d'attente** : Le temps d'attente moyen avec n clients → loi normale quand n → ∞.
+
+**Physique** : Mouvement brownien = limite (en loi) de marches aléatoires.
+
+**Simulation** : Méthode de Monte Carlo : moyenner n tirages aléatoires → converge en loi vers la vraie moyenne.''',
+        lienAvecLycee: 'Tu connais l\'approximation normale de la binomiale : Bin(n,p) ≈ 𝒩(np, np(1-p)) pour n grand. C\'est un cas du TCL !',
+        pourquoiCestImportant: '''La convergence en loi sous-tend toute la statistique :
+
+• **Théorème Central Limite** : Fondement des intervalles de confiance et tests
+• **Loi des grands nombres** : Justifie les estimateurs empiriques
+• **Méthode delta** : Transformation de variables convergentes en loi
+• **Approximations** : Remplacer des lois compliquées par des approximations (normale, Poisson...)
+
+C'est la convergence la plus utilisée en pratique car elle nécessite peu d'hypothèses.''',
+        visualisation: 'Imagine des histogrammes qui se déforment progressivement pour ressembler à une courbe en cloche (gaussienne). Les Xₙ convergent en loi vers 𝒩(μ,σ²).',
+        prerequisTerminale: ['Loi binomiale', 'Approximation normale', 'Limite'],
+        ideesFausses: [
+          '❌ "Convergence en loi ⟹ les Xₙ convergent" → NON ! Seules les lois convergent',
+          '❌ "E(Xₙ) → E(X) automatiquement" → NON ! Il faut des hypothèses supplémentaires',
+          '❌ "Convergence en loi = convergence des densités" → NON ! (contre-ex : Dirac)',
+        ],
+        anecdote: 'Le Théorème Central Limite a été esquissé par De Moivre (1733), rigourifié par Laplace (1810), et généralisé par Lyapunov et Lindeberg (début 20e). C\'est un des théorèmes les plus importants et les plus utilisés de toutes les mathématiques !',
+        applicationsReelles: [
+          'Sondages (intervalles de confiance)',
+          'Contrôle qualité (cartes de contrôle)',
+          'Simulations Monte Carlo',
+          'Tests statistiques (tests z, t...)',
+        ],
+      ),
+
+      // Ajoutez encore plus de concepts ici si nécessaire...
     ];
   }
 }
