@@ -75,7 +75,7 @@ class _QuestionsJuryPageState extends State<QuestionsJuryPage> {
         elevation: 0,
         leading: const BackButton(),
         title: const Text('Questions de jury', style: TextStyle(fontWeight: FontWeight.bold)),
-        $1
+        centerTitle: true,
         actions: const [GlobalSearchButton()],
       ),
       body: _loading

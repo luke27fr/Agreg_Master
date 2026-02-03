@@ -55,7 +55,7 @@ class _BibliographiePageState extends State<BibliographiePage> {
         elevation: 0,
         leading: const BackButton(),
         title: const Text('Bibliographie', style: TextStyle(fontWeight: FontWeight.bold)),
-        $1
+        centerTitle: true,
         actions: const [GlobalSearchButton()],
       ),
       body: _loading

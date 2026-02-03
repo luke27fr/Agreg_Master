@@ -67,7 +67,7 @@ class _StatsPageState extends State<StatsPage> {
         elevation: 0,
         leading: const BackButton(),
         title: const Text('Statistiques', style: TextStyle(fontWeight: FontWeight.bold)),
-        $1
+        centerTitle: true,
         actions: const [GlobalSearchButton()],
       ),
       body: _loading

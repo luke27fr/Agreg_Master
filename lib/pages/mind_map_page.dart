@@ -443,7 +443,7 @@ class _MindMapPageState extends State<MindMapPage> with SingleTickerProviderStat
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              ...List.generate(node.difficulte, (_) => const Icon(Icons.star, size: 12, color: Colors.white)),
+                              ...List.generate(node.niveau, (_) => const Icon(Icons.star, size: 12, color: Colors.white)),
                             ],
                           ),
                         ),

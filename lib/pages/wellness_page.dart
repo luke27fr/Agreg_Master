@@ -43,7 +43,7 @@ class _WellnessPageState extends State<WellnessPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text('Bien-être & Santé', style: TextStyle(fontWeight: FontWeight.bold)),
-        $1
+        centerTitle: true,
         actions: const [GlobalSearchButton()],
       ),
       body: SingleChildScrollView(

@@ -66,7 +66,7 @@ class _ContreExemplesPageState extends State<ContreExemplesPage> {
         elevation: 0,
         leading: const BackButton(),
         title: const Text('Contre-exemples', style: TextStyle(fontWeight: FontWeight.bold)),
-        $1
+        centerTitle: true,
         actions: const [GlobalSearchButton()],
       ),
       body: _loading

@@ -46,7 +46,7 @@ class _SpacedRepetitionPageState extends State<SpacedRepetitionPage> with Single
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text('Répétition Espacée', style: TextStyle(fontWeight: FontWeight.bold)),
-        $1
+        centerTitle: true,
         actions: const [GlobalSearchButton()],
         bottom: TabBar(
           controller: _tabController,
