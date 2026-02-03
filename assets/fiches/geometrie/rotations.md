@@ -33,7 +33,7 @@
 > [!QUESTION]
 > ### 4. Questions de Jury
 > * **Q1 :** Comment reconnaître qu'une matrice orthogonale est une rotation ?
->   * **Rép :** $\det = +1$ (matrice de $SO_n$).
+>   * **Rép :** $\det = +1$ — matrice de $SO_n$.
 > * **Q2 :** Quelle est la composée de deux rotations d'axes différents ?
 >   * **Rép :** Une rotation (en dimension 3, pour des rotations qui ne sont pas demi-tours d'axes parallèles).
 > * **Q3 :** Pourquoi les quaternions sont-ils utiles pour les rotations ?

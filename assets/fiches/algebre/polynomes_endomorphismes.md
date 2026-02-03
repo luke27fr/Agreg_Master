@@ -17,7 +17,7 @@
 > * **Degré du minimal :** $\deg(\mu_f) \leq \deg(\chi_f) = n$, mais peut être strictement inférieur.
 > * **Calcul de $\mu_f$ :** En général, $\mu_f$ est le plus petit polynôme non trivial de l'idéal annulateur.
 > * **Somme directe :** Dans le lemme de décomposition, les $P_i$ doivent être premiers entre eux deux à deux.
-> * **Trigonalisable :** $f$ trigonalisable ssi $\chi_f$ est scindé (pas besoin de condition sur $\mu_f$).
+> * **Trigonalisable :** $f$ trigonalisable ssi $\chi_f$ est scindé — pas besoin de condition sur $\mu_f$.
 
 > [!TIP]
 > ### 3. Exercice Type : Calcul du polynôme minimal

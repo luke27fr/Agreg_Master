@@ -8,7 +8,7 @@
 > * **Homogène :** $P$ ne dépend pas de $n$.
 > * **Distribution initiale :** $\mu_0 = (\mathbb{P}(X_0 = i))_i$.
 > * **Distribution à l'instant $n$ :** $\mu_n = \mu_0 P^n$.
-> * **Irréductible :** Tous les états communiquent (on peut aller de $i$ à $j$ pour tous $i, j$).
+> * **Irréductible :** Tous les états communiquent — on peut aller de $i$ à $j$ pour tous $i, j$.
 > * **Apériodique :** Le pgcd des longueurs de chemins de $i$ à $i$ est 1.
 > * **Mesure invariante :** $\pi P = \pi$ avec $\sum \pi_i = 1$.
 

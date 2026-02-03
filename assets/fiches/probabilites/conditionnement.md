@@ -16,7 +16,7 @@
 > * **Attention à l'ordre :** $\mathbb{P}(A|B) \neq \mathbb{P}(B|A)$ en général (confusion courante !).
 > * **Conditionnement par événement de proba 0 :** Nécessite une définition plus sophistiquée.
 > * **Indépendance :** $A \perp B \Leftrightarrow \mathbb{P}(A|B) = \mathbb{P}(A)$.
-> * $\mathbb{E}[X|Y]$ **est une variable aléatoire** (fonction de $Y$), pas un nombre.
+> * $\mathbb{E}[X|Y]$ **est une variable aléatoire** — fonction de $Y$ — pas un nombre.
 
 > [!TIP]
 > ### 3. Exercice Type : Urne de Polya

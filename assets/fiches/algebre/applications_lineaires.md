@@ -15,7 +15,7 @@
 > [!WARNING]
 > ### 2. Pièges à éviter
 > * **Théorème du rang en dim infinie :** Ne s'applique qu'en dimension **finie** ! La dérivation sur $\mathbb{R}[X]$ a un noyau de dimension 1 et est surjective.
-> * **Injective + surjective :** En dimension infinie, on peut être injectif sans être surjectif (décalage sur $\ell^2$).
+> * **Injective + surjective :** En dimension infinie, on peut être injectif sans être surjectif — décalage sur $\ell^2$.
 > * **Composition :** $\ker(g \circ f) \supset \ker(f)$ et $\text{Im}(g \circ f) \subset \text{Im}(g)$. Attention au sens des inclusions !
 > * **Matrice et base :** La matrice d'une application linéaire dépend des bases choisies **à la source ET au but**.
 > * **Rang ligne = rang colonne :** Mais les espaces engendrés sont différents ($\text{Im}(f)$ vs $\text{Im}({}^t\!f)$).

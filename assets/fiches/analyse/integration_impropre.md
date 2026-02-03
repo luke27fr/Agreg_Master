@@ -25,7 +25,7 @@
 >
 > **Solution Détaillée :**
 > 1. **Équivalent :** Pour $x \to +\infty$, $\frac{1}{x^2 + x} \sim \frac{1}{x^2}$.
-> 2. **Intégrale de référence :** $\int_1^{+\infty} \frac{dx}{x^2}$ converge (Riemann, $\alpha = 2 > 1$).
+> 2. **Intégrale de référence :** $\int_1^{+\infty} \frac{dx}{x^2}$ converge — Riemann, $\alpha = 2 > 1$.
 > 3. **Comparaison :** $\frac{1}{x^2 + x} \leq \frac{1}{x^2}$ pour $x \geq 1$.
 > 4. **Conclusion :** $\int_1^{+\infty} \frac{dx}{x^2 + x}$ converge.
 > 5. **Calcul :** $\frac{1}{x^2+x} = \frac{1}{x} - \frac{1}{x+1}$, donc $\int_1^{+\infty} = \lim [\ln\frac{x}{x+1}]_1^b = \ln 2$.

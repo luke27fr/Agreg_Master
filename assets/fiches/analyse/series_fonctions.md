@@ -25,7 +25,7 @@
 >
 > **Solution Détaillée :**
 > 1. **Majoration :** $|\frac{\sin(nx)}{n^2}| \leq \frac{1}{n^2}$ pour tout $x \in \mathbb{R}$.
-> 2. **Série majorante :** $\sum \frac{1}{n^2}$ converge (Riemann, $\alpha = 2 > 1$).
+> 2. **Série majorante :** $\sum \frac{1}{n^2}$ converge — Riemann, $\alpha = 2 > 1$.
 > 3. **Weierstrass :** Donc $\sum \frac{\sin(nx)}{n^2}$ converge normalement sur $\mathbb{R}$.
 > 4. **Conséquence :** La somme est continue sur $\mathbb{R}$.
 

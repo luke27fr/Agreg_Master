@@ -7,7 +7,7 @@
 > * **Existence :** Le barycentre existe si et seulement si $\sum \alpha_i \neq 0$.
 > * **Formule vectorielle :** Pour tout point $O$, $\overrightarrow{OG} = \frac{\sum \alpha_i \overrightarrow{OA_i}}{\sum \alpha_i}$.
 > * **Associativité :** On peut regrouper des points : $G = \text{bar}(G_1, \alpha_1 + \alpha_2 ; A_3, \alpha_3)$.
-> * **Centre de gravité :** Barycentre à coefficients égaux (tous les $\alpha_i = 1$).
+> * **Centre de gravité :** Barycentre à coefficients égaux — tous les $\alpha_i = 1$.
 > * **Milieu :** Barycentre de deux points avec poids égaux.
 > * **Centre d'inertie :** En mécanique, barycentre pondéré par les masses.
 

@@ -8,7 +8,7 @@
 > * **[Adhérence](def:adherence) :** $\bar{A} = $ plus petit fermé contenant $A$ = ensemble des limites de suites de $A$.
 > * **[Intérieur](def:interieur) :** $\mathring{A} = $ plus grand ouvert contenu dans $A$.
 > * **Frontière :** $\partial A = \bar{A} \setminus \mathring{A}$.
-> * **[Dense](def:dense) :** $A$ dense si $\bar{A} = E$ (tout point est limite de points de $A$).
+> * **[Dense](def:dense) :** $A$ dense si $\bar{A} = E$ — tout point est limite de points de $A$.
 > * **Voisinage :** $V$ est voisinage de $x$ s'il contient un ouvert contenant $x$.
 
 > [!WARNING]
@@ -37,7 +37,7 @@
 >   * **Rép :** Famille d'ouverts telle que tout ouvert est union d'éléments de la famille. Ex : boules ouvertes.
 > * **Q2 :** Qu'est-ce que la topologie induite ?
 >   * **Rép :** Sur $A \subset E$, les ouverts de $A$ sont les $O \cap A$ où $O$ est ouvert de $E$.
-> * **Q3 :** Donner un exemple d'ensemble à la fois ouvert et fermé (autre que $\emptyset$ et $E$).
+> * **Q3 :** Donner un exemple d'ensemble à la fois ouvert et fermé, autre que $\emptyset$ et $E$.
 >   * **Rép :** $[0, 1]$ est ouvert et fermé dans $[0, 1] \cup [2, 3]$ (muni de la topologie induite).
 
 ### 5. Références Bibliographiques

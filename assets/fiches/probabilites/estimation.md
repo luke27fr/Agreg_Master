@@ -15,7 +15,7 @@
 > [!WARNING]
 > ### 2. Pièges à éviter
 > * **Sans biais ≠ meilleur :** Un estimateur biaisé peut avoir un MSE plus petit.
-> * **MV pas toujours sans biais :** Ex : $\hat{\sigma}^2 = \frac{1}{n}\sum(X_i - \bar{X})^2$ est biaisé (corriger par $n-1$).
+> * **MV pas toujours sans biais :** Ex : $\hat{\sigma}^2 = \frac{1}{n}\sum(X_i - \bar{X})^2$ est biaisé — corriger par $n-1$.
 > * **Efficace :** Atteint la borne de Cramér-Rao. N'existe pas toujours.
 > * **Existence du MV :** Peut ne pas exister ou ne pas être unique.
 > * **Asymptotique :** Les propriétés du MV sont souvent asymptotiques.

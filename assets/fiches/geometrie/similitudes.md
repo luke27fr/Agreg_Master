@@ -13,7 +13,7 @@
 
 > [!WARNING]
 > ### 2. Pièges à éviter
-> * **Homothétie ≠ similitude :** L'homothétie est une similitude particulière (angle = 0 ou $\pi$).
+> * **Homothétie ≠ similitude :** L'homothétie est une similitude particulière — angle = 0 ou $\pi$.
 > * **Centre :** Le centre d'une similitude n'est pas forcément le centre de l'homothétie dans la décomposition.
 > * **Rapport 1 :** Similitude de rapport 1 = isométrie.
 > * **Composition :** Le rapport de $f \circ g$ est le produit des rapports.

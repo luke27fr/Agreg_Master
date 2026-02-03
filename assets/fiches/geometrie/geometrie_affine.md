@@ -6,7 +6,7 @@
 > * **Espace affine :** Ensemble $E$ muni d'un [espace vectoriel](def:espace vectoriel) $\vec{E}$ et d'une action libre transitive : $\vec{AB} \in \vec{E}$.
 > * **Relation de Chasles :** $\vec{AB} + \vec{BC} = \vec{AC}$.
 > * **[Barycentre](def:barycentre) :** Point $G$ tel que $\sum \alpha_i \vec{GA_i} = \vec{0}$ avec $\sum \alpha_i \neq 0$.
-> * **Sous-espace affine :** $F = A + \vec{F}$ où $\vec{F}$ est un sous-espace vectoriel (direction de $F$).
+> * **Sous-espace affine :** $F = A + \vec{F}$ où $\vec{F}$ est un sous-espace vectoriel — direction de $F$.
 > * **Application affine :** $f(A + \vec{v}) = f(A) + \vec{f}(\vec{v})$ où $\vec{f}$ est linéaire (partie linéaire).
 > * **Parallélisme :** Deux sous-espaces sont parallèles si leurs directions sont incluses l'une dans l'autre.
 > * **Théorème de Thalès :** Des parallèles coupent des sécantes en segments proportionnels.

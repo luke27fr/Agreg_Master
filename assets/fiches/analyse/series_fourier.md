@@ -38,7 +38,7 @@
 > * **Q2 :** Qu'est-ce que la convergence en moyenne quadratique ?
 >   * **Rép :** $\|S_n - f\|_2 \to 0$. Vraie pour toute $f \in L^2$.
 > * **Q3 :** Calculer $\sum_{n=1}^{+\infty} \frac{1}{n^4}$.
->   * **Rép :** $\frac{\pi^4}{90}$ (via Parseval avec $f(x) = x^2$).
+>   * **Rép :** $\frac{\pi^4}{90}$ — via Parseval avec $f(x) = x^2$.
 
 ### 5. Références Bibliographiques
 * **X. Gourdon**, *Analyse* — La référence pour l'agrégation, très complet.

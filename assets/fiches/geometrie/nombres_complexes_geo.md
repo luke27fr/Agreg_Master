@@ -9,7 +9,7 @@
 > * **Distance :** $d(z_1, z_2) = |z_1 - z_2|$.
 > * **Alignement :** $A, B, C$ alignés ssi $\frac{z_C - z_A}{z_B - z_A} \in \mathbb{R}$.
 > * **Angle :** $\widehat{(\vec{AB}, \vec{AC})} = \arg\left(\frac{z_C - z_A}{z_B - z_A}\right)$.
-> * **Cercle :** Équation $|z - z_0| = R$ (centre $z_0$, rayon $R$).
+> * **Cercle :** Équation $|z - z_0| = R$ — centre $z_0$, rayon $R$.
 
 > [!WARNING]
 > ### 2. Pièges à éviter
@@ -26,7 +26,7 @@
 > **Solution Détaillée :**
 > 1. **Birapport :** Le birapport $(A, B; C, D) = \frac{(z_C - z_A)(z_D - z_B)}{(z_D - z_A)(z_C - z_B)}$.
 > 2. **Réel ssi :** $\arg\left(\frac{(z_C - z_A)(z_D - z_B)}{(z_D - z_A)(z_C - z_B)}\right) = 0$ ou $\pi$.
-> 3. **Angles :** $\arg(z_C - z_A) - \arg(z_D - z_A) = \widehat{(\vec{AC}, \vec{AD})}$ (angle inscrit en $A$).
+> 3. **Angles :** $\arg(z_C - z_A) - \arg(z_D - z_A) = \widehat{(\vec{AC}, \vec{AD})}$ — angle inscrit en $A$.
 >    Idem pour l'angle en $B$.
 > 4. **Cocyclicité :** Les angles inscrits sont égaux ou supplémentaires ssi les 4 points sont sur un même cercle (ou alignés).
 > 5. **Conclusion :** Birapport réel $\Leftrightarrow$ cocycliques ou alignés.
@@ -36,7 +36,7 @@
 > * **Q1 :** Comment exprimer une rotation en termes complexes ?
 >   * **Rép :** $z \mapsto e^{i\theta}(z - z_0) + z_0$ pour une rotation de centre $z_0$ et d'angle $\theta$.
 > * **Q2 :** Qu'est-ce qu'une transformation de Möbius ?
->   * **Rép :** $z \mapsto \frac{az + b}{cz + d}$ avec $ad - bc \neq 0$. Préserve les cercles et les droites (cercles passant par $\infty$).
+>   * **Rép :** $z \mapsto \frac{az + b}{cz + d}$ avec $ad - bc \neq 0$. Préserve les cercles et les droites — cercles passant par $\infty$.
 > * **Q3 :** Comment caractériser l'orthogonalité de deux droites en complexes ?
 >   * **Rép :** Les directions sont orthogonales ssi le quotient des nombres directeurs est imaginaire pur.
 

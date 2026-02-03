@@ -5,7 +5,7 @@
 > Une transformation affine est une application $f : E \to E$ de la forme $f(M) = f(A) + \vec{f}(\vec{AM})$.
 > * **Partie linéaire :** $\vec{f}$ est un endomorphisme de l'espace vectoriel directeur.
 > * **Translation :** $\vec{f} = \text{Id}$ et $f(A) \neq A$. Pas de point fixe.
-> * **Homothétie :** $\vec{f} = \lambda \text{Id}$ avec un centre (point fixe si $\lambda \neq 1$).
+> * **Homothétie :** $\vec{f} = \lambda \text{Id}$ avec un centre — point fixe si $\lambda \neq 1$.
 > * **Affinité orthogonale :** $\vec{f}$ est une isométrie vectorielle.
 > * **Projection affine :** $\vec{f}$ est une [projection](def:projection), i.e. $\vec{f}^2 = \vec{f}$. Image = sous-espace fixé.
 > * **Symétrie affine :** $\vec{f}$ est une symétrie, i.e. $\vec{f}^2 = \text{Id}$.

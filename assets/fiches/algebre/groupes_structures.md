@@ -15,9 +15,9 @@
 > ### 2. Pièges à éviter
 > * **Sous-groupe vs partie stable :** Une partie stable n'est pas forcément un sous-groupe (il faut les inverses).
 > * **Distingué :** Dans un groupe non abélien, tous les sous-groupes ne sont pas distingués !
-> * **Ordre et divisibilité :** L'ordre d'un élément divise l'ordre du groupe, mais la réciproque est fausse (pas toujours d'élément d'ordre $d$ si $d | |G|$).
+> * **Ordre et divisibilité :** L'ordre d'un élément divise l'ordre du groupe, mais la réciproque est fausse — pas toujours d'élément d'ordre $d$ si $d | |G|}$.
 > * **Quotient :** $G/H$ n'est un groupe que si $H$ est **distingué**.
-> * **Isomorphisme :** Deux groupes de même cardinal ne sont pas forcément isomorphes (ex: $\mathbb{Z}/4\mathbb{Z} \not\simeq \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}$).
+> * **Isomorphisme :** Deux groupes de même cardinal ne sont pas forcément isomorphes — ex: $\mathbb{Z}/4\mathbb{Z} \not\simeq \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}$.
 
 > [!TIP]
 > ### 3. Exercice Type : Sous-groupes de $\mathbb{Z}$

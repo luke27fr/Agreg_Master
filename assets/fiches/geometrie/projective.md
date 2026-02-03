@@ -5,7 +5,7 @@
 > La géométrie projective ajoute des points à l'infini pour uniformiser les résultats.
 > * **Espace projectif :** $\mathbb{P}^n(\mathbb{K}) = (\mathbb{K}^{n+1} \setminus \{0\}) / \sim$ où $x \sim \lambda x$.
 > * **Coordonnées homogènes :** $[x_0 : x_1 : \cdots : x_n]$ avec au moins un $x_i \neq 0$.
-> * **Points à l'infini :** Ceux avec $x_0 = 0$ (dans le modèle où l'affine est $x_0 = 1$).
+> * **Points à l'infini :** Ceux avec $x_0 = 0$ — dans le modèle où l'affine est $x_0 = 1$.
 > * **Droite projective :** Sous-espace de dimension 1 de $\mathbb{P}^n$, i.e., plan vectoriel quotienté.
 > * **Dualité :** Points $\leftrightarrow$ hyperplans. Incidence préservée.
 > * **Birapport :** $(A, B; C, D) = \frac{\overrightarrow{CA}/\overrightarrow{CB}}{\overrightarrow{DA}/\overrightarrow{DB}}$. Invariant projectif.
