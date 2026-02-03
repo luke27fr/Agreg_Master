@@ -22,6 +22,8 @@ import 'package:agreg_master/services/streak_service.dart';
 import 'package:agreg_master/services/badge_service.dart';
 import 'package:agreg_master/services/spaced_repetition_service.dart';
 import 'package:agreg_master/services/lecon_progress_service.dart';
+import 'package:agreg_master/services/examen_blanc_service.dart';
+import 'package:agreg_master/services/mind_map_service.dart';
 import 'fiche_page.dart';
 
 void main() async {
@@ -37,6 +39,9 @@ void main() async {
     BadgeService().loadData(),
     SpacedRepetitionService().loadData(),
     LeconProgressService().loadData(),
+    ExamenBlancService().loadExamens(),
+    ExamenBlancService().loadResults(),
+    MindMapService().loadMindMap(),
   ]);
   runApp(const AgregMasterApp());
 }

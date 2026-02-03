@@ -13,10 +13,13 @@ import 'badges_page.dart';
 import 'pomodoro_page.dart';
 import 'spaced_repetition_page.dart';
 import 'lecon_progress_page.dart';
+import 'examen_blanc_page.dart';
+import 'mind_map_page.dart';
 import '../services/streak_service.dart';
 import '../services/badge_service.dart';
 import '../services/spaced_repetition_service.dart';
 import '../services/lecon_progress_service.dart';
+import '../services/examen_blanc_service.dart';
 
 class AgregationHubPage extends StatefulWidget {
   const AgregationHubPage({super.key});
@@ -205,6 +208,22 @@ class _AgregationHubPageState extends State<AgregationHubPage> {
 
             const SizedBox(height: 12),
 
+            // Carte mentale (mise en avant)
+            _buildWideFeatureCard(
+              context,
+              isDark,
+              icon: Icons.account_tree,
+              title: 'Carte Mentale Interactive',
+              subtitle: 'Visualisez les liens entre concepts et parcours suggérés',
+              color: Colors.indigo,
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const MindMapPage()),
+              ),
+            ),
+
+            const SizedBox(height: 12),
+
             Row(
               children: [
                 Expanded(
@@ -327,6 +346,21 @@ class _AgregationHubPageState extends State<AgregationHubPage> {
               'Préparation Écrit',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
+            const SizedBox(height: 12),
+
+            _buildWideFeatureCard(
+              context,
+              isDark,
+              icon: Icons.assignment_turned_in,
+              title: 'Examens Blancs',
+              subtitle: 'Sujets type concours avec correction automatique',
+              color: Colors.purple,
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const ExamenBlancPage()),
+              ),
+            ),
+
             const SizedBox(height: 12),
 
             _buildWideFeatureCard(
