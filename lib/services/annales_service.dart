@@ -72,7 +72,7 @@ class AnnalesService extends ChangeNotifier {
         dureeMinutes: 360,
         baremeTotal: 20,
         themes: ['Algèbre', 'Géométrie'],
-        urlOfficielle: 'https://agreg.org/archives/2024/externe/algebre_geometrie.pdf',
+        urlOfficielle: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-d-admissibilite-et-d-admission-1019',
         difficulte: 'Difficile',
         motsClefs: ['Groupes de Sylow', 'Réduction', 'Isométries'],
         exercices: [
@@ -147,7 +147,7 @@ class AnnalesService extends ChangeNotifier {
         dureeMinutes: 360,
         baremeTotal: 20,
         themes: ['Analyse', 'Probabilités'],
-        urlOfficielle: 'https://agreg.org/archives/2024/externe/analyse_probabilites.pdf',
+        urlOfficielle: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-d-admissibilite-et-d-admission-1019',
         difficulte: 'Très difficile',
         motsClefs: ['Espaces de Hilbert', 'TCL', 'Convergence en loi'],
         exercices: [
@@ -201,7 +201,7 @@ class AnnalesService extends ChangeNotifier {
         dureeMinutes: 360,
         baremeTotal: 20,
         themes: ['Algèbre'],
-        urlOfficielle: 'https://agreg.org/archives/2023/externe/algebre.pdf',
+        urlOfficielle: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-d-admissibilite-et-d-admission-1019',
         difficulte: 'Difficile',
         motsClefs: ['Polynômes', 'Réduction', 'Commutants'],
         exercices: [
@@ -241,7 +241,7 @@ class AnnalesService extends ChangeNotifier {
         dureeMinutes: 360,
         baremeTotal: 20,
         themes: ['Analyse'],
-        urlOfficielle: 'https://agreg.org/archives/2022/externe/fourier.pdf',
+        urlOfficielle: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-d-admissibilite-et-d-admission-1019',
         difficulte: 'Moyen',
         motsClefs: ['Fourier', 'Convergence uniforme', 'Parseval'],
         exercices: [
@@ -281,7 +281,7 @@ class AnnalesService extends ChangeNotifier {
         dureeMinutes: 300,
         baremeTotal: 20,
         themes: ['Algèbre'],
-        urlOfficielle: 'https://agreg.org/archives/2024/interne/algebre.pdf',
+        urlOfficielle: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-d-admissibilite-et-d-admission-1019',
         difficulte: 'Moyen',
         motsClefs: ['Matrices', 'Déterminants', 'Rang'],
         exercices: [
