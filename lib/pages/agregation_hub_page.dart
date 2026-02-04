@@ -21,7 +21,9 @@ import 'structured_notes_page.dart';
 import 'competition_page.dart';
 import 'wellness_page.dart';
 import 'maths_intuitives_page.dart';
+import 'annales_page.dart';
 import '../services/streak_service.dart';
+import '../services/annales_service.dart';
 import '../services/badge_service.dart';
 import '../services/spaced_repetition_service.dart';
 import '../services/lecon_progress_service.dart';
@@ -419,6 +421,20 @@ class _AgregationHubPageState extends State<AgregationHubPage> {
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(builder: (_) => const ExamenBlancPage()),
+              ),
+            ),
+
+            const SizedBox(height: 12),
+
+            // Annales officielles
+            _buildFeatureCard(
+              icon: Icons.history_edu,
+              title: 'Annales Officielles',
+              subtitle: 'Sujets réels d\'agrégation 2015-2024 avec corrections',
+              color: Colors.indigo,
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const AnnalesPage()),
               ),
             ),
 

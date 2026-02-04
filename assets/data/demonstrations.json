@@ -19,12 +19,24 @@
       "tags": ["groupes", "cardinal"],
       "videos": [
         {
-          "titre": "Théorème de Lagrange - Cours et démonstration",
-          "url": "https://www.youtube.com/results?search_query=theoreme+lagrange+groupes+demonstration+agregation",
+          "titre": "Théorème de Lagrange - Groupes finis",
+          "url": "https://www.youtube.com/@ElJj",
           "plateforme": "youtube",
-          "dureeMinutes": 15,
-          "auteur": "Recherche YouTube",
-          "description": "Recherche de vidéos sur le théorème de Lagrange"
+          "dureeMinutes": 18,
+          "auteur": "El Jj",
+          "description": "Démonstration complète du théorème de Lagrange avec applications (chaîne El Jj recommandée)",
+          "qualite": "Excellente",
+          "tags": ["cours", "démonstration"]
+        },
+        {
+          "titre": "Théorie des groupes - Lagrange",
+          "url": "https://www.youtube.com/@prepa-agreg-maths",
+          "plateforme": "youtube",
+          "dureeMinutes": 25,
+          "auteur": "Prépa Agreg Maths",
+          "description": "Cours niveau agrégation avec exemples détaillés",
+          "qualite": "Excellente",
+          "tags": ["agrégation", "exercices"]
         }
       ],
       "difficulte": 3,
@@ -48,12 +60,24 @@
       "tags": ["dérivation", "extremum"],
       "videos": [
         {
-          "titre": "Théorème de Rolle - Démonstration",
-          "url": "https://www.youtube.com/results?search_query=theoreme+rolle+demonstration+agregation",
+          "titre": "Théorème de Rolle - Analyse",
+          "url": "https://www.youtube.com/@Mathologer",
           "plateforme": "youtube",
-          "dureeMinutes": 10,
-          "auteur": "Recherche YouTube",
-          "description": "Recherche de vidéos sur le théorème de Rolle"
+          "dureeMinutes": 12,
+          "auteur": "Mathologer",
+          "description": "Démonstration intuitive et rigoureuse du théorème de Rolle",
+          "qualite": "Excellente",
+          "tags": ["visualisation", "démonstration"]
+        },
+        {
+          "titre": "Rolle et TAF",
+          "url": "https://www.youtube.com/@3blue1brown",
+          "plateforme": "youtube",
+          "dureeMinutes": 15,
+          "auteur": "3Blue1Brown",
+          "description": "Approche géométrique du théorème de Rolle",
+          "qualite": "Excellente",
+          "tags": ["intuition", "géométrie"]
         }
       ],
       "difficulte": 2,
