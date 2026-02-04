@@ -693,6 +693,18 @@ class _MathsIntuitivesPageState extends State<MathsIntuitivesPage> {
   }
 
   Widget _buildSection(String titre, String contenu, Color couleur) {
+    // #region agent log
+    // Log section content for LaTeX debugging
+    if (titre.contains('Explication')) {
+      debugPrint('[DEBUG_LATEX] Section: $titre');
+      debugPrint('[DEBUG_LATEX] Content length: ${contenu.length}');
+      debugPrint('[DEBUG_LATEX] First 200 chars: ${contenu.substring(0, contenu.length > 200 ? 200 : contenu.length)}');
+      debugPrint('[DEBUG_LATEX] Contains $$: ${contenu.contains('\$\$')}');
+      debugPrint('[DEBUG_LATEX] Contains bullets: ${contenu.contains('•')}');
+      debugPrint('[DEBUG_LATEX] Contains **$$: ${contenu.contains('**\$\$')}');
+    }
+    // #endregion
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
