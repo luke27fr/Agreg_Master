@@ -33,6 +33,7 @@ import 'package:agreg_master/services/maths_intuitives_service.dart';
 import 'package:agreg_master/services/annales_service.dart';
 import 'package:agreg_master/services/backup_service.dart';
 import 'package:agreg_master/services/subscription_service.dart';
+import 'package:agreg_master/services/cloud_sync_service.dart';
 import 'fiche_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -65,6 +66,7 @@ void main() async {
     WellnessService().loadData(),
     MathsIntuitivesService().loadConcepts(),
     SubscriptionService().initialize(),
+    CloudSyncService().initialize(),
   ]);
   runApp(const AgregMasterApp());
 }

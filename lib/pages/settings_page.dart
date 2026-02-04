@@ -8,6 +8,7 @@ import '../services/streak_service.dart';
 import '../services/subscription_service.dart';
 import 'export_pdf_page.dart';
 import 'paywall_page.dart';
+import 'cloud_sync_page.dart';
 
 import '../widgets/global_search_button.dart';
 
@@ -140,6 +141,29 @@ class _SettingsPageState extends State<SettingsPage> {
               secondary: const Icon(Icons.visibility_off),
               value: _settingsService.focusModeEnabled,
               onChanged: (value) => _settingsService.setFocusMode(value),
+            ),
+          ]),
+
+          const SizedBox(height: 24),
+
+          // Section Cloud
+          _buildSectionTitle('Synchronisation'),
+          _buildCard(isDark, [
+            ListTile(
+              leading: const Icon(Icons.cloud_sync),
+              title: const Text('Cloud Sync'),
+              subtitle: Text(_subscriptionService.isPremium
+                  ? 'Synchroniser vos données'
+                  : 'Fonctionnalité Premium'),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const CloudSyncPage(),
+                  ),
+                );
+              },
             ),
           ]),
 
