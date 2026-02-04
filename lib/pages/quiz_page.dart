@@ -308,11 +308,11 @@ class _QuizPageState extends State<QuizPage> {
 
               return Padding(
                 padding: const EdgeInsets.only(bottom: 10),
-                child: InkWell(
+                child: GestureDetector(
                   onTap: () => _checkAnswer(index),
-                  borderRadius: BorderRadius.circular(10),
+                  behavior: HitTestBehavior.opaque,
                   child: Container(
-                    padding: const EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       color: color,
                       border: Border.all(
@@ -320,8 +320,58 @@ class _QuizPageState extends State<QuizPage> {
                         width: isAnswered && (index == question.correctIndex || index == selectedOption) ? 2 : 1,
                       ),
                       borderRadius: BorderRadius.circular(10),
+                      boxShadow: !isAnswered ? [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.1),
+                          spreadRadius: 1,
+                          blurRadius: 3,
+                          offset: const Offset(0, 2),
+                        ),
+                      ] : null,
                     ),
-                    child: _buildMarkdown(question.options[index]),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 24,
+                          height: 24,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: isAnswered && index == question.correctIndex
+                                  ? Colors.green
+                                  : isAnswered && index == selectedOption
+                                      ? Colors.red
+                                      : Colors.grey.shade400,
+                              width: 2,
+                            ),
+                            color: isAnswered && index == question.correctIndex
+                                ? Colors.green
+                                : isAnswered && index == selectedOption
+                                    ? Colors.red
+                                    : Colors.transparent,
+                          ),
+                          child: isAnswered && (index == question.correctIndex || index == selectedOption)
+                              ? Icon(
+                                  index == question.correctIndex ? Icons.check : Icons.close,
+                                  color: Colors.white,
+                                  size: 16,
+                                )
+                              : null,
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: IgnorePointer(
+                            child: MarkdownBody(
+                              data: question.options[index],
+                              selectable: false,
+                              styleSheet: _buildTheme(context),
+                              extensionSet: _latexExtensionSet,
+                              builders: {'latex': LatexElementBuilder()},
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               );
