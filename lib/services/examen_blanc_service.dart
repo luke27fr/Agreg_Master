@@ -979,11 +979,13 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Soit fₙ(x) = n·sin(x/n) sur [0,π]. Montrer que fₙ → f simplement et calculer lim ∫fₙ.',
                 indication: 'sin(u)/u → 1.',
+                correction: 'fₙ(x) = n·sin(x/n) = x·[sin(x/n)/(x/n)] → x (car sin(u)/u → 1 quand u→0). Donc fₙ → f(x)=x simplement. ∫₀^π fₙ : par changement u=x/n, ∫₀^π n sin(x/n)dx = n²∫₀^(π/n) sin(u)du = n²[1-cos(π/n)] → π²/2 quand n→∞. ∫f = π²/2.',
                 points: 4,
               ),
               QuestionExamen(
                 enonce: 'Peut-on appliquer la convergence dominée ?',
                 indication: 'Trouver une fonction dominante.',
+                correction: 'Oui. |fₙ(x)| = n|sin(x/n)| ≤ n·|x/n| = x (car |sin(u)| ≤ |u|). Donc |fₙ(x)| ≤ x pour tout n, x. La fonction g(x)=x est intégrable sur [0,π]. Par convergence dominée, lim∫fₙ = ∫f = π²/2.',
                 points: 3,
               ),
             ],
@@ -995,11 +997,13 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Soit F(t) = ∫₀^∞ e^{-tx}·sin(x)/x dx pour t > 0. Montrer que F est C¹.',
                 indication: 'Dérivation sous l\'intégrale.',
+                correction: '∂/∂t[e^{-tx}sin(x)/x] = -e^{-tx}sin(x). |−e^{-tx}sin(x)| ≤ e^{-tx} intégrable sur [0,∞[ pour t>0. Par théorème de dérivation sous l\'intégrale (Lebesgue), F est C¹ et F\'(t) = -∫₀^∞ e^{-tx}sin(x)dx.',
                 points: 4,
               ),
               QuestionExamen(
                 enonce: 'Calculer F\'(t) puis F(t).',
                 indication: 'F\'(t) = -∫e^{-tx}sin(x)dx.',
+                correction: 'F\'(t) = -∫₀^∞ e^{-tx}sin(x)dx. IPP : = -1/(1+t²) (formule standard). F\'(t) = -1/(1+t²). Intégration : F(t) = -arctan(t) + C. Quand t→∞, F(t)→0, donc C=π/2. Résultat : F(t) = π/2 - arctan(t) = arctan(1/t).',
                 points: 4,
               ),
             ],
@@ -1011,15 +1015,18 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Montrer que Γ(x+1) = x·Γ(x) pour x > 0.',
                 indication: 'IPP.',
+                correction: 'Γ(x) = ∫₀^∞ t^{x-1}e^{-t}dt. IPP : Γ(x+1) = ∫₀^∞ t^x e^{-t}dt = [-t^x e^{-t}]₀^∞ + x∫₀^∞ t^{x-1}e^{-t}dt = 0 + x·Γ(x). Formule de récurrence fondamentale.',
                 points: 2,
               ),
               QuestionExamen(
                 enonce: 'En déduire Γ(n+1) = n! pour n ∈ ℕ.',
+                correction: 'Γ(1) = ∫₀^∞ e^{-t}dt = 1. Par récurrence : Γ(n+1) = n·Γ(n) = n·(n-1)·...·1·Γ(1) = n!. La fonction Gamma prolonge la factorielle aux réels.',
                 points: 1,
               ),
               QuestionExamen(
                 enonce: 'Calculer Γ(1/2) = √π.',
                 indication: 'Intégrale de Gauss.',
+                correction: 'Γ(1/2) = ∫₀^∞ t^{-1/2}e^{-t}dt. Changement u=√t : = 2∫₀^∞ e^{-u²}du = ∫_{-∞}^∞ e^{-u²}du = √π (intégrale de Gauss). Donc Γ(1/2) = √π.',
                 points: 2,
               ),
             ],
