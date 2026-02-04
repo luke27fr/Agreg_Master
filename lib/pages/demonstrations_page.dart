@@ -377,47 +377,35 @@ class _DemonstrationsPageState extends State<DemonstrationsPage> {
     try {
       final uri = Uri.parse(url);
       
-      // Tenter d'ouvrir l'URL
-      final canLaunch = await canLaunchUrl(uri);
+      // Sur Android, launchUrl sans canLaunchUrl fonctionne mieux
+      // car canLaunchUrl peut retourner false même si l'URL est valide
+      final launched = await launchUrl(
+        uri,
+        mode: LaunchMode.externalApplication, // Force l'ouverture dans le navigateur/YouTube
+      );
       
-      if (canLaunch) {
-        // Essayer avec mode platformDefault d'abord (meilleure compatibilité Android)
-        final launched = await launchUrl(
-          uri,
-          mode: LaunchMode.platformDefault,
+      if (!launched && mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('Impossible d\'ouvrir la vidéo. Assurez-vous qu\'un navigateur est installé.'),
+            duration: const Duration(seconds: 4),
+            backgroundColor: Colors.orange.shade700,
+          ),
         );
-        
-        if (!launched && mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Impossible d\'ouvrir la vidéo. Vérifiez votre connexion.'),
-              duration: Duration(seconds: 3),
-            ),
-          );
-        }
-      } else {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: const Text('URL non valide ou application manquante'),
-              duration: const Duration(seconds: 4),
-              action: SnackBarAction(
-                label: 'Copier URL',
-                onPressed: () {
-                  // L'utilisateur pourrait copier l'URL manuellement
-                },
-              ),
-            ),
-          );
-        }
       }
     } catch (e) {
       debugPrint('Erreur lors de l\'ouverture de la vidéo: $e');
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Erreur: ${e.toString()}'),
-            duration: const Duration(seconds: 4),
+            content: Text('Erreur : ${e.toString()}'),
+            duration: const Duration(seconds: 5),
+            backgroundColor: Colors.red.shade700,
+            action: SnackBarAction(
+              label: 'OK',
+              textColor: Colors.white,
+              onPressed: () {},
+            ),
           ),
         );
       }
