@@ -22,8 +22,10 @@ import 'competition_page.dart';
 import 'wellness_page.dart';
 import 'maths_intuitives_page.dart';
 import 'annales_page.dart';
+import 'backup_page.dart';
 import '../services/streak_service.dart';
 import '../services/annales_service.dart';
+import '../services/backup_service.dart';
 import '../services/badge_service.dart';
 import '../services/spaced_repetition_service.dart';
 import '../services/lecon_progress_service.dart';
@@ -250,6 +252,22 @@ class _AgregationHubPageState extends State<AgregationHubPage> {
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(builder: (_) => const MathsIntuitivesPage()),
+              ),
+            ),
+
+            const SizedBox(height: 12),
+
+            // Sauvegarde Cloud
+            _buildWideFeatureCard(
+              context,
+              isDark,
+              icon: Icons.cloud_upload,
+              title: '☁️ Sauvegarde & Cloud',
+              subtitle: 'Ne perdez jamais votre progression - Backup automatique',
+              color: Colors.cyan.shade600,
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const BackupPage()),
               ),
             ),
 

@@ -31,6 +31,7 @@ import 'package:agreg_master/services/competition_service.dart';
 import 'package:agreg_master/services/wellness_service.dart';
 import 'package:agreg_master/services/maths_intuitives_service.dart';
 import 'package:agreg_master/services/annales_service.dart';
+import 'package:agreg_master/services/backup_service.dart';
 import 'fiche_page.dart';
 
 void main() async {
@@ -50,6 +51,7 @@ void main() async {
     ExamenBlancService().loadResults(),
     MindMapService().loadMindMap(),
     AnnalesService().loadAnnales(),
+    BackupService().loadBackupInfo(),
     SmartPlannerService().loadData(),
     JuryVirtuelService().loadData(),
     StructuredNotesService().loadData(),
