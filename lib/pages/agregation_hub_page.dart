@@ -7,8 +7,6 @@ import 'exercices_page.dart';
 import 'planificateur_page.dart';
 import 'simulation_page.dart';
 import 'oral_simulation_page.dart';
-import 'bibliographie_page.dart';
-import 'questions_jury_page.dart';
 import 'badges_page.dart';
 import 'pomodoro_page.dart';
 import 'spaced_repetition_page.dart';
@@ -24,13 +22,9 @@ import 'maths_intuitives_page.dart';
 import 'annales_page.dart';
 import 'backup_page.dart';
 import '../services/streak_service.dart';
-import '../services/annales_service.dart';
-import '../services/backup_service.dart';
 import '../services/badge_service.dart';
 import '../services/spaced_repetition_service.dart';
 import '../services/lecon_progress_service.dart';
-import '../services/examen_blanc_service.dart';
-import '../services/structured_notes_service.dart';
 import '../services/wellness_service.dart';
 import '../widgets/global_search_button.dart';
 
@@ -446,6 +440,7 @@ class _AgregationHubPageState extends State<AgregationHubPage> {
 
             // Annales officielles
             _buildFeatureCard(
+              context,
               icon: Icons.history_edu,
               title: 'Annales Officielles',
               subtitle: 'Sujets réels d\'agrégation 2015-2024 avec corrections',
