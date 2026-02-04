@@ -5,6 +5,8 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
 import 'package:markdown/markdown.dart' as md;
 import '../widgets/global_search_button.dart';
+import '../services/subscription_service.dart';
+import 'paywall_page.dart';
 
 class LeconsPage extends StatefulWidget {
   const LeconsPage({super.key});
@@ -139,12 +141,19 @@ class _LeconsPageState extends State<LeconsPage> with SingleTickerProviderStateM
   }
 
   Widget _buildLeconCard(Map<String, dynamic> lecon, bool isDark) {
+    final subscriptionService = SubscriptionService();
+    final index = _data!['algebre'].indexOf(lecon) != -1 
+        ? _data!['algebre'].indexOf(lecon) 
+        : _data!['analyse'].indexOf(lecon);
+    final isLocked = !subscriptionService.isPremium && 
+                     index >= subscriptionService.getFreeAccessCount('lecons');
+
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       color: isDark ? const Color(0xFF1E1E1E) : Colors.white,
       child: InkWell(
-        onTap: () => _showLeconDetails(context, lecon),
+        onTap: () => isLocked ? _showPaywall() : _showLeconDetails(context, lecon),
         borderRadius: BorderRadius.circular(12),
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -192,7 +201,9 @@ class _LeconsPageState extends State<LeconsPage> with SingleTickerProviderStateM
                   ],
                 ),
               ),
-              const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+              isLocked
+                  ? const Icon(Icons.lock, size: 20, color: Colors.amber)
+                  : const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
             ],
           ),
         ),
@@ -322,5 +333,14 @@ class _LeconsPageState extends State<LeconsPage> with SingleTickerProviderStateM
         ),
       ),
     );
+  }
+
+  Future<void> _showPaywall() async {
+    final result = await Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const PaywallPage()),
+    );
+    if (result == true && mounted) {
+      setState(() {}); // Rafraîchir après abonnement
+    }
   }
 }

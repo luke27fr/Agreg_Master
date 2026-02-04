@@ -5,7 +5,9 @@ import '../services/favorites_service.dart';
 import '../services/notes_service.dart';
 import '../services/reading_service.dart';
 import '../services/streak_service.dart';
+import '../services/subscription_service.dart';
 import 'export_pdf_page.dart';
+import 'paywall_page.dart';
 
 import '../widgets/global_search_button.dart';
 
@@ -18,16 +20,19 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   final SettingsService _settingsService = SettingsService();
+  final SubscriptionService _subscriptionService = SubscriptionService();
 
   @override
   void initState() {
     super.initState();
     _settingsService.addListener(_onSettingsChanged);
+    _subscriptionService.addListener(_onSettingsChanged);
   }
 
   @override
   void dispose() {
     _settingsService.removeListener(_onSettingsChanged);
+    _subscriptionService.removeListener(_onSettingsChanged);
     super.dispose();
   }
 
@@ -51,6 +56,10 @@ class _SettingsPageState extends State<SettingsPage> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
+          // Section Premium
+          _buildPremiumCard(isDark),
+          const SizedBox(height: 24),
+
           // Section Apparence
           _buildSectionTitle('Apparence'),
           _buildCard(isDark, [
@@ -237,6 +246,120 @@ class _SettingsPageState extends State<SettingsPage> {
         ],
       ),
     );
+  }
+
+  Widget _buildPremiumCard(bool isDark) {
+    final isPremium = _subscriptionService.isPremium;
+    
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: isPremium
+            ? LinearGradient(
+                colors: [Colors.amber.shade400, Colors.amber.shade700],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              )
+            : LinearGradient(
+                colors: [Colors.indigo.shade600, Colors.indigo.shade900],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: (isPremium ? Colors.amber : Colors.indigo).withOpacity(0.3),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                isPremium ? Icons.verified : Icons.workspace_premium,
+                color: Colors.white,
+                size: 32,
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      isPremium ? 'Agreg Master Premium' : 'Version Gratuite',
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    if (isPremium && _subscriptionService.expirationDate != null)
+                      Text(
+                        'Jusqu\'au ${_formatDate(_subscriptionService.expirationDate!)}',
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: Colors.white.withAlpha((0.85 * 255).round()),
+                        ),
+                      )
+                    else if (!isPremium)
+                      Text(
+                        'Débloquez tout le contenu',
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: Colors.white.withAlpha((0.85 * 255).round()),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          if (!isPremium) ...[
+            const SizedBox(height: 16),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () async {
+                  final result = await Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const PaywallPage()),
+                  );
+                  if (result == true && mounted) {
+                    setState(() {});
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.indigo.shade700,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: const Text(
+                  'Passer à Premium',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  String _formatDate(DateTime date) {
+    const months = [
+      'janvier', 'février', 'mars', 'avril', 'mai', 'juin',
+      'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'
+    ];
+    return '${date.day} ${months[date.month - 1]} ${date.year}';
   }
 
   Widget _buildSectionTitle(String title) {
