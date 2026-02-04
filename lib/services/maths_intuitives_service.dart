@@ -92,7 +92,7 @@ L'idée géniale : au lieu de décrire tous les chemins possibles (il y en a une
         exempleConcret: '''Les coordonnées GPS sont un espace vectoriel ! Pour localiser n'importe quel point sur Terre, tu n'as besoin que de 3 informations : latitude, longitude, altitude. Toute position est une combinaison de ces trois "directions de base".
 
 Un autre exemple : les couleurs RGB sur ton écran. Rouge + Vert + Bleu = toutes les couleurs possibles ! C'est un espace vectoriel de dimension 3.''',
-        lienAvecLycee: 'Tu connais déjà un espace vectoriel : le plan ! Avec les vecteurs \$\\vec{i}\$ (horizontal) et \$\\vec{j}\$ (vertical), tu peux atteindre n\'importe quel point. C\'est exactement le même principe, mais généralisé à plein d\'autres situations.',
+        lienAvecLycee: 'Tu connais déjà un espace vectoriel : le plan ! Avec les vecteurs $$\\vec{i}$$ (horizontal) et $$\\vec{j}$$ (vertical), tu peux atteindre n\'importe quel point. C\'est exactement le même principe, mais généralisé à plein d\'autres situations.',
         pourquoiCestImportant: '''C'est LA structure fondamentale de toutes les maths modernes ! 
 
 • **En physique** : décrire les mouvements, les forces, les ondes
@@ -414,39 +414,39 @@ Le théorème spectral garantit que les matrices symétriques sont diagonalisabl
         difficulteIntuitive: 1,
         analogieSimple: 'Mesurer à quel point deux vecteurs "vont dans la même direction".',
         questionCle: 'Comment mesurer la "similitude" de deux directions ?',
-        explicationIntuitive: '''Le produit scalaire \$\\vec{u} \\cdot \\vec{v}\$ mesure si deux vecteurs sont alignés, opposés, ou perpendiculaires.
+        explicationIntuitive: '''Le produit scalaire $$\\vec{u} \\cdot \\vec{v}$$ mesure si deux vecteurs sont alignés, opposés, ou perpendiculaires.
 
-• **\$\\vec{u} \\cdot \\vec{v} > 0\$** : Ils vont "dans le même sens" (angle aigu)
-• **\$\\vec{u} \\cdot \\vec{v} = 0\$** : Ils sont perpendiculaires (orthogonaux)
-• **\$\\vec{u} \\cdot \\vec{v} < 0\$** : Ils vont "en sens opposé" (angle obtus)
+• **$$\\vec{u} \\cdot \\vec{v} > 0$$** : Ils vont "dans le même sens" (angle aigu)
+• **$$\\vec{u} \\cdot \\vec{v} = 0$$** : Ils sont perpendiculaires (orthogonaux)
+• **$$\\vec{u} \\cdot \\vec{v} < 0$$** : Ils vont "en sens opposé" (angle obtus)
 
-Formule : \$\\vec{u} \\cdot \\vec{v} = |\\vec{u}| |\\vec{v}| \\cos(\\theta)\$ où θ est l'angle entre eux.
+Formule : $$\\vec{u} \\cdot \\vec{v} = |\\vec{u}| |\\vec{v}| \\cos(\\theta)$$ où θ est l'angle entre eux.
 
-**Intuition géométrique** : Projette \$\\vec{u}\$ sur \$\\vec{v}\$. Le produit scalaire = longueur de la projection × longueur de \$\\vec{v}\$. Si \$\\vec{u}\$ pointe vers \$\\vec{v}\$, la projection est grande (produit positif). Si \$\\vec{u}\$ est perpendiculaire à \$\\vec{v}\$, la projection est nulle (produit nul).
+**Intuition géométrique** : Projette $$\\vec{u}$$ sur $$\\vec{v}$$. Le produit scalaire = longueur de la projection × longueur de $$\\vec{v}$$. Si $$\\vec{u}$$ pointe vers $$\\vec{v}$$, la projection est grande (produit positif). Si $$\\vec{u}$$ est perpendiculaire à $$\\vec{v}$$, la projection est nulle (produit nul).
 
 Le produit scalaire généralise la notion d'angle et de longueur à TOUS les espaces vectoriels !''',
-        exempleConcret: '''**Travail d'une force** : \$W = \\vec{F} \\cdot \\vec{d}\$. Si tu pousses dans la direction du mouvement (\$\\vec{F}\$ et \$\\vec{d}\$ alignés), travail maximal. Si tu pousses perpendiculairement (porter un sac en marchant), travail nul !
+        exempleConcret: '''**Travail d'une force** : $$W = \\vec{F} \\cdot \\vec{d}$$. Si tu pousses dans la direction du mouvement ($$\\vec{F}$$ et $$\\vec{d}$$ alignés), travail maximal. Si tu pousses perpendiculairement (porter un sac en marchant), travail nul !
 
 **Projection d'un immeuble** : L'ombre d'un bâtiment dépend de l'angle du soleil. Longueur de l'ombre = hauteur × cos(angle). C'est un produit scalaire !
 
 **Similarité de documents** : Chaque document = vecteur de fréquences de mots. Le produit scalaire de deux documents mesure leur similarité (moteurs de recherche) !
 
 **Spotify/Netflix** : Tes goûts = vecteur. Recommandation = trouver des items avec un fort produit scalaire avec tes goûts.''',
-        lienAvecLycee: '\$\\vec{u} \\cdot \\vec{v} = x_1x_2 + y_1y_2\$ dans le plan. Tu l\'utilises pour calculer des angles, des distances, vérifier l\'orthogonalité. Le théorème d\'Al-Kashi (cos) est une application du produit scalaire !',
+        lienAvecLycee: '$$\\vec{u} \\cdot \\vec{v} = x_1x_2 + y_1y_2$$ dans le plan. Tu l\'utilises pour calculer des angles, des distances, vérifier l\'orthogonalité. Le théorème d\'Al-Kashi (cos) est une application du produit scalaire !',
         pourquoiCestImportant: '''Le produit scalaire introduit la géométrie dans les espaces abstraits :
 
-• **Longueur** : \$|\\vec{u}| = \\sqrt{\\vec{u} \\cdot \\vec{u}}\$
-• **Angle** : \$\\cos(\\theta) = \\frac{\\vec{u} \\cdot \\vec{v}}{|\\vec{u}||\\vec{v}|}\$
-• **Orthogonalité** : \$\\vec{u} \\perp \\vec{v} \\Leftrightarrow \\vec{u} \\cdot \\vec{v} = 0\$
-• **Projection** : \$\\text{proj}_v(u) = \\frac{\\vec{u} \\cdot \\vec{v}}{|\\vec{v}|^2}\\vec{v}\$
+• **Longueur** : $$|\\vec{u}| = \\sqrt{\\vec{u} \\cdot \\vec{u}}$$
+• **Angle** : $$\\cos(\\theta) = \\frac{\\vec{u} \\cdot \\vec{v}}{|\\vec{u}||\\vec{v}|}$$
+• **Orthogonalité** : $$\\vec{u} \\perp \\vec{v} \\Leftrightarrow \\vec{u} \\cdot \\vec{v} = 0$$
+• **Projection** : $$\\text{proj}_v(u) = \\frac{\\vec{u} \\cdot \\vec{v}}{|\\vec{v}|^2}\\vec{v}$$
 
 Applications : moindres carrés (régression linéaire), bases orthonormées, décomposition en séries de Fourier, mécanique quantique (produit scalaire de fonctions d'onde).''',
-        visualisation: 'Imagine \$\\vec{u}\$ comme une flèche. Le produit scalaire \$\\vec{u} \\cdot \\vec{v}\$ mesure "combien de \$\\vec{u}\$ va dans la direction de \$\\vec{v}\$". Projette l\'ombre de \$\\vec{u}\$ sur \$\\vec{v}\$. L\'ombre longue = grand produit scalaire.',
+        visualisation: 'Imagine $$\\vec{u}$$ comme une flèche. Le produit scalaire $$\\vec{u} \\cdot \\vec{v}$$ mesure "combien de $$\\vec{u}$$ va dans la direction de $$\\vec{v}$$". Projette l\'ombre de $$\\vec{u}$$ sur $$\\vec{v}$$. L\'ombre longue = grand produit scalaire.',
         prerequisTerminale: ['Vecteurs', 'Cosinus', 'Projection orthogonale'],
         ideesFausses: [
           '❌ "Le produit scalaire donne un vecteur" → NON ! C\'est un NOMBRE (scalaire)',
           '❌ "Il faut un repère orthonormé" → NON ! Le produit scalaire existe indépendamment du repère',
-          '❌ "\$\\vec{u} \\cdot \\vec{v} = \\vec{v} \\cdot \\vec{u}\$ toujours" → OUI pour le produit scalaire standard, mais il existe des "produits scalaires" non commutatifs (tenseurs)',
+          '❌ "$$\\vec{u} \\cdot \\vec{v} = \\vec{v} \\cdot \\vec{u}$$ toujours" → OUI pour le produit scalaire standard, mais il existe des "produits scalaires" non commutatifs (tenseurs)',
         ],
         anecdote: 'Le produit scalaire a été inventé par Gibbs et Heaviside (fin 19e) pour simplifier les calculs de Maxwell en électromagnétisme. Avant, on utilisait les quaternions de Hamilton (plus compliqués). Le produit scalaire a gagné !',
         applicationsReelles: [
@@ -2252,10 +2252,10 @@ Applications en optimisation, EDP, théorie du contrôle, économie...''',
 
 **Aire d'une surface** : Intégrer une 2-forme sur la surface.
 
-**Théorème de Stokes** : \$\\iint \\text{rot}(\\vec{F}) \\cdot \\vec{n} \\, dS = \\oint \\vec{F} \\cdot d\\vec{l}\$ (circulation = flux du rotationnel). Cas particulier de \$\\int d\\omega = \\int \\omega\$ sur le bord.
+**Théorème de Stokes** : $$\\iint \\text{rot}(\\vec{F}) \\cdot \\vec{n} \\, dS = \\oint \\vec{F} \\cdot d\\vec{l}$$ (circulation = flux du rotationnel). Cas particulier de $$\\int d\\omega = \\int \\omega$$ sur le bord.
 
 **Topologie différentielle** : Cohomologie de de Rham. Formes fermées / formes exactes = invariant topologique !''',
-        lienAvecLycee: 'Tu calcules des intégrales de fonctions (\$\\int f \\, dx\$), du travail (\$\\oint \\vec{F} \\cdot d\\vec{l}\$), du flux (\$\\iint \\vec{F} \\cdot \\vec{n} \\, dS\$). Les formes différentielles UNIFIENT tout ça en un seul formalisme !',
+        lienAvecLycee: 'Tu calcules des intégrales de fonctions ($$\\int f \\, dx$$), du travail ($$\\oint \\vec{F} \\cdot d\\vec{l}$$), du flux ($$\\iint \\vec{F} \\cdot \\vec{n} \\, dS$$). Les formes différentielles UNIFIENT tout ça en un seul formalisme !',
         pourquoiCestImportant: '''Les formes différentielles sont le langage universel de la géométrie :
 
 • **Théorème de Stokes** : Unifie tous les théorèmes d'intégration (Green, Ostrogradski...)
@@ -2425,7 +2425,7 @@ Les métriques généralisent la géométrie à des espaces abstraits (fonctions
 **Réseaux** : Distance entre nœuds = nombre d'arêtes du plus court chemin (distance de graphe).
 
 **Édition de texte** : Distance de Levenshtein (nombre d'opérations pour transformer un mot en un autre). "chat" → "chien" : distance 3.''',
-        lienAvecLycee: 'La distance euclidienne \$d(A,B) = \\|\\overrightarrow{AB}\\|\$ dans le plan ou l\'espace est un cas particulier. Les espaces métriques généralisent : tout ensemble avec une "distance" raisonnable.',
+        lienAvecLycee: 'La distance euclidienne $$d(A,B) = \\|\\overrightarrow{AB}\\|$$ dans le plan ou l\'espace est un cas particulier. Les espaces métriques généralisent : tout ensemble avec une "distance" raisonnable.',
         pourquoiCestImportant: '''Les espaces métriques fondent toute la topologie :
 
 • **Convergence** : xₙ → x ⟺ d(xₙ, x) → 0
