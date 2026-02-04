@@ -699,9 +699,9 @@ class _MathsIntuitivesPageState extends State<MathsIntuitivesPage> {
       debugPrint('[DEBUG_LATEX] Section: $titre');
       debugPrint('[DEBUG_LATEX] Content length: ${contenu.length}');
       debugPrint('[DEBUG_LATEX] First 200 chars: ${contenu.substring(0, contenu.length > 200 ? 200 : contenu.length)}');
-      debugPrint('[DEBUG_LATEX] Contains $$: ${contenu.contains('\$\$')}');
+      debugPrint('[DEBUG_LATEX] Contains \$\$: ${contenu.contains(r'$$')}');
       debugPrint('[DEBUG_LATEX] Contains bullets: ${contenu.contains('•')}');
-      debugPrint('[DEBUG_LATEX] Contains **$$: ${contenu.contains('**\$\$')}');
+      debugPrint('[DEBUG_LATEX] Contains **\$\$: ${contenu.contains(r'**$$')}');
     }
     // #endregion
     
