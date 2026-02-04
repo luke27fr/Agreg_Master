@@ -416,9 +416,9 @@ Le théorème spectral garantit que les matrices symétriques sont diagonalisabl
         questionCle: 'Comment mesurer la "similitude" de deux directions ?',
         explicationIntuitive: '''Le produit scalaire \$\$\\vec{u} \\cdot \\vec{v}\$\$ mesure si deux vecteurs sont alignés, opposés, ou perpendiculaires.
 
-• **\$\$\\vec{u} \\cdot \\vec{v} > 0\$\$** : Ils vont "dans le même sens" (angle aigu)
-• **\$\$\\vec{u} \\cdot \\vec{v} = 0\$\$** : Ils sont perpendiculaires (orthogonaux)
-• **\$\$\\vec{u} \\cdot \\vec{v} < 0\$\$** : Ils vont "en sens opposé" (angle obtus)
+• \$\$\\vec{u} \\cdot \\vec{v} > 0\$\$ : Ils vont "dans le même sens" (angle aigu)
+• \$\$\\vec{u} \\cdot \\vec{v} = 0\$\$ : Ils sont perpendiculaires (orthogonaux)
+• \$\$\\vec{u} \\cdot \\vec{v} < 0\$\$ : Ils vont "en sens opposé" (angle obtus)
 
 Formule : \$\$\\vec{u} \\cdot \\vec{v} = |\\vec{u}| |\\vec{v}| \\cos(\\theta)\$\$ où θ est l'angle entre eux.
 
