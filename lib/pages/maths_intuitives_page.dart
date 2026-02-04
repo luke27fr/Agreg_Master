@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
+import 'package:markdown/markdown.dart' as md;
 import '../services/maths_intuitives_service.dart';
 import '../models/maths_intuitives_model.dart';
 import '../widgets/global_search_button.dart';
@@ -14,6 +17,11 @@ class _MathsIntuitivesPageState extends State<MathsIntuitivesPage> {
   final MathsIntuitivesService _service = MathsIntuitivesService();
   String _selectedDomaine = 'Tous';
   String _selectedCategorie = 'Toutes';
+
+  static md.ExtensionSet get _latexExtensionSet => md.ExtensionSet(
+    [LatexBlockSyntax(), ...md.ExtensionSet.gitHubFlavored.blockSyntaxes],
+    [LatexInlineSyntax(), ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes],
+  );
   
   @override
   void initState() {
@@ -348,14 +356,20 @@ class _MathsIntuitivesPageState extends State<MathsIntuitivesPage> {
                       Icon(Icons.help_outline, size: 20, color: Colors.amber.shade900),
                       const SizedBox(width: 8),
                       Expanded(
-                        child: Text(
-                          concept.questionCle,
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontStyle: FontStyle.italic,
-                            color: Colors.amber.shade900,
-                            fontWeight: FontWeight.w500,
+                        child: MarkdownBody(
+                          data: concept.questionCle,
+                          selectable: false,
+                          styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(
+                            p: TextStyle(
+                              fontSize: 13,
+                              fontStyle: FontStyle.italic,
+                              color: Colors.amber.shade900,
+                              fontWeight: FontWeight.w500,
+                              height: 1.5,
+                            ),
                           ),
+                          extensionSet: _latexExtensionSet,
+                          builders: {'latex': LatexElementBuilder()},
                         ),
                       ),
                     ],
@@ -377,9 +391,14 @@ class _MathsIntuitivesPageState extends State<MathsIntuitivesPage> {
                     ),
                     const SizedBox(width: 10),
                     Expanded(
-                      child: Text(
-                        concept.analogieSimple,
-                        style: const TextStyle(fontSize: 13, height: 1.5),
+                      child: MarkdownBody(
+                        data: concept.analogieSimple,
+                        selectable: false,
+                        styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(
+                          p: const TextStyle(fontSize: 13, height: 1.6),
+                        ),
+                        extensionSet: _latexExtensionSet,
+                        builders: {'latex': LatexElementBuilder()},
                       ),
                     ),
                   ],
@@ -584,9 +603,14 @@ class _MathsIntuitivesPageState extends State<MathsIntuitivesPage> {
                               borderRadius: BorderRadius.circular(8),
                               border: Border.all(color: Colors.red.shade200),
                             ),
-                            child: Text(
-                              idee,
-                              style: TextStyle(fontSize: 13, color: Colors.red.shade900),
+                            child: MarkdownBody(
+                              data: idee,
+                              selectable: false,
+                              styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(
+                                p: TextStyle(fontSize: 14, color: Colors.red.shade900, height: 1.5),
+                              ),
+                              extensionSet: _latexExtensionSet,
+                              builders: {'latex': LatexElementBuilder()},
                             ),
                           )),
                         ],
@@ -623,7 +647,15 @@ class _MathsIntuitivesPageState extends State<MathsIntuitivesPage> {
                                 ),
                                 const SizedBox(width: 10),
                                 Expanded(
-                                  child: Text(app, style: const TextStyle(fontSize: 14)),
+                                  child: MarkdownBody(
+                                    data: app,
+                                    selectable: false,
+                                    styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(
+                                      p: const TextStyle(fontSize: 14, height: 1.5),
+                                    ),
+                                    extensionSet: _latexExtensionSet,
+                                    builders: {'latex': LatexElementBuilder()},
+                                  ),
                                 ),
                               ],
                             ),
@@ -695,9 +727,22 @@ class _MathsIntuitivesPageState extends State<MathsIntuitivesPage> {
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: couleur.withOpacity(0.2)),
           ),
-          child: Text(
-            contenu,
-            style: const TextStyle(fontSize: 14, height: 1.6),
+          child: MarkdownBody(
+            data: contenu,
+            selectable: false,
+            styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(
+              p: const TextStyle(fontSize: 15, height: 1.7),
+              strong: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+              em: const TextStyle(fontStyle: FontStyle.italic, fontSize: 15),
+              listBullet: const TextStyle(fontSize: 15),
+              code: TextStyle(
+                fontSize: 14,
+                backgroundColor: Colors.grey.shade100,
+                fontFamily: 'monospace',
+              ),
+            ),
+            extensionSet: _latexExtensionSet,
+            builders: {'latex': LatexElementBuilder()},
           ),
         ),
       ],
