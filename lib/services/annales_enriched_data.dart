@@ -166,7 +166,7 @@ Ce problème classique permet de démontrer des résultats fondamentaux de la th
             // Question 3
             QuestionAnnale(
               enonce: 'Application : classifier tous les groupes d\'ordre 15 à isomorphisme près.',
-              indication: 'Utiliser les théorèmes de Sylow pour montrer qu'il n'y a qu'un seul groupe à isomorphisme près.',
+              indication: 'Utiliser les théorèmes de Sylow pour montrer qu\'il n\'y a qu\'un seul groupe à isomorphisme près.',
               correction: '''**Classification complète :**
 
 1. **Décomposition de l'ordre :** 15 = 3·5 avec (3,5) = 1.
