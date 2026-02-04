@@ -441,7 +441,7 @@ Le produit scalaire généralise la notion d'angle et de longueur à TOUS les es
 • **Projection** : \$\$\\text{proj}_v(u) = \\frac{\\vec{u} \\cdot \\vec{v}}{|\\vec{v}|^2}\\vec{v}\$\$
 
 Applications : moindres carrés (régression linéaire), bases orthonormées, décomposition en séries de Fourier, mécanique quantique (produit scalaire de fonctions d'onde).''',
-        visualisation: 'Imagine \$\$\\vec{u}\$\$ comme une flèche. Le produit scalaire \$\$\\vec{u} \\cdot \\vec{v}\$\$ mesure "combien de \$\$\\vec{u}\$\$ va dans la direction de \$\$\\vec{v}\$\$". Projette l\'ombre de \$\$\\vec{u}\$\$ sur \$\$\\vec{v}\$\$. L\'ombre longue = grand produit scalaire.',
+        visualisation: 'Imagine un vecteur comme une flèche. Le produit scalaire mesure combien un vecteur va dans la direction d\'un autre. \n\nProjecte l\'ombre de \$\$\\vec{u}\$\$ sur \$\$\\vec{v}\$\$. Si l\'ombre est longue, le produit scalaire est grand. Si les vecteurs sont perpendiculaires, l\'ombre est nulle donc le produit scalaire est zéro.',
         prerequisTerminale: ['Vecteurs', 'Cosinus', 'Projection orthogonale'],
         ideesFausses: [
           '❌ "Le produit scalaire donne un vecteur" → NON ! C\'est un NOMBRE (scalaire)',
