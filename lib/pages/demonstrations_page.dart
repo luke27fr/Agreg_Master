@@ -374,13 +374,51 @@ class _DemonstrationsPageState extends State<DemonstrationsPage> {
   }
 
   Future<void> _launchVideo(String url) async {
-    final uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-    } else {
+    try {
+      final uri = Uri.parse(url);
+      
+      // Tenter d'ouvrir l'URL
+      final canLaunch = await canLaunchUrl(uri);
+      
+      if (canLaunch) {
+        // Essayer avec mode platformDefault d'abord (meilleure compatibilité Android)
+        final launched = await launchUrl(
+          uri,
+          mode: LaunchMode.platformDefault,
+        );
+        
+        if (!launched && mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Impossible d\'ouvrir la vidéo. Vérifiez votre connexion.'),
+              duration: Duration(seconds: 3),
+            ),
+          );
+        }
+      } else {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Text('URL non valide ou application manquante'),
+              duration: const Duration(seconds: 4),
+              action: SnackBarAction(
+                label: 'Copier URL',
+                onPressed: () {
+                  // L'utilisateur pourrait copier l'URL manuellement
+                },
+              ),
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      debugPrint('Erreur lors de l\'ouverture de la vidéo: $e');
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Impossible d\'ouvrir la vidéo')),
+          SnackBar(
+            content: Text('Erreur: ${e.toString()}'),
+            duration: const Duration(seconds: 4),
+          ),
         );
       }
     }

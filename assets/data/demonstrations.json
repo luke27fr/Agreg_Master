@@ -20,7 +20,7 @@
       "videos": [
         {
           "titre": "Théorème de Lagrange - Groupes finis",
-          "url": "https://www.youtube.com/@ElJj",
+          "url": "https://www.youtube.com/results?search_query=theoreme+lagrange+groupes+demonstration",
           "plateforme": "youtube",
           "dureeMinutes": 18,
           "auteur": "El Jj",
@@ -30,7 +30,7 @@
         },
         {
           "titre": "Théorie des groupes - Lagrange",
-          "url": "https://www.youtube.com/@prepa-agreg-maths",
+          "url": "https://www.youtube.com/results?search_query=theorie+groupes+lagrange+agregation",
           "plateforme": "youtube",
           "dureeMinutes": 25,
           "auteur": "Prépa Agreg Maths",
@@ -61,7 +61,7 @@
       "videos": [
         {
           "titre": "Théorème de Rolle - Analyse",
-          "url": "https://www.youtube.com/@Mathologer",
+          "url": "https://www.youtube.com/results?search_query=theoreme+rolle+demonstration+analyse",
           "plateforme": "youtube",
           "dureeMinutes": 12,
           "auteur": "Mathologer",
@@ -71,7 +71,7 @@
         },
         {
           "titre": "Rolle et TAF",
-          "url": "https://www.youtube.com/@3blue1brown",
+          "url": "https://www.youtube.com/results?search_query=rolle+accroissements+finis+3blue1brown",
           "plateforme": "youtube",
           "dureeMinutes": 15,
           "auteur": "3Blue1Brown",
