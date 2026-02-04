@@ -536,19 +536,23 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Modéliser une file M/M/1 : arrivées Poisson(λ), service Exp(μ).',
                 indication: 'Chaîne de Markov à temps continu.',
+                correction: 'État = nombre de clients dans le système (N(t) ∈ ℕ). Transitions : N(t) → N(t)+1 avec taux λ (arrivée), N(t) → N(t)-1 avec taux μ (service si N>0). Équations de balance détaillée en régime stationnaire πₙ : λπₙ = μπₙ₊₁ pour n≥0. Solution : πₙ = ρⁿπ₀ où ρ=λ/μ. Normalisation Σπₙ=1 donne π₀=1-ρ (si ρ<1).',
                 points: 3,
               ),
               QuestionExamen(
                 enonce: 'Déterminer la condition de stabilité ρ = λ/μ < 1.',
+                correction: 'Pour que Σπₙ < ∞, il faut Σρⁿ < ∞, soit ρ < 1. Interprétation : λ/μ < 1 ⟺ taux d\'arrivée < taux de service. Si ρ ≥ 1, la file explose (pas de loi stationnaire). Condition nécessaire et suffisante : ρ = λ/μ < 1.',
                 points: 2,
               ),
               QuestionExamen(
                 enonce: 'Calculer le nombre moyen de clients dans le système.',
                 indication: 'Loi stationnaire géométrique.',
+                correction: 'E[N] = Σ n·πₙ = Σ n·ρⁿ(1-ρ) = (1-ρ)·ρ·Σ n·ρⁿ⁻¹ = (1-ρ)·ρ/(1-ρ)² = ρ/(1-ρ) = λ/(μ-λ). Résultat classique pour M/M/1.',
                 points: 3,
               ),
               QuestionExamen(
                 enonce: 'Temps moyen d\'attente (formule de Little).',
+                correction: 'Formule de Little : E[N] = λ·E[T] où E[T] = temps moyen dans le système. Donc E[T] = E[N]/λ = [λ/(μ-λ)]/λ = 1/(μ-λ). Temps moyen d\'attente dans la queue : E[W] = E[T] - 1/μ = λ/(μ(μ-λ)).',
                 points: 2,
               ),
             ],
@@ -560,10 +564,12 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Données (xᵢ,yᵢ) pour i=1..n. Déterminer a,b minimisant ∑(yᵢ - axᵢ - b)².',
                 indication: 'Dériver par rapport à a et b.',
+                correction: 'Posons S(a,b) = Σ(yᵢ - axᵢ - b)². ∂S/∂b = -2Σ(yᵢ - axᵢ - b) = 0 ⟹ nb = Σyᵢ - aΣxᵢ ⟹ b = ȳ - ax̄. ∂S/∂a = -2Σxᵢ(yᵢ - axᵢ - b) = 0 ⟹ aΣxᵢ² + b Σxᵢ = Σxᵢyᵢ. En substituant b : a = [Σxᵢyᵢ - nx̄ȳ]/[Σxᵢ² - nx̄²] = Cov(X,Y)/Var(X).',
                 points: 4,
               ),
               QuestionExamen(
                 enonce: 'Calculer le coefficient de corrélation R².',
+                correction: 'R² = 1 - SSR/SST où SSR = Σ(yᵢ - ŷᵢ)² (résidus), SST = Σ(yᵢ - ȳ)² (variance totale). Équivalent : R² = [Cov(X,Y)]²/(Var(X)Var(Y)) = r² (carré du coefficient de corrélation linéaire de Pearson). R² ∈ [0,1], proche de 1 = bon ajustement.',
                 points: 3,
               ),
               QuestionExamen(
@@ -590,11 +596,13 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Soit G groupe fini agissant sur X. Montrer la formule des classes : |X| = |X^G| + ∑[G:G_x].',
                 indication: 'Partitionner X en orbites.',
+                correction: 'X se partitionne en orbites disjointes : X = ⊔ Orb(x). Pour x ∉ X^G (points non fixes), |Orb(x)| = [G:G_x] (théorème orbite-stabilisateur). Pour x ∈ X^G, |Orb(x)| = 1. Donc |X| = |X^G| + Σ_{x∉X^G} [G:G_x]. En regroupant par orbites distinctes : |X| = |X^G| + Σ_{orbites non triviales} [G:G_x].',
                 points: 4,
               ),
               QuestionExamen(
                 enonce: 'Application : montrer qu\'un p-groupe non trivial a un centre non trivial.',
                 indication: 'Action par conjugaison.',
+                correction: 'Action par conjugaison : g·x = gxg⁻¹. X^G = Z(G) (centre). G_x = {g : gx=xg} (centralisateur). Formule : |G| = |Z(G)| + Σ[G:G_x]. Chaque [G:G_x] divise |G| = pⁿ (Lagrange), donc [G:G_x] = p^k avec k≥1 (orbites non triviales). Comme |G| ≡ 0 (mod p), on a |Z(G)| ≡ 0 (mod p). Or e ∈ Z(G), donc |Z(G)| ≥ p. Centre non trivial.',
                 points: 4,
               ),
             ],
@@ -606,10 +614,12 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Montrer qu\'il n\'existe pas de groupe simple d\'ordre 30.',
                 indication: 'Sylow : n₅ = 1 ou 6, n₃ = 1 ou 10.',
+                correction: '30 = 2·3·5. Par Sylow : n₅ ≡ 1 (mod 5) et n₅ | 6, donc n₅ ∈ {1,6}. n₃ ≡ 1 (mod 3) et n₃ | 10, donc n₃ ∈ {1,10}. Si n₅=1, le 5-Sylow est distingué ⟹ G non simple. Si n₅=6 et n₃=10 : 6·4=24 éléments d\'ordre 5 (6 Sylow de cardinal 5), 10·2=20 éléments d\'ordre 3. Total 24+20+1=45 > 30 : contradiction. Donc n₃=1 ou n₅=1 ⟹ sous-groupe distingué non trivial.',
                 points: 5,
               ),
               QuestionExamen(
                 enonce: 'Même question pour l\'ordre 56.',
+                correction: '56 = 8·7 = 2³·7. n₇ ≡ 1 (mod 7) et n₇ | 8, donc n₇ ∈ {1,8}. Si n₇=1, le 7-Sylow est distingué. Si n₇=8 : 8·6=48 éléments d\'ordre 7. Reste 56-48=8 places. Le 2-Sylow (ordre 8) est unique ⟹ distingué. Donc G toujours non simple.',
                 points: 2,
               ),
             ],
@@ -621,10 +631,12 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Combien y a-t-il de groupes non isomorphes d\'ordre 6 ?',
                 indication: 'ℤ/6ℤ et S₃ = ℤ/3ℤ ⋊ ℤ/2ℤ.',
+                correction: 'Deux groupes à isomorphisme près : (1) ℤ/6ℤ (cyclique, abélien). (2) S₃ (groupe symétrique, non abélien). S₃ ≅ ℤ/3ℤ ⋊ ℤ/2ℤ (produit semi-direct) avec action φ: ℤ/2ℤ → Aut(ℤ/3ℤ) non triviale (φ(1) = inversion).',
                 points: 3,
               ),
               QuestionExamen(
                 enonce: 'Décrire explicitement le produit semi-direct.',
+                correction: 'G = N ⋊_φ H avec N = ℤ/3ℤ = ⟨a⟩, H = ℤ/2ℤ = ⟨b⟩. Loi : (n₁,h₁)·(n₂,h₂) = (n₁ + φ(h₁)(n₂), h₁+h₂). Ici φ(b)(a) = a⁻¹ = −a. Donc ba = a²b. Présentation : S₃ = ⟨a,b | a³=b²=1, bab=a²⟩.',
                 points: 2,
               ),
             ],
@@ -647,11 +659,13 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Soit f(x,y) = xy²/(x²+y²) si (x,y) ≠ (0,0), f(0,0) = 0. f est-elle différentiable en (0,0) ?',
                 indication: 'Calculer les dérivées partielles puis vérifier la définition.',
+                correction: '∂f/∂x(0,0) = lim_{h→0} [f(h,0)-f(0,0)]/h = 0. ∂f/∂y(0,0) = lim_{h→0} [f(0,h)-f(0,0)]/h = 0. Reste : [f(h,k) - f(0,0) - 0·h - 0·k]/√(h²+k²) = hk²/[(h²+k²)^(3/2)]. Sur y=x : |x³|/|x|³ = 1 ↛ 0. Donc f NON différentiable en (0,0).',
                 points: 4,
               ),
               QuestionExamen(
                 enonce: 'f est-elle de classe C¹ ?',
                 indication: 'Les dérivées partielles sont-elles continues ?',
+                correction: 'Non, car si f n\'est pas différentiable en (0,0), elle ne peut pas être C¹. (Rappel : C¹ ⟹ différentiable). De plus, on peut vérifier que ∂f/∂x n\'est pas continue en (0,0) en calculant explicitement ∂f/∂x(x,y) pour (x,y) ≠ (0,0).',
                 points: 2,
               ),
             ],
@@ -663,11 +677,13 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Minimiser f(x,y,z) = x² + y² + z² sous la contrainte x + 2y + 3z = 6.',
                 indication: 'Multiplicateurs de Lagrange.',
+                correction: 'Lagrangien : L = x²+y²+z² - λ(x+2y+3z-6). ∇L = 0 : 2x=λ, 2y=2λ, 2z=3λ, x+2y+3z=6. Donc x=λ/2, y=λ, z=3λ/2. Contrainte : λ/2 + 2λ + 9λ/2 = 6 ⟹ 7λ = 6 ⟹ λ = 6/7. Solution : (x,y,z) = (3/7, 6/7, 9/7). Valeur min : f = 9/49 + 36/49 + 81/49 = 126/49 = 18/7.',
                 points: 5,
               ),
               QuestionExamen(
                 enonce: 'Vérifier que c\'est bien un minimum.',
                 indication: 'Hessienne restreinte.',
+                correction: 'La hessienne de f est H = 2I (définie positive). Sur la contrainte (sous-espace affine), la restriction est encore définie positive. Donc c\'est un minimum local. Comme f(x,y,z) → +∞ quand ‖(x,y,z)‖ → ∞, c\'est un minimum global sur la contrainte.',
                 points: 3,
               ),
             ],
@@ -679,10 +695,12 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Soit F(x,y) = (e^x cos y, e^x sin y). Montrer que F est un difféomorphisme local en tout point.',
                 indication: 'Jacobienne inversible.',
+                correction: 'JF = [[e^x cos y, −e^x sin y], [e^x sin y, e^x cos y]]. det(JF) = e^(2x)(cos²y + sin²y) = e^(2x) > 0. F est C^∞ et det(JF) ≠ 0 partout. Par le théorème d\'inversion locale, F est un difféomorphisme local en tout point.',
                 points: 3,
               ),
               QuestionExamen(
                 enonce: 'F est-il un difféomorphisme global ?',
+                correction: 'Non. F n\'est pas injective : F(x,y) = F(x,y+2π) car cos et sin sont 2π-périodiques. Donc F n\'est pas un difféomorphisme global sur ℝ². (C\'est un revêtement universel : ℝ² → ℝ²\\{0} via coordonnées polaires.)',
                 points: 3,
               ),
             ],
