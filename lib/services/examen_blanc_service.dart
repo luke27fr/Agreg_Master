@@ -723,10 +723,12 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Déterminer le rayon de convergence de ∑(n!)²/(2n)! · x^n.',
                 indication: 'D\'Alembert ou formule de Stirling.',
+                correction: 'Posons uₙ = (n!)²/(2n)!. uₙ₊₁/uₙ = [(n+1)!]²/(2n+2)! · (2n)!/(n!)² = (n+1)²/[(2n+2)(2n+1)] → 1/4 quand n→∞. Par d\'Alembert, R = 4. (Vérification Stirling : uₙ ~ 1/(πn) · (1/4)ⁿ, confirme R=4.)',
                 points: 3,
               ),
               QuestionExamen(
                 enonce: 'Que se passe-t-il sur le bord du disque de convergence ?',
+                correction: 'Sur |x|=4, série ∑uₙ·4ⁿ = ∑(n!)²/(2n)!·4ⁿ ~ ∑1/(πn) (par Stirling). Cette série diverge (série harmonique). Donc convergence seulement pour |x| < 4, divergence pour |x| ≥ 4.',
                 points: 2,
               ),
             ],
@@ -738,11 +740,13 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Soit f(x) = ∑aₙx^n vérifiant f(x) = x + f(x)². Déterminer les aₙ.',
                 indication: 'Identifier les coefficients.',
+                correction: 'f = x + f² ⟹ a₀ + a₁x + a₂x² + ... = x + (a₀ + a₁x + ...)². Identification : a₀=a₀², a₁=1+2a₀a₁, a₂=a₁²+2a₀a₂, aₙ=Σaᵢaⱼ (i+j=n). a₀=0 ou 1. Si a₀=0 : a₁=1, a₂=1, aₙ = Cₙ = n-ième nombre de Catalan = (2n)!/[n!(n+1)!]. (Nombres de Catalan : C₀=1, Cₙ₊₁=ΣCᵢCₙ₋ᵢ.)',
                 points: 5,
               ),
               QuestionExamen(
                 enonce: 'Montrer que f(x) = (1 - √(1-4x))/2.',
                 indication: 'Résoudre l\'équation du second degré.',
+                correction: 'f = x + f² ⟹ f² - f + x = 0. Solutions : f = [1 ± √(1-4x)]/2. Comme f(0)=0 (série sans terme constant), on prend f = [1 - √(1-4x)]/2. Développement en série : √(1-4x) = 1 - 2x - 2x² - ... donne f(x) = x + x² + 2x³ + 5x⁴ + ... (Catalan).',
                 points: 3,
               ),
             ],
@@ -754,10 +758,12 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Développer arctan(x) en série entière.',
                 indication: 'Intégrer 1/(1+t²).',
+                correction: '1/(1+t²) = Σ(-1)ⁿt^(2n) pour |t|<1. Intégration terme à terme : arctan(x) = ∫₀ˣ dt/(1+t²) = Σ(-1)ⁿ∫₀ˣ t^(2n)dt = Σ(-1)ⁿx^(2n+1)/(2n+1). Rayon : R=1 (rayon de 1/(1+t²)).',
                 points: 4,
               ),
               QuestionExamen(
                 enonce: 'En déduire que π/4 = ∑(-1)^n/(2n+1).',
+                correction: 'arctan(1) = π/4. La série converge en x=1 par critère de Leibniz (série alternée décroissante). Donc π/4 = Σ_{n=0}^∞ (-1)ⁿ/(2n+1) = 1 - 1/3 + 1/5 - 1/7 + ... (Formule de Leibniz).',
                 points: 3,
               ),
             ],
@@ -780,10 +786,12 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Montrer que si X ~ Poisson(λ) et Y ~ Poisson(μ) indépendantes, alors X+Y ~ Poisson(λ+μ).',
                 indication: 'Fonction génératrice.',
+                correction: 'Fonction génératrice : G_X(s) = E[s^X] = e^(λ(s-1)), G_Y(s) = e^(μ(s-1)). Par indépendance : G_{X+Y}(s) = G_X(s)·G_Y(s) = e^(λ(s-1))·e^(μ(s-1)) = e^((λ+μ)(s-1)). C\'est la fonction génératrice de Poisson(λ+μ). Donc X+Y ~ Poisson(λ+μ).',
                 points: 4,
               ),
               QuestionExamen(
                 enonce: 'Généraliser à n variables de Poisson.',
+                correction: 'Si X₁,...,Xₙ indépendantes avec Xᵢ ~ Poisson(λᵢ), alors X₁+...+Xₙ ~ Poisson(λ₁+...+λₙ). Preuve par récurrence ou fonction génératrice : G(s) = ∏e^(λᵢ(s-1)) = e^((Σλᵢ)(s-1)).',
                 points: 2,
               ),
             ],
@@ -795,11 +803,13 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Soit (Xₙ) iid, E[X₁]=μ, Var(X₁)=σ². Montrer que (Sₙ-nμ)/(σ√n) ⇒ N(0,1).',
                 indication: 'TCL classique.',
+                correction: 'Sₙ = X₁+...+Xₙ, E[Sₙ]=nμ, Var(Sₙ)=nσ². Posons Zₙ = (Sₙ-nμ)/(σ√n). Par le TCL (Lindeberg-Lévy), Zₙ converge en loi vers N(0,1) quand n→∞. Preuve : fonctions caractéristiques φ_Zₙ(t) → e^(-t²/2).',
                 points: 4,
               ),
               QuestionExamen(
                 enonce: 'Application : estimer le nombre de lancers nécessaires pour que P(|S_n/n - 1/2| < 0.01) ≥ 0.95.',
                 indication: 'Utiliser l\'approximation normale.',
+                correction: 'Lancers équilibrés : μ=1/2, σ²=1/4. P(|Sₙ/n - 1/2| < 0.01) = P(|(Sₙ-n/2)/(√n/2)| < 0.02√n). Par TCL : (Sₙ-n/2)/(√n/2) ≈ N(0,1). Donc P ≈ P(|Z| < 0.02√n) ≥ 0.95 ⟹ 0.02√n ≥ 1.96 ⟹ n ≥ 9604. Il faut environ 10000 lancers.',
                 points: 4,
               ),
             ],
@@ -811,10 +821,12 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Montrer la LGN forte pour des v.a. bornées.',
                 indication: 'Lemme de Borel-Cantelli.',
+                correction: 'Pour v.a. bornées |Xᵢ| ≤ M : par Borel-Cantelli, si Σ P(|Sₙ/n - μ| > ε) < ∞, alors P(|Sₙ/n - μ| > ε i.o.) = 0. Par inégalité de Tchebychev : P(|Sₙ/n - μ| > ε) ≤ σ²/(n ε²) ⟹ Σ 1/n < ∞ (faux). Preuve complète via moments d\'ordre 4 et lemme de Kronecker. Résultat : Sₙ/n → μ p.s.',
                 points: 4,
               ),
               QuestionExamen(
                 enonce: 'Que peut-on dire de (Sₙ/n - μ) ?',
+                correction: 'Par LGN forte, Sₙ/n → μ p.s. Donc Sₙ/n - μ → 0 p.s. (convergence presque sûre). Plus fort que convergence en probabilité (LGN faible).',
                 points: 2,
               ),
             ],
@@ -837,11 +849,13 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Déterminer toutes les isométries du cube qui laissent le centre fixe.',
                 indication: 'Groupe octaédral.',
+                correction: 'Groupe des isométries du cube = groupe octaédral O. Ordre : 48 (24 rotations + 24 réflexions). Rotations : identité, rotations d\'ordre 2 (6 axes arêtes), d\'ordre 3 (4 axes diagonales), d\'ordre 4 (3 axes faces). Total : 1 + 6·1 + 4·2 + 3·2 = 24 rotations. Avec réflexions : |O| = 48.',
                 points: 5,
               ),
               QuestionExamen(
                 enonce: 'Montrer que ce groupe est isomorphe à S₄.',
                 indication: 'Action sur les grandes diagonales.',
+                correction: 'Le cube a 4 grandes diagonales (reliant sommets opposés). Toute isométrie permute ces diagonales. On a un morphisme O → S₄. Le noyau contient seulement l\'identité et la symétrie centrale (−Id), d\'ordre 2. Donc O/{±Id} ≅ S₄. Comme |O|=48 et |S₄|=24, on a |O/{±Id}|=24=|S₄|.',
                 points: 3,
               ),
             ],
