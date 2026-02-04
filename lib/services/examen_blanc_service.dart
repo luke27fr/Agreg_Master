@@ -867,11 +867,13 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Réduire la quadrique x² + y² - z² = 1.',
                 indication: 'Hyperboloïde à une nappe.',
+                correction: 'Forme quadratique q = x² + y² - z². Signature (2,1). Type : hyperboloïde à une nappe (surface réglée). Sections : z=k donne x²+y²=1+k² (cercles), x=k donne y²−z²=1−k² (hyperboles). Surface de révolution autour de l\'axe Oz.',
                 points: 3,
               ),
               QuestionExamen(
                 enonce: 'Déterminer les génératrices rectilignes.',
                 indication: 'Deux familles de droites.',
+                correction: 'Factorisation : x²+y²−z² = (x+iy+z)(x−iy−z) sur ℂ. Réel : (x+z)²−y² = (x+z+y)(x+z−y). Paramétrage : D₁(s,t) : (x,y,z) = (1,0,0) + s(−1,1,1) + t(−1,−1,1). D₂(s,t) symétrique. Deux familles de droites sur la surface.',
                 points: 4,
               ),
             ],
@@ -882,10 +884,12 @@ class ExamenBlancService extends ChangeNotifier {
             questions: [
               QuestionExamen(
                 enonce: 'Montrer que l\'enveloppe convexe de points est l\'intersection de tous les convexes les contenant.',
+                correction: 'Soit A ensemble de points, Conv(A) l\'enveloppe convexe. Conv(A) est convexe et contient A (par définition : plus petit convexe contenant A). Si C convexe avec A ⊆ C, alors Conv(A) ⊆ C (définition du plus petit). Donc Conv(A) = ⋂{C convexe : A ⊆ C}.',
                 points: 3,
               ),
               QuestionExamen(
                 enonce: 'Application : enveloppe convexe de {(0,0), (1,0), (0,1)}.',
+                correction: 'Conv({(0,0), (1,0), (0,1)}) = triangle de sommets (0,0), (1,0), (0,1). Points : {λ₁(0,0) + λ₂(1,0) + λ₃(0,1) : λᵢ≥0, Σλᵢ=1} = {(x,y) : x,y≥0, x+y≤1}. C\'est le triangle rectangle.',
                 points: 2,
               ),
             ],
@@ -907,15 +911,18 @@ class ExamenBlancService extends ChangeNotifier {
             questions: [
               QuestionExamen(
                 enonce: 'Définir les polynômes de Legendre Pₙ par Gram-Schmidt sur [-1,1] avec ⟨f,g⟩ = ∫₋₁¹ fg.',
+                correction: 'Appliquer Gram-Schmidt à (1, x, x², ...). P₀=1, P₁=x, P₂ orthogonal à {1,x}. P₂ = x² + a·x + b avec ⟨P₂,1⟩=0 et ⟨P₂,x⟩=0. Normalisation : Pₙ(1)=1. Récurrence : Pₙ₊₁ = xPₙ - αₙPₙ₋₁ avec αₙ déterminé par orthogonalité.',
                 points: 3,
               ),
               QuestionExamen(
                 enonce: 'Montrer que Pₙ vérifie l\'équation (1-x²)P\'\' - 2xP\' + n(n+1)P = 0.',
                 indication: 'Formule de Rodrigues.',
+                correction: 'Formule de Rodrigues : Pₙ(x) = (1/(2ⁿn!))·(dⁿ/dxⁿ)[(x²-1)ⁿ]. Soit u=(x²-1)ⁿ. u vérifie : (x²-1)u\' = 2nxu. Dériver n fois : (x²-1)v^(n+2) + 2xv^(n+1) - n(n+1)v^n = 0 où v=u^(n). Donc Pₙ vérifie l\'équation différentielle de Legendre.',
                 points: 3,
               ),
               QuestionExamen(
                 enonce: 'Calculer P₀, P₁, P₂, P₃.',
+                correction: 'P₀(x) = 1, P₁(x) = x, P₂(x) = (3x²-1)/2, P₃(x) = (5x³-3x)/2. Vérification : ⟨P₂,P₀⟩ = ∫(3x²-1)/2 = 0 ✓, ⟨P₂,P₁⟩ = ∫x(3x²-1)/2 = 0 ✓.',
                 points: 2,
               ),
             ],
@@ -926,11 +933,13 @@ class ExamenBlancService extends ChangeNotifier {
             questions: [
               QuestionExamen(
                 enonce: 'Montrer que les (Pₙ) forment une base orthogonale de L²([-1,1]).',
+                correction: 'Les polynômes sont denses dans C([-1,1]) (Weierstrass), donc dans L². (Pₙ) est une famille orthogonale de polynômes de degrés 0,1,2,... Vect(P₀,...,Pₙ) = Vect(1,x,...,xⁿ) = ℝₙ[X]. Par densité et orthogonalité, (Pₙ) forme une base orthogonale de L²([-1,1]).',
                 points: 4,
               ),
               QuestionExamen(
                 enonce: 'Approximer f(x) = |x| par un polynôme de degré ≤ 3.',
                 indication: 'Projection sur Vect(P₀,P₁,P₂,P₃).',
+                correction: 'Projection : p = Σ₀³ cₙPₙ avec cₙ = ⟨f,Pₙ⟩/‖Pₙ‖². ⟨|x|,P₀⟩ = ∫₀¹ x dx ·2 = 1, ⟨|x|,P₁⟩ = 0 (parité), ⟨|x|,P₂⟩ = ..., ⟨|x|,P₃⟩=0. Calculs donnent p(x) ≈ a₀P₀ + a₂P₂ = ... (symétrie : termes pairs seulement).',
                 points: 3,
               ),
             ],
@@ -942,10 +951,12 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Montrer que Pₙ a exactement n racines réelles distinctes dans ]-1,1[.',
                 indication: 'Rolle itéré.',
+                correction: 'Pₙ est orthogonal à tous les polynômes de degré < n. En particulier, ∫₋₁¹ Pₙ(x)·1 dx = 0. Donc Pₙ change de signe au moins une fois dans ]-1,1[. De même avec xᵏ pour k<n : Pₙ a au moins n changements de signe. Comme deg(Pₙ)=n, Pₙ a exactement n racines réelles distinctes dans ]-1,1[.',
                 points: 3,
               ),
               QuestionExamen(
                 enonce: 'Application à la quadrature de Gauss.',
+                correction: 'Quadrature de Gauss-Legendre : ∫₋₁¹ f(x)dx ≈ Σwᵢf(xᵢ) où xᵢ sont les racines de Pₙ. Cette formule est exacte pour les polynômes de degré ≤ 2n-1 (théorème : meilleure précision possible avec n points).',
                 points: 2,
               ),
             ],
