@@ -363,6 +363,41 @@ class _AnnalesPageState extends State<AnnalesPage> {
                     icon: const Icon(Icons.open_in_new),
                     label: const Text('Voir le sujet officiel'),
                   ),
+                if (annale.rapportGlobal != null) ...[
+                  const SizedBox(height: 16),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.deepPurple.withOpacity(0.08),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Colors.deepPurple.withOpacity(0.3), width: 2),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Row(
+                          children: [
+                            Icon(Icons.assessment, color: Colors.deepPurple, size: 20),
+                            SizedBox(width: 8),
+                            Text(
+                              '📊 Rapport global du jury',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.deepPurple,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        Text(
+                          annale.rapportGlobal!,
+                          style: const TextStyle(fontSize: 14, height: 1.5),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
                 const SizedBox(height: 20),
                 ...annale.exercices.asMap().entries.map((entry) {
                   final idx = entry.key;
@@ -502,6 +537,37 @@ class _AnnalesPageState extends State<AnnalesPage> {
                   ),
                   child: Text(
                     question.correction!,
+                    style: const TextStyle(fontSize: 13),
+                  ),
+                ),
+              ],
+            ),
+          ],
+          if (question.rapportJury != null) ...[
+            const SizedBox(height: 8),
+            ExpansionTile(
+              tilePadding: EdgeInsets.zero,
+              title: const Row(
+                children: [
+                  Icon(Icons.gavel, size: 16, color: Colors.purple),
+                  SizedBox(width: 8),
+                  Text(
+                    'Rapport du jury',
+                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.purple),
+                  ),
+                ],
+              ),
+              children: [
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.purple.withOpacity(0.05),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.purple.withOpacity(0.3)),
+                  ),
+                  child: Text(
+                    question.rapportJury!,
                     style: const TextStyle(fontSize: 13),
                   ),
                 ),

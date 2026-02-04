@@ -13,6 +13,7 @@ class Annale {
   final String? urlCorrection; // Lien vers correction officielle si disponible
   final String difficulte; // 'Facile', 'Moyen', 'Difficile', 'Très difficile'
   final List<String>? motsClefs;
+  final String? rapportGlobal; // Rapport global du jury pour ce sujet
 
   Annale({
     required this.id,
@@ -29,6 +30,7 @@ class Annale {
     this.urlCorrection,
     required this.difficulte,
     this.motsClefs,
+    this.rapportGlobal,
   });
 
   factory Annale.fromJson(Map<String, dynamic> json) {
@@ -51,6 +53,7 @@ class Annale {
       motsClefs: json['motsClefs'] != null 
           ? (json['motsClefs'] as List).cast<String>() 
           : null,
+      rapportGlobal: json['rapportGlobal'] as String?,
     );
   }
 
@@ -70,6 +73,7 @@ class Annale {
       'urlCorrection': urlCorrection,
       'difficulte': difficulte,
       'motsClefs': motsClefs,
+      'rapportGlobal': rapportGlobal,
     };
   }
 
@@ -135,6 +139,7 @@ class QuestionAnnale {
   final String? correction;
   final int? points;
   final List<String>? sousQuestions;
+  final String? rapportJury; // Commentaires et attentes du jury
 
   QuestionAnnale({
     required this.enonce,
@@ -142,6 +147,7 @@ class QuestionAnnale {
     this.correction,
     this.points,
     this.sousQuestions,
+    this.rapportJury,
   });
 
   factory QuestionAnnale.fromJson(Map<String, dynamic> json) {
@@ -153,6 +159,7 @@ class QuestionAnnale {
       sousQuestions: json['sousQuestions'] != null 
           ? (json['sousQuestions'] as List).cast<String>() 
           : null,
+      rapportJury: json['rapportJury'] as String?,
     );
   }
 
@@ -163,6 +170,7 @@ class QuestionAnnale {
       'correction': correction,
       'points': points,
       'sousQuestions': sousQuestions,
+      'rapportJury': rapportJury,
     };
   }
 }

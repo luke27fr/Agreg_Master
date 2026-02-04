@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import '../models/annale_model.dart';
+import 'annales_enriched_data.dart';
 
 class AnnalesService extends ChangeNotifier {
   List<Annale> _annales = [];
@@ -47,8 +48,8 @@ class AnnalesService extends ChangeNotifier {
     notifyListeners();
 
     try {
-      // Créer les annales de démonstration
-      _annales = _createDemoAnnales();
+      // Charger les annales enrichies
+      _annales = AnnalesEnrichedData.getAllAnnales();
 
       _isLoading = false;
       notifyListeners();
