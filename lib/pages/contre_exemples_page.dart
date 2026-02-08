@@ -1,11 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
-import 'package:markdown/markdown.dart' as md;
 
 import '../widgets/global_search_button.dart';
+import '../widgets/latex_text.dart';
 
 class ContreExemplesPage extends StatefulWidget {
   const ContreExemplesPage({super.key});
@@ -18,11 +16,6 @@ class _ContreExemplesPageState extends State<ContreExemplesPage> {
   List<dynamic> _contreExemples = [];
   bool _loading = true;
   String _searchQuery = '';
-
-  static md.ExtensionSet get _latexExtensionSet => md.ExtensionSet(
-    [LatexBlockSyntax(), ...md.ExtensionSet.gitHubFlavored.blockSyntaxes],
-    [LatexInlineSyntax(), ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes],
-  );
 
   @override
   void initState() {
@@ -154,11 +147,7 @@ class _ContreExemplesPageState extends State<ContreExemplesPage> {
                   style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
                 ),
                 const SizedBox(height: 8),
-                MarkdownBody(
-                  data: ce['enonce'],
-                  extensionSet: _latexExtensionSet,
-                  builders: {'latex': LatexElementBuilder()},
-                ),
+                LatexText(data: ce['enonce']),
               ],
             ),
           ),
@@ -179,11 +168,7 @@ class _ContreExemplesPageState extends State<ContreExemplesPage> {
                   style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
                 ),
                 const SizedBox(height: 8),
-                MarkdownBody(
-                  data: ce['explication'],
-                  extensionSet: _latexExtensionSet,
-                  builders: {'latex': LatexElementBuilder()},
-                ),
+                LatexText(data: ce['explication']),
               ],
             ),
           ),

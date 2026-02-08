@@ -43,3 +43,12 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Fichiers sensibles - NE PAS COMMITTER
+android/key.properties
+android/app/google-services.json
+macos/Runner/GoogleService-Info.plist
+*.jks
+*.keystore
+.env
+.env.*

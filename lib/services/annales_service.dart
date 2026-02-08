@@ -73,7 +73,7 @@ class AnnalesService extends ChangeNotifier {
         dureeMinutes: 360,
         baremeTotal: 20,
         themes: ['Algèbre', 'Géométrie'],
-        urlOfficielle: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-d-admissibilite-et-d-admission-1019',
+        urlOfficielle: 'https://www.devenirenseignant.gouv.fr/sujets-et-rapports-des-jurys-agregation-2024-1356',
         difficulte: 'Difficile',
         motsClefs: ['Groupes de Sylow', 'Réduction', 'Isométries'],
         exercices: [
@@ -148,7 +148,7 @@ class AnnalesService extends ChangeNotifier {
         dureeMinutes: 360,
         baremeTotal: 20,
         themes: ['Analyse', 'Probabilités'],
-        urlOfficielle: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-d-admissibilite-et-d-admission-1019',
+        urlOfficielle: 'https://www.devenirenseignant.gouv.fr/sujets-et-rapports-des-jurys-agregation-2024-1356',
         difficulte: 'Très difficile',
         motsClefs: ['Espaces de Hilbert', 'TCL', 'Convergence en loi'],
         exercices: [
@@ -202,7 +202,7 @@ class AnnalesService extends ChangeNotifier {
         dureeMinutes: 360,
         baremeTotal: 20,
         themes: ['Algèbre'],
-        urlOfficielle: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-d-admissibilite-et-d-admission-1019',
+        urlOfficielle: 'https://www.devenirenseignant.gouv.fr/sujets-et-rapports-des-jurys-agregation-2024-1356',
         difficulte: 'Difficile',
         motsClefs: ['Polynômes', 'Réduction', 'Commutants'],
         exercices: [
@@ -242,7 +242,7 @@ class AnnalesService extends ChangeNotifier {
         dureeMinutes: 360,
         baremeTotal: 20,
         themes: ['Analyse'],
-        urlOfficielle: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-d-admissibilite-et-d-admission-1019',
+        urlOfficielle: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-d-admissibilite-et-les-rapports-des-jurys-des-concours-de-l-agregation-de-4',
         difficulte: 'Moyen',
         motsClefs: ['Fourier', 'Convergence uniforme', 'Parseval'],
         exercices: [
@@ -282,7 +282,7 @@ class AnnalesService extends ChangeNotifier {
         dureeMinutes: 300,
         baremeTotal: 20,
         themes: ['Algèbre'],
-        urlOfficielle: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-d-admissibilite-et-d-admission-1019',
+        urlOfficielle: 'https://www.devenirenseignant.gouv.fr/sujets-et-rapports-des-jurys-agregation-2024-1356',
         difficulte: 'Moyen',
         motsClefs: ['Matrices', 'Déterminants', 'Rang'],
         exercices: [

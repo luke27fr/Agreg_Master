@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -20,17 +21,13 @@ class CloudSyncService extends ChangeNotifier {
   factory CloudSyncService() => _instance;
   CloudSyncService._internal();
 
-  // Firebase
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final Connectivity _connectivity = Connectivity();
-
   // État
   bool _isSyncing = false;
   bool _isOnline = false;
   DateTime? _lastSyncTime;
   String? _error;
   String? _userId;
+  bool _initialized = false;
   
   // Listeners
   StreamSubscription<User?>? _authSubscription;
@@ -45,20 +42,37 @@ class CloudSyncService extends ChangeNotifier {
   String? get userId => _userId;
   bool get isAuthenticated => _userId != null;
 
+  /// Vérifie si Firebase est disponible (mobile uniquement)
+  bool get _isFirebaseAvailable {
+    try {
+      return Platform.isAndroid || Platform.isIOS;
+    } catch (_) {
+      return false;
+    }
+  }
+
   /// Initialiser le service de synchronisation
   Future<void> initialize() async {
+    if (_initialized) return;
+    
+    if (!_isFirebaseAvailable) {
+      debugPrint('ℹ️ CloudSync désactivé sur desktop');
+      _initialized = true;
+      return;
+    }
+
     try {
       // Vérifier la connectivité
-      final result = await _connectivity.checkConnectivity();
+      final connectivity = Connectivity();
+      final result = await connectivity.checkConnectivity();
       _isOnline = result != ConnectivityResult.none;
 
       // Écouter les changements de connectivité
-      _connectivitySubscription = _connectivity.onConnectivityChanged.listen((result) {
+      _connectivitySubscription = connectivity.onConnectivityChanged.listen((result) {
         final wasOnline = _isOnline;
         _isOnline = result != ConnectivityResult.none;
         
         if (!wasOnline && _isOnline) {
-          // Connexion rétablie, synchroniser
           debugPrint('🌐 Connexion rétablie, synchronisation...');
           syncAll();
         }
@@ -70,13 +84,12 @@ class CloudSyncService extends ChangeNotifier {
       await _signInAnonymously();
 
       // Écouter les changements d'authentification
-      _authSubscription = _auth.authStateChanges().listen((user) {
+      _authSubscription = FirebaseAuth.instance.authStateChanges().listen((user) {
         _userId = user?.uid;
         debugPrint('🔐 User ID: $_userId');
         notifyListeners();
 
         if (_userId != null && _isOnline) {
-          // Synchroniser après l'authentification
           syncAll();
         }
       });
@@ -89,23 +102,28 @@ class CloudSyncService extends ChangeNotifier {
         }
       });
 
+      _initialized = true;
       debugPrint('✅ CloudSyncService initialisé');
     } catch (e) {
       debugPrint('❌ Erreur init CloudSyncService: $e');
       _error = e.toString();
+      _initialized = true;
       notifyListeners();
     }
   }
 
   /// Connexion anonyme Firebase
   Future<void> _signInAnonymously() async {
+    if (!_isFirebaseAvailable) return;
+    
     try {
-      if (_auth.currentUser == null) {
-        final userCredential = await _auth.signInAnonymously();
+      final auth = FirebaseAuth.instance;
+      if (auth.currentUser == null) {
+        final userCredential = await auth.signInAnonymously();
         _userId = userCredential.user?.uid;
         debugPrint('🔐 Authentification anonyme réussie: $_userId');
       } else {
-        _userId = _auth.currentUser?.uid;
+        _userId = auth.currentUser?.uid;
         debugPrint('🔐 Déjà authentifié: $_userId');
       }
     } catch (e) {
@@ -117,6 +135,8 @@ class CloudSyncService extends ChangeNotifier {
 
   /// Synchroniser toutes les données
   Future<void> syncAll() async {
+    if (!_isFirebaseAvailable) return;
+    
     if (!_isOnline) {
       _error = 'Pas de connexion Internet';
       notifyListeners();
@@ -133,17 +153,18 @@ class CloudSyncService extends ChangeNotifier {
     notifyListeners();
 
     try {
-      // Synchroniser chaque type de données
+      final firestore = FirebaseFirestore.instance;
+      
       await Future.wait([
-        _syncScores(),
-        _syncFavorites(),
-        _syncNotes(),
-        _syncReadingProgress(),
-        _syncStreak(),
-        _syncBadges(),
-        _syncSpacedRepetition(),
-        _syncLeconProgress(),
-        _syncExamenResults(),
+        _syncScores(firestore),
+        _syncFavorites(firestore),
+        _syncNotes(firestore),
+        _syncReadingProgress(firestore),
+        _syncStreak(firestore),
+        _syncBadges(firestore),
+        _syncSpacedRepetition(firestore),
+        _syncLeconProgress(firestore),
+        _syncExamenResults(firestore),
       ]);
 
       _lastSyncTime = DateTime.now();
@@ -158,34 +179,30 @@ class CloudSyncService extends ChangeNotifier {
   }
 
   /// Synchroniser les scores de quiz
-  Future<void> _syncScores() async {
+  Future<void> _syncScores(FirebaseFirestore firestore) async {
     try {
       final scoreService = ScoreService();
-      final docRef = _firestore.collection('users').doc(_userId).collection('data').doc('scores');
+      final docRef = firestore.collection('users').doc(_userId).collection('data').doc('scores');
 
-      // Upload local → Cloud
-      final localScores = scoreService.scores.map((ficheId, score) {
-        return MapEntry(ficheId, {
+      final localScores = <String, Map<String, dynamic>>{};
+      scoreService.scores.forEach((ficheId, score) {
+        localScores[ficheId] = {
           'score': score.score,
           'total': score.total,
           'percentage': score.percentage,
           'date': score.date.millisecondsSinceEpoch,
-        });
-      }).cast<String, Map<String, dynamic>>();
+        };
+      });
 
-      // Récupérer cloud data
       final cloudDoc = await docRef.get();
       final cloudScores = cloudDoc.data()?['scores'] as Map<String, dynamic>? ?? {};
 
-      // Merge: garder la version la plus récente
       final mergedScores = <String, Map<String, dynamic>>{};
       
-      // Ajouter scores locaux
       localScores.forEach((ficheId, scoreData) {
         mergedScores[ficheId] = scoreData;
       });
 
-      // Merger avec cloud (garder le plus récent)
       cloudScores.forEach((ficheId, cloudData) {
         if (cloudData is Map<String, dynamic>) {
           final localDate = localScores[ficheId]?['date'] as int? ?? 0;
@@ -197,13 +214,12 @@ class CloudSyncService extends ChangeNotifier {
         }
       });
 
-      // Sauvegarder le merged dans le cloud
       await docRef.set({
         'scores': mergedScores,
         'lastSync': FieldValue.serverTimestamp(),
       }, SetOptions(merge: true));
 
-      // Appliquer les changements localement
+      // Appliquer les changements localement (sans paramètre date)
       for (var entry in mergedScores.entries) {
         final ficheId = entry.key;
         final data = entry.value;
@@ -211,12 +227,10 @@ class CloudSyncService extends ChangeNotifier {
         final localDate = localScores[ficheId]?['date'] as int? ?? 0;
 
         if (cloudDate > localDate) {
-          // Mettre à jour local avec cloud
           scoreService.saveScore(
             ficheId,
             data['score'] as int,
             data['total'] as int,
-            date: DateTime.fromMillisecondsSinceEpoch(cloudDate),
           );
         }
       }
@@ -224,35 +238,29 @@ class CloudSyncService extends ChangeNotifier {
       debugPrint('✅ Scores synchronisés: ${mergedScores.length} fiches');
     } catch (e) {
       debugPrint('❌ Erreur sync scores: $e');
-      rethrow;
     }
   }
 
   /// Synchroniser les favoris
-  Future<void> _syncFavorites() async {
+  Future<void> _syncFavorites(FirebaseFirestore firestore) async {
     try {
       final favoritesService = FavoritesService();
-      final docRef = _firestore.collection('users').doc(_userId).collection('data').doc('favorites');
+      final docRef = firestore.collection('users').doc(_userId).collection('data').doc('favorites');
 
-      // Upload local → Cloud
       final localFavorites = favoritesService.favorites.toList();
 
-      // Récupérer cloud data
       final cloudDoc = await docRef.get();
       final cloudFavorites = (cloudDoc.data()?['favorites'] as List<dynamic>?)
           ?.map((e) => e.toString())
           .toSet() ?? <String>{};
 
-      // Merge: union des deux ensembles
       final mergedFavorites = {...localFavorites, ...cloudFavorites}.toList();
 
-      // Sauvegarder dans le cloud
       await docRef.set({
         'favorites': mergedFavorites,
         'lastSync': FieldValue.serverTimestamp(),
       }, SetOptions(merge: true));
 
-      // Appliquer localement
       for (var ficheId in mergedFavorites) {
         if (!favoritesService.isFavorite(ficheId)) {
           favoritesService.addFavorite(ficheId);
@@ -262,33 +270,31 @@ class CloudSyncService extends ChangeNotifier {
       debugPrint('✅ Favoris synchronisés: ${mergedFavorites.length}');
     } catch (e) {
       debugPrint('❌ Erreur sync favoris: $e');
-      rethrow;
     }
   }
 
   /// Synchroniser les notes
-  Future<void> _syncNotes() async {
+  Future<void> _syncNotes(FirebaseFirestore firestore) async {
     try {
       final notesService = NotesService();
-      final docRef = _firestore.collection('users').doc(_userId).collection('data').doc('notes');
+      final docRef = firestore.collection('users').doc(_userId).collection('data').doc('notes');
 
-      // Upload local → Cloud
-      final localNotes = notesService.notes;
+      // Notes locales : Map<String, PersonalNote> → extraire le contenu
+      final localNotes = <String, String>{};
+      notesService.notes.forEach((ficheId, personalNote) {
+        localNotes[ficheId] = personalNote.content;
+      });
 
-      // Récupérer cloud data
       final cloudDoc = await docRef.get();
       final cloudNotes = (cloudDoc.data()?['notes'] as Map<String, dynamic>?)
           ?.map((k, v) => MapEntry(k, v.toString())) ?? <String, String>{};
 
-      // Merge: garder le plus long (hypothèse : plus de contenu = plus récent)
       final mergedNotes = <String, String>{};
       
-      // Ajouter notes locales
       localNotes.forEach((ficheId, note) {
         mergedNotes[ficheId] = note;
       });
 
-      // Merger avec cloud (garder la plus longue)
       cloudNotes.forEach((ficheId, cloudNote) {
         final localNote = localNotes[ficheId] ?? '';
         if (cloudNote.length > localNote.length) {
@@ -296,15 +302,14 @@ class CloudSyncService extends ChangeNotifier {
         }
       });
 
-      // Sauvegarder dans le cloud
       await docRef.set({
         'notes': mergedNotes,
         'lastSync': FieldValue.serverTimestamp(),
       }, SetOptions(merge: true));
 
-      // Appliquer localement
       for (var entry in mergedNotes.entries) {
-        if ((notesService.notes[entry.key] ?? '').length < entry.value.length) {
+        final localContent = notesService.notes[entry.key]?.content ?? '';
+        if (localContent.length < entry.value.length) {
           notesService.saveNote(entry.key, entry.value);
         }
       }
@@ -312,35 +317,29 @@ class CloudSyncService extends ChangeNotifier {
       debugPrint('✅ Notes synchronisées: ${mergedNotes.length}');
     } catch (e) {
       debugPrint('❌ Erreur sync notes: $e');
-      rethrow;
     }
   }
 
   /// Synchroniser la progression de lecture
-  Future<void> _syncReadingProgress() async {
+  Future<void> _syncReadingProgress(FirebaseFirestore firestore) async {
     try {
       final readingService = ReadingService();
-      final docRef = _firestore.collection('users').doc(_userId).collection('data').doc('reading');
+      final docRef = firestore.collection('users').doc(_userId).collection('data').doc('reading');
 
-      // Upload local → Cloud
       final localRead = readingService.readFiches.toList();
 
-      // Récupérer cloud data
       final cloudDoc = await docRef.get();
       final cloudRead = (cloudDoc.data()?['read'] as List<dynamic>?)
           ?.map((e) => e.toString())
           .toSet() ?? <String>{};
 
-      // Merge: union
       final mergedRead = {...localRead, ...cloudRead}.toList();
 
-      // Sauvegarder dans le cloud
       await docRef.set({
         'read': mergedRead,
         'lastSync': FieldValue.serverTimestamp(),
       }, SetOptions(merge: true));
 
-      // Appliquer localement
       for (var ficheId in mergedRead) {
         if (!readingService.isRead(ficheId)) {
           readingService.markAsRead(ficheId);
@@ -350,49 +349,32 @@ class CloudSyncService extends ChangeNotifier {
       debugPrint('✅ Progression lecture synchronisée: ${mergedRead.length}');
     } catch (e) {
       debugPrint('❌ Erreur sync lecture: $e');
-      rethrow;
     }
   }
 
   /// Synchroniser les streaks
-  Future<void> _syncStreak() async {
+  Future<void> _syncStreak(FirebaseFirestore firestore) async {
     try {
       final streakService = StreakService();
-      final docRef = _firestore.collection('users').doc(_userId).collection('data').doc('streak');
+      final docRef = firestore.collection('users').doc(_userId).collection('data').doc('streak');
 
-      // Upload local → Cloud
       final localData = {
         'currentStreak': streakService.currentStreak,
         'longestStreak': streakService.longestStreak,
         'lastActivityDate': streakService.lastActivityDate?.millisecondsSinceEpoch,
-        'totalDays': streakService.totalActiveDays,
+        'totalDays': streakService.totalDaysActive,
       };
 
-      // Récupérer cloud data
       final cloudDoc = await docRef.get();
       final cloudData = cloudDoc.data() ?? {};
 
-      // Merge: garder le max pour les valeurs numériques
       final mergedData = {
-        'currentStreak': [
-          localData['currentStreak'] as int,
-          cloudData['currentStreak'] as int? ?? 0
-        ].reduce((a, b) => a > b ? a : b),
-        'longestStreak': [
-          localData['longestStreak'] as int,
-          cloudData['longestStreak'] as int? ?? 0
-        ].reduce((a, b) => a > b ? a : b),
-        'lastActivityDate': [
-          localData['lastActivityDate'] as int? ?? 0,
-          cloudData['lastActivityDate'] as int? ?? 0
-        ].reduce((a, b) => a > b ? a : b),
-        'totalDays': [
-          localData['totalDays'] as int,
-          cloudData['totalDays'] as int? ?? 0
-        ].reduce((a, b) => a > b ? a : b),
+        'currentStreak': _maxInt(localData['currentStreak'] as int, cloudData['currentStreak'] as int? ?? 0),
+        'longestStreak': _maxInt(localData['longestStreak'] as int, cloudData['longestStreak'] as int? ?? 0),
+        'lastActivityDate': _maxInt(localData['lastActivityDate'] as int? ?? 0, cloudData['lastActivityDate'] as int? ?? 0),
+        'totalDays': _maxInt(localData['totalDays'] as int, cloudData['totalDays'] as int? ?? 0),
       };
 
-      // Sauvegarder dans le cloud
       await docRef.set({
         ...mergedData,
         'lastSync': FieldValue.serverTimestamp(),
@@ -401,29 +383,26 @@ class CloudSyncService extends ChangeNotifier {
       debugPrint('✅ Streak synchronisé: ${mergedData['currentStreak']} jours');
     } catch (e) {
       debugPrint('❌ Erreur sync streak: $e');
-      rethrow;
     }
   }
 
+  int _maxInt(int a, int b) => a > b ? a : b;
+
   /// Synchroniser les badges
-  Future<void> _syncBadges() async {
+  Future<void> _syncBadges(FirebaseFirestore firestore) async {
     try {
       final badgeService = BadgeService();
-      final docRef = _firestore.collection('users').doc(_userId).collection('data').doc('badges');
+      final docRef = firestore.collection('users').doc(_userId).collection('data').doc('badges');
 
-      // Upload local → Cloud
       final localBadges = badgeService.unlockedBadges.toList();
 
-      // Récupérer cloud data
       final cloudDoc = await docRef.get();
       final cloudBadges = (cloudDoc.data()?['unlocked'] as List<dynamic>?)
           ?.map((e) => e.toString())
           .toSet() ?? <String>{};
 
-      // Merge: union
       final mergedBadges = {...localBadges, ...cloudBadges}.toList();
 
-      // Sauvegarder dans le cloud
       await docRef.set({
         'unlocked': mergedBadges,
         'lastSync': FieldValue.serverTimestamp(),
@@ -432,31 +411,28 @@ class CloudSyncService extends ChangeNotifier {
       debugPrint('✅ Badges synchronisés: ${mergedBadges.length}');
     } catch (e) {
       debugPrint('❌ Erreur sync badges: $e');
-      rethrow;
     }
   }
 
   /// Synchroniser la répétition espacée
-  Future<void> _syncSpacedRepetition() async {
+  Future<void> _syncSpacedRepetition(FirebaseFirestore firestore) async {
     try {
       final srService = SpacedRepetitionService();
-      final docRef = _firestore.collection('users').doc(_userId).collection('data').doc('spaced_repetition');
+      final docRef = firestore.collection('users').doc(_userId).collection('data').doc('spaced_repetition');
 
-      // Upload local → Cloud
-      final localCards = srService.cards.map((ficheId, card) {
-        return MapEntry(ficheId, {
-          'interval': card.interval,
+      final localCards = <String, Map<String, dynamic>>{};
+      srService.cards.forEach((ficheId, card) {
+        localCards[ficheId] = {
+          'intervalDays': card.intervalDays,
           'easeFactor': card.easeFactor,
-          'repetitions': card.repetitions,
+          'repetitionNumber': card.repetitionNumber,
           'nextReviewDate': card.nextReviewDate.millisecondsSinceEpoch,
-        });
-      }).cast<String, Map<String, dynamic>>();
+        };
+      });
 
-      // Récupérer cloud data
       final cloudDoc = await docRef.get();
       final cloudCards = cloudDoc.data()?['cards'] as Map<String, dynamic>? ?? {};
 
-      // Merge: garder le plus récent (nextReviewDate)
       final mergedCards = <String, Map<String, dynamic>>{};
       
       localCards.forEach((ficheId, cardData) {
@@ -474,7 +450,6 @@ class CloudSyncService extends ChangeNotifier {
         }
       });
 
-      // Sauvegarder dans le cloud
       await docRef.set({
         'cards': mergedCards,
         'lastSync': FieldValue.serverTimestamp(),
@@ -483,30 +458,31 @@ class CloudSyncService extends ChangeNotifier {
       debugPrint('✅ Répétition espacée synchronisée: ${mergedCards.length} cartes');
     } catch (e) {
       debugPrint('❌ Erreur sync répétition espacée: $e');
-      rethrow;
     }
   }
 
   /// Synchroniser la progression des leçons
-  Future<void> _syncLeconProgress() async {
+  Future<void> _syncLeconProgress(FirebaseFirestore firestore) async {
     try {
       final leconService = LeconProgressService();
-      final docRef = _firestore.collection('users').doc(_userId).collection('data').doc('lecon_progress');
+      final docRef = firestore.collection('users').doc(_userId).collection('data').doc('lecon_progress');
 
-      // Upload local → Cloud
-      final localProgress = leconService.progress.map((leconId, prog) {
-        return MapEntry(leconId, {
-          'completed': prog.completed,
-          'exercicesCompleted': prog.exercicesCompleted,
-          'lastStudied': prog.lastStudied?.millisecondsSinceEpoch,
-        });
-      }).cast<String, Map<String, dynamic>>();
+      final localProgress = <String, Map<String, dynamic>>{};
+      leconService.progressMap.forEach((leconId, prog) {
+        localProgress[leconId] = {
+          'developpementsMaitrises': prog.developpementsMaitrises,
+          'tempsEtudeMinutes': prog.tempsEtudeMinutes,
+          'nombreRevisions': prog.nombreRevisions,
+          'niveauPlan': prog.niveauPlan,
+          'niveauDeveloppements': prog.niveauDeveloppements,
+          'niveauExemples': prog.niveauExemples,
+          'derniereRevision': prog.derniereRevision?.millisecondsSinceEpoch,
+        };
+      });
 
-      // Récupérer cloud data
       final cloudDoc = await docRef.get();
       final cloudProgress = cloudDoc.data()?['progress'] as Map<String, dynamic>? ?? {};
 
-      // Merge
       final mergedProgress = <String, Map<String, dynamic>>{};
       
       localProgress.forEach((leconId, progData) {
@@ -515,8 +491,8 @@ class CloudSyncService extends ChangeNotifier {
 
       cloudProgress.forEach((leconId, cloudData) {
         if (cloudData is Map<String, dynamic>) {
-          final localDate = localProgress[leconId]?['lastStudied'] as int? ?? 0;
-          final cloudDate = cloudData['lastStudied'] as int? ?? 0;
+          final localDate = localProgress[leconId]?['derniereRevision'] as int? ?? 0;
+          final cloudDate = cloudData['derniereRevision'] as int? ?? 0;
           
           if (cloudDate > localDate) {
             mergedProgress[leconId] = cloudData;
@@ -524,7 +500,6 @@ class CloudSyncService extends ChangeNotifier {
         }
       });
 
-      // Sauvegarder dans le cloud
       await docRef.set({
         'progress': mergedProgress,
         'lastSync': FieldValue.serverTimestamp(),
@@ -533,57 +508,52 @@ class CloudSyncService extends ChangeNotifier {
       debugPrint('✅ Progression leçons synchronisée: ${mergedProgress.length}');
     } catch (e) {
       debugPrint('❌ Erreur sync leçons: $e');
-      rethrow;
     }
   }
 
   /// Synchroniser les résultats d'examens blancs
-  Future<void> _syncExamenResults() async {
+  Future<void> _syncExamenResults(FirebaseFirestore firestore) async {
     try {
       final examenService = ExamenBlancService();
-      final docRef = _firestore.collection('users').doc(_userId).collection('data').doc('examen_results');
+      final docRef = firestore.collection('users').doc(_userId).collection('data').doc('examen_results');
 
-      // Upload local → Cloud
       final localResults = examenService.results.map((result) {
         return {
           'examenId': result.examenId,
-          'note': result.note,
+          'scoreTotal': result.scoreTotal,
+          'baremeTotal': result.baremeTotal,
           'dureeEffective': result.dureeEffective,
-          'date': result.date.millisecondsSinceEpoch,
+          'datePassage': result.datePassage.millisecondsSinceEpoch,
           'termine': result.termine,
-          'reponses': result.reponses,
         };
       }).toList();
 
-      // Récupérer cloud data
       final cloudDoc = await docRef.get();
       final cloudResults = (cloudDoc.data()?['results'] as List<dynamic>?)
           ?.map((e) => e as Map<String, dynamic>)
           .toList() ?? [];
 
-      // Merge: garder tous les résultats (dédupliquer par examenId + date)
+      // Merge: garder tous les résultats (dédupliquer)
       final mergedResultsMap = <String, Map<String, dynamic>>{};
       
       for (var result in [...localResults, ...cloudResults]) {
-        final key = '${result['examenId']}_${result['date']}';
+        final key = '${result['examenId']}_${result['datePassage']}';
         if (!mergedResultsMap.containsKey(key)) {
           mergedResultsMap[key] = result;
         }
       }
 
       final mergedResults = mergedResultsMap.values.toList()
-        ..sort((a, b) => (b['date'] as int).compareTo(a['date'] as int));
+        ..sort((a, b) => ((b['datePassage'] as int?) ?? 0).compareTo((a['datePassage'] as int?) ?? 0));
 
-      // Sauvegarder dans le cloud
       await docRef.set({
-        'results': mergedResults.take(50).toList(), // Garder les 50 derniers
+        'results': mergedResults.take(50).toList(),
         'lastSync': FieldValue.serverTimestamp(),
       }, SetOptions(merge: true));
 
       debugPrint('✅ Résultats examens synchronisés: ${mergedResults.length}');
     } catch (e) {
       debugPrint('❌ Erreur sync examens: $e');
-      rethrow;
     }
   }
 
@@ -593,12 +563,13 @@ class CloudSyncService extends ChangeNotifier {
     await syncAll();
   }
 
-  /// Réinitialiser toutes les données cloud (dangereux !)
+  /// Réinitialiser toutes les données cloud
   Future<void> deleteAllCloudData() async {
-    if (_userId == null) return;
+    if (!_isFirebaseAvailable || _userId == null) return;
 
     try {
-      final dataCollection = _firestore.collection('users').doc(_userId).collection('data');
+      final firestore = FirebaseFirestore.instance;
+      final dataCollection = firestore.collection('users').doc(_userId).collection('data');
       final docs = await dataCollection.get();
       
       for (var doc in docs.docs) {

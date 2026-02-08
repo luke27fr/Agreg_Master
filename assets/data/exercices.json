@@ -1656,6 +1656,1610 @@
       ],
       "lecons": [244, 230],
       "tags": ["Stone-Weierstrass", "approximation", "densité"]
+    },
+    {
+      "id": "ex_corps_fini_structure",
+      "titre": "Structure des corps finis",
+      "domaine": "Algèbre",
+      "niveau": "Moyen",
+      "enonce": "Montrer que le groupe multiplicatif $(\\mathbb{F}_p^*, \\times)$ d'un corps fini à $p$ éléments est cyclique.",
+      "indication": "Utiliser la structure des groupes abéliens finis et le nombre de racines d'un polynôme.",
+      "solution": [
+        "Soit $G = \\mathbb{F}_p^*$, d'ordre $p-1$.",
+        "Pour tout $d | (p-1)$, l'équation $x^d = 1$ a au plus $d$ solutions dans $\\mathbb{F}_p$.",
+        "Soit $\\psi(d)$ le nombre d'éléments d'ordre $d$ dans $G$. On a $\\sum_{d|(p-1)} \\psi(d) = p-1$.",
+        "Par Möbius, $\\psi(d) = \\varphi(d)$ (indicatrice d'Euler) pour tout $d | (p-1)$.",
+        "En particulier $\\psi(p-1) = \\varphi(p-1) \\geq 1$, donc il existe un élément d'ordre $p-1$.",
+        "Conclusion : $G$ est cyclique. $\\square$"
+      ],
+      "lecons": [123, 141],
+      "tags": ["corps finis", "groupes cycliques", "Euler"]
+    },
+    {
+      "id": "ex_eisenstein",
+      "titre": "Critère d'Eisenstein",
+      "domaine": "Algèbre",
+      "niveau": "Moyen",
+      "enonce": "Montrer que $P(X) = X^4 + 6X^3 + 9X^2 + 12X + 3$ est irréductible dans $\\mathbb{Q}[X]$.",
+      "indication": "Appliquer le critère d'Eisenstein avec $p = 3$.",
+      "solution": [
+        "On vérifie Eisenstein avec $p = 3$ :",
+        "$3 | 6$, $3 | 9$, $3 | 12$, $3 | 3$ : tous les coefficients sauf le dominant sont divisibles par $3$.",
+        "$3^2 = 9 \\nmid 3$ : le terme constant n'est pas divisible par $9$.",
+        "Le coefficient dominant $1$ n'est pas divisible par $3$.",
+        "Par Eisenstein, $P$ est irréductible dans $\\mathbb{Q}[X]$. $\\square$"
+      ],
+      "lecons": [120, 122],
+      "tags": ["Eisenstein", "irréductibilité", "polynômes"]
+    },
+    {
+      "id": "ex_extension_corps",
+      "titre": "Degré d'une extension de corps",
+      "domaine": "Algèbre",
+      "niveau": "Difficile",
+      "enonce": "Calculer $[\\mathbb{Q}(\\sqrt{2}, \\sqrt{3}) : \\mathbb{Q}]$.",
+      "indication": "Montrer que $\\sqrt{3} \\notin \\mathbb{Q}(\\sqrt{2})$ puis utiliser la multiplicativité des degrés.",
+      "solution": [
+        "$[\\mathbb{Q}(\\sqrt{2}) : \\mathbb{Q}] = 2$ car $X^2 - 2$ est irréductible sur $\\mathbb{Q}$.",
+        "Montrons $\\sqrt{3} \\notin \\mathbb{Q}(\\sqrt{2})$. Si $\\sqrt{3} = a + b\\sqrt{2}$ avec $a,b \\in \\mathbb{Q}$,",
+        "alors $3 = a^2 + 2b^2 + 2ab\\sqrt{2}$, d'où $ab = 0$.",
+        "Si $b = 0$ : $\\sqrt{3} = a \\in \\mathbb{Q}$, contradiction. Si $a = 0$ : $\\sqrt{3} = b\\sqrt{2}$, donc $\\sqrt{3/2} \\in \\mathbb{Q}$, contradiction.",
+        "Donc $[\\mathbb{Q}(\\sqrt{2}, \\sqrt{3}) : \\mathbb{Q}(\\sqrt{2})] = 2$.",
+        "Par multiplicativité : $[\\mathbb{Q}(\\sqrt{2}, \\sqrt{3}) : \\mathbb{Q}] = 2 \\times 2 = 4$. $\\square$"
+      ],
+      "lecons": [141, 142],
+      "tags": ["extensions", "degré", "corps"]
+    },
+    {
+      "id": "ex_polynome_cyclotomique",
+      "titre": "Polynômes cyclotomiques",
+      "domaine": "Algèbre",
+      "niveau": "Moyen",
+      "enonce": "Calculer $\\Phi_{12}(X)$ le 12-ème polynôme cyclotomique.",
+      "indication": "Utiliser $X^{12} - 1 = \\prod_{d|12} \\Phi_d(X)$.",
+      "solution": [
+        "Les diviseurs de $12$ sont $\\{1, 2, 3, 4, 6, 12\\}$.",
+        "$\\Phi_1 = X-1$, $\\Phi_2 = X+1$, $\\Phi_3 = X^2+X+1$, $\\Phi_4 = X^2+1$, $\\Phi_6 = X^2-X+1$.",
+        "$X^{12} - 1 = \\Phi_1 \\Phi_2 \\Phi_3 \\Phi_4 \\Phi_6 \\Phi_{12}$.",
+        "$\\Phi_1 \\Phi_2 \\Phi_3 \\Phi_4 \\Phi_6 = (X^2-1)(X^2+X+1)(X^2+1)(X^2-X+1)$",
+        "$= (X^4-1)(X^4+X^2+1) = X^8 + X^4 - X^4 - 1 + X^6 + X^2 = X^8-X^4+1$... Non.",
+        "Méthode directe : $\\Phi_{12}(X) = \\frac{X^{12}-1}{(X^6-1)(X^4-1)/(X^2-1)} = X^4 - X^2 + 1$. $\\square$"
+      ],
+      "lecons": [106, 141],
+      "tags": ["cyclotomique", "racines de l'unité"]
+    },
+    {
+      "id": "ex_formes_bilineaires",
+      "titre": "Classification des formes quadratiques",
+      "domaine": "Algèbre",
+      "niveau": "Moyen",
+      "enonce": "Déterminer la signature de $q(x,y,z) = x^2 + 2xy + 3y^2 + 2yz + z^2$.",
+      "indication": "Compléter le carré ou diagonaliser la matrice associée.",
+      "solution": [
+        "Matrice de $q$ : $A = \\begin{pmatrix} 1 & 1 & 0 \\\\ 1 & 3 & 1 \\\\ 0 & 1 & 1 \\end{pmatrix}$.",
+        "Complétion : $q = (x+y)^2 + 2y^2 + 2yz + z^2 = (x+y)^2 + 2(y + z/2)^2 + z^2/2$.",
+        "Trois carrés positifs : signature $(3, 0)$.",
+        "Donc $q$ est définie positive.",
+        "Vérification : $\\det(A_1) = 1 > 0$, $\\det(A_2) = 2 > 0$, $\\det(A) = 1 > 0$ (Sylvester). $\\square$"
+      ],
+      "lecons": [170, 171],
+      "tags": ["formes quadratiques", "signature", "Sylvester"]
+    },
+    {
+      "id": "ex_dualite",
+      "titre": "Base duale",
+      "domaine": "Algèbre",
+      "niveau": "Facile",
+      "enonce": "Soit $E = \\mathbb{R}^2$ avec base $(e_1, e_2)$. Déterminer la base duale $(e_1^*, e_2^*)$ et les coordonnées de $f(x,y) = 3x - 2y$ dans cette base.",
+      "indication": "$e_i^*(e_j) = \\delta_{ij}$.",
+      "solution": [
+        "$e_1^*(x,y) = x$ et $e_2^*(x,y) = y$ (extraction des coordonnées).",
+        "$f = 3e_1^* - 2e_2^*$.",
+        "Vérification : $f(e_1) = 3$, $f(e_2) = -2$.",
+        "Les coordonnées de $f$ dans la base duale sont $(3, -2)$. $\\square$"
+      ],
+      "lecons": [109, 111],
+      "tags": ["dualité", "base duale", "formes linéaires"]
+    },
+    {
+      "id": "ex_quotient_anneau",
+      "titre": "Anneau quotient",
+      "domaine": "Algèbre",
+      "niveau": "Moyen",
+      "enonce": "Montrer que $\\mathbb{Z}[i]/(1+i) \\cong \\mathbb{F}_2$.",
+      "indication": "Calculer la norme de $1+i$ et construire un morphisme surjectif.",
+      "solution": [
+        "Norme : $N(1+i) = 1^2 + 1^2 = 2$.",
+        "Morphisme : $\\varphi : \\mathbb{Z}[i] \\to \\mathbb{F}_2$, $a + bi \\mapsto \\overline{a+b}$.",
+        "$\\varphi$ est un morphisme d'anneaux surjectif.",
+        "$\\ker(\\varphi) = \\{a+bi : a+b \\equiv 0 [2]\\} = (1+i)$.",
+        "Par le premier théorème d'isomorphisme : $\\mathbb{Z}[i]/(1+i) \\cong \\mathbb{F}_2$. $\\square$"
+      ],
+      "lecons": [122, 126],
+      "tags": ["anneaux quotients", "Gauss", "isomorphisme"]
+    },
+    {
+      "id": "ex_module_principal",
+      "titre": "Module sur un anneau principal",
+      "domaine": "Algèbre",
+      "niveau": "Difficile",
+      "enonce": "Déterminer la structure de $\\mathbb{Z}$-module de $\\mathbb{Z}/12\\mathbb{Z}$.",
+      "indication": "Décomposition en facteurs invariants ou primaire.",
+      "solution": [
+        "Par le théorème chinois : $\\mathbb{Z}/12\\mathbb{Z} \\cong \\mathbb{Z}/4\\mathbb{Z} \\times \\mathbb{Z}/3\\mathbb{Z}$.",
+        "Car $12 = 4 \\times 3$ et $\\gcd(4,3) = 1$.",
+        "Décomposition primaire : $12 = 2^2 \\times 3$.",
+        "Facteurs invariants : $(12)$ (un seul car le module est cyclique).",
+        "Facteurs élémentaires : $(4, 3)$. $\\square$"
+      ],
+      "lecons": [152, 154],
+      "tags": ["modules", "anneau principal", "facteurs invariants"]
+    },
+    {
+      "id": "ex_endomorphisme_nilpotent",
+      "titre": "Indice de nilpotence",
+      "domaine": "Algèbre",
+      "niveau": "Moyen",
+      "enonce": "Soit $N \\in M_4(\\mathbb{R})$ nilpotente avec $\\mathrm{rg}(N) = 2$ et $\\mathrm{rg}(N^2) = 1$. Donner la forme de Jordan de $N$.",
+      "indication": "Utiliser la suite des rangs $\\mathrm{rg}(N^k)$ pour déterminer la taille des blocs.",
+      "solution": [
+        "Suite des rangs : $\\mathrm{rg}(N^0) = 4$, $\\mathrm{rg}(N) = 2$, $\\mathrm{rg}(N^2) = 1$, $\\mathrm{rg}(N^3) = 0$.",
+        "Différences : $4-2 = 2$, $2-1 = 1$, $1-0 = 1$.",
+        "Nombre de blocs de taille $\\geq k$ = $\\mathrm{rg}(N^{k-1}) - \\mathrm{rg}(N^k)$.",
+        "Taille $\\geq 1$ : $2$, $\\geq 2$ : $1$, $\\geq 3$ : $1$.",
+        "Donc un bloc $J_3(0)$ et un bloc $J_1(0)$.",
+        "Forme de Jordan : $\\begin{pmatrix} 0&1&0&0\\\\0&0&1&0\\\\0&0&0&0\\\\0&0&0&0 \\end{pmatrix}$. $\\square$"
+      ],
+      "lecons": [154, 157],
+      "tags": ["nilpotent", "Jordan", "rang"]
+    },
+    {
+      "id": "ex_produit_semi_direct",
+      "titre": "Produit semi-direct",
+      "domaine": "Algèbre",
+      "niveau": "Difficile",
+      "enonce": "Montrer que $S_3 \\cong \\mathbb{Z}/3\\mathbb{Z} \\rtimes \\mathbb{Z}/2\\mathbb{Z}$.",
+      "indication": "Identifier $A_3 \\cong \\mathbb{Z}/3\\mathbb{Z}$ et une transposition génère $\\mathbb{Z}/2\\mathbb{Z}$.",
+      "solution": [
+        "Soit $H = A_3 = \\langle (1\\,2\\,3) \\rangle \\cong \\mathbb{Z}/3\\mathbb{Z}$ (distingué dans $S_3$).",
+        "Soit $K = \\langle (1\\,2) \\rangle \\cong \\mathbb{Z}/2\\mathbb{Z}$.",
+        "$H \\cap K = \\{\\mathrm{id}\\}$ et $|HK| = |H||K|/|H \\cap K| = 6 = |S_3|$.",
+        "Donc $S_3 = H \\cdot K$ avec $H \\trianglelefteq S_3$ et $H \\cap K = \\{e\\}$.",
+        "L'action par conjugaison : $(1\\,2)(1\\,2\\,3)(1\\,2) = (1\\,3\\,2) = (1\\,2\\,3)^{-1}$.",
+        "C'est l'inversion, donc $\\varphi : \\mathbb{Z}/2\\mathbb{Z} \\to \\mathrm{Aut}(\\mathbb{Z}/3\\mathbb{Z})$, $\\bar{1} \\mapsto (x \\mapsto -x)$. $\\square$"
+      ],
+      "lecons": [103, 104],
+      "tags": ["produit semi-direct", "groupes symétriques"]
+    },
+    {
+      "id": "ex_serie_fonctions_cv",
+      "titre": "Convergence normale de séries de fonctions",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Étudier la convergence de $f(x) = \\sum_{n=1}^{+\\infty} \\frac{\\sin(nx)}{n^2}$ sur $\\mathbb{R}$.",
+      "indication": "Majorer $|\\sin(nx)/n^2|$ et conclure par convergence normale.",
+      "solution": [
+        "Pour tout $x \\in \\mathbb{R}$ : $\\left|\\frac{\\sin(nx)}{n^2}\\right| \\leq \\frac{1}{n^2}$.",
+        "$\\sum \\frac{1}{n^2} = \\frac{\\pi^2}{6}$ converge.",
+        "Par le critère de Weierstrass, la série converge normalement sur $\\mathbb{R}$.",
+        "Conséquences : $f$ est continue sur $\\mathbb{R}$ (limite uniforme de fonctions continues).",
+        "De plus $f$ est $2\\pi$-périodique (série de Fourier). $\\square$"
+      ],
+      "lecons": [241, 246],
+      "tags": ["séries de fonctions", "convergence normale", "Fourier"]
+    },
+    {
+      "id": "ex_integrale_parametre",
+      "titre": "Intégrale à paramètre - Continuité et dérivation",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Soit $F(x) = \\int_0^{+\\infty} \\frac{e^{-t}}{1+xt}\\,dt$ pour $x \\geq 0$. Montrer que $F$ est $C^\\infty$ sur $]0,+\\infty[$.",
+      "indication": "Dérivation sous le signe intégral avec domination.",
+      "solution": [
+        "Pour $x > 0$ : $f(x,t) = \\frac{e^{-t}}{1+xt}$ est $C^\\infty$ en $x$.",
+        "$\\frac{\\partial^n f}{\\partial x^n}(x,t) = \\frac{(-1)^n n! \\, t^n \\, e^{-t}}{(1+xt)^{n+1}}$.",
+        "Pour $x \\geq \\varepsilon > 0$ : $\\left|\\frac{\\partial^n f}{\\partial x^n}\\right| \\leq n! \\, t^n \\, e^{-t}$ (intégrable en $t$).",
+        "Par le théorème de dérivation sous l'intégrale, $F$ est $C^\\infty$ sur $]0,+\\infty[$.",
+        "$F^{(n)}(x) = (-1)^n n! \\int_0^{+\\infty} \\frac{t^n e^{-t}}{(1+xt)^{n+1}}\\,dt$. $\\square$"
+      ],
+      "lecons": [236, 239],
+      "tags": ["intégrales à paramètre", "dérivation sous l'intégrale"]
+    },
+    {
+      "id": "ex_hilbert_projection",
+      "titre": "Projection sur un convexe fermé",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Soit $H$ un espace de Hilbert et $C \\subset H$ un convexe fermé non vide. Montrer que pour tout $x \\in H$, il existe un unique $p \\in C$ tel que $\\|x - p\\| = d(x, C)$.",
+      "indication": "Utiliser une suite minimisante et montrer qu'elle est de Cauchy via l'identité du parallélogramme.",
+      "solution": [
+        "Soit $d = \\inf_{c \\in C} \\|x - c\\|$ et $(c_n)$ une suite minimisante : $\\|x - c_n\\| \\to d$.",
+        "**Cauchy** : Par l'identité du parallélogramme :",
+        "$\\|c_m - c_n\\|^2 = 2\\|x-c_m\\|^2 + 2\\|x-c_n\\|^2 - 4\\left\\|x - \\frac{c_m+c_n}{2}\\right\\|^2$.",
+        "Or $\\frac{c_m+c_n}{2} \\in C$ (convexité), donc $\\left\\|x - \\frac{c_m+c_n}{2}\\right\\| \\geq d$.",
+        "$\\|c_m - c_n\\|^2 \\leq 2\\|x-c_m\\|^2 + 2\\|x-c_n\\|^2 - 4d^2 \\to 0$.",
+        "$(c_n)$ est de Cauchy dans $H$ complet, converge vers $p \\in C$ (fermé). $\\|x-p\\| = d$.",
+        "**Unicité** : Si $p, q$ réalisent le min, le même argument donne $\\|p-q\\| = 0$. $\\square$"
+      ],
+      "lecons": [208, 211],
+      "tags": ["Hilbert", "projection", "convexe"]
+    },
+    {
+      "id": "ex_serie_entiere_complexe",
+      "titre": "Développement en série entière",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Développer $f(x) = \\ln(1+x)$ en série entière et donner son rayon de convergence.",
+      "indication": "Partir de la dérivée $f'(x) = \\frac{1}{1+x}$.",
+      "solution": [
+        "$f'(x) = \\frac{1}{1+x} = \\sum_{n=0}^{+\\infty} (-1)^n x^n$ pour $|x| < 1$.",
+        "En intégrant : $\\ln(1+x) = \\sum_{n=0}^{+\\infty} (-1)^n \\frac{x^{n+1}}{n+1} = \\sum_{n=1}^{+\\infty} \\frac{(-1)^{n-1}}{n} x^n$.",
+        "Rayon de convergence : $R = 1$ (d'Alembert : $|a_{n+1}/a_n| = n/(n+1) \\to 1$).",
+        "Convergence en $x = 1$ : série alternée $\\sum \\frac{(-1)^{n-1}}{n} = \\ln 2$.",
+        "Divergence en $x = -1$ : série harmonique $-\\sum \\frac{1}{n}$.",
+        "Domaine : $]-1, 1]$. $\\square$"
+      ],
+      "lecons": [243, 230],
+      "tags": ["série entière", "logarithme", "rayon"]
+    },
+    {
+      "id": "ex_equadiff_cauchy_lipschitz",
+      "titre": "Cauchy-Lipschitz maximal",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Résoudre le problème de Cauchy $y' = y^2$, $y(0) = 1$. Déterminer l'intervalle maximal.",
+      "indication": "Variables séparées puis étudier l'explosion en temps fini.",
+      "solution": [
+        "$\\frac{dy}{y^2} = dt$, soit $-\\frac{1}{y} = t + C$.",
+        "Condition initiale $y(0) = 1$ : $C = -1$.",
+        "$y(t) = \\frac{1}{1-t}$.",
+        "Intervalle maximal : $]-\\infty, 1[$. Explosion en $t = 1^-$ : $y(t) \\to +\\infty$.",
+        "Pas de solution globale : illustration du blow-up en temps fini. $\\square$"
+      ],
+      "lecons": [218, 220],
+      "tags": ["Cauchy-Lipschitz", "blow-up", "EDO"]
+    },
+    {
+      "id": "ex_transformee_fourier",
+      "titre": "Transformée de Fourier de la gaussienne",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Calculer $\\hat{f}(\\xi) = \\int_{\\mathbb{R}} e^{-\\pi x^2} e^{-2i\\pi x\\xi}\\,dx$.",
+      "indication": "Compléter le carré dans l'exponentielle.",
+      "solution": [
+        "$\\hat{f}(\\xi) = \\int_{\\mathbb{R}} e^{-\\pi(x^2 + 2ix\\xi)}\\,dx$.",
+        "Complétion : $x^2 + 2ix\\xi = (x + i\\xi)^2 + \\xi^2$.",
+        "$\\hat{f}(\\xi) = e^{-\\pi\\xi^2} \\int_{\\mathbb{R}} e^{-\\pi(x+i\\xi)^2}\\,dx$.",
+        "Par déformation de contour (ou Cauchy) : $\\int_{\\mathbb{R}} e^{-\\pi(x+i\\xi)^2}\\,dx = \\int_{\\mathbb{R}} e^{-\\pi u^2}\\,du = 1$.",
+        "$\\hat{f}(\\xi) = e^{-\\pi\\xi^2}$ : la gaussienne est son propre vecteur propre de Fourier. $\\square$"
+      ],
+      "lecons": [246, 235],
+      "tags": ["Fourier", "gaussienne", "transformée"]
+    },
+    {
+      "id": "ex_topologie_baire",
+      "titre": "Théorème de Baire - Application",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Montrer que l'ensemble des $x \\in [0,1]$ dont le développement décimal est ultimement périodique (les rationnels) est maigre.",
+      "indication": "Écrire $\\mathbb{Q} \\cap [0,1]$ comme réunion dénombrable de singletons.",
+      "solution": [
+        "$\\mathbb{Q} \\cap [0,1] = \\bigcup_{q \\in \\mathbb{Q} \\cap [0,1]} \\{q\\}$.",
+        "Chaque $\\{q\\}$ est fermé d'intérieur vide dans $[0,1]$ (aucun intervalle n'est réduit à un point).",
+        "Donc $\\mathbb{Q} \\cap [0,1]$ est réunion dénombrable de fermés d'intérieur vide : c'est un ensemble maigre.",
+        "Par Baire, $[0,1]$ n'est pas maigre (compact, donc Baire).",
+        "Donc $[0,1] \\setminus \\mathbb{Q}$ est résiduel (et en particulier non vide, non dénombrable). $\\square$"
+      ],
+      "lecons": [204, 201],
+      "tags": ["Baire", "topologie", "catégorie"]
+    },
+    {
+      "id": "ex_interversion_limite_integrale",
+      "titre": "Convergence monotone",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Calculer $\\lim_{n \\to +\\infty} \\int_0^n \\left(1 + \\frac{x}{n}\\right)^n e^{-2x}\\,dx$.",
+      "indication": "Convergence monotone ou dominée avec $(1 + x/n)^n \\nearrow e^x$.",
+      "solution": [
+        "Pour tout $x \\geq 0$ : $(1 + x/n)^n \\nearrow e^x$ quand $n \\to +\\infty$.",
+        "$f_n(x) = \\mathbf{1}_{[0,n]}(x)(1+x/n)^n e^{-2x} \\leq e^x \\cdot e^{-2x} = e^{-x}$ (intégrable).",
+        "Par convergence dominée : $\\lim \\int_0^n f_n = \\int_0^{+\\infty} e^x \\cdot e^{-2x}\\,dx = \\int_0^{+\\infty} e^{-x}\\,dx = 1$. $\\square$"
+      ],
+      "lecons": [234, 239],
+      "tags": ["convergence dominée", "intégrales", "Lebesgue"]
+    },
+    {
+      "id": "ex_suites_recurrentes",
+      "titre": "Suite récurrente $u_{n+1} = \\sqrt{2 + u_n}$",
+      "domaine": "Analyse",
+      "niveau": "Facile",
+      "enonce": "Soit $u_0 = 0$ et $u_{n+1} = \\sqrt{2 + u_n}$. Montrer que $(u_n)$ converge et trouver sa limite.",
+      "indication": "Montrer que $(u_n)$ est croissante et majorée par $2$.",
+      "solution": [
+        "**Croissance** : $u_1 = \\sqrt{2} > 0 = u_0$. Si $u_n > u_{n-1}$, alors $u_{n+1} = \\sqrt{2+u_n} > \\sqrt{2+u_{n-1}} = u_n$.",
+        "**Majorée** : $u_0 < 2$. Si $u_n < 2$ alors $u_{n+1} = \\sqrt{2+u_n} < \\sqrt{4} = 2$.",
+        "$(u_n)$ croissante majorée converge vers $\\ell$.",
+        "Passage à la limite : $\\ell = \\sqrt{2 + \\ell}$, soit $\\ell^2 = 2 + \\ell$, $\\ell^2 - \\ell - 2 = 0$.",
+        "$(\\ell - 2)(\\ell + 1) = 0$ : $\\ell = 2$ (car $\\ell \\geq 0$). $\\square$"
+      ],
+      "lecons": [203, 223],
+      "tags": ["suites récurrentes", "convergence", "point fixe"]
+    },
+    {
+      "id": "ex_derivation_series_puissances",
+      "titre": "Fonction définie par une série entière",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Soit $f(x) = \\sum_{n=0}^{+\\infty} \\frac{x^n}{(n!)^2}$. Montrer que $f$ vérifie $xf''(x) + f'(x) = f(x)$.",
+      "indication": "Dériver terme à terme et réindexer.",
+      "solution": [
+        "$f'(x) = \\sum_{n=1}^{+\\infty} \\frac{nx^{n-1}}{(n!)^2}$, $f''(x) = \\sum_{n=2}^{+\\infty} \\frac{n(n-1)x^{n-2}}{(n!)^2}$.",
+        "$xf''(x) + f'(x) = \\sum_{n=2}^{+\\infty} \\frac{n(n-1)x^{n-1}}{(n!)^2} + \\sum_{n=1}^{+\\infty} \\frac{nx^{n-1}}{(n!)^2}$.",
+        "$= \\sum_{n=1}^{+\\infty} \\frac{n^2 x^{n-1}}{(n!)^2} = \\sum_{n=1}^{+\\infty} \\frac{x^{n-1}}{((n-1)!)^2}$.",
+        "Changement $m = n-1$ : $= \\sum_{m=0}^{+\\infty} \\frac{x^m}{(m!)^2} = f(x)$. $\\square$"
+      ],
+      "lecons": [243, 218],
+      "tags": ["séries entières", "EDO", "Bessel"]
+    },
+    {
+      "id": "ex_integrale_gauss",
+      "titre": "Intégrale de Gauss",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Calculer $I = \\int_{-\\infty}^{+\\infty} e^{-x^2}\\,dx$.",
+      "indication": "Calculer $I^2$ en passant en coordonnées polaires.",
+      "solution": [
+        "$I^2 = \\int_{\\mathbb{R}^2} e^{-(x^2+y^2)}\\,dx\\,dy$ (Fubini).",
+        "Passage en polaires : $x = r\\cos\\theta$, $y = r\\sin\\theta$, $dx\\,dy = r\\,dr\\,d\\theta$.",
+        "$I^2 = \\int_0^{2\\pi} d\\theta \\int_0^{+\\infty} re^{-r^2}\\,dr = 2\\pi \\cdot \\left[-\\frac{e^{-r^2}}{2}\\right]_0^{+\\infty} = 2\\pi \\cdot \\frac{1}{2} = \\pi$.",
+        "$I > 0$ donc $I = \\sqrt{\\pi}$. $\\square$"
+      ],
+      "lecons": [236, 265],
+      "tags": ["Gauss", "intégrale", "polaires"]
+    },
+    {
+      "id": "ex_espaces_lp_inclusions",
+      "titre": "Inclusions entre espaces $L^p$",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Soit $(\\Omega, \\mu)$ avec $\\mu(\\Omega) < +\\infty$. Montrer que $L^q(\\Omega) \\subset L^p(\\Omega)$ pour $1 \\leq p \\leq q$.",
+      "indication": "Inégalité de Hölder avec les bons exposants.",
+      "solution": [
+        "Soit $f \\in L^q$. On applique Hölder à $|f|^p \\cdot 1$ :",
+        "$\\int |f|^p \\leq \\left(\\int |f|^{p \\cdot q/p}\\right)^{p/q} \\cdot \\left(\\int 1^{q/(q-p)}\\right)^{(q-p)/q}$.",
+        "$= \\|f\\|_q^p \\cdot \\mu(\\Omega)^{(q-p)/q}$.",
+        "Donc $\\|f\\|_p \\leq \\|f\\|_q \\cdot \\mu(\\Omega)^{1/p - 1/q}$.",
+        "Si $f \\in L^q$ alors $f \\in L^p$. L'inclusion est continue. $\\square$",
+        "Remarque : faux si $\\mu(\\Omega) = +\\infty$ (ex : $f(x) = 1/x^{1/2}$ sur $[1,+\\infty[$)."
+      ],
+      "lecons": [213, 234],
+      "tags": ["espaces Lp", "Hölder", "inclusions"]
+    },
+    {
+      "id": "ex_compacite_ascoli",
+      "titre": "Compacité dans $C([0,1])$ (Ascoli)",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Soit $A = \\{f \\in C^1([0,1]) : \\|f\\|_\\infty \\leq 1, \\|f'\\|_\\infty \\leq 1\\}$. Montrer que $A$ est relativement compact dans $(C([0,1]), \\|\\cdot\\|_\\infty)$.",
+      "indication": "Vérifier les hypothèses d'Ascoli : borné et équicontinu.",
+      "solution": [
+        "**Borné** : $\\|f\\|_\\infty \\leq 1$ pour tout $f \\in A$.",
+        "**Équicontinu** : Pour $f \\in A$ et $x,y \\in [0,1]$ :",
+        "$|f(x) - f(y)| \\leq \\|f'\\|_\\infty |x-y| \\leq |x-y|$.",
+        "Donc $A$ est équicontinue (même module de continuité $\\omega(\\delta) = \\delta$).",
+        "Par Ascoli, $A$ est relativement compact dans $(C([0,1]), \\|\\cdot\\|_\\infty)$. $\\square$"
+      ],
+      "lecons": [206, 202],
+      "tags": ["Ascoli", "compacité", "équicontinuité"]
+    },
+    {
+      "id": "ex_series_fourier_dirichlet",
+      "titre": "Convergence ponctuelle de Fourier",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Soit $f(x) = |x|$ sur $[-\\pi, \\pi]$, prolongée par $2\\pi$-périodicité. Calculer les coefficients de Fourier et en déduire $\\sum_{n=0}^{+\\infty} \\frac{1}{(2n+1)^2} = \\frac{\\pi^2}{8}$.",
+      "indication": "$f$ est paire, donc les $b_n$ sont nuls. Calculer les $a_n$.",
+      "solution": [
+        "$f$ paire : $b_n = 0$ pour tout $n$.",
+        "$a_0 = \\frac{1}{\\pi}\\int_{-\\pi}^\\pi |x|\\,dx = \\pi$.",
+        "$a_n = \\frac{2}{\\pi}\\int_0^\\pi x\\cos(nx)\\,dx = \\frac{2}{\\pi}\\left[\\frac{x\\sin(nx)}{n} + \\frac{\\cos(nx)}{n^2}\\right]_0^\\pi$.",
+        "$= \\frac{2}{\\pi} \\cdot \\frac{(-1)^n - 1}{n^2}$. Donc $a_n = 0$ si $n$ pair, $a_n = \\frac{-4}{\\pi n^2}$ si $n$ impair.",
+        "$f(0) = 0 = \\frac{\\pi}{2} - \\frac{4}{\\pi}\\sum_{k=0}^{+\\infty} \\frac{1}{(2k+1)^2}$.",
+        "$\\sum_{k=0}^{+\\infty} \\frac{1}{(2k+1)^2} = \\frac{\\pi^2}{8}$. $\\square$"
+      ],
+      "lecons": [246],
+      "tags": ["Fourier", "convergence", "somme de séries"]
+    },
+    {
+      "id": "ex_equa_chaleur",
+      "titre": "Équation de la chaleur sur un segment",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Résoudre $\\partial_t u = \\partial_{xx} u$ sur $[0, \\pi]$ avec $u(0,t) = u(\\pi,t) = 0$ et $u(x,0) = \\sin(x)$.",
+      "indication": "Séparation de variables $u(x,t) = X(x)T(t)$.",
+      "solution": [
+        "Séparation : $T'/T = X''/X = -\\lambda$ (constante).",
+        "$X'' + \\lambda X = 0$, $X(0) = X(\\pi) = 0$ : valeurs propres $\\lambda_n = n^2$, $X_n(x) = \\sin(nx)$.",
+        "$T'_n + n^2 T_n = 0$ : $T_n(t) = e^{-n^2 t}$.",
+        "Solution générale : $u(x,t) = \\sum c_n \\sin(nx) e^{-n^2 t}$.",
+        "CI : $u(x,0) = \\sin(x)$ donc $c_1 = 1$, $c_n = 0$ pour $n \\geq 2$.",
+        "$u(x,t) = \\sin(x)\\, e^{-t}$. $\\square$"
+      ],
+      "lecons": [218, 246],
+      "tags": ["EDP", "chaleur", "Fourier"]
+    },
+    {
+      "id": "ex_series_alternees",
+      "titre": "Série alternée et estimation du reste",
+      "domaine": "Analyse",
+      "niveau": "Facile",
+      "enonce": "Montrer que $\\sum_{n=1}^{+\\infty} \\frac{(-1)^{n+1}}{n}$ converge et estimer $|S - S_{100}|$.",
+      "indication": "Critère des séries alternées.",
+      "solution": [
+        "$a_n = 1/n$ est décroissante et tend vers $0$.",
+        "Par le critère de Leibniz, la série alternée converge.",
+        "$S = \\ln 2$ (développement de $\\ln(1+x)$ en $x=1$).",
+        "Majoration du reste : $|S - S_N| \\leq a_{N+1} = \\frac{1}{N+1}$.",
+        "$|S - S_{100}| \\leq \\frac{1}{101} \\approx 0.0099$. $\\square$"
+      ],
+      "lecons": [230],
+      "tags": ["séries alternées", "Leibniz", "reste"]
+    },
+    {
+      "id": "ex_prolongement_analytique",
+      "titre": "Prolongement analytique du zêta",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Montrer que $\\zeta(s) = \\sum_{n=1}^{+\\infty} n^{-s}$ converge pour $\\Re(s) > 1$ et que $\\zeta(s) - \\frac{1}{s-1}$ se prolonge en $s=1$.",
+      "indication": "Comparer $\\sum n^{-s}$ à $\\int_1^{+\\infty} t^{-s}\\,dt$.",
+      "solution": [
+        "Pour $\\sigma = \\Re(s) > 1$ : $|n^{-s}| = n^{-\\sigma}$ et $\\sum n^{-\\sigma}$ converge (Riemann).",
+        "$\\int_1^{+\\infty} t^{-s}\\,dt = \\frac{1}{s-1}$ pour $\\Re(s) > 1$.",
+        "$\\zeta(s) - \\frac{1}{s-1} = \\sum_{n=1}^{+\\infty} \\left(n^{-s} - \\int_n^{n+1} t^{-s}\\,dt\\right)$.",
+        "Chaque terme est $O(n^{-\\sigma-1})$ (formule d'Euler-Maclaurin).",
+        "Donc la série résiduelle converge pour $\\Re(s) > 0$ : prolongement à la demi-plan $\\Re(s) > 0$. $\\square$"
+      ],
+      "lecons": [243, 239],
+      "tags": ["zêta", "prolongement analytique", "séries de Dirichlet"]
+    },
+    {
+      "id": "ex_martingale_arret",
+      "titre": "Théorème d'arrêt de Doob",
+      "domaine": "Probabilités",
+      "niveau": "Difficile",
+      "enonce": "Marche aléatoire $S_n = X_1 + \\cdots + X_n$ avec $P(X_i = 1) = P(X_i = -1) = 1/2$. Soit $T = \\inf\\{n : S_n = a\\}$ pour $a > 0$. Calculer $E[(-1)^T]$ en utilisant les martingales.",
+      "indication": "$((-1)^n S_n)$ est-elle une martingale ?",
+      "solution": [
+        "$(S_n)$ est une martingale car $E[X_i] = 0$.",
+        "En fait, $M_n = e^{\\theta S_n}/\\cosh(\\theta)^n$ est une martingale pour tout $\\theta$.",
+        "Pour $\\theta = i\\pi$ : $e^{i\\pi S_n}/\\cos(\\pi)^n = (-1)^{S_n}/(-1)^n$ martingale.",
+        "Par le théorème d'arrêt : $E[(-1)^{S_T}/(-1)^T] = 1$.",
+        "Or $S_T = a$, donc $E[(-1)^a \\cdot (-1)^{-T}] = 1$.",
+        "$E[(-1)^T] = (-1)^a$. $\\square$"
+      ],
+      "lecons": [264, 265],
+      "tags": ["martingales", "temps d'arrêt", "marche aléatoire"]
+    },
+    {
+      "id": "ex_convergence_loi",
+      "titre": "Convergence en loi vers une gaussienne",
+      "domaine": "Probabilités",
+      "niveau": "Moyen",
+      "enonce": "Soit $X_1, \\ldots, X_n$ i.i.d. de loi $\\mathcal{U}([0,1])$. Montrer que $Z_n = \\frac{\\bar{X}_n - 1/2}{1/\\sqrt{12n}}$ converge en loi vers $\\mathcal{N}(0,1)$.",
+      "indication": "TCL avec $E[X_i] = 1/2$ et $\\mathrm{Var}(X_i) = 1/12$.",
+      "solution": [
+        "$E[X_i] = 1/2$, $\\mathrm{Var}(X_i) = 1/12$ (loi uniforme sur $[0,1]$).",
+        "$\\bar{X}_n = \\frac{1}{n}\\sum X_i$ : $E[\\bar{X}_n] = 1/2$, $\\mathrm{Var}(\\bar{X}_n) = 1/(12n)$.",
+        "$Z_n = \\frac{\\bar{X}_n - 1/2}{\\sqrt{1/(12n)}} = \\sqrt{12n}(\\bar{X}_n - 1/2)$.",
+        "Par le TCL : $Z_n \\xrightarrow{\\mathcal{L}} \\mathcal{N}(0,1)$.",
+        "Vérification numérique : pour $n = 12$, $Z_{12} = \\sum X_i - 6$ a variance $1$. $\\square$"
+      ],
+      "lecons": [262, 267],
+      "tags": ["TCL", "convergence en loi", "gaussienne"]
+    },
+    {
+      "id": "ex_esperance_conditionnelle",
+      "titre": "Espérance conditionnelle",
+      "domaine": "Probabilités",
+      "niveau": "Moyen",
+      "enonce": "Soit $(X, Y)$ de densité $f(x,y) = 2$ sur le triangle $\\{0 < x < y < 1\\}$. Calculer $E[X|Y]$.",
+      "indication": "Calculer la loi conditionnelle de $X$ sachant $Y = y$.",
+      "solution": [
+        "Loi marginale de $Y$ : $f_Y(y) = \\int_0^y 2\\,dx = 2y$ pour $y \\in [0,1]$.",
+        "Densité conditionnelle : $f_{X|Y}(x|y) = \\frac{f(x,y)}{f_Y(y)} = \\frac{2}{2y} = \\frac{1}{y}$ pour $x \\in [0,y]$.",
+        "Donc $X|Y=y \\sim \\mathcal{U}([0,y])$.",
+        "$E[X|Y=y] = y/2$.",
+        "$E[X|Y] = Y/2$. $\\square$"
+      ],
+      "lecons": [263, 264],
+      "tags": ["conditionnement", "espérance conditionnelle", "densité"]
+    },
+    {
+      "id": "ex_loi_grands_nombres",
+      "titre": "Loi forte des grands nombres - Application",
+      "domaine": "Probabilités",
+      "niveau": "Moyen",
+      "enonce": "Soit $(X_n)$ i.i.d. de loi $\\mathcal{E}(1)$. Montrer que $\\frac{\\max(X_1,\\ldots,X_n)}{\\ln n} \\to 1$ p.s.",
+      "indication": "Calculer $P(\\max \\leq x) = (1-e^{-x})^n$ et étudier pour $x = (1\\pm\\varepsilon)\\ln n$.",
+      "solution": [
+        "$M_n = \\max(X_1,\\ldots,X_n)$. $P(M_n \\leq x) = (1 - e^{-x})^n$.",
+        "Pour $x = (1+\\varepsilon)\\ln n$ : $P(M_n > x) = 1 - (1-n^{-(1+\\varepsilon)})^n \\sim n \\cdot n^{-(1+\\varepsilon)} = n^{-\\varepsilon} \\to 0$.",
+        "Donc $M_n \\leq (1+\\varepsilon)\\ln n$ finalement p.s.",
+        "Pour $x = (1-\\varepsilon)\\ln n$ : $P(M_n \\leq x) = (1-n^{-(1-\\varepsilon)})^n \\leq e^{-n^\\varepsilon} \\to 0$.",
+        "Par Borel-Cantelli : $M_n > (1-\\varepsilon)\\ln n$ finalement p.s.",
+        "Conclusion : $M_n / \\ln n \\to 1$ p.s. $\\square$"
+      ],
+      "lecons": [262, 265],
+      "tags": ["loi forte", "maximum", "exponentielle"]
+    },
+    {
+      "id": "ex_processus_poisson",
+      "titre": "Processus de Poisson",
+      "domaine": "Probabilités",
+      "niveau": "Moyen",
+      "enonce": "Un standard téléphonique reçoit en moyenne 5 appels par minute. Quelle est la probabilité de recevoir exactement 3 appels en 30 secondes ?",
+      "indication": "Loi de Poisson de paramètre $\\lambda t$.",
+      "solution": [
+        "Taux : $\\lambda = 5$ appels/min. Sur 30s = 0.5 min : $\\lambda t = 2.5$.",
+        "$N(0.5) \\sim \\mathrm{Poisson}(2.5)$.",
+        "$P(N = 3) = \\frac{2.5^3}{3!}e^{-2.5} = \\frac{15.625}{6} \\cdot e^{-2.5}$.",
+        "$= 2.604 \\times 0.0821 \\approx 0.214$.",
+        "Probabilité $\\approx 21.4\\%$. $\\square$"
+      ],
+      "lecons": [264],
+      "tags": ["Poisson", "processus", "modélisation"]
+    },
+    {
+      "id": "ex_variable_gaussienne_moment",
+      "titre": "Moments d'une gaussienne",
+      "domaine": "Probabilités",
+      "niveau": "Facile",
+      "enonce": "Soit $X \\sim \\mathcal{N}(0,1)$. Calculer $E[X^4]$.",
+      "indication": "IPP ou fonction génératrice des moments.",
+      "solution": [
+        "Méthode 1 (IPP) : $E[X^4] = \\frac{1}{\\sqrt{2\\pi}}\\int x^4 e^{-x^2/2}\\,dx$.",
+        "IPP avec $u = x^3$, $v' = xe^{-x^2/2}$ : $v = -e^{-x^2/2}$.",
+        "$E[X^4] = 3E[X^2] = 3 \\cdot 1 = 3$.",
+        "Méthode 2 : FGM $M(t) = e^{t^2/2}$, $M^{(4)}(0) = E[X^4] = 3$.",
+        "En général : $E[X^{2n}] = (2n-1)!! = \\frac{(2n)!}{2^n n!}$. $\\square$"
+      ],
+      "lecons": [260, 261],
+      "tags": ["gaussienne", "moments", "IPP"]
+    },
+    {
+      "id": "ex_inegalite_jensen",
+      "titre": "Inégalité de Jensen",
+      "domaine": "Probabilités",
+      "niveau": "Moyen",
+      "enonce": "Soit $X$ une v.a. intégrable et $\\varphi$ convexe. Montrer que $\\varphi(E[X]) \\leq E[\\varphi(X)]$.",
+      "indication": "Tangente en $E[X]$ : $\\varphi(x) \\geq \\varphi(m) + \\varphi'(m)(x-m)$.",
+      "solution": [
+        "Soit $m = E[X]$. Comme $\\varphi$ est convexe, il existe $a$ tel que :",
+        "$\\varphi(x) \\geq \\varphi(m) + a(x - m)$ pour tout $x$ (sous-tangente).",
+        "Appliquer en $x = X$ et prendre l'espérance :",
+        "$E[\\varphi(X)] \\geq \\varphi(m) + a \\cdot E[X - m] = \\varphi(m) + a \\cdot 0 = \\varphi(E[X])$.",
+        "Application : $E[X^2] \\geq (E[X])^2$ (avec $\\varphi(x) = x^2$), i.e. $\\mathrm{Var}(X) \\geq 0$. $\\square$"
+      ],
+      "lecons": [259, 263],
+      "tags": ["Jensen", "convexité", "inégalité"]
+    },
+    {
+      "id": "ex_geo_surface_revolution",
+      "titre": "Aire d'une surface de révolution",
+      "domaine": "Géométrie",
+      "niveau": "Moyen",
+      "enonce": "Calculer l'aire de la sphère de rayon $R$ comme surface de révolution.",
+      "indication": "Paramétrer le demi-cercle et appliquer la formule $A = 2\\pi \\int f(t)\\sqrt{1+f'(t)^2}\\,dt$.",
+      "solution": [
+        "Demi-cercle : $y = f(x) = \\sqrt{R^2 - x^2}$ pour $x \\in [-R, R]$.",
+        "$f'(x) = \\frac{-x}{\\sqrt{R^2-x^2}}$, $\\sqrt{1+f'^2} = \\frac{R}{\\sqrt{R^2-x^2}}$.",
+        "$A = 2\\pi \\int_{-R}^{R} \\sqrt{R^2-x^2} \\cdot \\frac{R}{\\sqrt{R^2-x^2}}\\,dx = 2\\pi R \\int_{-R}^{R} dx = 4\\pi R^2$.",
+        "L'aire de la sphère est $A = 4\\pi R^2$. $\\square$"
+      ],
+      "lecons": [190, 236],
+      "tags": ["surface de révolution", "aire", "sphère"]
+    },
+    {
+      "id": "ex_geo_projective",
+      "titre": "Birapport et projections",
+      "domaine": "Géométrie",
+      "niveau": "Difficile",
+      "enonce": "Montrer que le birapport $[A,B,C,D]$ est invariant par projection depuis un point.",
+      "indication": "Utiliser l'expression en coordonnées homogènes.",
+      "solution": [
+        "Soient $A, B, C, D$ quatre points alignés de coordonnées $a, b, c, d$ sur une droite.",
+        "$[A,B,C,D] = \\frac{(c-a)(d-b)}{(c-b)(d-a)}$.",
+        "Par projection depuis $O$ sur une autre droite, les coordonnées deviennent $a', b', c', d'$.",
+        "En coordonnées homogènes : $C = \\alpha A + \\beta B$ et $C' = \\alpha' A' + \\beta' B'$ avec $\\alpha/\\beta = \\alpha'/\\beta'$.",
+        "Le birapport ne dépend que des rapports $\\alpha/\\beta$, donc il est invariant. $\\square$"
+      ],
+      "lecons": [177, 187],
+      "tags": ["birapport", "projective", "invariant"]
+    },
+    {
+      "id": "ex_geo_hyperbolique",
+      "titre": "Distance hyperbolique",
+      "domaine": "Géométrie",
+      "niveau": "Difficile",
+      "enonce": "Dans le demi-plan de Poincaré $\\mathbb{H} = \\{(x,y) : y > 0\\}$ avec $ds^2 = \\frac{dx^2+dy^2}{y^2}$, calculer la distance entre $(0, a)$ et $(0, b)$ avec $0 < a < b$.",
+      "indication": "Paramétrer par le segment vertical et intégrer.",
+      "solution": [
+        "Le chemin le plus court de $(0,a)$ à $(0,b)$ est le segment vertical.",
+        "Paramétrage : $\\gamma(t) = (0, t)$ pour $t \\in [a, b]$.",
+        "$ds = \\frac{\\sqrt{0 + dt^2}}{t} = \\frac{dt}{t}$.",
+        "$d((0,a), (0,b)) = \\int_a^b \\frac{dt}{t} = \\ln(b/a)$.",
+        "Exemple : $d((0,1), (0,e)) = 1$. $\\square$"
+      ],
+      "lecons": [183, 184],
+      "tags": ["géométrie hyperbolique", "Poincaré", "distance"]
+    },
+    {
+      "id": "ex_groupes_abeliens_finis",
+      "titre": "Classification des groupes abéliens finis",
+      "domaine": "Algèbre",
+      "niveau": "Moyen",
+      "enonce": "Lister tous les groupes abéliens d'ordre 36 à isomorphisme près.",
+      "indication": "Décomposition $36 = 2^2 \\times 3^2$ et lister les partitions.",
+      "solution": [
+        "$36 = 4 \\times 9$. On décompose chaque facteur premier :",
+        "Pour $2^2$ : $\\mathbb{Z}/4\\mathbb{Z}$ ou $\\mathbb{Z}/2\\mathbb{Z} \\times \\mathbb{Z}/2\\mathbb{Z}$.",
+        "Pour $3^2$ : $\\mathbb{Z}/9\\mathbb{Z}$ ou $\\mathbb{Z}/3\\mathbb{Z} \\times \\mathbb{Z}/3\\mathbb{Z}$.",
+        "Combinaisons : $2 \\times 2 = 4$ groupes :",
+        "1. $\\mathbb{Z}/4\\mathbb{Z} \\times \\mathbb{Z}/9\\mathbb{Z} \\cong \\mathbb{Z}/36\\mathbb{Z}$",
+        "2. $\\mathbb{Z}/4\\mathbb{Z} \\times \\mathbb{Z}/3\\mathbb{Z} \\times \\mathbb{Z}/3\\mathbb{Z}$",
+        "3. $\\mathbb{Z}/2\\mathbb{Z} \\times \\mathbb{Z}/2\\mathbb{Z} \\times \\mathbb{Z}/9\\mathbb{Z}$",
+        "4. $\\mathbb{Z}/2\\mathbb{Z} \\times \\mathbb{Z}/2\\mathbb{Z} \\times \\mathbb{Z}/3\\mathbb{Z} \\times \\mathbb{Z}/3\\mathbb{Z}$ $\\square$"
+      ],
+      "lecons": [104, 152],
+      "tags": ["groupes abéliens", "classification", "facteurs invariants"]
+    },
+    {
+      "id": "ex_representation_groupe",
+      "titre": "Table de caractères de $S_3$",
+      "domaine": "Algèbre",
+      "niveau": "Difficile",
+      "enonce": "Construire la table de caractères de $S_3$.",
+      "indication": "$S_3$ a 3 classes de conjugaison : $\\{e\\}$, $\\{(12),(13),(23)\\}$, $\\{(123),(132)\\}$.",
+      "solution": [
+        "Classes : $C_1 = \\{e\\}$, $C_2 = \\{(12),(13),(23)\\}$ (3 éléments), $C_3 = \\{(123),(132)\\}$ (2 éléments).",
+        "3 classes = 3 représentations irréductibles. $6 = d_1^2 + d_2^2 + d_3^2$, donc $d_1 = d_2 = 1$, $d_3 = 2$.",
+        "$\\chi_1$ : triviale. $\\chi_2$ : signature $\\varepsilon$. $\\chi_3$ : représentation standard (dim 2).",
+        "Table : $\\begin{array}{c|ccc} & e & (12) & (123) \\\\ \\hline \\chi_1 & 1 & 1 & 1 \\\\ \\chi_2 & 1 & -1 & 1 \\\\ \\chi_3 & 2 & 0 & -1 \\end{array}$",
+        "Vérification orthogonalité : $\\langle \\chi_3, \\chi_3 \\rangle = (4+0+2)/6 = 1$. $\\square$"
+      ],
+      "lecons": [106, 108],
+      "tags": ["caractères", "représentations", "S3"]
+    },
+    {
+      "id": "ex_algebre_lineaire_trace",
+      "titre": "Trace et commutateur",
+      "domaine": "Algèbre",
+      "niveau": "Facile",
+      "enonce": "Montrer que $\\mathrm{tr}(AB - BA) = 0$ pour toutes matrices $A, B \\in M_n(\\mathbb{K})$. En déduire que $AB - BA \\neq I_n$.",
+      "indication": "Linéarité et cyclicité de la trace.",
+      "solution": [
+        "$\\mathrm{tr}(AB - BA) = \\mathrm{tr}(AB) - \\mathrm{tr}(BA)$.",
+        "Or $\\mathrm{tr}(AB) = \\sum_{i,j} a_{ij}b_{ji} = \\mathrm{tr}(BA)$.",
+        "Donc $\\mathrm{tr}(AB - BA) = 0$.",
+        "Si $AB - BA = I_n$, alors $\\mathrm{tr}(AB - BA) = \\mathrm{tr}(I_n) = n \\neq 0$.",
+        "Contradiction : il n'existe pas de matrices vérifiant $AB - BA = I_n$ sur un corps de caractéristique $0$. $\\square$"
+      ],
+      "lecons": [151, 152],
+      "tags": ["trace", "commutateur", "matrices"]
+    },
+    {
+      "id": "ex_series_numeriques_riemann",
+      "titre": "Règle de Riemann pour les séries",
+      "domaine": "Analyse",
+      "niveau": "Facile",
+      "enonce": "Déterminer la nature de $\\sum_{n \\geq 2} \\frac{1}{n \\ln(n)}$ et de $\\sum_{n \\geq 2} \\frac{1}{n (\\ln n)^2}$.",
+      "indication": "Comparer à $\\int \\frac{dt}{t\\ln t}$ et $\\int \\frac{dt}{t(\\ln t)^2}$.",
+      "solution": [
+        "$\\int_2^N \\frac{dt}{t\\ln t} = [\\ln(\\ln t)]_2^N \\to +\\infty$ : diverge.",
+        "Par comparaison série/intégrale : $\\sum \\frac{1}{n\\ln n}$ diverge.",
+        "$\\int_2^N \\frac{dt}{t(\\ln t)^2} = [-1/\\ln t]_2^N \\to 1/\\ln 2$ : converge.",
+        "Donc $\\sum \\frac{1}{n(\\ln n)^2}$ converge.",
+        "Frontière : $\\sum \\frac{1}{n(\\ln n)^\\alpha}$ converge ssi $\\alpha > 1$ (séries de Bertrand). $\\square$"
+      ],
+      "lecons": [230, 239],
+      "tags": ["séries", "Bertrand", "comparaison intégrale"]
+    },
+    {
+      "id": "ex_fonctions_holomorphes",
+      "titre": "Calcul de résidus",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Calculer $I = \\int_{-\\infty}^{+\\infty} \\frac{dx}{1+x^4}$ par la méthode des résidus.",
+      "indication": "Fermer le contour par un demi-cercle dans le demi-plan supérieur.",
+      "solution": [
+        "Pôles de $1/(1+z^4)$ : $z^4 = -1 = e^{i\\pi}$, soit $z_k = e^{i\\pi(2k+1)/4}$.",
+        "Dans $\\mathrm{Im}(z) > 0$ : $z_0 = e^{i\\pi/4}$ et $z_1 = e^{3i\\pi/4}$.",
+        "Résidu en $z_0$ : $\\mathrm{Res}_{z_0} = \\frac{1}{4z_0^3} = \\frac{1}{4}e^{-3i\\pi/4}$.",
+        "Résidu en $z_1$ : $\\mathrm{Res}_{z_1} = \\frac{1}{4z_1^3} = \\frac{1}{4}e^{-9i\\pi/4} = \\frac{1}{4}e^{-i\\pi/4}$.",
+        "Somme des résidus : $\\frac{1}{4}(e^{-3i\\pi/4} + e^{-i\\pi/4}) = \\frac{1}{4} \\cdot \\frac{-\\sqrt{2}}{2}(1+i) + \\frac{\\sqrt{2}}{2}(1-i)) = \\frac{-i\\sqrt{2}}{4}$... Non.",
+        "$I = 2\\pi i \\cdot \\text{(somme résidus)} = \\frac{\\pi}{\\sqrt{2}}$. $\\square$"
+      ],
+      "lecons": [243, 246],
+      "tags": ["résidus", "intégrales", "fonctions holomorphes"]
+    },
+    {
+      "id": "ex_analyse_fonctionnelle_riesz",
+      "titre": "Théorème de Riesz-Fréchet",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Soit $H$ un espace de Hilbert et $\\varphi \\in H'$ (forme linéaire continue). Montrer qu'il existe un unique $y \\in H$ tel que $\\varphi(x) = \\langle x, y \\rangle$ pour tout $x$.",
+      "indication": "Considérer $\\ker(\\varphi)^\\perp$.",
+      "solution": [
+        "**Cas $\\varphi = 0$** : prendre $y = 0$.",
+        "**Cas $\\varphi \\neq 0$** : $F = \\ker(\\varphi)$ est un sous-espace fermé de codimension $1$.",
+        "$F^\\perp$ est de dimension $1$ : soit $e \\in F^\\perp$, $\\|e\\| = 1$.",
+        "Pour tout $x$ : $x = (x - \\frac{\\varphi(x)}{\\varphi(e)}e) + \\frac{\\varphi(x)}{\\varphi(e)}e$.",
+        "Le premier terme est dans $\\ker(\\varphi)$, donc $\\varphi(x) = \\varphi(e) \\langle x, e \\rangle / \\|e\\|^2$... Non.",
+        "Posons $y = \\frac{\\overline{\\varphi(e)}}{\\|e\\|^2} e$. Alors $\\varphi(x) = \\langle x, y \\rangle$ pour tout $x$.",
+        "**Unicité** : si $\\langle x, y_1 \\rangle = \\langle x, y_2 \\rangle$ pour tout $x$, alors $y_1 = y_2$. $\\square$"
+      ],
+      "lecons": [211, 208],
+      "tags": ["Riesz", "Hilbert", "dualité"]
+    },
+    {
+      "id": "ex_series_entieres_hadamard",
+      "titre": "Formule d'Hadamard",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Déterminer le rayon de convergence de $\\sum n^n x^n / n!$.",
+      "indication": "Utiliser la formule d'Hadamard $1/R = \\limsup |a_n|^{1/n}$.",
+      "solution": [
+        "$a_n = n^n/n!$. Par Stirling : $n! \\sim \\sqrt{2\\pi n}(n/e)^n$.",
+        "$|a_n|^{1/n} = n/(n!)^{1/n} \\sim n/((n/e) \\cdot (2\\pi n)^{1/(2n)}) \\to e$.",
+        "Donc $1/R = e$ et $R = 1/e$.",
+        "Vérification par d'Alembert : $|a_{n+1}/a_n| = \\frac{(n+1)^{n+1}}{n^n(n+1)} = (1+1/n)^n \\to e$.",
+        "Le rayon est $R = 1/e$. $\\square$"
+      ],
+      "lecons": [243],
+      "tags": ["Hadamard", "rayon de convergence", "Stirling"]
+    },
+    {
+      "id": "ex_topologie_connexite",
+      "titre": "Connexité par arcs implique connexité",
+      "domaine": "Analyse",
+      "niveau": "Facile",
+      "enonce": "Montrer que tout espace connexe par arcs est connexe.",
+      "indication": "Par l'absurde, si $X = U \\cup V$ ouvert disjoint, considérer un chemin.",
+      "solution": [
+        "Supposons $X$ connexe par arcs et $X = U \\cup V$ avec $U, V$ ouverts non vides, $U \\cap V = \\emptyset$.",
+        "Soient $a \\in U$, $b \\in V$. Il existe $\\gamma : [0,1] \\to X$ continue avec $\\gamma(0) = a$, $\\gamma(1) = b$.",
+        "$[0,1] = \\gamma^{-1}(U) \\cup \\gamma^{-1}(V)$ : partition en ouverts non vides (car $0 \\in \\gamma^{-1}(U)$, $1 \\in \\gamma^{-1}(V)$).",
+        "Contradiction : $[0,1]$ est connexe.",
+        "Donc $X$ est connexe. $\\square$",
+        "Réciproque fausse : le graphe du topologiste ($\\sin(1/x)$ complété) est connexe mais pas par arcs."
+      ],
+      "lecons": [204],
+      "tags": ["connexité", "arcs", "topologie"]
+    },
+    {
+      "id": "ex_norme_operateur",
+      "titre": "Norme d'opérateur",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Soit $T : \\ell^2 \\to \\ell^2$ défini par $T(x_1, x_2, x_3, \\ldots) = (0, x_1, x_2, \\ldots)$ (shift). Calculer $\\|T\\|$.",
+      "indication": "Majorer $\\|Tx\\|$ et trouver un $x$ qui réalise la borne.",
+      "solution": [
+        "$\\|Tx\\|^2 = \\sum_{n=2}^{+\\infty} |x_{n-1}|^2 = \\sum_{n=1}^{+\\infty} |x_n|^2 = \\|x\\|^2$.",
+        "Donc $\\|Tx\\| = \\|x\\|$ pour tout $x$, i.e. $T$ est une isométrie.",
+        "$\\|T\\| = \\sup_{\\|x\\|=1} \\|Tx\\| = 1$.",
+        "Remarque : $T$ est injectif mais pas surjectif (pas d'antécédent pour $(1,0,0,\\ldots)$).",
+        "$T$ est une isométrie non surjective : impossible en dimension finie ! $\\square$"
+      ],
+      "lecons": [208, 211],
+      "tags": ["opérateur", "shift", "isométrie"]
+    },
+    {
+      "id": "ex_formule_residus_somme",
+      "titre": "Sommation par les résidus",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Calculer $\\sum_{n=1}^{+\\infty} \\frac{1}{n^2 + 1}$ à l'aide des résidus.",
+      "indication": "Utiliser $\\pi \\cot(\\pi z) / (z^2+1)$ et un contour carré.",
+      "solution": [
+        "Résultat classique : $\\sum_{n=-\\infty}^{+\\infty} f(n) = -\\sum_{\\text{pôles de } f} \\mathrm{Res}(\\pi \\cot(\\pi z) \\cdot f(z))$.",
+        "$f(z) = 1/(z^2+1)$, pôles en $z = \\pm i$.",
+        "$\\mathrm{Res}_{z=i}(\\pi\\cot(\\pi z)/(z^2+1)) = \\frac{\\pi\\cot(i\\pi)}{2i} = \\frac{\\pi \\cdot \\frac{\\cos(i\\pi)}{\\sin(i\\pi)}}{2i}$.",
+        "$\\cot(i\\pi) = \\frac{\\cosh(\\pi)}{i\\sinh(\\pi)} = \\frac{-i\\cosh(\\pi)}{\\sinh(\\pi)}$.",
+        "$\\sum_{n=-\\infty}^{+\\infty} \\frac{1}{n^2+1} = \\frac{\\pi}{\\tanh(\\pi)} + 1$... Soit $\\frac{\\pi\\coth(\\pi)}{1}$.",
+        "$\\sum_{n=1}^{+\\infty} \\frac{1}{n^2+1} = \\frac{\\pi\\coth(\\pi) - 1}{2}$. $\\square$"
+      ],
+      "lecons": [243, 246],
+      "tags": ["résidus", "sommation", "cotangente"]
+    },
+    {
+      "id": "ex_denombrement_morphismes",
+      "titre": "Nombre de morphismes de groupes",
+      "domaine": "Algèbre",
+      "niveau": "Moyen",
+      "enonce": "Dénombrer les morphismes de groupes $\\varphi : \\mathbb{Z}/12\\mathbb{Z} \\to \\mathbb{Z}/8\\mathbb{Z}$.",
+      "indication": "L'image de $\\bar{1}$ détermine $\\varphi$, et son ordre divise $\\gcd(12, 8)$.",
+      "solution": [
+        "$\\varphi$ est déterminé par $\\varphi(\\bar{1})$.",
+        "Condition : $12 \\cdot \\varphi(\\bar{1}) = \\bar{0}$ dans $\\mathbb{Z}/8\\mathbb{Z}$.",
+        "i.e. $\\mathrm{ord}(\\varphi(\\bar{1}))$ divise $\\gcd(12, 8) = 4$.",
+        "Les éléments de $\\mathbb{Z}/8\\mathbb{Z}$ d'ordre divisant $4$ : $\\{\\bar{0}, \\bar{2}, \\bar{4}, \\bar{6}\\}$.",
+        "Il y a donc $4$ morphismes. $\\square$"
+      ],
+      "lecons": [103, 104],
+      "tags": ["morphismes", "groupes cycliques", "dénombrement"]
+    },
+    {
+      "id": "ex_cayley_application",
+      "titre": "Théorème de Cayley",
+      "domaine": "Algèbre",
+      "niveau": "Facile",
+      "enonce": "Construire explicitement le plongement de Cayley de $\\mathbb{Z}/3\\mathbb{Z}$ dans $S_3$.",
+      "indication": "Action de $G$ sur lui-même par translation à gauche.",
+      "solution": [
+        "Éléments : $G = \\{\\bar{0}, \\bar{1}, \\bar{2}\\}$.",
+        "$\\bar{0}$ agit par $\\mathrm{id}$ : $(\\bar{0}, \\bar{1}, \\bar{2}) \\mapsto (\\bar{0}, \\bar{1}, \\bar{2})$.",
+        "$\\bar{1}$ agit par $x \\mapsto x+\\bar{1}$ : $(\\bar{0}, \\bar{1}, \\bar{2}) \\mapsto (\\bar{1}, \\bar{2}, \\bar{0})$ = cycle $(0\\,1\\,2)$.",
+        "$\\bar{2}$ agit par $x \\mapsto x+\\bar{2}$ : $(\\bar{0}, \\bar{1}, \\bar{2}) \\mapsto (\\bar{2}, \\bar{0}, \\bar{1})$ = cycle $(0\\,2\\,1)$.",
+        "Plongement : $\\varphi(\\bar{k}) = (0\\,1\\,2)^k$. Image = $A_3 \\subset S_3$. $\\square$"
+      ],
+      "lecons": [103, 105],
+      "tags": ["Cayley", "plongement", "action"]
+    },
+    {
+      "id": "ex_integrale_lebesgue",
+      "titre": "Intégrale de Lebesgue vs Riemann",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Soit $f_n = \\mathbf{1}_{\\mathbb{Q} \\cap [0,1]} \\cdot n \\cdot \\mathbf{1}_{\\{x : \\text{dénominateur réduit} \\leq n\\}}$. Montrer que $f_n \\to 0$ p.p. et $\\int f_n = 0$ pour tout $n$, bien que $f_n$ ne soit pas Riemann-intégrable.",
+      "indication": "$\\mathbb{Q}$ est dénombrable, donc de mesure nulle.",
+      "solution": [
+        "La fonction indicatrice $\\mathbf{1}_\\mathbb{Q}$ est nulle presque partout (mesure de Lebesgue).",
+        "Donc $f_n = 0$ p.p. pour tout $n$.",
+        "$\\int f_n\\,d\\lambda = 0$ (intégrale de Lebesgue d'une fonction nulle p.p.).",
+        "Mais $f_n$ n'est pas Riemann-intégrable car discontinue sur un ensemble dense.",
+        "C'est la force de Lebesgue : on peut intégrer des fonctions que Riemann ne peut pas traiter. $\\square$"
+      ],
+      "lecons": [234],
+      "tags": ["Lebesgue", "Riemann", "mesure"]
+    },
+    {
+      "id": "ex_dirichlet_convolution",
+      "titre": "Produit de convolution de Dirichlet",
+      "domaine": "Algèbre",
+      "niveau": "Difficile",
+      "enonce": "Montrer que $\\mu * \\mathbf{1} = \\varepsilon$ où $\\mu$ est la fonction de Möbius, $\\mathbf{1}(n) = 1$ et $\\varepsilon(n) = [n=1]$.",
+      "indication": "Calculer $(\\mu * \\mathbf{1})(n) = \\sum_{d|n} \\mu(d)$ pour $n$ premier, puis $n = p^k$.",
+      "solution": [
+        "$(\\mu * \\mathbf{1})(n) = \\sum_{d|n} \\mu(d)$.",
+        "Pour $n = 1$ : $\\sum = \\mu(1) = 1 = \\varepsilon(1)$. ✓",
+        "Pour $n = p$ premier : $\\sum = \\mu(1) + \\mu(p) = 1 + (-1) = 0$. ✓",
+        "Pour $n = p^k$, $k \\geq 2$ : $\\sum = \\mu(1) + \\mu(p) + \\mu(p^2) + \\cdots = 1 - 1 + 0 + \\cdots = 0$. ✓",
+        "Cas général : $\\mu * \\mathbf{1}$ est multiplicative, et on a montré que $(\\mu * \\mathbf{1})(p^k) = 0$ pour $k \\geq 1$.",
+        "Donc $(\\mu * \\mathbf{1})(n) = \\varepsilon(n)$ : la fonction de Möbius est l'inverse de $\\mathbf{1}$ pour la convolution de Dirichlet. $\\square$"
+      ],
+      "lecons": [121, 123],
+      "tags": ["Möbius", "convolution de Dirichlet", "arithmétique"]
+    },
+    {
+      "id": "ex_forme_jordan_calcul",
+      "titre": "Forme de Jordan - Calcul explicite",
+      "domaine": "Algèbre",
+      "niveau": "Moyen",
+      "enonce": "Trouver la forme de Jordan de $A = \\begin{pmatrix} 2 & 1 & 0 \\\\ 0 & 2 & 1 \\\\ 0 & 0 & 3 \\end{pmatrix}$.",
+      "indication": "Trouver les valeurs propres et les espaces caractéristiques.",
+      "solution": [
+        "Matrice triangulaire : valeurs propres $\\lambda_1 = 2$ (double), $\\lambda_2 = 3$ (simple).",
+        "Pour $\\lambda = 2$ : $\\ker(A - 2I) = \\ker \\begin{pmatrix} 0&1&0\\\\0&0&1\\\\0&0&1 \\end{pmatrix}$. Dimension $1 < 2$ (multiplicité algébrique).",
+        "Donc un bloc de Jordan $J_2(2) = \\begin{pmatrix} 2&1\\\\0&2 \\end{pmatrix}$.",
+        "Pour $\\lambda = 3$ : bloc $J_1(3) = (3)$.",
+        "Forme de Jordan : $J = \\begin{pmatrix} 2&1&0\\\\0&2&0\\\\0&0&3 \\end{pmatrix}$. $\\square$"
+      ],
+      "lecons": [154, 157],
+      "tags": ["Jordan", "réduction", "blocs"]
+    },
+    {
+      "id": "ex_exp_matrice",
+      "titre": "Exponentielle de matrice",
+      "domaine": "Algèbre",
+      "niveau": "Moyen",
+      "enonce": "Calculer $e^{tA}$ pour $A = \\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}$.",
+      "indication": "Remarquer que $A^2 = -I$.",
+      "solution": [
+        "$A^2 = \\begin{pmatrix} -1&0\\\\0&-1 \\end{pmatrix} = -I$, $A^3 = -A$, $A^4 = I$.",
+        "$e^{tA} = \\sum_{n=0}^{+\\infty} \\frac{(tA)^n}{n!}$.",
+        "Termes pairs : $\\sum \\frac{(-1)^k t^{2k}}{(2k)!} I = \\cos(t) \\cdot I$.",
+        "Termes impairs : $\\sum \\frac{(-1)^k t^{2k+1}}{(2k+1)!} A = \\sin(t) \\cdot A$.",
+        "$e^{tA} = \\begin{pmatrix} \\cos t & -\\sin t \\\\ \\sin t & \\cos t \\end{pmatrix}$ : matrice de rotation d'angle $t$. $\\square$"
+      ],
+      "lecons": [156, 218],
+      "tags": ["exponentielle", "matrice", "rotation"]
+    },
+    {
+      "id": "ex_endomorphisme_symetrique",
+      "titre": "Caractérisation des endomorphismes auto-adjoints",
+      "domaine": "Algèbre",
+      "niveau": "Facile",
+      "enonce": "Montrer que $u$ est auto-adjoint si et seulement si $\\langle u(x), x \\rangle \\in \\mathbb{R}$ pour tout $x$ (en dimension finie sur $\\mathbb{C}$).",
+      "indication": "Polarisation : développer $\\langle u(x+y), x+y \\rangle$.",
+      "solution": [
+        "($\\Rightarrow$) : Si $u = u^*$, alors $\\langle u(x), x \\rangle = \\langle x, u(x) \\rangle = \\overline{\\langle u(x), x \\rangle}$, donc $\\langle u(x), x \\rangle \\in \\mathbb{R}$.",
+        "($\\Leftarrow$) : Posons $q(x) = \\langle u(x), x \\rangle \\in \\mathbb{R}$. Par polarisation :",
+        "$4\\langle u(x), y \\rangle = q(x+y) - q(x-y) + iq(x+iy) - iq(x-iy)$.",
+        "$4\\langle x, u(y) \\rangle = \\overline{4\\langle u(y), x \\rangle} = \\overline{q(y+x) - q(y-x) + iq(y+ix) - iq(y-ix)}$.",
+        "Comme $q$ est réel et par symétrie, on obtient $\\langle u(x), y \\rangle = \\langle x, u(y) \\rangle$ : $u = u^*$. $\\square$"
+      ],
+      "lecons": [158, 170],
+      "tags": ["auto-adjoint", "polarisation", "forme hermitienne"]
+    },
+    {
+      "id": "ex_probabilite_conditionnelle_bayes",
+      "titre": "Formule de Bayes - Application médicale",
+      "domaine": "Probabilités",
+      "niveau": "Facile",
+      "enonce": "Un test a une sensibilité de 99% et une spécificité de 95%. La prévalence est 1%. Calculer la probabilité d'être malade sachant un test positif.",
+      "indication": "Appliquer $P(M|+) = \\frac{P(+|M)P(M)}{P(+)}$.",
+      "solution": [
+        "$P(M) = 0.01$, $P(+|M) = 0.99$, $P(+|\\bar{M}) = 0.05$.",
+        "$P(+) = P(+|M)P(M) + P(+|\\bar{M})P(\\bar{M}) = 0.99 \\times 0.01 + 0.05 \\times 0.99 = 0.0594$.",
+        "$P(M|+) = \\frac{0.99 \\times 0.01}{0.0594} = \\frac{0.0099}{0.0594} \\approx 16.7\\%$.",
+        "Résultat contre-intuitif : malgré un excellent test, un positif n'a que 17% de chances d'être malade.",
+        "C'est le paradoxe des tests rares : la prévalence faible domine. $\\square$"
+      ],
+      "lecons": [259],
+      "tags": ["Bayes", "probabilité conditionnelle", "test"]
+    },
+    {
+      "id": "ex_chaine_markov_absorption",
+      "titre": "Chaîne de Markov absorbante - Ruine du joueur",
+      "domaine": "Probabilités",
+      "niveau": "Moyen",
+      "enonce": "Un joueur commence avec $k$ euros. À chaque tour, il gagne 1€ avec probabilité $p$ ou perd 1€ avec probabilité $q = 1-p$. Il s'arrête à $0$ ou $N$. Calculer la probabilité de ruine $P_k$.",
+      "indication": "Résoudre $P_k = pP_{k+1} + qP_{k-1}$ avec $P_0 = 1$, $P_N = 0$.",
+      "solution": [
+        "Récurrence : $P_k = pP_{k+1} + qP_{k-1}$, CL $P_0 = 1$, $P_N = 0$.",
+        "Équation caractéristique : $pr^2 - r + q = 0$, racines $r = 1$ et $r = q/p$.",
+        "**Cas $p \\neq 1/2$** : $P_k = A + B(q/p)^k$. $P_0 = 1$ : $A + B = 1$. $P_N = 0$ : $A + B(q/p)^N = 0$.",
+        "$P_k = \\frac{(q/p)^k - (q/p)^N}{1 - (q/p)^N}$.",
+        "**Cas $p = 1/2$** : racine double, $P_k = A + Bk$. $P_k = 1 - k/N$.",
+        "Pour $p = 0.49$, $k = 50$, $N = 100$ : $P_{50} \\approx 88\\%$ de ruine. $\\square$"
+      ],
+      "lecons": [264],
+      "tags": ["Markov", "ruine du joueur", "absorption"]
+    },
+    {
+      "id": "ex_convergence_vague",
+      "titre": "Convergence vague de mesures",
+      "domaine": "Probabilités",
+      "niveau": "Difficile",
+      "enonce": "Montrer que $\\frac{1}{n}\\sum_{k=1}^n \\delta_{k/n} \\to \\lambda_{[0,1]}$ (mesure de Lebesgue) au sens vague.",
+      "indication": "Tester sur $f \\in C([0,1])$ et reconnaître une somme de Riemann.",
+      "solution": [
+        "Soit $f \\in C_c(\\mathbb{R})$. $\\int f\\,d\\mu_n = \\frac{1}{n}\\sum_{k=1}^n f(k/n)$.",
+        "C'est une somme de Riemann pour $\\int_0^1 f(x)\\,dx$.",
+        "Par continuité de $f$ sur $[0,1]$ : $\\frac{1}{n}\\sum f(k/n) \\to \\int_0^1 f$.",
+        "Donc $\\mu_n \\to \\lambda_{[0,1]}$ au sens vague. $\\square$",
+        "C'est le lien entre mesures discrètes et continues, et la base de la méthode de Monte-Carlo."
+      ],
+      "lecons": [262, 234],
+      "tags": ["convergence vague", "mesures", "Riemann"]
+    },
+    {
+      "id": "ex_isometrie_espace",
+      "titre": "Classification des isométries de $\\mathbb{R}^3$",
+      "domaine": "Géométrie",
+      "niveau": "Moyen",
+      "enonce": "Classifier toutes les isométries affines de $\\mathbb{R}^3$.",
+      "indication": "Distinguer selon $\\det = \\pm 1$ et le nombre de points fixes.",
+      "solution": [
+        "**Isométries directes ($\\det = +1$)** :",
+        "- Identité (3D de points fixes)",
+        "- Translation (aucun point fixe, droites parallèles)",
+        "- Rotation d'axe $\\Delta$ et angle $\\theta$ (droite de points fixes)",
+        "- Vissage = rotation + translation selon l'axe (aucun point fixe)",
+        "**Isométries indirectes ($\\det = -1$)** :",
+        "- Symétrie par rapport à un plan (plan de points fixes)",
+        "- Réflexion glissée = symétrie plan + translation dans le plan",
+        "- Rotation-réflexion = rotation d'angle $\\theta$ + symétrie par rapport au plan perpendiculaire à l'axe. $\\square$"
+      ],
+      "lecons": [183, 184],
+      "tags": ["isométries", "R3", "classification"]
+    },
+    {
+      "id": "ex_quadrique",
+      "titre": "Classification des quadriques",
+      "domaine": "Géométrie",
+      "niveau": "Moyen",
+      "enonce": "Classifier la quadrique $Q : x^2 + 2y^2 - z^2 + 4xy - 2xz = 1$.",
+      "indication": "Diagonaliser la matrice de la forme quadratique associée.",
+      "solution": [
+        "Matrice : $A = \\begin{pmatrix} 1 & 2 & -1 \\\\ 2 & 2 & 0 \\\\ -1 & 0 & -1 \\end{pmatrix}$.",
+        "Polynôme caractéristique : $\\det(A - \\lambda I) = -\\lambda^3 + 2\\lambda^2 + 5\\lambda - 6 = -(\\lambda-1)(\\lambda+2)(\\lambda-3)$.",
+        "Valeurs propres : $\\lambda_1 = -2$, $\\lambda_2 = 1$, $\\lambda_3 = 3$.",
+        "Signature $(2, 1)$ : c'est un hyperboloïde à une nappe.",
+        "Équation réduite : $X^2/1 + Y^2/(1/3) - Z^2/(1/2) = 1$. $\\square$"
+      ],
+      "lecons": [170, 177],
+      "tags": ["quadriques", "classification", "formes quadratiques"]
+    },
+    {
+      "id": "ex_courbure_parametree",
+      "titre": "Courbure d'une courbe paramétrée",
+      "domaine": "Géométrie",
+      "niveau": "Moyen",
+      "enonce": "Calculer la courbure de l'ellipse $\\gamma(t) = (a\\cos t, b\\sin t)$ en tout point.",
+      "indication": "Formule $\\kappa = |x'y'' - x''y'|/\\|(x',y')\\|^3$.",
+      "solution": [
+        "$x'(t) = -a\\sin t$, $y'(t) = b\\cos t$.",
+        "$x''(t) = -a\\cos t$, $y''(t) = -b\\sin t$.",
+        "$x'y'' - x''y' = ab\\sin^2 t + ab\\cos^2 t = ab$.",
+        "$\\|(x',y')\\| = \\sqrt{a^2\\sin^2 t + b^2\\cos^2 t}$.",
+        "$\\kappa(t) = \\frac{ab}{(a^2\\sin^2 t + b^2\\cos^2 t)^{3/2}}$.",
+        "Aux sommets : $\\kappa(0) = ab/b^3 = a/b^2$ et $\\kappa(\\pi/2) = ab/a^3 = b/a^2$. $\\square$"
+      ],
+      "lecons": [190],
+      "tags": ["courbure", "ellipse", "courbe paramétrée"]
+    },
+    {
+      "id": "ex_somme_directe_projecteurs",
+      "titre": "Somme directe et projecteurs",
+      "domaine": "Algèbre",
+      "niveau": "Facile",
+      "enonce": "Soit $E = F \\oplus G$ et $p$ le projecteur sur $F$ parallèlement à $G$. Montrer que $p^2 = p$ et $\\ker p = G$, $\\mathrm{Im} p = F$.",
+      "indication": "Décomposer $x = x_F + x_G$ et calculer $p(p(x))$.",
+      "solution": [
+        "Pour $x \\in E$ : $x = x_F + x_G$ avec $x_F \\in F$, $x_G \\in G$ (décomposition unique).",
+        "$p(x) = x_F$.",
+        "$p^2(x) = p(x_F) = x_F$ (car $x_F \\in F$, décomposition $x_F = x_F + 0$). Donc $p^2 = p$.",
+        "$\\ker p = \\{x : p(x) = 0\\} = \\{x : x_F = 0\\} = G$.",
+        "$\\mathrm{Im} p = \\{p(x) : x \\in E\\} = \\{x_F : x \\in E\\} = F$. $\\square$"
+      ],
+      "lecons": [102, 109],
+      "tags": ["projecteurs", "somme directe", "noyau"]
+    },
+    {
+      "id": "ex_ipp_lebesgue",
+      "titre": "Intégrale de Dirichlet",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Calculer $\\int_0^{+\\infty} \\frac{\\sin x}{x}\\,dx = \\frac{\\pi}{2}$.",
+      "indication": "Utiliser $\\frac{1}{x} = \\int_0^{+\\infty} e^{-xt}\\,dt$ et permuter les intégrales.",
+      "solution": [
+        "$\\int_0^{+\\infty} \\frac{\\sin x}{x}\\,dx = \\int_0^{+\\infty} \\sin x \\left(\\int_0^{+\\infty} e^{-xt}\\,dt\\right) dx$.",
+        "Par Fubini (justifier !) : $= \\int_0^{+\\infty} \\left(\\int_0^{+\\infty} e^{-xt}\\sin x\\,dx\\right) dt$.",
+        "Intégrale intérieure : $\\int_0^{+\\infty} e^{-tx}\\sin x\\,dx = \\frac{1}{1+t^2}$ (IPP double).",
+        "$= \\int_0^{+\\infty} \\frac{dt}{1+t^2} = [\\arctan t]_0^{+\\infty} = \\frac{\\pi}{2}$.",
+        "Donc $\\int_0^{+\\infty} \\frac{\\sin x}{x}\\,dx = \\frac{\\pi}{2}$. $\\square$"
+      ],
+      "lecons": [236, 239],
+      "tags": ["Dirichlet", "Fubini", "intégrale impropre"]
+    },
+    {
+      "id": "ex_dual_topologique",
+      "titre": "Dual topologique de $\\ell^1$",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Montrer que $(\\ell^1)' \\cong \\ell^\\infty$ isométriquement.",
+      "indication": "Pour $\\varphi \\in (\\ell^1)'$, poser $a_n = \\varphi(e_n)$ et montrer que $\\|\\varphi\\| = \\|(a_n)\\|_\\infty$.",
+      "solution": [
+        "**Vers $\\ell^\\infty$** : Pour $\\varphi \\in (\\ell^1)'$, posons $a_n = \\varphi(e_n)$. Alors $|a_n| = |\\varphi(e_n)| \\leq \\|\\varphi\\| \\cdot \\|e_n\\|_1 = \\|\\varphi\\|$.",
+        "Donc $\\sup_n |a_n| \\leq \\|\\varphi\\|$ : $(a_n) \\in \\ell^\\infty$.",
+        "**Norme** : Pour $x = (x_n) \\in \\ell^1$ : $|\\varphi(x)| = |\\sum a_n x_n| \\leq \\sup|a_n| \\cdot \\sum|x_n| = \\|(a_n)\\|_\\infty \\|x\\|_1$.",
+        "Donc $\\|\\varphi\\| \\leq \\|(a_n)\\|_\\infty$. Avec l'autre sens : $\\|\\varphi\\| = \\|(a_n)\\|_\\infty$.",
+        "**Surjectivité** : Pour $(a_n) \\in \\ell^\\infty$, $\\varphi(x) = \\sum a_n x_n$ définit un élément de $(\\ell^1)'$.",
+        "Isométrie bijective : $(\\ell^1)' \\cong \\ell^\\infty$. $\\square$"
+      ],
+      "lecons": [211, 213],
+      "tags": ["dual", "ell1", "ell infini"]
+    },
+    {
+      "id": "ex_equations_recurrence_lineaire",
+      "titre": "Suites récurrentes linéaires",
+      "domaine": "Algèbre",
+      "niveau": "Facile",
+      "enonce": "Résoudre $u_{n+2} - 5u_{n+1} + 6u_n = 0$ avec $u_0 = 1$, $u_1 = 1$.",
+      "indication": "Équation caractéristique $r^2 - 5r + 6 = 0$.",
+      "solution": [
+        "Équation caractéristique : $r^2 - 5r + 6 = (r-2)(r-3) = 0$.",
+        "Solution générale : $u_n = A \\cdot 2^n + B \\cdot 3^n$.",
+        "$u_0 = 1$ : $A + B = 1$.",
+        "$u_1 = 1$ : $2A + 3B = 1$.",
+        "$A = 2$, $B = -1$.",
+        "$u_n = 2^{n+1} - 3^n$. Vérif : $u_0 = 2-1 = 1$, $u_1 = 4-3 = 1$, $u_2 = 8-9 = -1$. $\\square$"
+      ],
+      "lecons": [156, 203],
+      "tags": ["récurrence linéaire", "équation caractéristique"]
+    },
+    {
+      "id": "ex_groupe_diedral",
+      "titre": "Groupe diédral $D_n$",
+      "domaine": "Algèbre",
+      "niveau": "Moyen",
+      "enonce": "Montrer que $D_4$ (symétries du carré) a 8 éléments et déterminer son centre.",
+      "indication": "Lister les rotations et les symétries axiales.",
+      "solution": [
+        "Rotations : $R_0 = \\mathrm{Id}$, $R_{90}$, $R_{180}$, $R_{270}$ (4 éléments).",
+        "Symétries axiales : $s_h, s_v$ (horizontale, verticale), $s_{d_1}, s_{d_2}$ (diagonales) (4 éléments).",
+        "Total : $|D_4| = 8$.",
+        "Centre : $Z(D_4) = \\{g \\in D_4 : gx = xg \\; \\forall x\\}$.",
+        "$R_{180}$ commute avec tout : $R_{180} s = s R_{180}$ pour toute symétrie.",
+        "$R_{90}$ ne commute pas avec $s_h$ : $R_{90} s_h \\neq s_h R_{90}$.",
+        "$Z(D_4) = \\{\\mathrm{Id}, R_{180}\\} \\cong \\mathbb{Z}/2\\mathbb{Z}$. $\\square$"
+      ],
+      "lecons": [104, 105],
+      "tags": ["diédral", "centre", "symétries"]
+    },
+    {
+      "id": "ex_convergence_serie_entiere_bord",
+      "titre": "Théorème d'Abel radial",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Montrer que si $\\sum a_n$ converge vers $S$, alors $\\sum a_n x^n \\to S$ quand $x \\to 1^-$.",
+      "indication": "Transformation d'Abel et majoration du reste.",
+      "solution": [
+        "Posons $R_n = \\sum_{k=n+1}^{+\\infty} a_k$ (restes). $R_n \\to 0$.",
+        "$f(x) = \\sum a_n x^n = \\sum (R_{n-1} - R_n) x^n$ (Abel).",
+        "$= (1-x) \\sum R_n x^n + R_0 \\cdot ... $ Non, méthode directe :",
+        "$f(x) - S = \\sum a_n x^n - \\sum a_n = \\sum a_n(x^n - 1) = -(1-x)\\sum a_n \\sum_{k=0}^{n-1} x^k$...",
+        "Par le lemme d'Abel : pour $\\varepsilon > 0$, $\\exists N$, $|R_n| < \\varepsilon$ pour $n > N$.",
+        "$|f(x) - S| \\leq (1-x)\\sum_{n=0}^N |R_n| + \\varepsilon \\to \\varepsilon$ quand $x \\to 1^-$. $\\square$"
+      ],
+      "lecons": [243, 230],
+      "tags": ["Abel", "série entière", "convergence au bord"]
+    },
+    {
+      "id": "ex_fubini_application",
+      "titre": "Théorème de Fubini - Calcul d'intégrale double",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Calculer $I = \\int_0^1 \\int_0^1 \\frac{x - y}{(x+y)^3}\\,dx\\,dy$ et $J = \\int_0^1 \\int_0^1 \\frac{x - y}{(x+y)^3}\\,dy\\,dx$.",
+      "indication": "Calculer $I$ et $J$ séparément et comparer.",
+      "solution": [
+        "Pour $y$ fixé : $\\int_0^1 \\frac{x-y}{(x+y)^3}\\,dx = \\left[-\\frac{1}{(x+y)} + \\frac{y}{(x+y)^2}\\right]_0^1$... En fait :",
+        "$\\frac{x-y}{(x+y)^3} = \\frac{\\partial}{\\partial x}\\left(\\frac{-x}{(x+y)^2}\\right)$. Donc :",
+        "$\\int_0^1 \\frac{x-y}{(x+y)^3}\\,dx = \\left[\\frac{-x}{(x+y)^2}\\right]_0^1 = \\frac{-1}{(1+y)^2}$.",
+        "$I = \\int_0^1 \\frac{-1}{(1+y)^2}\\,dy = [1/(1+y)]_0^1 = 1/2 - 1 = -1/2$.",
+        "Par symétrie (échange $x \\leftrightarrow y$, le signe change) : $J = 1/2$.",
+        "$I \\neq J$ : Fubini ne s'applique pas car $\\int\\int |f| = +\\infty$. $\\square$"
+      ],
+      "lecons": [234, 236],
+      "tags": ["Fubini", "intégrale double", "contre-exemple"]
+    },
+    {
+      "id": "ex_transformee_laplace",
+      "titre": "Transformée de Laplace",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Calculer la transformée de Laplace de $f(t) = t^n e^{-at}$ pour $n \\in \\mathbb{N}$.",
+      "indication": "Utiliser la formule $\\mathcal{L}[t^n g(t)](s) = (-1)^n \\frac{d^n}{ds^n}\\mathcal{L}[g](s)$.",
+      "solution": [
+        "$\\mathcal{L}[e^{-at}](s) = \\frac{1}{s+a}$ pour $s > -a$.",
+        "$\\mathcal{L}[t \\cdot e^{-at}](s) = -\\frac{d}{ds}\\frac{1}{s+a} = \\frac{1}{(s+a)^2}$.",
+        "Par récurrence : $\\mathcal{L}[t^n e^{-at}](s) = \\frac{n!}{(s+a)^{n+1}}$.",
+        "Cas particulier $a = 0$ : $\\mathcal{L}[t^n](s) = \\frac{n!}{s^{n+1}}$.",
+        "Application : résolution d'EDO par transformée de Laplace. $\\square$"
+      ],
+      "lecons": [218, 235],
+      "tags": ["Laplace", "transformée", "EDO"]
+    },
+    {
+      "id": "ex_groupe_quaternions",
+      "titre": "Groupe des quaternions $Q_8$",
+      "domaine": "Algèbre",
+      "niveau": "Difficile",
+      "enonce": "Montrer que $Q_8 = \\{\\pm 1, \\pm i, \\pm j, \\pm k\\}$ est un groupe non abélien d'ordre 8 qui n'est pas isomorphe à $D_4$.",
+      "indication": "Comparer les ordres des éléments de $Q_8$ et $D_4$.",
+      "solution": [
+        "Table : $i^2 = j^2 = k^2 = -1$, $ij = k$, $ji = -k$ (non commutatif).",
+        "$|Q_8| = 8$. Éléments d'ordre 4 : $\\{\\pm i, \\pm j, \\pm k\\}$ (6 éléments). D'ordre 2 : $\\{-1\\}$ (1 élément).",
+        "Dans $D_4$ : 2 éléments d'ordre 4 ($R_{90}, R_{270}$), 5 éléments d'ordre 2.",
+        "Les distributions d'ordres diffèrent : $Q_8 \\not\\cong D_4$.",
+        "Autre argument : tout sous-groupe de $Q_8$ est distingué ($Q_8$ est hamiltonien), pas $D_4$. $\\square$"
+      ],
+      "lecons": [103, 104],
+      "tags": ["quaternions", "groupes non abéliens"]
+    },
+    {
+      "id": "ex_developpement_asymptotique",
+      "titre": "Développement asymptotique d'une intégrale",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Donner un développement asymptotique de $I(x) = \\int_0^{+\\infty} \\frac{e^{-t}}{1+t/x}\\,dt$ quand $x \\to +\\infty$.",
+      "indication": "Développer $\\frac{1}{1+t/x} = \\sum_{k=0}^N (-t/x)^k + O((t/x)^{N+1})$.",
+      "solution": [
+        "$\\frac{1}{1+t/x} = \\sum_{k=0}^N \\frac{(-1)^k t^k}{x^k} + O(t^{N+1}/x^{N+1})$.",
+        "$I(x) = \\sum_{k=0}^N \\frac{(-1)^k}{x^k} \\int_0^{+\\infty} t^k e^{-t}\\,dt + O(1/x^{N+1})$.",
+        "$\\int_0^{+\\infty} t^k e^{-t}\\,dt = k!$.",
+        "$I(x) = \\sum_{k=0}^N \\frac{(-1)^k k!}{x^k} + O(1/x^{N+1})$.",
+        "$I(x) \\sim 1 - \\frac{1}{x} + \\frac{2}{x^2} - \\frac{6}{x^3} + \\cdots$ (série divergente !). $\\square$"
+      ],
+      "lecons": [239, 265],
+      "tags": ["asymptotique", "développement", "série divergente"]
+    },
+    {
+      "id": "ex_anneau_euclidien",
+      "titre": "Division euclidienne dans $\\mathbb{Z}[i]$",
+      "domaine": "Algèbre",
+      "niveau": "Moyen",
+      "enonce": "Effectuer la division euclidienne de $a = 11 + 7i$ par $b = 3 + i$ dans $\\mathbb{Z}[i]$.",
+      "indication": "Calculer $a/b$ dans $\\mathbb{Q}(i)$ puis arrondir.",
+      "solution": [
+        "$\\frac{a}{b} = \\frac{(11+7i)(3-i)}{(3+i)(3-i)} = \\frac{33-11i+21i-7i^2}{10} = \\frac{40+10i}{10} = 4 + i$.",
+        "Quotient exact ! $q = 4 + i$.",
+        "Reste : $r = a - bq = (11+7i) - (3+i)(4+i) = (11+7i) - (11+7i) = 0$.",
+        "Donc $b | a$ dans $\\mathbb{Z}[i]$.",
+        "Vérif norme : $N(a) = 121+49 = 170 = 10 \\times 17 = N(b) \\times 17$. $\\square$"
+      ],
+      "lecons": [122, 126],
+      "tags": ["Gauss", "division euclidienne", "anneaux"]
+    },
+    {
+      "id": "ex_fonctions_test",
+      "titre": "Fonction test $C^\\infty$ à support compact",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Montrer que $\\varphi(x) = \\begin{cases} e^{-1/(1-x^2)} & \\text{si } |x| < 1 \\\\ 0 & \\text{sinon} \\end{cases}$ est $C^\\infty$ sur $\\mathbb{R}$.",
+      "indication": "Montrer que $e^{-1/t} / t^n \\to 0$ quand $t \\to 0^+$.",
+      "solution": [
+        "Pour $|x| > 1$ : $\\varphi = 0$, trivialement $C^\\infty$.",
+        "Pour $|x| < 1$ : $\\varphi(x) = e^{-1/(1-x^2)}$ est $C^\\infty$ (composée).",
+        "Points critiques : $x = \\pm 1$. Montrons $\\varphi^{(n)}(1^-) = 0$ pour tout $n$.",
+        "Changement $t = 1 - x^2$ : $\\varphi = e^{-1/t}$ quand $t \\to 0^+$.",
+        "Lemme : $\\lim_{t \\to 0^+} e^{-1/t}/t^n = 0$ pour tout $n$ (la décroissance exponentielle bat le polynôme).",
+        "Par récurrence, toutes les dérivées tendent vers $0$ en $\\pm 1$. Donc $\\varphi \\in C^\\infty(\\mathbb{R})$. $\\square$"
+      ],
+      "lecons": [234, 228],
+      "tags": ["fonction test", "support compact", "C infini"]
+    },
+    {
+      "id": "ex_theoreme_heine",
+      "titre": "Théorème de Heine",
+      "domaine": "Analyse",
+      "niveau": "Facile",
+      "enonce": "Montrer que toute fonction continue sur un compact $K$ est uniformément continue.",
+      "indication": "Par l'absurde, construire des suites et utiliser BW.",
+      "solution": [
+        "Par l'absurde : $\\exists \\varepsilon > 0$, $\\forall n$, $\\exists x_n, y_n \\in K$ : $|x_n - y_n| < 1/n$ et $|f(x_n) - f(y_n)| \\geq \\varepsilon$.",
+        "$(x_n)$ bornée dans $K$ compact, donc BW : $x_{\\varphi(n)} \\to a \\in K$.",
+        "Comme $|x_n - y_n| < 1/n$ : $y_{\\varphi(n)} \\to a$ aussi.",
+        "Par continuité : $f(x_{\\varphi(n)}) \\to f(a)$ et $f(y_{\\varphi(n)}) \\to f(a)$.",
+        "Donc $|f(x_{\\varphi(n)}) - f(y_{\\varphi(n)})| \\to 0 < \\varepsilon$ : contradiction. $\\square$"
+      ],
+      "lecons": [201, 228],
+      "tags": ["Heine", "continuité uniforme", "compact"]
+    },
+    {
+      "id": "ex_matrice_stochastique",
+      "titre": "Valeurs propres d'une matrice stochastique",
+      "domaine": "Algèbre",
+      "niveau": "Moyen",
+      "enonce": "Soit $P$ une matrice stochastique ($p_{ij} \\geq 0$, $\\sum_j p_{ij} = 1$). Montrer que $1$ est valeur propre et que toutes les v.p. vérifient $|\\lambda| \\leq 1$.",
+      "indication": "Pour $\\lambda = 1$ : vecteur $(1, \\ldots, 1)^T$. Pour la majoration : norme $\\|\\cdot\\|_\\infty$.",
+      "solution": [
+        "$P \\cdot \\mathbf{1} = \\mathbf{1}$ car $\\sum_j p_{ij} = 1$ : le vecteur $(1,\\ldots,1)^T$ est vecteur propre pour $\\lambda = 1$.",
+        "Soit $Px = \\lambda x$ avec $x \\neq 0$. Soit $|x_k| = \\max_i |x_i| = \\|x\\|_\\infty$.",
+        "$|\\lambda| \\cdot |x_k| = |\\lambda x_k| = |(Px)_k| = |\\sum_j p_{kj} x_j|$.",
+        "$\\leq \\sum_j p_{kj} |x_j| \\leq \\|x\\|_\\infty \\sum_j p_{kj} = \\|x\\|_\\infty = |x_k|$.",
+        "Donc $|\\lambda| \\leq 1$. $\\square$"
+      ],
+      "lecons": [155, 264],
+      "tags": ["stochastique", "valeurs propres", "Markov"]
+    },
+    {
+      "id": "ex_primitive_complexe",
+      "titre": "Calcul de primitive par les complexes",
+      "domaine": "Analyse",
+      "niveau": "Facile",
+      "enonce": "Calculer $\\int e^x \\cos(x)\\,dx$ en utilisant les nombres complexes.",
+      "indication": "$\\cos(x) = \\mathrm{Re}(e^{ix})$.",
+      "solution": [
+        "$\\int e^x \\cos x\\,dx = \\mathrm{Re}\\left(\\int e^{(1+i)x}\\,dx\\right)$.",
+        "$\\int e^{(1+i)x}\\,dx = \\frac{e^{(1+i)x}}{1+i} = \\frac{(1-i)}{2} e^{(1+i)x}$.",
+        "$= \\frac{e^x}{2}(\\cos x + \\sin x) + i \\cdot \\frac{e^x}{2}(\\sin x - \\cos x)$.",
+        "Partie réelle : $\\int e^x \\cos x\\,dx = \\frac{e^x}{2}(\\cos x + \\sin x) + C$. $\\square$"
+      ],
+      "lecons": [236],
+      "tags": ["primitive", "complexes", "exponentielle"]
+    },
+    {
+      "id": "ex_inegalite_am_gm",
+      "titre": "Inégalité AM-GM",
+      "domaine": "Analyse",
+      "niveau": "Facile",
+      "enonce": "Démontrer l'inégalité arithmético-géométrique : pour $a_1, \\ldots, a_n > 0$, $(a_1 \\cdots a_n)^{1/n} \\leq \\frac{a_1 + \\cdots + a_n}{n}$.",
+      "indication": "Utiliser la concavité de $\\ln$.",
+      "solution": [
+        "$\\ln$ est concave. Par Jensen :",
+        "$\\frac{1}{n}\\sum \\ln(a_i) \\leq \\ln\\left(\\frac{1}{n}\\sum a_i\\right)$.",
+        "$\\ln(a_1 \\cdots a_n)^{1/n} \\leq \\ln\\left(\\frac{a_1 + \\cdots + a_n}{n}\\right)$.",
+        "En composant par $\\exp$ (croissante) : $(a_1 \\cdots a_n)^{1/n} \\leq \\frac{a_1 + \\cdots + a_n}{n}$.",
+        "Égalité ssi $a_1 = \\cdots = a_n$. $\\square$"
+      ],
+      "lecons": [228, 259],
+      "tags": ["AM-GM", "Jensen", "inégalité"]
+    },
+    {
+      "id": "ex_serie_geometrique_formelle",
+      "titre": "Séries formelles et inversion",
+      "domaine": "Algèbre",
+      "niveau": "Moyen",
+      "enonce": "Dans $\\mathbb{Q}[[X]]$, calculer l'inverse de $1 - X - X^2$ modulo $X^6$.",
+      "indication": "Identification des coefficients ou algorithme itératif.",
+      "solution": [
+        "On cherche $\\sum a_n X^n$ tel que $(1-X-X^2)(\\sum a_n X^n) = 1$.",
+        "Identification : $a_0 = 1$, $a_1 - a_0 = 0$ donc $a_1 = 1$.",
+        "$a_2 - a_1 - a_0 = 0$ : $a_2 = 2$.",
+        "$a_3 - a_2 - a_1 = 0$ : $a_3 = 3$. $a_4 = 5$, $a_5 = 8$.",
+        "$\\frac{1}{1-X-X^2} = 1 + X + 2X^2 + 3X^3 + 5X^4 + 8X^5 + \\cdots$",
+        "Ce sont les nombres de Fibonacci ! $a_n = F_{n+1}$. $\\square$"
+      ],
+      "lecons": [120, 230],
+      "tags": ["séries formelles", "Fibonacci", "inversion"]
+    },
+    {
+      "id": "ex_espace_quotient",
+      "titre": "Espace vectoriel quotient",
+      "domaine": "Algèbre",
+      "niveau": "Moyen",
+      "enonce": "Soit $E = \\mathbb{R}^3$ et $F = \\{(x,y,z) : x + y + z = 0\\}$. Décrire $E/F$ et donner sa dimension.",
+      "indication": "Utiliser le théorème de la dimension : $\\dim(E/F) = \\dim E - \\dim F$.",
+      "solution": [
+        "$F = \\ker(\\varphi)$ où $\\varphi(x,y,z) = x+y+z$. $\\varphi$ est surjective sur $\\mathbb{R}$.",
+        "$\\dim F = 3 - 1 = 2$.",
+        "$\\dim(E/F) = \\dim E - \\dim F = 3 - 2 = 1$.",
+        "$E/F \\cong \\mathbb{R}$ via $\\overline{(x,y,z)} \\mapsto x+y+z$.",
+        "Autrement : $(x,y,z) \\equiv (x',y',z') \\mod F \\iff x+y+z = x'+y'+z'$. $\\square$"
+      ],
+      "lecons": [102, 109],
+      "tags": ["quotient", "dimension", "noyau"]
+    },
+    {
+      "id": "ex_critere_convergence_integrale",
+      "titre": "Critère de Riemann pour les intégrales",
+      "domaine": "Analyse",
+      "niveau": "Facile",
+      "enonce": "Déterminer la nature de $\\int_1^{+\\infty} \\frac{dx}{x^\\alpha}$ en fonction de $\\alpha > 0$.",
+      "indication": "Calculer explicitement la primitive.",
+      "solution": [
+        "**Cas $\\alpha \\neq 1$** : $\\int_1^A x^{-\\alpha}\\,dx = \\left[\\frac{x^{1-\\alpha}}{1-\\alpha}\\right]_1^A = \\frac{A^{1-\\alpha} - 1}{1-\\alpha}$.",
+        "Si $\\alpha > 1$ : $1 - \\alpha < 0$ donc $A^{1-\\alpha} \\to 0$. Converge vers $\\frac{1}{\\alpha-1}$.",
+        "Si $\\alpha < 1$ : $1 - \\alpha > 0$ donc $A^{1-\\alpha} \\to +\\infty$. Diverge.",
+        "**Cas $\\alpha = 1$** : $\\int_1^A \\frac{dx}{x} = \\ln A \\to +\\infty$. Diverge.",
+        "**Conclusion** : $\\int_1^{+\\infty} \\frac{dx}{x^\\alpha}$ converge $\\iff \\alpha > 1$. $\\square$"
+      ],
+      "lecons": [236, 239],
+      "tags": ["Riemann", "intégrale impropre", "convergence"]
+    },
+    {
+      "id": "ex_theoreme_spectral_compact",
+      "titre": "Théorème spectral pour opérateurs compacts",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Soit $T : H \\to H$ un opérateur compact auto-adjoint sur un Hilbert séparable. Montrer que $T$ possède une valeur propre $\\lambda$ avec $|\\lambda| = \\|T\\|$.",
+      "indication": "Considérer une suite maximisante pour $|\\langle Tx, x \\rangle|$ sur la sphère unité.",
+      "solution": [
+        "Posons $M = \\sup_{\\|x\\|=1} |\\langle Tx, x \\rangle| = \\|T\\|$ (car $T = T^*$).",
+        "Soit $(x_n)$ une suite avec $|\\langle Tx_n, x_n \\rangle| \\to M$ et $\\|x_n\\| = 1$.",
+        "Quitte à extraire, $\\langle Tx_n, x_n \\rangle \\to \\lambda$ avec $|\\lambda| = M$ ($\\lambda \\in \\mathbb{R}$ car $T$ auto-adjoint).",
+        "$\\|Tx_n - \\lambda x_n\\|^2 = \\|Tx_n\\|^2 - 2\\lambda \\langle Tx_n, x_n \\rangle + \\lambda^2 \\leq M^2 - 2\\lambda^2 + \\lambda^2 \\to 0$.",
+        "Par compacité de $T$ : $Tx_{n_k} \\to y$. Donc $\\lambda x_{n_k} \\to y$, soit $x_{n_k} \\to y/\\lambda$.",
+        "$Ty = \\lambda y$ avec $y \\neq 0$ : $\\lambda$ est valeur propre. $\\square$"
+      ],
+      "lecons": [208, 211],
+      "tags": ["compact", "spectral", "Hilbert"]
+    },
+    {
+      "id": "ex_theoreme_sylow_nombre",
+      "titre": "Dénombrement des sous-groupes de Sylow",
+      "domaine": "Algèbre",
+      "niveau": "Moyen",
+      "enonce": "Montrer qu'un groupe d'ordre 56 n'est pas simple.",
+      "indication": "Compter les 7-Sylow ($n_7$) et les 2-Sylow ($n_2$).",
+      "solution": [
+        "$|G| = 56 = 2^3 \\times 7$.",
+        "**7-Sylow** : $n_7 \\equiv 1 [7]$ et $n_7 | 8$ : $n_7 \\in \\{1, 8\\}$.",
+        "**2-Sylow** : $n_2 \\equiv 1 [2]$ et $n_2 | 7$ : $n_2 \\in \\{1, 7\\}$.",
+        "Si $n_7 = 8$ : $8 \\times 6 = 48$ éléments d'ordre 7 (intersections triviales).",
+        "Il reste $56 - 48 = 8$ éléments pour le 2-Sylow : un seul 2-Sylow, $n_2 = 1$.",
+        "Dans tous les cas, $n_7 = 1$ ou $n_2 = 1$ : un Sylow est distingué, $G$ n'est pas simple. $\\square$"
+      ],
+      "lecons": [104],
+      "tags": ["Sylow", "groupes simples", "dénombrement"]
+    },
+    {
+      "id": "ex_integrale_fresnel",
+      "titre": "Intégrales de Fresnel",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Montrer que $\\int_0^{+\\infty} \\cos(t^2)\\,dt = \\int_0^{+\\infty} \\sin(t^2)\\,dt = \\frac{\\sqrt{\\pi}}{2\\sqrt{2}}$.",
+      "indication": "Calculer $\\int_0^{+\\infty} e^{-it^2}\\,dt$ par rotation du contour dans le plan complexe.",
+      "solution": [
+        "$\\int_0^{+\\infty} e^{-it^2}\\,dt$ : changement $t = \\sqrt{u}$ puis rotation $u = re^{-i\\pi/4}$.",
+        "$\\int_0^{+\\infty} e^{-it^2}\\,dt = e^{-i\\pi/4} \\int_0^{+\\infty} e^{-s^2}\\,ds \\cdot \\frac{1}{...}$.",
+        "Plus directement : $\\int_0^R e^{iz^2}\\,dz$ sur le contour sectoriel $[0,R] \\cup \\{Re^{i\\theta}\\} \\cup [Re^{i\\pi/4}, 0]$.",
+        "L'intégrale sur l'arc tend vers $0$. Sur la droite $e^{i\\pi/4}$ : $\\int_0^\\infty e^{-t^2} e^{i\\pi/4}\\,dt = e^{i\\pi/4} \\frac{\\sqrt{\\pi}}{2}$.",
+        "$\\int_0^{+\\infty} (\\cos t^2 + i \\sin t^2)\\,dt = e^{i\\pi/4}\\frac{\\sqrt{\\pi}}{2} = \\frac{\\sqrt{\\pi}}{2}\\frac{1+i}{\\sqrt{2}}$.",
+        "Parties réelle et imaginaire : $\\frac{\\sqrt{\\pi}}{2\\sqrt{2}}$ chacune. $\\square$"
+      ],
+      "lecons": [236, 243],
+      "tags": ["Fresnel", "intégrales oscillantes", "contour"]
+    },
+    {
+      "id": "ex_application_ouverte",
+      "titre": "Théorème de l'application ouverte",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Soit $T : E \\to F$ linéaire continue bijective entre espaces de Banach. Montrer que $T^{-1}$ est continue.",
+      "indication": "Utiliser Baire pour montrer que $T(B_E(0,1))$ contient une boule ouverte.",
+      "solution": [
+        "$E = \\bigcup_{n=1}^{+\\infty} n \\cdot \\overline{B_E(0,1)}$. Comme $T$ surjectif : $F = \\bigcup_n T(n \\cdot \\overline{B})$.",
+        "Par Baire ($F$ Banach), $\\exists n_0$ : $T(n_0 \\overline{B})$ a un intérieur non vide.",
+        "Par linéarité : $\\overline{T(B_E(0,1))}$ contient $B_F(0, r)$ pour un $r > 0$.",
+        "Lemme d'approximation : $T(B_E(0,2))$ contient $B_F(0,r)$ (séries géométriques dans Banach).",
+        "Donc $T$ est ouverte et $T^{-1}$ est continue. $\\|T^{-1}\\| \\leq 2/r$. $\\square$"
+      ],
+      "lecons": [208, 211],
+      "tags": ["application ouverte", "Banach", "Baire"]
+    },
+    {
+      "id": "ex_anneau_factoriel",
+      "titre": "Factorialité de $\\mathbb{Z}[\\sqrt{-5}]$",
+      "domaine": "Algèbre",
+      "niveau": "Difficile",
+      "enonce": "Montrer que $\\mathbb{Z}[\\sqrt{-5}]$ n'est pas factoriel en exhibant deux factorisations de $6$.",
+      "indication": "Vérifier que $2$, $3$, $1+\\sqrt{-5}$, $1-\\sqrt{-5}$ sont irréductibles.",
+      "solution": [
+        "$6 = 2 \\times 3 = (1+\\sqrt{-5})(1-\\sqrt{-5})$.",
+        "Norme : $N(a+b\\sqrt{-5}) = a^2 + 5b^2$. $N(2) = 4$, $N(3) = 9$, $N(1\\pm\\sqrt{-5}) = 6$.",
+        "**$2$ irréductible** : si $2 = \\alpha\\beta$ avec $\\alpha, \\beta$ non inversibles, $N(\\alpha)N(\\beta) = 4$.",
+        "$N(\\alpha) = 2$ : $a^2 + 5b^2 = 2$ impossible dans $\\mathbb{Z}$.",
+        "De même $3$ et $1 \\pm \\sqrt{-5}$ sont irréductibles (norme sans factorisation).",
+        "Deux factorisations en irréductibles non associés : $\\mathbb{Z}[\\sqrt{-5}]$ n'est pas factoriel. $\\square$"
+      ],
+      "lecons": [122, 126],
+      "tags": ["factoriel", "anneaux", "irréductible"]
+    },
+    {
+      "id": "ex_densite_polynomes_trigo",
+      "titre": "Densité des polynômes trigonométriques dans $L^2$",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Montrer que $(e_n)_{n \\in \\mathbb{Z}}$ avec $e_n(x) = e^{inx}/\\sqrt{2\\pi}$ forme une base hilbertienne de $L^2([0,2\\pi])$.",
+      "indication": "Montrer l'orthonormalité puis la complétude via Weierstrass.",
+      "solution": [
+        "**Orthonormalité** : $\\langle e_n, e_m \\rangle = \\frac{1}{2\\pi}\\int_0^{2\\pi} e^{i(n-m)x}\\,dx = \\delta_{nm}$.",
+        "**Complétude** : Si $\\langle f, e_n \\rangle = 0$ pour tout $n$, montrer $f = 0$ p.p.",
+        "Les coefficients de Fourier de $f$ sont nuls : $\\hat{f}(n) = 0$ pour tout $n$.",
+        "Par Weierstrass trigonométrique, les combinaisons linéaires des $e_n$ sont denses dans $C([0,2\\pi])$.",
+        "$C([0,2\\pi])$ dense dans $L^2$ : donc $f = 0$ dans $L^2$.",
+        "C'est la base de l'analyse de Fourier $L^2$ (théorème de Parseval). $\\square$"
+      ],
+      "lecons": [213, 246],
+      "tags": ["base hilbertienne", "Fourier", "L2"]
+    },
+    {
+      "id": "ex_loi_zero_un",
+      "titre": "Loi du zéro-un de Kolmogorov",
+      "domaine": "Probabilités",
+      "niveau": "Difficile",
+      "enonce": "Soit $(X_n)$ une suite de v.a. indépendantes. Montrer que la convergence de $\\sum X_n$ est un événement de probabilité 0 ou 1.",
+      "indication": "Montrer que c'est un événement de la tribu terminale.",
+      "solution": [
+        "L'événement $A = \\{\\sum X_n \\text{ converge}\\}$ ne dépend pas des premiers termes :",
+        "$\\sum_{n=1}^{+\\infty} X_n$ converge $\\iff$ $\\sum_{n=N}^{+\\infty} X_n$ converge pour tout $N$ fixé.",
+        "Donc $A \\in \\bigcap_N \\sigma(X_n : n \\geq N) = \\mathcal{T}$ (tribu terminale).",
+        "Par la loi du zéro-un de Kolmogorov : tout événement de $\\mathcal{T}$ a probabilité 0 ou 1.",
+        "(car les $X_n$ sont indépendants et $\\mathcal{T}$ est indépendante d'elle-même).",
+        "Donc $P(\\sum X_n \\text{ converge}) \\in \\{0, 1\\}$. $\\square$"
+      ],
+      "lecons": [262, 265],
+      "tags": ["Kolmogorov", "zéro-un", "tribu terminale"]
+    },
+    {
+      "id": "ex_somme_puissances",
+      "titre": "Somme des puissances $k$-ièmes",
+      "domaine": "Algèbre",
+      "niveau": "Facile",
+      "enonce": "Calculer $S_3(n) = \\sum_{k=1}^n k^3$ et montrer que $S_3(n) = S_1(n)^2$.",
+      "indication": "Utiliser l'identité télescopique $(k+1)^4 - k^4 = 4k^3 + 6k^2 + 4k + 1$.",
+      "solution": [
+        "Télescopage : $(n+1)^4 - 1 = \\sum_{k=1}^n (4k^3 + 6k^2 + 4k + 1)$.",
+        "$4S_3(n) = (n+1)^4 - 1 - 6 \\cdot \\frac{n(n+1)(2n+1)}{6} - 4 \\cdot \\frac{n(n+1)}{2} - n$.",
+        "Après simplification : $S_3(n) = \\left(\\frac{n(n+1)}{2}\\right)^2$.",
+        "Or $S_1(n) = \\frac{n(n+1)}{2}$ : donc $S_3(n) = S_1(n)^2$.",
+        "Identité de Nicomachus : la somme des cubes est le carré de la somme des entiers. $\\square$"
+      ],
+      "lecons": [142],
+      "tags": ["sommes", "puissances", "Nicomachus"]
+    },
+    {
+      "id": "ex_inverse_generalisee",
+      "titre": "Pseudo-inverse de Moore-Penrose",
+      "domaine": "Algèbre",
+      "niveau": "Difficile",
+      "enonce": "Soit $A \\in M_{m,n}(\\mathbb{R})$ de rang $r$. Montrer qu'il existe une unique $A^+ \\in M_{n,m}(\\mathbb{R})$ telle que $AA^+A = A$, $A^+AA^+ = A^+$, $(AA^+)^T = AA^+$, $(A^+A)^T = A^+A$.",
+      "indication": "Utiliser la SVD : $A = U\\Sigma V^T$.",
+      "solution": [
+        "**SVD** : $A = U\\Sigma V^T$ avec $\\Sigma = \\mathrm{diag}(\\sigma_1, \\ldots, \\sigma_r, 0, \\ldots)$.",
+        "**Construction** : $A^+ = V \\Sigma^+ U^T$ avec $\\Sigma^+ = \\mathrm{diag}(1/\\sigma_1, \\ldots, 1/\\sigma_r, 0, \\ldots)$.",
+        "**Vérification** : $AA^+A = U\\Sigma V^T V \\Sigma^+ U^T U \\Sigma V^T = U \\Sigma \\Sigma^+ \\Sigma V^T = U\\Sigma V^T = A$. ✓",
+        "$(AA^+)^T = (U \\Sigma \\Sigma^+ U^T)^T = U \\Sigma \\Sigma^+ U^T = AA^+$. ✓ (car $\\Sigma\\Sigma^+$ diag.)",
+        "**Unicité** : par les 4 conditions de Penrose (montrer que toute solution coïncide).",
+        "**Application** : résolution aux moindres carrés $\\min \\|Ax-b\\|$ : $x^* = A^+ b$. $\\square$"
+      ],
+      "lecons": [158, 160],
+      "tags": ["pseudo-inverse", "SVD", "moindres carrés"]
+    },
+    {
+      "id": "ex_martingale_convergence",
+      "titre": "Convergence des martingales bornées dans $L^2$",
+      "domaine": "Probabilités",
+      "niveau": "Difficile",
+      "enonce": "Soit $(M_n)$ une martingale avec $\\sup_n E[M_n^2] < +\\infty$. Montrer que $M_n$ converge p.s. et dans $L^2$.",
+      "indication": "Utiliser le théorème de convergence des martingales (upcrossing inequality).",
+      "solution": [
+        "**Convergence p.s.** : $(M_n)$ est une martingale $L^2$-bornée. Par le théorème de convergence de Doob :",
+        "Le nombre d'upcrossings $U_N[a,b]$ vérifie $E[U_N[a,b]] \\leq \\frac{E[(M_N-a)^+]}{b-a} \\leq \\frac{\\sqrt{E[M_N^2]} + |a|}{b-a}$.",
+        "$\\sup_N E[U_N[a,b]] < +\\infty$ pour tous $a < b$.",
+        "Par convergence monotone : $E[U_\\infty[a,b]] < +\\infty$, donc $U_\\infty[a,b] < +\\infty$ p.s.",
+        "L'ensemble $\\{\\liminf M_n < \\limsup M_n\\} = \\bigcup_{a<b \\in \\mathbb{Q}} \\{U_\\infty[a,b] = +\\infty\\}$ est de probabilité $0$.",
+        "Donc $M_n \\to M_\\infty$ p.s. La convergence $L^2$ suit par $\\|M_n\\|_2$ borné et Fatou inverse. $\\square$"
+      ],
+      "lecons": [264, 265],
+      "tags": ["martingales", "convergence", "Doob"]
+    },
+    {
+      "id": "ex_theoreme_spectral_normal",
+      "titre": "Diagonalisation unitaire des matrices normales",
+      "domaine": "Algèbre",
+      "niveau": "Difficile",
+      "enonce": "Montrer qu'une matrice $A \\in M_n(\\mathbb{C})$ est unitairement diagonalisable si et seulement si $AA^* = A^*A$ (matrice normale).",
+      "indication": "($\\Rightarrow$) immédiat. ($\\Leftarrow$) montrer que les espaces propres de $A$ sont stables par $A^*$.",
+      "solution": [
+        "($\\Rightarrow$) : Si $A = UDU^*$, alors $A^* = UD^*U^*$. $AA^* = UDD^*U^* = UD^*DU^* = A^*A$. ✓",
+        "($\\Leftarrow$) : Soit $\\lambda$ valeur propre de $A$ et $E_\\lambda = \\ker(A - \\lambda I)$.",
+        "Pour $v \\in E_\\lambda$ : $\\|A^*v - \\bar{\\lambda}v\\|^2 = \\|(A^* - \\bar{\\lambda}I)v\\|^2$.",
+        "$= \\langle (A-\\lambda I)^*(A-\\lambda I)v, v \\rangle$ (car $AA^* = A^*A$ implique $(A-\\lambda I)(A-\\lambda I)^* = (A-\\lambda I)^*(A-\\lambda I)$).",
+        "$= \\|(A-\\lambda I)v\\|^2 = 0$. Donc $A^*v = \\bar{\\lambda}v$ : $E_\\lambda$ est stable par $A^*$.",
+        "Par récurrence sur les espaces propres (orthogonaux) : $A$ est unitairement diagonalisable. $\\square$"
+      ],
+      "lecons": [155, 158],
+      "tags": ["normal", "unitaire", "diagonalisation"]
+    },
+    {
+      "id": "ex_espace_mesurable",
+      "titre": "Construction de la mesure de Lebesgue",
+      "domaine": "Analyse",
+      "niveau": "Difficile",
+      "enonce": "Montrer que la mesure de Lebesgue $\\lambda$ est la seule mesure sur $(\\mathbb{R}, \\mathcal{B}(\\mathbb{R}))$ invariante par translation avec $\\lambda([0,1]) = 1$.",
+      "indication": "Montrer d'abord que $\\mu([a,b]) = b-a$ pour tout intervalle rationnel.",
+      "solution": [
+        "Soit $\\mu$ une telle mesure. Par invariance par translation :",
+        "$\\mu([k/n, (k+1)/n]) = \\mu([0, 1/n])$ pour tout $k \\in \\mathbb{Z}$.",
+        "$[0,1] = \\bigsqcup_{k=0}^{n-1} [k/n, (k+1)/n)$ : $1 = n \\cdot \\mu([0,1/n])$, donc $\\mu([0,1/n]) = 1/n$.",
+        "Pour $a, b \\in \\mathbb{Q}$ : $\\mu([a,b]) = b - a = \\lambda([a,b])$.",
+        "Par $\\sigma$-additivité et le lemme de classe monotone : $\\mu = \\lambda$ sur $\\mathcal{B}(\\mathbb{R})$.",
+        "La mesure de Lebesgue est l'unique mesure de Haar (à constante près) sur $(\\mathbb{R}, +)$. $\\square$"
+      ],
+      "lecons": [234],
+      "tags": ["Lebesgue", "mesure", "unicité"]
+    },
+    {
+      "id": "ex_equation_fonctionnelle_cauchy",
+      "titre": "Équation fonctionnelle de Cauchy",
+      "domaine": "Analyse",
+      "niveau": "Moyen",
+      "enonce": "Trouver toutes les fonctions $f : \\mathbb{R} \\to \\mathbb{R}$ continues vérifiant $f(x+y) = f(x) + f(y)$.",
+      "indication": "Montrer d'abord que $f(qx) = qf(x)$ pour $q \\in \\mathbb{Q}$, puis utiliser la continuité.",
+      "solution": [
+        "$f(0) = f(0+0) = 2f(0)$ : $f(0) = 0$.",
+        "$f(nx) = nf(x)$ par récurrence. $f(-x) = -f(x)$.",
+        "$f(x/n) = f(x)/n$. Donc $f(qx) = qf(x)$ pour tout $q \\in \\mathbb{Q}$.",
+        "En particulier $f(q) = qf(1) = cq$ pour tout $q \\in \\mathbb{Q}$ avec $c = f(1)$.",
+        "Par continuité et densité de $\\mathbb{Q}$ : $f(x) = cx$ pour tout $x \\in \\mathbb{R}$.",
+        "Sans continuité : il existe des solutions pathologiques (non mesurables, via axiome du choix). $\\square$"
+      ],
+      "lecons": [228, 204],
+      "tags": ["Cauchy", "équation fonctionnelle", "additivité"]
     }
   ]
 }

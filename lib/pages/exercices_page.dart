@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
-import 'package:markdown/markdown.dart' as md;
 
 import '../widgets/global_search_button.dart';
+import '../widgets/latex_text.dart';
+import '../services/subscription_service.dart';
+import 'paywall_page.dart';
 
 class ExercicesPage extends StatefulWidget {
   const ExercicesPage({super.key});
@@ -20,11 +20,6 @@ class _ExercicesPageState extends State<ExercicesPage> {
   String _searchQuery = '';
   String _filterDomaine = 'Tous';
   String _filterNiveau = 'Tous';
-
-  static md.ExtensionSet get _latexExtensionSet => md.ExtensionSet(
-    [LatexBlockSyntax(), ...md.ExtensionSet.gitHubFlavored.blockSyntaxes],
-    [LatexInlineSyntax(), ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes],
-  );
 
   @override
   void initState() {
@@ -200,12 +195,44 @@ class _ExercicesPageState extends State<ExercicesPage> {
     );
   }
 
+  Future<void> _showPaywall() async {
+    final result = await Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const PaywallPage()),
+    );
+    if (result == true && mounted) {
+      setState(() {}); // Rafraîchir après abonnement
+    }
+  }
+
   Widget _buildExerciceCard(Map<String, dynamic> ex, bool isDark) {
+    final sub = SubscriptionService();
+    final globalIndex = _exercices.indexOf(ex);
+    final isLocked = !sub.isPremium && globalIndex >= sub.getFreeAccessCount('exercices');
+
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       color: isDark ? const Color(0xFF1E1E1E) : Colors.white,
-      child: ExpansionTile(
+      child: isLocked
+          ? ListTile(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              leading: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Icon(Icons.lock, color: Colors.grey),
+              ),
+              title: Text(
+                ex['titre'],
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.grey[500]),
+              ),
+              subtitle: const Text('Premium requis', style: TextStyle(fontSize: 11, color: Colors.amber)),
+              trailing: const Icon(Icons.star, color: Colors.amber, size: 20),
+              onTap: _showPaywall,
+            )
+          : ExpansionTile(
         tilePadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
         leading: Container(
@@ -265,11 +292,7 @@ class _ExercicesPageState extends State<ExercicesPage> {
                   style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
                 ),
                 const SizedBox(height: 8),
-                MarkdownBody(
-                  data: ex['enonce'],
-                  extensionSet: _latexExtensionSet,
-                  builders: {'latex': LatexElementBuilder()},
-                ),
+                LatexText(data: ex['enonce']),
               ],
             ),
           ),
@@ -298,11 +321,7 @@ class _ExercicesPageState extends State<ExercicesPage> {
                   ],
                 ),
                 const SizedBox(height: 8),
-                MarkdownBody(
-                  data: ex['indication'],
-                  extensionSet: _latexExtensionSet,
-                  builders: {'latex': LatexElementBuilder()},
-                ),
+                LatexText(data: ex['indication']),
               ],
             ),
           ),
@@ -362,11 +381,7 @@ class _ExercicesPageState extends State<ExercicesPage> {
                               ),
                               const SizedBox(width: 8),
                               Expanded(
-                                child: MarkdownBody(
-                                  data: entry.value,
-                                  extensionSet: _latexExtensionSet,
-                                  builders: {'latex': LatexElementBuilder()},
-                                ),
+                                child: LatexText(data: entry.value),
                               ),
                             ],
                           ),

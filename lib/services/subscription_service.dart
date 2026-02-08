@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 
 /// Service de gestion des abonnements premium
@@ -270,8 +270,12 @@ class SubscriptionService extends ChangeNotifier {
     }
   }
 
-  /// Activer premium manuellement (pour testing ou codes promo)
+  /// Activer premium manuellement (testing uniquement - protégé en production)
   Future<void> activatePremiumManually(String plan, {int days = 30}) async {
+    if (!kDebugMode) {
+      debugPrint('⛔ activatePremiumManually bloqué en mode production');
+      return;
+    }
     _isPremium = true;
     _currentPlan = plan;
     _expirationDate = DateTime.now().add(Duration(days: days));
@@ -280,8 +284,12 @@ class SubscriptionService extends ChangeNotifier {
     debugPrint('✅ Premium activé manuellement: $plan pour $days jours');
   }
 
-  /// Désactiver premium (pour testing)
+  /// Désactiver premium (testing uniquement - protégé en production)
   Future<void> deactivatePremium() async {
+    if (!kDebugMode) {
+      debugPrint('⛔ deactivatePremium bloqué en mode production');
+      return;
+    }
     _isPremium = false;
     _currentPlan = null;
     _expirationDate = null;

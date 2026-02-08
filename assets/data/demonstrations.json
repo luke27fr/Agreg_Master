@@ -384,6 +384,242 @@
       ],
       "difficulte": 5,
       "remarque": "Un des théorèmes les plus difficiles du programme, crucial pour l'étude des groupes finis"
+    },
+    {
+      "id": "cauchy_lipschitz",
+      "titre": "Théorème de Cauchy-Lipschitz",
+      "domaine": "Analyse",
+      "enonce": "Soit $f : U \\to \\mathbb{R}^n$ localement lipschitzienne en $y$. Pour tout $(t_0, y_0) \\in U$, le problème $y' = f(t,y)$, $y(t_0) = y_0$ admet une unique solution maximale.",
+      "preuve": [
+        "**Existence locale** : reformuler comme point fixe $y(t) = y_0 + \\int_{t_0}^t f(s, y(s))\\,ds$.",
+        "L'opérateur $T(y)(t) = y_0 + \\int_{t_0}^t f(s,y(s))\\,ds$ est contractant sur $C([t_0-\\delta, t_0+\\delta])$ pour $\\delta$ assez petit.",
+        "Par le point fixe de Banach, $T$ a un unique point fixe : existence et unicité locale.",
+        "**Solution maximale** : recoller les solutions locales par unicité. L'intervalle maximal est ouvert."
+      ],
+      "corollaires": [
+        "Théorème des bouts : la solution sort de tout compact",
+        "Dépendance continue par rapport aux conditions initiales"
+      ],
+      "lecons": [218, 220],
+      "tags": ["EDO", "point fixe", "Banach"],
+      "videos": [],
+      "difficulte": 5,
+      "remarque": "Fondamental en théorie des EDO, utilise le point fixe de Banach"
+    },
+    {
+      "id": "convergence_monotone",
+      "titre": "Théorème de convergence monotone (Beppo Levi)",
+      "domaine": "Analyse",
+      "enonce": "Si $(f_n)$ est une suite croissante de fonctions mesurables positives, alors $\\int \\lim f_n = \\lim \\int f_n$.",
+      "preuve": [
+        "Posons $f = \\sup_n f_n = \\lim f_n$ (limite croissante).",
+        "$f_n \\leq f$ pour tout $n$, donc $\\int f_n \\leq \\int f$ : $\\lim \\int f_n \\leq \\int f$.",
+        "Pour l'autre sens, soit $\\varphi$ étagée avec $0 \\leq \\varphi \\leq f$ et $0 < \\alpha < 1$.",
+        "Posons $A_n = \\{f_n \\geq \\alpha \\varphi\\}$. $(A_n)$ croissante, $\\bigcup A_n = \\Omega$.",
+        "$\\int f_n \\geq \\int_{A_n} f_n \\geq \\alpha \\int_{A_n} \\varphi \\to \\alpha \\int \\varphi$.",
+        "Faire $\\alpha \\to 1$ puis prendre le sup sur $\\varphi$ : $\\lim \\int f_n \\geq \\int f$."
+      ],
+      "corollaires": [
+        "Lemme de Fatou : $\\int \\liminf f_n \\leq \\liminf \\int f_n$",
+        "Intégration terme à terme des séries positives"
+      ],
+      "lecons": [234, 266],
+      "tags": ["intégration", "Lebesgue", "convergence"],
+      "videos": [],
+      "difficulte": 4,
+      "remarque": "Premier des grands théorèmes d'interversion, base de la théorie de Lebesgue"
+    },
+    {
+      "id": "fubini",
+      "titre": "Théorème de Fubini-Tonelli",
+      "domaine": "Analyse",
+      "enonce": "Si $f$ est intégrable sur $X \\times Y$ (ou mesurable positive), alors $\\int_{X \\times Y} f = \\int_X \\left(\\int_Y f(x,y)\\,dy\\right)dx = \\int_Y \\left(\\int_X f(x,y)\\,dx\\right)dy$.",
+      "preuve": [
+        "**Tonelli** (cas positif) : se démontre d'abord pour les indicatrices de rectangles, puis par le théorème de convergence monotone.",
+        "**Fubini** (cas intégrable) : écrire $f = f^+ - f^-$, appliquer Tonelli à chaque partie.",
+        "La condition $\\int |f| < +\\infty$ garantit que les intégrales itérées sont bien définies p.p."
+      ],
+      "corollaires": [
+        "Changement de l'ordre d'intégration",
+        "Calcul d'intégrales doubles en coordonnées polaires"
+      ],
+      "lecons": [234, 236],
+      "tags": ["intégration", "Fubini", "produit"],
+      "videos": [],
+      "difficulte": 5,
+      "remarque": "Indispensable pour les calculs d'intégrales multiples"
+    },
+    {
+      "id": "inversion_locale",
+      "titre": "Théorème d'inversion locale",
+      "domaine": "Analyse",
+      "enonce": "Si $f : U \\to \\mathbb{R}^n$ est $C^1$ et $df(a)$ est inversible, alors $f$ est un difféomorphisme local au voisinage de $a$.",
+      "preuve": [
+        "Quitte à composer, on se ramène à $f(0) = 0$ et $df(0) = I$.",
+        "Poser $g(x) = x - f(x)$. Alors $dg(0) = 0$, donc $\\|dg(x)\\| \\leq 1/2$ au voisinage de $0$.",
+        "L'application $\\phi_y : x \\mapsto y + x - f(x) = y + g(x)$ est contractante pour $y$ assez petit.",
+        "Par Banach, $\\phi_y$ a un unique point fixe $x(y)$ : $f(x(y)) = y$.",
+        "Régularité de $f^{-1}$ : par le théorème des fonctions implicites ou par calcul direct."
+      ],
+      "corollaires": [
+        "Théorème des fonctions implicites",
+        "Théorème du rang constant"
+      ],
+      "lecons": [220, 228],
+      "tags": ["difféomorphisme", "point fixe", "différentielle"],
+      "videos": [],
+      "difficulte": 5,
+      "remarque": "Un des théorèmes clés de l'analyse en dimension finie"
+    },
+    {
+      "id": "hahn_banach",
+      "titre": "Théorème de Hahn-Banach analytique",
+      "domaine": "Analyse",
+      "enonce": "Soit $p$ une fonctionnelle sous-linéaire sur $E$ et $f$ une forme linéaire sur un sous-espace $F$ avec $f \\leq p$ sur $F$. Alors $f$ se prolonge en $\\tilde{f}$ sur $E$ avec $\\tilde{f} \\leq p$.",
+      "preuve": [
+        "**Cas dim 1** : Prolonger de $F$ à $F + \\mathbb{R}x_0$. Chercher $c = \\tilde{f}(x_0)$.",
+        "Condition : $f(y) + ct \\leq p(y + tx_0)$ pour tout $y \\in F$, $t \\in \\mathbb{R}$.",
+        "Pour $t > 0$ : $c \\leq (p(y + tx_0) - f(y))/t$. Pour $t < 0$ : $c \\geq -(p(y - |t|x_0) - f(y))/|t|$.",
+        "L'existence de $c$ suit de $\\inf \\geq \\sup$ : condition de compatibilité.",
+        "**Cas général** : Axiome de Zorn sur l'ensemble des prolongements partiels."
+      ],
+      "corollaires": [
+        "Existence de formes linéaires séparant un point d'un convexe fermé",
+        "$(E')$ sépare les points de $E$"
+      ],
+      "lecons": [211],
+      "tags": ["analyse fonctionnelle", "dualité", "prolongement"],
+      "videos": [],
+      "difficulte": 5,
+      "remarque": "Pierre angulaire de l'analyse fonctionnelle"
+    },
+    {
+      "id": "theoreme_chinois_demo",
+      "titre": "Théorème chinois des restes",
+      "domaine": "Algèbre",
+      "enonce": "Si $\\gcd(m,n) = 1$, alors $\\mathbb{Z}/mn\\mathbb{Z} \\cong \\mathbb{Z}/m\\mathbb{Z} \\times \\mathbb{Z}/n\\mathbb{Z}$.",
+      "preuve": [
+        "Morphisme $\\varphi : \\mathbb{Z} \\to \\mathbb{Z}/m\\mathbb{Z} \\times \\mathbb{Z}/n\\mathbb{Z}$, $a \\mapsto (a \\bmod m, a \\bmod n)$.",
+        "$\\ker(\\varphi) = m\\mathbb{Z} \\cap n\\mathbb{Z} = mn\\mathbb{Z}$ (car $\\gcd(m,n)=1$).",
+        "$\\varphi$ surjectif : par Bézout, $\\exists u,v : mu + nv = 1$.",
+        "Pour $(a,b)$, poser $x = bnv + amu$ : $\\varphi(x) = (a,b)$.",
+        "Par le 1er théorème d'isomorphisme : $\\mathbb{Z}/mn\\mathbb{Z} \\cong \\mathbb{Z}/m\\mathbb{Z} \\times \\mathbb{Z}/n\\mathbb{Z}$."
+      ],
+      "corollaires": [
+        "Résolution de systèmes de congruences",
+        "Décomposition de $\\varphi(mn)$ en produit"
+      ],
+      "lecons": [121, 142],
+      "tags": ["arithmétique", "congruences", "isomorphisme"],
+      "videos": [],
+      "difficulte": 3,
+      "remarque": "Applications en cryptographie (RSA) et en théorie des nombres"
+    },
+    {
+      "id": "decomposition_polaire_demo",
+      "titre": "Décomposition polaire",
+      "domaine": "Algèbre",
+      "enonce": "Toute matrice inversible $A \\in GL_n(\\mathbb{R})$ s'écrit de manière unique $A = OS$ avec $O$ orthogonale et $S$ symétrique définie positive.",
+      "preuve": [
+        "**Existence** : $A^TA$ est symétrique définie positive (car $A$ inversible).",
+        "Par le théorème spectral, $\\exists S = \\sqrt{A^TA}$ symétrique définie positive.",
+        "Poser $O = AS^{-1}$. Vérifier : $O^TO = S^{-1}A^TAS^{-1} = S^{-1}S^2 S^{-1} = I$.",
+        "Donc $O$ est orthogonale et $A = OS$.",
+        "**Unicité** : si $A = O_1S_1 = O_2S_2$, alors $A^TA = S_1^2 = S_2^2$.",
+        "L'unicité de la racine carrée symétrique positive donne $S_1 = S_2$, d'où $O_1 = O_2$."
+      ],
+      "corollaires": [
+        "$GL_n(\\mathbb{R}) \\cong O(n) \\times S_n^{++}$ (topologiquement)",
+        "Décomposition SVD"
+      ],
+      "lecons": [158, 160],
+      "tags": ["décomposition polaire", "matrices", "orthogonal"],
+      "videos": [],
+      "difficulte": 4,
+      "remarque": "Analogue matriciel de l'écriture $z = |z| \\cdot e^{i\\theta}$ pour les complexes"
+    },
+    {
+      "id": "serie_alternee_leibniz",
+      "titre": "Critère des séries alternées (Leibniz)",
+      "domaine": "Analyse",
+      "enonce": "Si $(a_n)$ est décroissante et tend vers 0, alors $\\sum (-1)^n a_n$ converge. De plus $|R_N| \\leq a_{N+1}$.",
+      "preuve": [
+        "$S_{2n} = \\sum_{k=0}^{2n-1} (-1)^k a_k$ : $S_{2n+2} - S_{2n} = a_{2n+1} - a_{2n+2} \\leq 0$ : $(S_{2n})$ décroissante.",
+        "$S_{2n+1} = S_{2n} - a_{2n}$ : $S_{2n+3} - S_{2n+1} = a_{2n+2} - a_{2n+1} \\geq 0$ : $(S_{2n+1})$ croissante.",
+        "$S_{2n} - S_{2n+1} = a_{2n} \\to 0$ : les deux suites ont la même limite $S$.",
+        "$S_{2n+1} \\leq S \\leq S_{2n}$ : encadrement du reste $|S - S_N| \\leq a_{N+1}$."
+      ],
+      "corollaires": [
+        "Convergence de $\\sum (-1)^n/n = \\ln 2$",
+        "Estimation pratique du reste"
+      ],
+      "lecons": [230],
+      "tags": ["séries alternées", "convergence", "reste"],
+      "videos": [],
+      "difficulte": 2,
+      "remarque": "Critère simple et puissant avec estimation du reste"
+    },
+    {
+      "id": "ascoli_demo",
+      "titre": "Théorème d'Ascoli",
+      "domaine": "Analyse",
+      "enonce": "Soit $K$ compact métrique. $A \\subset C(K,\\mathbb{R})$ est relativement compact pour $\\|\\cdot\\|_\\infty$ ssi $A$ est borné et équicontinu.",
+      "preuve": [
+        "($\\Rightarrow$) Relativement compact $\\Rightarrow$ totalement borné $\\Rightarrow$ borné. Équicontinuité par extraction de sous-suite finie.",
+        "($\\Leftarrow$) Soit $(f_n)$ une suite de $A$. Extraire une sous-suite convergeant sur un sous-ensemble dénombrable dense $D$ (Bolzano-Weierstrass diagonal).",
+        "L'équicontinuité + convergence sur $D$ donne la convergence uniforme sur $K$."
+      ],
+      "corollaires": [
+        "Compacité dans les espaces de fonctions",
+        "Applications aux EDO (Peano)"
+      ],
+      "lecons": [201, 206],
+      "tags": ["compacité", "équicontinuité", "espaces de fonctions"],
+      "videos": [],
+      "difficulte": 5,
+      "remarque": "Caractérisation de la compacité dans les espaces de fonctions continues"
+    },
+    {
+      "id": "theoreme_euler_fermat",
+      "titre": "Théorème d'Euler (petit théorème de Fermat généralisé)",
+      "domaine": "Algèbre",
+      "enonce": "Si $\\gcd(a, n) = 1$, alors $a^{\\varphi(n)} \\equiv 1 \\pmod{n}$.",
+      "preuve": [
+        "$(\\mathbb{Z}/n\\mathbb{Z})^*$ est un groupe de cardinal $\\varphi(n)$.",
+        "Par Lagrange, l'ordre de $\\bar{a}$ divise $\\varphi(n)$.",
+        "Donc $\\bar{a}^{\\varphi(n)} = \\bar{1}$, i.e. $a^{\\varphi(n)} \\equiv 1 \\pmod{n}$.",
+        "Cas particulier $n = p$ premier : $\\varphi(p) = p-1$, on retrouve le petit Fermat."
+      ],
+      "corollaires": [
+        "Petit théorème de Fermat : $a^{p-1} \\equiv 1 \\pmod{p}$",
+        "Correction du chiffrement RSA"
+      ],
+      "lecons": [121, 123],
+      "tags": ["Euler", "Fermat", "arithmétique"],
+      "videos": [],
+      "difficulte": 3,
+      "remarque": "Base de la cryptographie RSA"
+    },
+    {
+      "id": "parseval_demo",
+      "titre": "Identité de Parseval",
+      "domaine": "Analyse",
+      "enonce": "Pour $f \\in L^2([-\\pi,\\pi])$ : $\\frac{1}{2\\pi}\\int_{-\\pi}^{\\pi} |f(x)|^2\\,dx = \\sum_{n \\in \\mathbb{Z}} |c_n(f)|^2$.",
+      "preuve": [
+        "Les $e_n(x) = e^{inx}/\\sqrt{2\\pi}$ forment un système orthonormé de $L^2$.",
+        "La série de Fourier partielle $S_N f = \\sum_{|n| \\leq N} c_n e_n$ est la projection orthogonale sur $\\text{Vect}(e_{-N}, \\ldots, e_N)$.",
+        "Bessel : $\\sum |c_n|^2 \\leq \\|f\\|^2$. Égalité ssi la base est complète.",
+        "Complétude : par densité des polynômes trigonométriques (Stone-Weierstrass) dans $C(\\mathbb{T})$, dense dans $L^2$."
+      ],
+      "corollaires": [
+        "Le système de Fourier est une base hilbertienne de $L^2$",
+        "Calcul de $\\sum 1/n^2 = \\pi^2/6$ par Parseval"
+      ],
+      "lecons": [213, 246],
+      "tags": ["Parseval", "Fourier", "L2"],
+      "videos": [],
+      "difficulte": 4,
+      "remarque": "Lien fondamental entre $L^2$ et $\\ell^2$ via la transformée de Fourier"
     }
   ]
 }

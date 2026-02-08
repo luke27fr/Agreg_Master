@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../services/annales_service.dart';
 import '../models/annale_model.dart';
+import '../widgets/latex_text.dart';
+import '../services/subscription_service.dart';
+import 'paywall_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AnnalesPage extends StatefulWidget {
@@ -201,12 +204,23 @@ class _AnnalesPageState extends State<AnnalesPage> {
     );
   }
 
+  Future<void> _showPaywall() async {
+    final result = await Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const PaywallPage()),
+    );
+    if (result == true && mounted) setState(() {});
+  }
+
   Widget _buildAnnaleCard(Annale annale) {
+    final sub = SubscriptionService();
+    final index = _service.annales.indexOf(annale);
+    final isLocked = !sub.isPremium && index >= sub.getFreeAccessCount('annales');
+
     return Card(
       elevation: 2,
       margin: const EdgeInsets.only(bottom: 12),
       child: InkWell(
-        onTap: () => _showAnnaleDetail(annale),
+        onTap: () => isLocked ? _showPaywall() : _showAnnaleDetail(annale),
         borderRadius: BorderRadius.circular(8),
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -277,6 +291,25 @@ class _AnnalesPageState extends State<AnnalesPage> {
                   ],
                 ],
               ),
+              if (isLocked) ...[
+                const SizedBox(height: 12),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Colors.amber.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.amber.withOpacity(0.3)),
+                  ),
+                  child: const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.lock, size: 14, color: Colors.amber),
+                      SizedBox(width: 6),
+                      Text('Premium requis', style: TextStyle(fontSize: 12, color: Colors.amber, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ),
+              ],
             ],
           ),
         ),
@@ -390,8 +423,9 @@ class _AnnalesPageState extends State<AnnalesPage> {
                           ],
                         ),
                         const SizedBox(height: 12),
-                        Text(
-                          annale.rapportGlobal!,
+                        LatexText(
+                          data: annale.rapportGlobal!,
+                          selectable: true,
                           style: const TextStyle(fontSize: 14, height: 1.5),
                         ),
                       ],
@@ -430,8 +464,9 @@ class _AnnalesPageState extends State<AnnalesPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (exercice.introduction != null) ...[
-                  Text(
-                    exercice.introduction!,
+                  LatexText(
+                    data: exercice.introduction!,
+                    selectable: true,
                     style: const TextStyle(fontStyle: FontStyle.italic),
                   ),
                   const SizedBox(height: 16),
@@ -477,8 +512,9 @@ class _AnnalesPageState extends State<AnnalesPage> {
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: Text(
-                  question.enonce,
+                child: LatexText(
+                  data: question.enonce,
+                  selectable: true,
                   style: const TextStyle(fontSize: 14),
                 ),
               ),
@@ -503,8 +539,9 @@ class _AnnalesPageState extends State<AnnalesPage> {
                   const Icon(Icons.lightbulb, size: 16, color: Colors.amber),
                   const SizedBox(width: 8),
                   Expanded(
-                    child: Text(
-                      question.indication!,
+                    child: LatexText(
+                      data: question.indication!,
+                      selectable: true,
                       style: const TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
                     ),
                   ),
@@ -535,9 +572,10 @@ class _AnnalesPageState extends State<AnnalesPage> {
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(color: Colors.green.withOpacity(0.3)),
                   ),
-                  child: Text(
-                    question.correction!,
-                    style: const TextStyle(fontSize: 13),
+                  child: LatexText(
+                    data: question.correction!,
+                    selectable: true,
+                    style: const TextStyle(fontSize: 13, height: 1.6),
                   ),
                 ),
               ],
@@ -566,9 +604,10 @@ class _AnnalesPageState extends State<AnnalesPage> {
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(color: Colors.purple.withOpacity(0.3)),
                   ),
-                  child: Text(
-                    question.rapportJury!,
-                    style: const TextStyle(fontSize: 13),
+                  child: LatexText(
+                    data: question.rapportJury!,
+                    selectable: true,
+                    style: const TextStyle(fontSize: 13, height: 1.5),
                   ),
                 ),
               ],

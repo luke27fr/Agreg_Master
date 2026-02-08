@@ -179,6 +179,114 @@
       "explication": "∃f ∈ C(𝕋) dont la série de Fourier diverge en un point.",
       "lecons": [246],
       "tags": ["Fourier", "convergence"]
+    },
+    {
+      "id": "cv_L1_pas_pp",
+      "titre": "Convergence $L^1$ sans convergence p.p.",
+      "domaine": "Analyse",
+      "enonce": "Indicatrices glissantes $f_n = \\mathbf{1}_{[k/2^m, (k+1)/2^m]}$",
+      "explication": "$\\|f_n\\|_1 = 1/2^m \\to 0$ donc $f_n \\to 0$ dans $L^1$, mais pour tout $x \\in [0,1]$, $f_n(x) = 1$ pour une infinité de $n$ : pas de convergence p.p.",
+      "lecons": [234, 262],
+      "tags": ["convergence", "Lebesgue", "contre-exemple"]
+    },
+    {
+      "id": "borne_inf_pas_min",
+      "titre": "Borne inférieure non atteinte",
+      "domaine": "Analyse",
+      "enonce": "$f(x) = e^x$ sur $\\mathbb{R}$",
+      "explication": "$\\inf_{x \\in \\mathbb{R}} e^x = 0$ mais $e^x > 0$ pour tout $x$ : l'inf n'est pas atteint. Il faut la compacité du domaine (Weierstrass) pour garantir que les bornes sont atteintes.",
+      "lecons": [201],
+      "tags": ["inf", "sup", "compacité"]
+    },
+    {
+      "id": "derivee_nulle_pas_constante",
+      "titre": "Dérivée nulle p.p. mais non constante",
+      "domaine": "Analyse",
+      "enonce": "Fonction de Cantor (escalier du diable)",
+      "explication": "Continue, croissante de 0 à 1 sur $[0,1]$, mais $f'(x) = 0$ presque partout (sur le complémentaire du Cantor, de mesure 1). Non absolument continue.",
+      "lecons": [228, 234],
+      "tags": ["Cantor", "dérivée", "absolue continuité"]
+    },
+    {
+      "id": "produit_integrables_pas_integrable",
+      "titre": "Produit de fonctions $L^2$ intégrables mais...",
+      "domaine": "Analyse",
+      "enonce": "$f = g = 1/\\sqrt{x}$ sur $]0,1]$",
+      "explication": "$f, g \\in L^2(0,1)$ car $\\int_0^1 1/x\\,dx$ diverge, mais $fg = 1/x \\notin L^1(0,1)$. Par Hölder, $fg \\in L^1$ ssi $f \\in L^p$, $g \\in L^q$ conjugués. Ici $p = q = 2$ ne suffit pas car les fonctions ne sont pas dans $L^\\infty$.",
+      "lecons": [213, 234],
+      "tags": ["Lp", "Hölder", "intégrabilité"]
+    },
+    {
+      "id": "factoriel_pas_principal",
+      "titre": "Anneau factoriel non principal",
+      "domaine": "Algèbre",
+      "enonce": "$\\mathbb{Z}[X]$",
+      "explication": "Factoriel (par le lemme de Gauss et la factorialité de $\\mathbb{Z}$), mais l'idéal $(2, X)$ n'est pas principal : si $(2, X) = (f)$, alors $f | 2$ et $f | X$, donc $f \\in \\{\\pm 1\\}$, mais $(2,X) \\neq \\mathbb{Z}[X]$ car $1 \\notin (2,X)$.",
+      "lecons": [122],
+      "tags": ["anneaux", "factoriel", "principal"]
+    },
+    {
+      "id": "surjection_pas_bijection_ensembles_infinis",
+      "titre": "Surjection non bijective d'un ensemble sur lui-même",
+      "domaine": "Algèbre",
+      "enonce": "$f : \\mathbb{N} \\to \\mathbb{N}$, $f(n) = \\lfloor n/2 \\rfloor$",
+      "explication": "Surjective (tout $k$ est atteint par $2k$) mais pas injective ($f(0) = f(1) = 0$). En dimension finie, surjective $\\Rightarrow$ bijective (endomorphisme). Faux en dimension infinie.",
+      "lecons": [102],
+      "tags": ["bijection", "dimension infinie"]
+    },
+    {
+      "id": "suite_cauchy_pas_convergente",
+      "titre": "Suite de Cauchy non convergente",
+      "domaine": "Analyse",
+      "enonce": "$(1, 1.4, 1.41, 1.414, \\ldots)$ dans $\\mathbb{Q}$",
+      "explication": "Approximations décimales de $\\sqrt{2}$. Suite de Cauchy dans $\\mathbb{Q}$, mais $\\sqrt{2} \\notin \\mathbb{Q}$ : pas de limite rationnelle. $\\mathbb{Q}$ n'est pas complet. C'est la motivation de la construction de $\\mathbb{R}$ par complétion.",
+      "lecons": [203, 205],
+      "tags": ["Cauchy", "complétude", "rationnels"]
+    },
+    {
+      "id": "echange_limites_impossible",
+      "titre": "Limites non interchangeables",
+      "domaine": "Analyse",
+      "enonce": "$a_{m,n} = \\frac{m}{m+n}$",
+      "explication": "$\\lim_{n \\to \\infty} (\\lim_{m \\to \\infty} a_{m,n}) = 1$ mais $\\lim_{m \\to \\infty} (\\lim_{n \\to \\infty} a_{m,n}) = 0$. Les limites itérées ne commutent pas en général. Conditions suffisantes : convergence uniforme, convergence dominée.",
+      "lecons": [241],
+      "tags": ["limites", "interversion"]
+    },
+    {
+      "id": "compact_pas_sequentiellement",
+      "titre": "Compact non séquentiellement compact (espaces non métriques)",
+      "domaine": "Analyse",
+      "enonce": "$[0,1]^{[0,1]}$ avec la topologie produit",
+      "explication": "Compact par Tychonoff, mais pas séquentiellement compact (il existe des suites sans sous-suite convergente). En espaces métriques, compact $\\Leftrightarrow$ séquentiellement compact, mais pas en topologie générale.",
+      "lecons": [206],
+      "tags": ["compacité", "topologie générale"]
+    },
+    {
+      "id": "norme_equiv_dim_infinie",
+      "titre": "Normes non équivalentes en dimension infinie",
+      "domaine": "Analyse",
+      "enonce": "$\\|f\\|_1 = \\int_0^1 |f|$ et $\\|f\\|_\\infty = \\sup |f|$ sur $C([0,1])$",
+      "explication": "$\\|f\\|_1 \\leq \\|f\\|_\\infty$ mais pas l'inverse : $f_n(x) = x^n$ a $\\|f_n\\|_\\infty = 1$ mais $\\|f_n\\|_1 = 1/(n+1) \\to 0$. En dim finie toutes les normes sont équivalentes, en dim infinie non.",
+      "lecons": [208],
+      "tags": ["normes", "dimension infinie", "équivalence"]
+    },
+    {
+      "id": "operateur_borne_non_compact",
+      "titre": "Opérateur borné non compact",
+      "domaine": "Analyse",
+      "enonce": "$\\mathrm{Id} : \\ell^2 \\to \\ell^2$",
+      "explication": "L'identité est bornée ($\\|\\mathrm{Id}\\| = 1$) mais pas compacte : la suite $(e_n)$ est bornée mais n'a pas de sous-suite convergente dans $\\ell^2$ (car $\\|e_n - e_m\\| = \\sqrt{2}$). En dim finie, tout opérateur borné est compact.",
+      "lecons": [208, 211],
+      "tags": ["compact", "opérateur", "dimension infinie"]
+    },
+    {
+      "id": "sous_espace_ferme_dense",
+      "titre": "Sous-espace dense propre (non fermé)",
+      "domaine": "Analyse",
+      "enonce": "$\\mathbb{Q}$ dans $\\mathbb{R}$, ou $C([0,1])$ dans $L^2([0,1])$",
+      "explication": "$\\mathbb{Q}$ est dense dans $\\mathbb{R}$ mais $\\mathbb{Q} \\neq \\mathbb{R}$. De même, $C([0,1])$ est dense dans $L^2$ mais pas fermé. Un sous-espace vectoriel fermé d'un Hilbert admet un supplémentaire orthogonal, pas un sous-espace dense non fermé.",
+      "lecons": [204, 213],
+      "tags": ["densité", "fermé", "topologie"]
     }
   ]
 }

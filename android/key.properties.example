@@ -1,0 +1,16 @@
+# ============================================================
+# Configuration de signature pour Google Play Store
+# ============================================================
+# 
+# 1. Générer un keystore :
+#    keytool -genkey -v -keystore agreg-master-release.jks -keyalg RSA -keysize 2048 -validity 10000 -alias agreg-master
+#
+# 2. Copier ce fichier en 'key.properties' :
+#    cp key.properties.example key.properties
+#
+# 3. Remplir les valeurs ci-dessous :
+
+storePassword=VOTRE_MOT_DE_PASSE_STORE
+keyPassword=VOTRE_MOT_DE_PASSE_KEY
+keyAlias=agreg-master
+storeFile=../agreg-master-release.jks

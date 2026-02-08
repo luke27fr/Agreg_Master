@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,6 +14,7 @@ import 'package:agreg_master/pages/review_page.dart';
 import 'package:agreg_master/pages/flashcards_page.dart';
 import 'package:agreg_master/pages/settings_page.dart';
 import 'package:agreg_master/pages/agregation_hub_page.dart';
+import 'package:agreg_master/pages/home_navigation_page.dart';
 import 'package:agreg_master/services/score_service.dart';
 import 'package:agreg_master/services/favorites_service.dart';
 import 'package:agreg_master/services/notes_service.dart';
@@ -35,15 +37,61 @@ import 'package:agreg_master/services/backup_service.dart';
 import 'package:agreg_master/services/subscription_service.dart';
 import 'package:agreg_master/services/cloud_sync_service.dart';
 import 'fiche_page.dart';
+import 'dart:io' show Platform;
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
-  // Initialiser Firebase
-  await Firebase.initializeApp();
+  // Initialiser Firebase uniquement sur mobile (pas supporté sur Windows/Linux desktop)
+  final isMobilePlatform = _isMobile();
+  if (isMobilePlatform) {
+    try {
+      await Firebase.initializeApp();
+      
+      // Initialiser Crashlytics - capturer les erreurs Flutter
+      FlutterError.onError = (errorDetails) {
+        FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+      };
+      // Capturer les erreurs asynchrones non gérées
+      PlatformDispatcher.instance.onError = (error, stack) {
+        FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+        return true;
+      };
+      
+      // Désactiver Crashlytics en debug pour ne pas polluer les rapports
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(!kDebugMode);
+      
+      // Initialiser Analytics
+      await FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(!kDebugMode);
+
+      debugPrint('Firebase initialisé (Analytics + Crashlytics)');
+    } catch (e) {
+      debugPrint('Firebase non disponible: $e');
+    }
+  } else {
+    debugPrint('Firebase désactivé sur desktop (dev mode)');
+  }
   
-  // Charger tous les services
+  // Lancer l'app avec splash screen immédiatement
+  runApp(const AgregMasterApp());
+}
+
+/// Vérifie si on est sur une plateforme mobile (Android/iOS)
+bool _isMobile() {
+  try {
+    return Platform.isAndroid || Platform.isIOS;
+  } catch (_) {
+    return false;
+  }
+}
+
+/// Charge tous les services en arrière-plan
+Future<void> _initializeAllServices() async {
+  final isMobilePlatform = _isMobile();
+  
   await Future.wait([
     ScoreService().loadScores(),
     FavoritesService().loadFavorites(),
@@ -65,10 +113,9 @@ void main() async {
     CompetitionService().loadData(),
     WellnessService().loadData(),
     MathsIntuitivesService().loadConcepts(),
-    SubscriptionService().initialize(),
-    CloudSyncService().initialize(),
+    if (isMobilePlatform) SubscriptionService().initialize(),
+    if (isMobilePlatform) CloudSyncService().initialize(),
   ]);
-  runApp(const AgregMasterApp());
 }
 
 class AgregMasterApp extends StatefulWidget {
@@ -80,11 +127,20 @@ class AgregMasterApp extends StatefulWidget {
 
 class _AgregMasterAppState extends State<AgregMasterApp> {
   final SettingsService _settingsService = SettingsService();
+  bool _isInitialized = false;
 
   @override
   void initState() {
     super.initState();
     _settingsService.addListener(_onSettingsChanged);
+    _loadServices();
+  }
+
+  Future<void> _loadServices() async {
+    await _initializeAllServices();
+    if (mounted) {
+      setState(() => _isInitialized = true);
+    }
   }
 
   @override
@@ -154,7 +210,86 @@ class _AgregMasterAppState extends State<AgregMasterApp> {
           color: const Color(0xFF1E1E1E),
         ),
       ),
-      home: const ThemesScreen(),
+      home: _isInitialized ? const HomeNavigationPage() : const SplashScreen(),
+    );
+  }
+}
+
+// ============================================================================
+// Splash Screen pendant le chargement des services
+// ============================================================================
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Color(0xFF1A237E), Color(0xFF3949AB), Color(0xFF5C6BC0)],
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Logo / Icone
+            Container(
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                color: Colors.white.withAlpha(30),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.school,
+                size: 72,
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(height: 32),
+            // Nom de l'app
+            Text(
+              'Agreg Master',
+              style: GoogleFonts.poppins(
+                fontSize: 36,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                letterSpacing: 1.2,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Votre compagnon pour l\'agrégation',
+              style: GoogleFonts.poppins(
+                fontSize: 16,
+                color: Colors.white70,
+              ),
+            ),
+            const SizedBox(height: 48),
+            // Indicateur de chargement
+            const SizedBox(
+              width: 48,
+              height: 48,
+              child: CircularProgressIndicator(
+                color: Colors.white,
+                strokeWidth: 3,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'Chargement...',
+              style: GoogleFonts.poppins(
+                fontSize: 14,
+                color: Colors.white54,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -240,7 +375,7 @@ class _ThemesScreenState extends State<ThemesScreen> {
         });
       }
     } catch (e) {
-      print("Erreur chargement: $e");
+      debugPrint("Erreur chargement manifest: $e");
     }
   }
 
@@ -528,7 +663,7 @@ class _ThemesScreenState extends State<ThemesScreen> {
         );
       }
     } catch (e) {
-      print("Erreur: $e");
+      debugPrint("Erreur quiz général: $e");
     }
   }
 

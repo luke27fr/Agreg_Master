@@ -1,4 +1,4 @@
-package com.example.agreg_master
+package com.agregmaster.app
 
 import io.flutter.embedding.android.FlutterActivity
 

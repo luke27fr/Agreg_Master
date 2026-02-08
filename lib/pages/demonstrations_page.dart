@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
-import 'package:markdown/markdown.dart' as md;
 import 'package:url_launcher/url_launcher.dart';
 import '../widgets/global_search_button.dart';
+import '../widgets/latex_text.dart';
+import '../services/subscription_service.dart';
+import 'paywall_page.dart';
 
 class DemonstrationsPage extends StatefulWidget {
   const DemonstrationsPage({super.key});
@@ -19,11 +19,6 @@ class _DemonstrationsPageState extends State<DemonstrationsPage> {
   bool _loading = true;
   String _searchQuery = '';
   bool _showProofs = false; // Mode récitation
-
-  static md.ExtensionSet get _latexExtensionSet => md.ExtensionSet(
-    [LatexBlockSyntax(), ...md.ExtensionSet.gitHubFlavored.blockSyntaxes],
-    [LatexInlineSyntax(), ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes],
-  );
 
   @override
   void initState() {
@@ -146,7 +141,44 @@ class _DemonstrationsPageState extends State<DemonstrationsPage> {
     );
   }
 
+  Future<void> _showPaywall() async {
+    final result = await Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const PaywallPage()),
+    );
+    if (result == true && mounted) setState(() {});
+  }
+
   Widget _buildDemoCard(Map<String, dynamic> demo, bool isDark) {
+    final sub = SubscriptionService();
+    final index = _demonstrations.indexOf(demo);
+    final isLocked = !sub.isPremium && index >= sub.getFreeAccessCount('demonstrations');
+
+    if (isLocked) {
+      return Card(
+        margin: const EdgeInsets.only(bottom: 16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        color: isDark ? const Color(0xFF1E1E1E) : Colors.white,
+        child: ListTile(
+          contentPadding: const EdgeInsets.all(16),
+          leading: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Colors.grey.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: const Icon(Icons.lock, color: Colors.grey),
+          ),
+          title: Text(
+            demo['titre'],
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.grey[500]),
+          ),
+          subtitle: const Text('Premium requis', style: TextStyle(fontSize: 11, color: Colors.amber)),
+          trailing: const Icon(Icons.star, color: Colors.amber, size: 20),
+          onTap: _showPaywall,
+        ),
+      );
+    }
+
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -191,13 +223,9 @@ class _DemonstrationsPageState extends State<DemonstrationsPage> {
             const SizedBox(height: 12),
             
             // Titre du théorème
-            MarkdownBody(
+            LatexText(
               data: '**${demo['titre']}**',
-              styleSheet: MarkdownStyleSheet(
-                p: const TextStyle(fontSize: 16),
-              ),
-              extensionSet: _latexExtensionSet,
-              builders: {'latex': LatexElementBuilder()},
+              style: const TextStyle(fontSize: 16),
             ),
             
             const SizedBox(height: 12),
@@ -219,11 +247,7 @@ class _DemonstrationsPageState extends State<DemonstrationsPage> {
                     style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
                   ),
                   const SizedBox(height: 8),
-                  MarkdownBody(
-                    data: demo['enonce'],
-                    extensionSet: _latexExtensionSet,
-                    builders: {'latex': LatexElementBuilder()},
-                  ),
+                  LatexText(data: demo['enonce']),
                 ],
               ),
             ),
@@ -320,11 +344,7 @@ class _DemonstrationsPageState extends State<DemonstrationsPage> {
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Expanded(
-                            child: MarkdownBody(
-                              data: entry.value,
-                              extensionSet: _latexExtensionSet,
-                              builders: {'latex': LatexElementBuilder()},
-                            ),
+                            child: LatexText(data: entry.value),
                           ),
                         ],
                       ),
@@ -358,9 +378,10 @@ class _DemonstrationsPageState extends State<DemonstrationsPage> {
                     const Icon(Icons.subdirectory_arrow_right, size: 16, color: Colors.grey),
                     const SizedBox(width: 4),
                     Expanded(
-                      child: Text(
-                        cor,
+                      child: LatexText(
+                        data: cor,
                         style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                        selectable: true,
                       ),
                     ),
                   ],
@@ -431,11 +452,7 @@ class _DemonstrationsPageState extends State<DemonstrationsPage> {
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   Expanded(
-                    child: MarkdownBody(
-                      data: entry.value,
-                      extensionSet: _latexExtensionSet,
-                      builders: {'latex': LatexElementBuilder()},
-                    ),
+                    child: LatexText(data: entry.value),
                   ),
                 ],
               ),

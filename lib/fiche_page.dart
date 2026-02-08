@@ -5,7 +5,6 @@ import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:markdown/markdown.dart' as md;
 import 'dart:convert';
-import 'dart:io';
 import 'package:agreg_master/models/quiz_model.dart';
 import 'package:agreg_master/pages/quiz_page.dart';
 import 'package:agreg_master/services/favorites_service.dart';
@@ -13,25 +12,6 @@ import 'package:agreg_master/services/notes_service.dart';
 import 'package:agreg_master/services/score_service.dart';
 import 'package:agreg_master/services/streak_service.dart';
 import 'package:agreg_master/services/reading_service.dart';
-
-// #region agent log helper
-void _debugLog(String location, String message, Map<String, dynamic> data, String hypothesisId) {
-  try {
-    final logEntry = jsonEncode({
-      'location': location,
-      'message': message,
-      'data': data,
-      'timestamp': DateTime.now().millisecondsSinceEpoch,
-      'sessionId': 'debug-session',
-      'hypothesisId': hypothesisId,
-    });
-    final file = File(r'c:\Users\luke2\Documents\Agreg_Master\.cursor\debug.log');
-    file.writeAsStringSync('$logEntry\n', mode: FileMode.append);
-  } catch (e) {
-    // Silent fail
-  }
-}
-// #endregion
 
 /// Custom builder for <glossary> tags that renders them as clickable links
 class GlossaryElementBuilder extends MarkdownElementBuilder {
@@ -153,20 +133,9 @@ class _FichePageState extends State<FichePage> {
       setState(() {
         _glossaire = data.map((k, v) => MapEntry(k.toString(), v.toString()));
       });
-      print("✅ Glossaire chargé : ${_glossaire.length} définitions.");
-      // #region agent log
-      _debugLog('fiche_page.dart:136', 'Glossaire loaded successfully', {
-        'totalEntries': _glossaire.length,
-        'sampleKeys': _glossaire.keys.take(10).toList(),
-      }, 'D');
-      // #endregion
+      debugPrint('Glossaire chargé : ${_glossaire.length} définitions.');
     } catch (e) {
-      print("❌ Erreur chargement glossaire : $e");
-      // #region agent log
-      _debugLog('fiche_page.dart:142', 'Glossaire loading error', {
-        'error': e.toString(),
-      }, 'D');
-      // #endregion
+      debugPrint('Erreur chargement glossaire : $e');
     }
   }
 
@@ -549,46 +518,17 @@ class _FichePageState extends State<FichePage> {
   }
 
   void _showGlossaireDialog(BuildContext context, String href) {
-    // #region agent log
-    _debugLog('fiche_page.dart:540', '_showGlossaireDialog called', {
-      'href': href,
-      'hrefStartsWithDef': href.startsWith('def:'),
-      'glossaireSize': _glossaire.length,
-    }, 'A,E');
-    // #endregion
-    
     if (!href.startsWith('def:')) return;
     final rawTerm = href.substring(4).trim();
     final termLower = rawTerm.toLowerCase();
     final normalizedTerm = _normalizeKey(rawTerm);
     
-    // #region agent log
-    _debugLog('fiche_page.dart:548', 'Term extraction done', {
-      'rawTerm': rawTerm,
-      'termLower': termLower,
-      'normalizedTerm': normalizedTerm,
-    }, 'B,C');
-    // #endregion
-    
     // Recherche 1 : exacte (lowercase)
     String? definition = _glossaire[termLower];
-    
-    // #region agent log
-    _debugLog('fiche_page.dart:555', 'After search 1 (exact lowercase)', {
-      'found': definition != null,
-      'searchKey': termLower,
-    }, 'A,B');
-    // #endregion
     
     // Recherche 2 : avec underscore (ex: "espace affine" -> "espace_affine")
     if (definition == null) {
       definition = _glossaire[termLower.replaceAll(' ', '_')];
-      // #region agent log
-      _debugLog('fiche_page.dart:564', 'After search 2 (with underscore)', {
-        'found': definition != null,
-        'searchKey': termLower.replaceAll(' ', '_'),
-      }, 'A,B');
-      // #endregion
     }
     
     // Recherche 3 : normalisée (sans accents, avec underscores)
@@ -596,24 +536,10 @@ class _FichePageState extends State<FichePage> {
       for (var entry in _glossaire.entries) {
         if (_normalizeKey(entry.key) == normalizedTerm) {
           definition = entry.value;
-          // #region agent log
-          _debugLog('fiche_page.dart:576', 'Found in search 3 (normalized)', {
-            'foundKey': entry.key,
-            'normalizedKey': _normalizeKey(entry.key),
-          }, 'B');
-          // #endregion
           break;
         }
       }
     }
-    
-    // #region agent log
-    _debugLog('fiche_page.dart:585', 'Final result', {
-      'definitionFound': definition != null,
-      'rawTerm': rawTerm,
-      'willShowError': definition == null,
-    }, 'A');
-    // #endregion
     
     final title = rawTerm.isEmpty ? 'Glossaire' : rawTerm[0].toUpperCase() + (rawTerm.length > 1 ? rawTerm.substring(1) : '');
     

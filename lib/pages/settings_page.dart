@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../services/settings_service.dart';
 import '../services/score_service.dart';
 import '../services/favorites_service.dart';
@@ -60,6 +62,33 @@ class _SettingsPageState extends State<SettingsPage> {
           // Section Premium
           _buildPremiumCard(isDark),
           const SizedBox(height: 24),
+
+          // Section Debug (visible uniquement en mode debug)
+          if (kDebugMode) ...[
+            _buildSectionTitle('Mode Test'),
+            _buildCard(isDark, [
+              SwitchListTile(
+                title: const Text('Premium activé'),
+                subtitle: Text(_subscriptionService.isPremium
+                    ? 'Plan: ${_subscriptionService.currentPlan ?? "test"}'
+                    : 'Activer pour tester sans payer'),
+                secondary: Icon(
+                  _subscriptionService.isPremium ? Icons.star : Icons.star_border,
+                  color: Colors.amber,
+                ),
+                value: _subscriptionService.isPremium,
+                onChanged: (value) async {
+                  if (value) {
+                    await _subscriptionService.activatePremiumManually('test', days: 365);
+                  } else {
+                    await _subscriptionService.deactivatePremium();
+                  }
+                  setState(() {});
+                },
+              ),
+            ]),
+            const SizedBox(height: 24),
+          ],
 
           // Section Apparence
           _buildSectionTitle('Apparence'),
@@ -250,6 +279,35 @@ class _SettingsPageState extends State<SettingsPage> {
 
           const SizedBox(height: 24),
 
+          // Section Légal
+          _buildSectionTitle('Légal'),
+          _buildCard(isDark, [
+            ListTile(
+              leading: const Icon(Icons.privacy_tip_outlined),
+              title: const Text('Politique de confidentialité'),
+              subtitle: const Text('Comment nous protégeons vos données'),
+              trailing: const Icon(Icons.open_in_new, size: 16),
+              onTap: () => _openUrl('https://luke27fr.github.io/agregmaster-legal/privacy.html'),
+            ),
+            const Divider(height: 1),
+            ListTile(
+              leading: const Icon(Icons.description_outlined),
+              title: const Text('Conditions Générales d\'Utilisation'),
+              subtitle: const Text('Règles d\'utilisation de l\'application'),
+              trailing: const Icon(Icons.open_in_new, size: 16),
+              onTap: () => _openUrl('https://luke27fr.github.io/agregmaster-legal/terms.html'),
+            ),
+            const Divider(height: 1),
+            ListTile(
+              leading: const Icon(Icons.gavel_outlined),
+              title: const Text('Mentions légales'),
+              trailing: const Icon(Icons.open_in_new, size: 16),
+              onTap: () => _openUrl('https://luke27fr.github.io/agregmaster-legal/legal.html'),
+            ),
+          ]),
+
+          const SizedBox(height: 24),
+
           // Section À propos
           _buildSectionTitle('À propos'),
           _buildCard(isDark, [
@@ -263,6 +321,14 @@ class _SettingsPageState extends State<SettingsPage> {
               leading: Icon(Icons.school),
               title: Text('Application de révision'),
               subtitle: Text('Préparation à l\'Agrégation de Mathématiques'),
+            ),
+            const Divider(height: 1),
+            ListTile(
+              leading: const Icon(Icons.email_outlined),
+              title: const Text('Contact & Support'),
+              subtitle: const Text('contact@agregmaster.app'),
+              trailing: const Icon(Icons.open_in_new, size: 16),
+              onTap: () => _openUrl('mailto:contact@agregmaster.app'),
             ),
           ]),
 
@@ -423,6 +489,13 @@ class _SettingsPageState extends State<SettingsPage> {
     if (value <= 1.15) return 'Grand';
     if (value <= 1.25) return 'Très grand';
     return 'Maximum';
+  }
+
+  Future<void> _openUrl(String url) async {
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
   }
 
   void _showResetDialog(

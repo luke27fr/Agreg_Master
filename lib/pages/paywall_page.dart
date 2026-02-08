@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../services/subscription_service.dart';
 
 /// Page PayWall Premium avec offres d'abonnement
@@ -119,7 +120,7 @@ class _PaywallPageState extends State<PaywallPage> {
 
                       // Texte légal
                       Text(
-                        'Paiement sécurisé via Google Play / App Store\nAnnulation possible à tout moment',
+                        'Paiement sécurisé via Google Play / App Store\nAnnulation possible à tout moment\nL\'abonnement se renouvelle automatiquement sauf annulation\nau moins 24h avant la fin de la période en cours.',
                         style: TextStyle(
                           color: Colors.white.withAlpha((0.6 * 255).round()),
                           fontSize: 12,
@@ -128,7 +129,41 @@ class _PaywallPageState extends State<PaywallPage> {
                         textAlign: TextAlign.center,
                       ),
 
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 12),
+
+                      // Liens légaux (requis par les stores)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TextButton(
+                            onPressed: () => _openLegalPage('https://luke27fr.github.io/agregmaster-legal/privacy.html'),
+                            child: Text(
+                              'Politique de confidentialité',
+                              style: TextStyle(
+                                color: Colors.white.withAlpha((0.6 * 255).round()),
+                                fontSize: 12,
+                                decoration: TextDecoration.underline,
+                                decorationColor: Colors.white.withAlpha((0.6 * 255).round()),
+                              ),
+                            ),
+                          ),
+                          Text(' | ', style: TextStyle(color: Colors.white.withAlpha((0.4 * 255).round()))),
+                          TextButton(
+                            onPressed: () => _openLegalPage('https://luke27fr.github.io/agregmaster-legal/terms.html'),
+                            child: Text(
+                              'CGU',
+                              style: TextStyle(
+                                color: Colors.white.withAlpha((0.6 * 255).round()),
+                                fontSize: 12,
+                                decoration: TextDecoration.underline,
+                                decorationColor: Colors.white.withAlpha((0.6 * 255).round()),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(height: 16),
                     ],
                   ),
                 ),
@@ -471,6 +506,13 @@ class _PaywallPageState extends State<PaywallPage> {
           duration: const Duration(seconds: 4),
         ),
       );
+    }
+  }
+
+  Future<void> _openLegalPage(String url) async {
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
     }
   }
 

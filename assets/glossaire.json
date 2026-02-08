@@ -110,5 +110,13 @@
     "tcl": "Théorème central limite : la somme normalisée de v.a. i.i.d. converge vers une loi normale.",
     "lgn": "Loi des grands nombres : la moyenne empirique converge vers l'espérance.",
     "tvi": "Théorème des valeurs intermédiaires : une fonction continue sur [a,b] atteint toute valeur entre f(a) et f(b).",
-    "taf": "Théorème des accroissements finis : f(b)-f(a) = f'(c)(b-a) pour un certain c entre a et b."
+    "taf": "Théorème des accroissements finis : f(b)-f(a) = f'(c)(b-a) pour un certain c entre a et b.",
+    "euclidien": "Se dit d'un espace vectoriel réel de dimension finie muni d'un produit scalaire. L'espace euclidien permet de définir distances, angles et orthogonalité.",
+    "matrice_orthogonale": "Matrice carrée réelle A telle que A⁻¹ = Aᵀ, c'est-à-dire AᵀA = I. Ses colonnes forment une base orthonormée. Le déterminant vaut ±1.",
+    "matrice orthogonale": "Matrice carrée réelle A telle que A⁻¹ = Aᵀ, c'est-à-dire AᵀA = I. Ses colonnes forment une base orthonormée. Le déterminant vaut ±1.",
+    "symetrique": "Se dit d'une matrice A telle que A = Aᵀ, ou d'un endomorphisme u d'un espace euclidien tel que ⟨u(x),y⟩ = ⟨x,u(y)⟩ pour tous x, y.",
+    "endomorphisme": "Application linéaire d'un espace vectoriel dans lui-même.",
+    "isometrie": "Application linéaire préservant la norme (et donc le produit scalaire). Sur un espace euclidien, sa matrice dans une BON est orthogonale.",
+    "spectre": "Ensemble des valeurs propres d'un endomorphisme ou d'une matrice.",
+    "auto-adjoint": "Endomorphisme u d'un espace euclidien vérifiant ⟨u(x),y⟩ = ⟨x,u(y)⟩. Aussi appelé symétrique. Il est diagonalisable en BON avec des valeurs propres réelles."
   }
