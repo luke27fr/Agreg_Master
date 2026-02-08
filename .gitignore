@@ -52,3 +52,5 @@ macos/Runner/GoogleService-Info.plist
 *.keystore
 .env
 .env.*
+*.p8
+AuthKey_*.p8
