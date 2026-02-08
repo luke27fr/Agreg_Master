@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -25,12 +26,24 @@ class _PaywallPageState extends State<PaywallPage> {
 
   Future<void> _loadProducts() async {
     setState(() => _isLoading = true);
-    final products = await _subscriptionService.getAvailableProducts();
-    if (mounted) {
-      setState(() {
-        _products = products;
-        _isLoading = false;
-      });
+    try {
+      final products = await _subscriptionService
+          .getAvailableProducts()
+          .timeout(const Duration(seconds: 8), onTimeout: () => []);
+      if (mounted) {
+        setState(() {
+          _products = products;
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      debugPrint('Erreur chargement produits paywall: $e');
+      if (mounted) {
+        setState(() {
+          _products = [];
+          _isLoading = false;
+        });
+      }
     }
   }
 
@@ -258,20 +271,18 @@ class _PaywallPageState extends State<PaywallPage> {
     );
   }
 
+  ProductDetails _findProduct(String id, String fallbackPrice) {
+    for (final p in _products) {
+      if (p.id == id) return p;
+    }
+    return _createMockProduct(id, fallbackPrice);
+  }
+
   Widget _buildSubscriptionPlans() {
     // Récupérer les produits
-    final monthly = _products.firstWhere(
-      (p) => p.id == SubscriptionService.monthlyId,
-      orElse: () => _createMockProduct(SubscriptionService.monthlyId, '4,99 €'),
-    );
-    final yearly = _products.firstWhere(
-      (p) => p.id == SubscriptionService.yearlyId,
-      orElse: () => _createMockProduct(SubscriptionService.yearlyId, '39,99 €'),
-    );
-    final student = _products.firstWhere(
-      (p) => p.id == SubscriptionService.studentId,
-      orElse: () => _createMockProduct(SubscriptionService.studentId, '29,99 €'),
-    );
+    final monthly = _findProduct(SubscriptionService.monthlyId, '4,99 €');
+    final yearly = _findProduct(SubscriptionService.yearlyId, '39,99 €');
+    final student = _findProduct(SubscriptionService.studentId, '29,99 €');
 
     return Column(
       children: [
@@ -397,20 +408,21 @@ class _PaywallPageState extends State<PaywallPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
+                  Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    spacing: 8,
                     children: [
                       Text(
                         title,
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 17,
                           fontWeight: FontWeight.bold,
                           color: isSelected
                               ? Colors.indigo.shade700
                               : Colors.white,
                         ),
                       ),
-                      if (badge != null) ...[
-                        const SizedBox(width: 8),
+                      if (badge != null)
                         Container(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 8,
@@ -429,7 +441,6 @@ class _PaywallPageState extends State<PaywallPage> {
                             ),
                           ),
                         ),
-                      ],
                     ],
                   ),
                   const SizedBox(height: 3),

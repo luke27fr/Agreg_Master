@@ -107,17 +107,28 @@ class SubscriptionService extends ChangeNotifier {
 
   /// Récupérer les produits disponibles
   Future<List<ProductDetails>> getAvailableProducts() async {
-    final Set<String> productIds = {monthlyId, yearlyId, studentId};
-    
-    final ProductDetailsResponse response = await _iap.queryProductDetails(productIds);
-    
-    if (response.error != null) {
-      _error = response.error!.message;
-      notifyListeners();
+    try {
+      final available = await _iap.isAvailable();
+      if (!available) {
+        debugPrint('In-App Purchase non disponible');
+        return [];
+      }
+
+      final Set<String> productIds = {monthlyId, yearlyId, studentId};
+      
+      final ProductDetailsResponse response = await _iap.queryProductDetails(productIds);
+      
+      if (response.error != null) {
+        _error = response.error!.message;
+        notifyListeners();
+        return [];
+      }
+
+      return response.productDetails;
+    } catch (e) {
+      debugPrint('Erreur chargement produits: $e');
       return [];
     }
-
-    return response.productDetails;
   }
 
   /// Acheter un abonnement

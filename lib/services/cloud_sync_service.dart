@@ -31,7 +31,7 @@ class CloudSyncService extends ChangeNotifier {
   
   // Listeners
   StreamSubscription<User?>? _authSubscription;
-  StreamSubscription<ConnectivityResult>? _connectivitySubscription;
+  StreamSubscription<List<ConnectivityResult>>? _connectivitySubscription;
   Timer? _autoSyncTimer;
 
   // Getters
@@ -65,12 +65,12 @@ class CloudSyncService extends ChangeNotifier {
       // Vérifier la connectivité
       final connectivity = Connectivity();
       final result = await connectivity.checkConnectivity();
-      _isOnline = result != ConnectivityResult.none;
+      _isOnline = !result.contains(ConnectivityResult.none);
 
       // Écouter les changements de connectivité
       _connectivitySubscription = connectivity.onConnectivityChanged.listen((result) {
         final wasOnline = _isOnline;
-        _isOnline = result != ConnectivityResult.none;
+        _isOnline = !result.contains(ConnectivityResult.none);
         
         if (!wasOnline && _isOnline) {
           debugPrint('🌐 Connexion rétablie, synchronisation...');
