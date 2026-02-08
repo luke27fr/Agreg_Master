@@ -28,6 +28,101 @@ class LatexText extends StatelessWidget {
     this.selectable = false,
   });
 
+  /// Convertit une formule LaTeX en texte lisible pour le fallback.
+  /// Remplace les commandes LaTeX courantes par leurs équivalents Unicode.
+  static String _latexToReadable(String formula) {
+    var s = formula;
+    // Commandes de symboles
+    s = s.replaceAll(r'\cdot', '·');
+    s = s.replaceAll(r'\cdots', '⋯');
+    s = s.replaceAll(r'\ldots', '…');
+    s = s.replaceAll(r'\times', '×');
+    s = s.replaceAll(r'\div', '÷');
+    s = s.replaceAll(r'\pm', '±');
+    s = s.replaceAll(r'\infty', '∞');
+    s = s.replaceAll(r'\in', '∈');
+    s = s.replaceAll(r'\notin', '∉');
+    s = s.replaceAll(r'\subset', '⊂');
+    s = s.replaceAll(r'\supset', '⊃');
+    s = s.replaceAll(r'\subseteq', '⊆');
+    s = s.replaceAll(r'\supseteq', '⊇');
+    s = s.replaceAll(r'\cup', '∪');
+    s = s.replaceAll(r'\cap', '∩');
+    s = s.replaceAll(r'\emptyset', '∅');
+    s = s.replaceAll(r'\forall', '∀');
+    s = s.replaceAll(r'\exists', '∃');
+    s = s.replaceAll(r'\partial', '∂');
+    s = s.replaceAll(r'\nabla', '∇');
+    s = s.replaceAll(r'\leq', '≤');
+    s = s.replaceAll(r'\geq', '≥');
+    s = s.replaceAll(r'\neq', '≠');
+    s = s.replaceAll(r'\approx', '≈');
+    s = s.replaceAll(r'\equiv', '≡');
+    s = s.replaceAll(r'\sim', '∼');
+    s = s.replaceAll(r'\to', '→');
+    s = s.replaceAll(r'\rightarrow', '→');
+    s = s.replaceAll(r'\leftarrow', '←');
+    s = s.replaceAll(r'\Rightarrow', '⇒');
+    s = s.replaceAll(r'\Leftarrow', '⇐');
+    s = s.replaceAll(r'\implies', '⟹');
+    s = s.replaceAll(r'\iff', '⟺');
+    s = s.replaceAll(r'\mapsto', '↦');
+    s = s.replaceAll(r'\circ', '∘');
+    s = s.replaceAll(r'\oplus', '⊕');
+    s = s.replaceAll(r'\otimes', '⊗');
+    s = s.replaceAll(r'\langle', '⟨');
+    s = s.replaceAll(r'\rangle', '⟩');
+    // Lettres grecques
+    s = s.replaceAll(r'\alpha', 'α');
+    s = s.replaceAll(r'\beta', 'β');
+    s = s.replaceAll(r'\gamma', 'γ');
+    s = s.replaceAll(r'\delta', 'δ');
+    s = s.replaceAll(r'\epsilon', 'ε');
+    s = s.replaceAll(r'\varepsilon', 'ε');
+    s = s.replaceAll(r'\zeta', 'ζ');
+    s = s.replaceAll(r'\eta', 'η');
+    s = s.replaceAll(r'\theta', 'θ');
+    s = s.replaceAll(r'\lambda', 'λ');
+    s = s.replaceAll(r'\mu', 'μ');
+    s = s.replaceAll(r'\nu', 'ν');
+    s = s.replaceAll(r'\xi', 'ξ');
+    s = s.replaceAll(r'\pi', 'π');
+    s = s.replaceAll(r'\rho', 'ρ');
+    s = s.replaceAll(r'\sigma', 'σ');
+    s = s.replaceAll(r'\tau', 'τ');
+    s = s.replaceAll(r'\phi', 'φ');
+    s = s.replaceAll(r'\varphi', 'φ');
+    s = s.replaceAll(r'\chi', 'χ');
+    s = s.replaceAll(r'\psi', 'ψ');
+    s = s.replaceAll(r'\omega', 'ω');
+    s = s.replaceAll(r'\Delta', 'Δ');
+    s = s.replaceAll(r'\Gamma', 'Γ');
+    s = s.replaceAll(r'\Lambda', 'Λ');
+    s = s.replaceAll(r'\Sigma', 'Σ');
+    s = s.replaceAll(r'\Omega', 'Ω');
+    s = s.replaceAll(r'\Phi', 'Φ');
+    s = s.replaceAll(r'\Psi', 'Ψ');
+    s = s.replaceAll(r'\Pi', 'Π');
+    s = s.replaceAll(r'\Theta', 'Θ');
+    // Fonctions
+    s = s.replaceAllMapped(RegExp(r'\\mathbb\{([A-Z])\}'), (m) {
+      const bb = {'R': 'ℝ', 'C': 'ℂ', 'N': 'ℕ', 'Z': 'ℤ', 'Q': 'ℚ', 'K': '𝕂', 'F': '𝔽'};
+      return bb[m.group(1)] ?? m.group(1)!;
+    });
+    s = s.replaceAllMapped(RegExp(r'\\sqrt\{([^}]*)\}'), (m) => '√(${m.group(1)})');
+    s = s.replaceAllMapped(RegExp(r'\\frac\{([^}]*)\}\{([^}]*)\}'), (m) => '(${m.group(1)})/(${m.group(2)})');
+    s = s.replaceAllMapped(RegExp(r'\\text\{([^}]*)\}'), (m) => m.group(1)!);
+    s = s.replaceAllMapped(RegExp(r'\\mathrm\{([^}]*)\}'), (m) => m.group(1)!);
+    s = s.replaceAllMapped(RegExp(r'\\overline\{([^}]*)\}'), (m) => '${m.group(1)}̄');
+    s = s.replaceAllMapped(RegExp(r'\\bar\{([^}]*)\}'), (m) => '${m.group(1)}̄');
+    // Supprimer les commandes restantes \xxx
+    s = s.replaceAll(RegExp(r'\\[a-zA-Z]+'), '');
+    // Nettoyer les accolades restantes
+    s = s.replaceAll('{', '');
+    s = s.replaceAll('}', '');
+    return s.trim();
+  }
+
   @override
   Widget build(BuildContext context) {
     if (data.trim().isEmpty) return const SizedBox.shrink();
@@ -111,7 +206,7 @@ class LatexText extends StatelessWidget {
               fontSize: (effectiveStyle.fontSize ?? 14) + 2,
             ),
             onErrorFallback: (_) => Text(
-              formula,
+              _latexToReadable(formula),
               style: effectiveStyle.copyWith(fontStyle: FontStyle.italic),
             ),
           ),
@@ -170,7 +265,7 @@ class LatexText extends StatelessWidget {
               mathStyle: MathStyle.text,
               textStyle: baseStyle,
               onErrorFallback: (_) => Text(
-                formula,
+                _latexToReadable(formula),
                 style: baseStyle.copyWith(fontStyle: FontStyle.italic),
               ),
             ),

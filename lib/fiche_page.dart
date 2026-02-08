@@ -467,6 +467,8 @@ class _FichePageState extends State<FichePage> {
               child: MarkdownBody(
               data: text,
               styleSheet: styleSheet,
+              extensionSet: _markdownLatexExtensionSet,
+              builders: _getBuilders(Colors.blue),
               onTapLink: (text, href, title) => _showGlossaireDialog(context, href ?? ''),
             ),
             ));
@@ -960,6 +962,8 @@ class _FichePageState extends State<FichePage> {
     return MarkdownBody(
       data: text,
       styleSheet: styleSheet,
+      extensionSet: _markdownLatexExtensionSet,
+      builders: _getBuilders(Colors.blue),
       onTapLink: (text, href, title) => _showGlossaireDialog(context, href ?? ''),
     );
   }

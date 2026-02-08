@@ -13,12 +13,233 @@ library;
 /// Convertit une chaîne contenant du texte mathématique Unicode en LaTeX.
 String toLatex(String text) {
   if (text.isEmpty) return text;
-  // Si déjà du LaTeX, ne pas retraiter
-  if (text.contains('\$')) return text;
 
-  String result = _convertUnicode(text);
+  // Phase 0 : envelopper les commandes LaTeX brutes (\cmd) hors des $...$
+  String result = _wrapRawLatexCommands(text);
+
+  // Phase 1 : conversion Unicode → LaTeX, uniquement hors des $...$
+  if (result.contains('\$')) {
+    // Texte mixte : convertir seulement les parties hors $...$
+    result = _convertUnicodeOutsideMath(result);
+  } else {
+    result = _convertUnicode(result);
+  }
+
   result = _mergeAdjacentMath(result);
   return result;
+}
+
+/// Convertit Unicode en LaTeX uniquement dans les parties hors des $...$ et $$...$$.
+String _convertUnicodeOutsideMath(String text) {
+  final buf = StringBuffer();
+  int i = 0;
+  while (i < text.length) {
+    if (text[i] == '\$') {
+      // Détecter $$ (display) ou $ (inline)
+      if (i + 1 < text.length && text[i + 1] == '\$') {
+        // $$...$$ : copier tel quel
+        final close = text.indexOf('\$\$', i + 2);
+        if (close != -1) {
+          buf.write(text.substring(i, close + 2));
+          i = close + 2;
+        } else {
+          buf.write(text.substring(i));
+          break;
+        }
+      } else {
+        // $...$ : copier tel quel
+        final close = text.indexOf('\$', i + 1);
+        if (close != -1) {
+          buf.write(text.substring(i, close + 1));
+          i = close + 1;
+        } else {
+          buf.write(text.substring(i));
+          break;
+        }
+      }
+    } else {
+      // Hors math : trouver le prochain $ et convertir ce segment
+      final nextDollar = text.indexOf('\$', i);
+      final segment = nextDollar == -1
+          ? text.substring(i)
+          : text.substring(i, nextDollar);
+      buf.write(_convertUnicode(segment));
+      i += segment.length;
+    }
+  }
+  return buf.toString();
+}
+
+/// Phase 0 : Détecte les commandes LaTeX brutes (\cmd, \cmd{...}) hors des $...$
+/// et les enveloppe dans $...$. Regroupe les séquences adjacentes.
+String _wrapRawLatexCommands(String text) {
+  // Si pas de backslash, rien à faire
+  if (!text.contains('\\')) return text;
+
+  // Commandes LaTeX connues à détecter (sans le \)
+  const knownCommands = {
+    'cdot', 'cdots', 'ldots', 'times', 'div', 'pm', 'mp',
+    'lambda', 'Lambda', 'alpha', 'beta', 'gamma', 'delta', 'Delta',
+    'epsilon', 'varepsilon', 'theta', 'Theta', 'mu', 'nu', 'xi',
+    'pi', 'Pi', 'rho', 'sigma', 'Sigma', 'tau', 'phi', 'Phi',
+    'varphi', 'psi', 'Psi', 'omega', 'Omega', 'chi', 'eta', 'zeta',
+    'sqrt', 'frac', 'sum', 'prod', 'int', 'oint',
+    'infty', 'partial', 'nabla', 'forall', 'exists',
+    'mathbb', 'mathbf', 'mathrm', 'mathcal', 'text',
+    'langle', 'rangle', 'lfloor', 'rfloor', 'lceil', 'rceil',
+    'leq', 'geq', 'neq', 'approx', 'equiv', 'sim', 'simeq',
+    'subset', 'supset', 'subseteq', 'supseteq', 'in', 'notin',
+    'cup', 'cap', 'setminus', 'emptyset',
+    'to', 'rightarrow', 'leftarrow', 'Rightarrow', 'Leftarrow',
+    'mapsto', 'implies', 'iff',
+    'overline', 'underline', 'hat', 'tilde', 'bar', 'vec',
+    'oplus', 'otimes', 'circ', 'bullet',
+    'det', 'dim', 'ker', 'Im', 'Re', 'log', 'ln', 'exp',
+    'sin', 'cos', 'tan', 'arcsin', 'arccos', 'arctan',
+    'min', 'max', 'sup', 'inf', 'lim',
+    'binom', 'choose',
+    'ell',
+  };
+
+  final buf = StringBuffer();
+  int i = 0;
+  bool inDollar = false;
+
+  while (i < text.length) {
+    // Basculer le mode $...$
+    if (text[i] == '\$') {
+      inDollar = !inDollar;
+      buf.write(text[i]);
+      i++;
+      continue;
+    }
+
+    // Hors des $...$, détecter \commande
+    if (!inDollar && text[i] == '\\' && i + 1 < text.length) {
+      // Lire le nom de la commande
+      int cmdStart = i + 1;
+      int cmdEnd = cmdStart;
+      while (cmdEnd < text.length &&
+          ((text.codeUnitAt(cmdEnd) >= 65 && text.codeUnitAt(cmdEnd) <= 90) ||
+           (text.codeUnitAt(cmdEnd) >= 97 && text.codeUnitAt(cmdEnd) <= 122))) {
+        cmdEnd++;
+      }
+
+      final cmdName = text.substring(cmdStart, cmdEnd);
+
+      if (cmdName.isNotEmpty && knownCommands.contains(cmdName)) {
+        // Collecter la commande + arguments {...} et contenu math adjacent
+        final mathBuf = StringBuffer();
+        mathBuf.write('\\$cmdName');
+        i = cmdEnd;
+
+        // Consommer les arguments {....}
+        while (i < text.length && text[i] == '{') {
+          int depth = 1;
+          mathBuf.write('{');
+          i++;
+          while (i < text.length && depth > 0) {
+            if (text[i] == '{') depth++;
+            if (text[i] == '}') depth--;
+            mathBuf.write(text[i]);
+            i++;
+          }
+        }
+
+        // Continuer à collecter les tokens math adjacents
+        // (lettres, chiffres, ^, _, {}, autres \commandes, espaces courts)
+        bool continueCollecting = true;
+        while (continueCollecting && i < text.length) {
+          final ch = text[i];
+          if (ch == '\\' && i + 1 < text.length) {
+            // Autre commande LaTeX adjacente
+            int nc = i + 1;
+            int ne = nc;
+            while (ne < text.length &&
+                ((text.codeUnitAt(ne) >= 65 && text.codeUnitAt(ne) <= 90) ||
+                 (text.codeUnitAt(ne) >= 97 && text.codeUnitAt(ne) <= 122))) {
+              ne++;
+            }
+            final nextCmd = text.substring(nc, ne);
+            if (nextCmd.isNotEmpty && knownCommands.contains(nextCmd)) {
+              mathBuf.write('\\$nextCmd');
+              i = ne;
+              // Consommer les arguments
+              while (i < text.length && text[i] == '{') {
+                int depth = 1;
+                mathBuf.write('{');
+                i++;
+                while (i < text.length && depth > 0) {
+                  if (text[i] == '{') depth++;
+                  if (text[i] == '}') depth--;
+                  mathBuf.write(text[i]);
+                  i++;
+                }
+              }
+            } else {
+              continueCollecting = false;
+            }
+          } else if (ch == '^' || ch == '_') {
+            mathBuf.write(ch);
+            i++;
+            // Consommer l'argument qui suit (lettre, chiffre, ou {..})
+            if (i < text.length) {
+              if (text[i] == '{') {
+                int depth = 1;
+                mathBuf.write('{');
+                i++;
+                while (i < text.length && depth > 0) {
+                  if (text[i] == '{') depth++;
+                  if (text[i] == '}') depth--;
+                  mathBuf.write(text[i]);
+                  i++;
+                }
+              } else {
+                mathBuf.write(text[i]);
+                i++;
+              }
+            }
+          } else if ((ch.codeUnitAt(0) >= 65 && ch.codeUnitAt(0) <= 90) ||
+                     (ch.codeUnitAt(0) >= 97 && ch.codeUnitAt(0) <= 122) ||
+                     (ch.codeUnitAt(0) >= 48 && ch.codeUnitAt(0) <= 57) ||
+                     ch == '(' || ch == ')' || ch == ',' || ch == '.' ||
+                     ch == '+' || ch == '-' || ch == '=' || ch == '!' ||
+                     ch == '|' || ch == '/' || ch == '\'' || ch == ' ') {
+            // Espace : seulement si suivi d'un autre token math
+            if (ch == ' ') {
+              // Regarder si le prochain non-espace est un token math
+              int peek = i + 1;
+              while (peek < text.length && text[peek] == ' ') peek++;
+              if (peek < text.length &&
+                  (text[peek] == '\\' || text[peek] == '^' || text[peek] == '_' ||
+                   text[peek] == '{')) {
+                mathBuf.write(' ');
+                i++;
+              } else {
+                continueCollecting = false;
+              }
+            } else {
+              mathBuf.write(ch);
+              i++;
+            }
+          } else {
+            continueCollecting = false;
+          }
+        }
+
+        buf.write('\$${mathBuf.toString()}\$');
+      } else {
+        // Pas une commande connue, garder tel quel
+        buf.write(text[i]);
+        i++;
+      }
+    } else {
+      buf.write(text[i]);
+      i++;
+    }
+  }
+
+  return buf.toString();
 }
 
 /// Phase 1 : conversion Unicode → LaTeX token par token.
@@ -283,7 +504,7 @@ String _convertUnicode(String text) {
     // ── Racine √ ──
     if (ch == '√') {
       i++;
-      // Consommer le contenu qui suit (chiffres, lettres, parenthèses)
+      // Consommer le contenu qui suit (chiffres, lettres, parenthèses, lettres grecques, indices)
       String arg = '';
       if (i < runes.length) {
         final next = String.fromCharCode(runes[i]);
@@ -299,7 +520,7 @@ String _convertUnicode(String text) {
             i++;
           }
         } else {
-          // √250, √n, √x → consommer chiffres/lettres
+          // √250, √n, √x, √λₙ → consommer chiffres/lettres/grec/indices
           while (i < runes.length) {
             final c = String.fromCharCode(runes[i]);
             if ((c.codeUnitAt(0) >= 48 && c.codeUnitAt(0) <= 57) || // 0-9
@@ -307,6 +528,38 @@ String _convertUnicode(String text) {
                 (c.codeUnitAt(0) >= 97 && c.codeUnitAt(0) <= 122)) { // a-z
               arg += c;
               i++;
+            } else if (_greek.containsKey(c)) {
+              arg += _greek[c]!;
+              i++;
+              // Consommer les indices/exposants Unicode qui suivent la lettre grecque
+              while (i < runes.length) {
+                final sc = String.fromCharCode(runes[i]);
+                if (_sub.containsKey(sc)) {
+                  String s = '';
+                  while (i < runes.length && _sub.containsKey(String.fromCharCode(runes[i]))) {
+                    s += _sub[String.fromCharCode(runes[i])]!;
+                    i++;
+                  }
+                  arg += s.length > 1 ? '_{$s}' : '_$s';
+                } else if (_sup.containsKey(sc)) {
+                  String s = '';
+                  while (i < runes.length && _sup.containsKey(String.fromCharCode(runes[i]))) {
+                    s += _sup[String.fromCharCode(runes[i])]!;
+                    i++;
+                  }
+                  arg += s.length > 1 ? '^{$s}' : '^$s';
+                } else {
+                  break;
+                }
+              }
+            } else if (_sub.containsKey(c)) {
+              // Indices Unicode directement après un chiffre/lettre
+              String s = '';
+              while (i < runes.length && _sub.containsKey(String.fromCharCode(runes[i]))) {
+                s += _sub[String.fromCharCode(runes[i])]!;
+                i++;
+              }
+              arg += s.length > 1 ? '_{$s}' : '_$s';
             } else {
               break;
             }
@@ -347,6 +600,14 @@ String _convertUnicode(String text) {
       continue;
     }
 
+    // ── Symboles spéciaux isolés ──
+    // † (dagger) hors contexte d'exposant
+    if (ch == '†') {
+      buf.write(r'$\dagger$');
+      i++;
+      continue;
+    }
+
     // ── Exposant ASCII ^ ──
     if (ch == '^') {
       final prefix = _backtrackVar(buf);
@@ -367,8 +628,14 @@ String _convertUnicode(String text) {
             i++;
           }
         } else {
-          // ^x (single char)
-          sup = next;
+          // ^x (single char) — convertir les symboles spéciaux
+          if (next == '†') {
+            sup = '\\dagger';
+          } else if (next == '⊤') {
+            sup = '\\top';
+          } else {
+            sup = next;
+          }
           i++;
         }
       }
@@ -446,6 +713,54 @@ String _convertUnicode(String text) {
       continue;
     }
 
+    // ── Diacritiques combinants Unicode (barre, tilde, chapeau sur le caractère précédent) ──
+    // Caractères comme v̄ = 'v' + U+0304 (combining overbar)
+    final code = runes[i];
+    if (code == 0x0304 || code == 0x0305) {
+      // Combining overline/macron → \overline{x}
+      final prefix = _backtrackVar(buf);
+      if (prefix.isNotEmpty) {
+        buf.write('\$\\overline{$prefix}\$');
+      } else {
+        buf.writeCharCode(code);
+      }
+      i++;
+      continue;
+    }
+    if (code == 0x0303) {
+      // Combining tilde → \tilde{x}
+      final prefix = _backtrackVar(buf);
+      if (prefix.isNotEmpty) {
+        buf.write('\$\\tilde{$prefix}\$');
+      } else {
+        buf.writeCharCode(code);
+      }
+      i++;
+      continue;
+    }
+    if (code == 0x0302) {
+      // Combining circumflex → \hat{x}
+      final prefix = _backtrackVar(buf);
+      if (prefix.isNotEmpty) {
+        buf.write('\$\\hat{$prefix}\$');
+      } else {
+        buf.writeCharCode(code);
+      }
+      i++;
+      continue;
+    }
+    if (code == 0x20D7) {
+      // Combining right arrow → \vec{x}
+      final prefix = _backtrackVar(buf);
+      if (prefix.isNotEmpty) {
+        buf.write('\$\\vec{$prefix}\$');
+      } else {
+        buf.writeCharCode(code);
+      }
+      i++;
+      continue;
+    }
+
     // ── Caractère normal (y compris ∈, ≤, ≥, →, etc. laissés en Unicode) ──
     buf.write(ch);
     i++;
@@ -463,24 +778,39 @@ String _convertUnicode(String text) {
 /// - `$a$(x)` → `$a(x)$`
 /// - `$\|$$f_n$$\|$` → `$\|f_n\|$`
 String _mergeAdjacentMath(String text) {
-  // Fusion 1 : $a$$b$ → $ab$ (directement adjacents)
+  // Fusion 1 : $a$$b$ → $a b$ (directement adjacents)
+  // Ajoute un espace si $a$ finit par une commande \xxx et $b$ commence par une lettre
   var result = text;
   var prev = '';
   while (result != prev) {
     prev = result;
     result = result.replaceAllMapped(
         RegExp(r'\$([^$]+)\$\$([^$]+)\$'),
-        (m) => '\$${m.group(1)}${m.group(2)}\$');
+        (m) {
+          final a = m.group(1)!;
+          final b = m.group(2)!;
+          // Si a finit par une commande \xxx et b commence par une lettre,
+          // ajouter un espace pour éviter \cdotP → \cdot P
+          final needsSpace = RegExp(r'\\[a-zA-Z]+$').hasMatch(a) &&
+              b.isNotEmpty && RegExp(r'^[a-zA-Z]').hasMatch(b);
+          return '\$${a}${needsSpace ? ' ' : ''}${b}\$';
+        });
   }
 
   // Fusion 2 : $a$<sep>$b$ où sep est court
-  // Inclut /, ·, ×, -, +, =, (, ), [, ], |, ,, _, espace, et chiffres
+  // Inclut /, ·, ×, -, +, =, (, ), [, ], ,, _, espace, et chiffres
+  // NOTE: PAS de | (pipe) car il est utilisé pour la cardinalité |P₃| et ne doit pas être absorbé
   prev = '';
   while (result != prev) {
     prev = result;
     result = result.replaceAllMapped(
-        RegExp(r'\$([^$]+)\$([/·×\-+=|_,\s\(\)\[\]0-9]{1,4})\$([^$]+)\$'),
-        (m) => '\$${m.group(1)}${m.group(2)}${m.group(3)}\$');
+        RegExp(r'\$([^$]+)\$([/·×\-+=_,\s\(\)\[\]0-9]{1,4})\$([^$]+)\$'),
+        (m) {
+          final a = m.group(1)!;
+          final sep = m.group(2)!;
+          final b = m.group(3)!;
+          return '\$${a}${sep}${b}\$';
+        });
   }
 
   // Fusion 3 : $a$(content) → $a(content)$ si content est court et math-like
