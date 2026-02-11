@@ -116,7 +116,7 @@ class _ApprendreTabState extends State<ApprendreTab> {
                   sliver: SliverGrid(
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      childAspectRatio: 1.3,
+                      childAspectRatio: 1.15,
                       crossAxisSpacing: 12,
                       mainAxisSpacing: 12,
                     ),
