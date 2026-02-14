@@ -1,7 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:path_provider/path_provider.dart';
+import 'storage_service.dart';
 
 /// Service pour gérer les streaks et objectifs quotidiens
 class StreakService extends ChangeNotifier {
@@ -30,18 +29,12 @@ class StreakService extends ChangeNotifier {
     'revision': DailyObjective(id: 'revision', title: 'Réviser', target: 15, icon: 'timer', unit: 'min'),
   };
 
-  Future<File> _getFile() async {
-    final dir = await getApplicationDocumentsDirectory();
-    return File('${dir.path}/agreg_master_streaks.json');
-  }
-
   Future<void> loadData() async {
     if (_isLoaded) return;
     
     try {
-      final file = await _getFile();
-      if (await file.exists()) {
-        final content = await file.readAsString();
+      final content = await StorageService.instance.read('agreg_master_streaks.json');
+      if (content != null) {
         final Map<String, dynamic> data = jsonDecode(content);
         
         _currentStreak = data['currentStreak'] ?? 0;
@@ -163,7 +156,6 @@ class StreakService extends ChangeNotifier {
 
   Future<void> _saveData() async {
     try {
-      final file = await _getFile();
       final today = _dateKey(DateTime.now());
       
       final data = {
@@ -176,7 +168,7 @@ class StreakService extends ChangeNotifier {
         },
       };
       
-      await file.writeAsString(jsonEncode(data));
+      await StorageService.instance.write('agreg_master_streaks.json', jsonEncode(data));
     } catch (e) {
       debugPrint('Erreur sauvegarde streaks: $e');
     }

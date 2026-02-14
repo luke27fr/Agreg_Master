@@ -1,7 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:path_provider/path_provider.dart';
+import 'storage_service.dart';
 import '../models/wellness_model.dart';
 
 class WellnessService extends ChangeNotifier {
@@ -202,13 +201,13 @@ class WellnessService extends ChangeNotifier {
 
     final tempsMoyen = groupedByDay.values
         .map((sessions) => sessions.map((s) => s.dureeMinutes).fold(0, (a, b) => a + b))
-        .fold(0, (a, b) => a + b) / (groupedByDay.length > 0 ? groupedByDay.length : 1);
+        .fold(0, (a, b) => a + b) / (groupedByDay.isNotEmpty ? groupedByDay.length : 1);
 
-    final sessionsMoyennes = last30Days.length / (groupedByDay.length > 0 ? groupedByDay.length : 1);
+    final sessionsMoyennes = last30Days.length / (groupedByDay.isNotEmpty ? groupedByDay.length : 1);
 
     final concentrationMoyenne = last30Days
         .map((s) => s.concentrationNote)
-        .fold(0, (a, b) => a + b) / (last30Days.length > 0 ? last30Days.length : 1);
+        .fold(0, (a, b) => a + b) / (last30Days.isNotEmpty ? last30Days.length : 1);
 
     final joursRepos = 30 - groupedByDay.length;
 
@@ -216,16 +215,25 @@ class WellnessService extends ChangeNotifier {
     double risque = 0;
     
     // Facteur 1: Temps moyen trop élevé
-    if (tempsMoyen > 480) risque += 30; // >8h/jour
-    else if (tempsMoyen > 360) risque += 20; // >6h/jour
+    if (tempsMoyen > 480) {
+      risque += 30; // >8h/jour
+    } else if (tempsMoyen > 360) {
+      risque += 20; // >6h/jour
+    }
     
     // Facteur 2: Manque de repos
-    if (joursRepos < 2) risque += 25;
-    else if (joursRepos < 4) risque += 15;
+    if (joursRepos < 2) {
+      risque += 25;
+    } else if (joursRepos < 4) {
+      risque += 15;
+    }
     
     // Facteur 3: Concentration en baisse
-    if (concentrationMoyenne < 2.5) risque += 20;
-    else if (concentrationMoyenne < 3) risque += 10;
+    if (concentrationMoyenne < 2.5) {
+      risque += 20;
+    } else if (concentrationMoyenne < 3) {
+      risque += 10;
+    }
     
     // Facteur 4: Alertes non résolues
     final activeAlertsCount = activeAlerts.length;
@@ -273,16 +281,6 @@ class WellnessService extends ChangeNotifier {
   }
 
   // Persistance
-  Future<File> _getSessionsFile() async {
-    final dir = await getApplicationDocumentsDirectory();
-    return File('${dir.path}/study_sessions.json');
-  }
-
-  Future<File> _getAlertsFile() async {
-    final dir = await getApplicationDocumentsDirectory();
-    return File('${dir.path}/wellness_alerts.json');
-  }
-
   Future<void> loadData() async {
     await Future.wait([
       _loadSessions(),
@@ -292,9 +290,8 @@ class WellnessService extends ChangeNotifier {
 
   Future<void> _loadSessions() async {
     try {
-      final file = await _getSessionsFile();
-      if (await file.exists()) {
-        final content = await file.readAsString();
+      final content = await StorageService.instance.read('study_sessions.json');
+      if (content != null) {
         final data = jsonDecode(content) as List<dynamic>;
         _sessions = data
             .map((e) => StudySession.fromJson(e as Map<String, dynamic>))
@@ -308,9 +305,8 @@ class WellnessService extends ChangeNotifier {
 
   Future<void> _loadAlerts() async {
     try {
-      final file = await _getAlertsFile();
-      if (await file.exists()) {
-        final content = await file.readAsString();
+      final content = await StorageService.instance.read('wellness_alerts.json');
+      if (content != null) {
         final data = jsonDecode(content) as List<dynamic>;
         _alerts = data
             .map((e) => WellnessAlert.fromJson(e as Map<String, dynamic>))
@@ -324,9 +320,8 @@ class WellnessService extends ChangeNotifier {
 
   Future<void> _saveSessions() async {
     try {
-      final file = await _getSessionsFile();
       final data = _sessions.map((e) => e.toJson()).toList();
-      await file.writeAsString(jsonEncode(data));
+      await StorageService.instance.write('study_sessions.json', jsonEncode(data));
     } catch (e) {
       debugPrint('Erreur sauvegarde sessions: $e');
     }
@@ -334,9 +329,8 @@ class WellnessService extends ChangeNotifier {
 
   Future<void> _saveAlerts() async {
     try {
-      final file = await _getAlertsFile();
       final data = _alerts.map((e) => e.toJson()).toList();
-      await file.writeAsString(jsonEncode(data));
+      await StorageService.instance.write('wellness_alerts.json', jsonEncode(data));
     } catch (e) {
       debugPrint('Erreur sauvegarde alertes: $e');
     }

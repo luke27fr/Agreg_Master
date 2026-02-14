@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../services/score_service.dart';
 import '../services/reading_service.dart';
+import '../utils/theme_utils.dart';
 
 import '../widgets/global_search_button.dart';
 
@@ -153,7 +154,7 @@ class _StatsPageState extends State<StatsPage> {
             drawVerticalLine: false,
             horizontalInterval: 20,
             getDrawingHorizontalLine: (value) => FlLine(
-              color: Colors.grey.withOpacity(0.2),
+              color: Colors.grey.withValues(alpha: 0.2),
               strokeWidth: 1,
             ),
           ),
@@ -205,7 +206,7 @@ class _StatsPageState extends State<StatsPage> {
               ),
               belowBarData: BarAreaData(
                 show: true,
-                color: const Color(0xFF1A237E).withOpacity(0.1),
+                color: const Color(0xFF1A237E).withValues(alpha: 0.1),
               ),
             ),
             // Ligne de référence à 80%
@@ -215,7 +216,7 @@ class _StatsPageState extends State<StatsPage> {
                 FlSpot(spots.length - 1, 80),
               ],
               isCurved: false,
-              color: Colors.green.withOpacity(0.5),
+              color: Colors.green.withValues(alpha: 0.5),
               barWidth: 1,
               dotData: const FlDotData(show: false),
               dashArray: [5, 5],
@@ -228,7 +229,7 @@ class _StatsPageState extends State<StatsPage> {
                   if (spot.barIndex == 1) return null; // Ignorer la ligne de référence
                   final entry = recentHistory[spot.x.toInt()];
                   return LineTooltipItem(
-                    '${entry.ficheId}\n${spot.y.toInt()}%',
+                    '${ThemeUtils.getFicheTitle(entry.ficheId)}\n${spot.y.toInt()}%',
                     const TextStyle(color: Colors.white, fontSize: 12),
                   );
                 }).toList();
@@ -324,7 +325,7 @@ class _StatsPageState extends State<StatsPage> {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: _getThemeColor(theme['id']).withOpacity(0.1),
+                  color: _getThemeColor(theme['id']).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(
@@ -409,7 +410,7 @@ class _StatsPageState extends State<StatsPage> {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: _getScoreColor(entry.percentage).withOpacity(0.1),
+                  color: _getScoreColor(entry.percentage).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Center(
@@ -429,7 +430,7 @@ class _StatsPageState extends State<StatsPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      entry.ficheId,
+                      ThemeUtils.getFicheTitle(entry.ficheId),
                       style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                     ),
                     Text(
@@ -489,9 +490,9 @@ class _StatsPageState extends State<StatsPage> {
           width: double.infinity,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Colors.green.withOpacity(0.1),
+            color: Colors.green.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.green.withOpacity(0.3)),
+            border: Border.all(color: Colors.green.withValues(alpha: 0.3)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -518,7 +519,7 @@ class _StatsPageState extends State<StatsPage> {
                   runSpacing: 8,
                   children: strongPoints.take(5).map((e) => Chip(
                     label: Text(e.key, style: const TextStyle(fontSize: 12)),
-                    backgroundColor: Colors.green.withOpacity(0.2),
+                    backgroundColor: Colors.green.withValues(alpha: 0.2),
                     side: BorderSide.none,
                   )).toList(),
                 ),
@@ -533,9 +534,9 @@ class _StatsPageState extends State<StatsPage> {
           width: double.infinity,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Colors.red.withOpacity(0.1),
+            color: Colors.red.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.red.withOpacity(0.3)),
+            border: Border.all(color: Colors.red.withValues(alpha: 0.3)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -562,7 +563,7 @@ class _StatsPageState extends State<StatsPage> {
                   runSpacing: 8,
                   children: weakPoints.take(5).map((e) => Chip(
                     label: Text(e.key, style: const TextStyle(fontSize: 12)),
-                    backgroundColor: Colors.red.withOpacity(0.2),
+                    backgroundColor: Colors.red.withValues(alpha: 0.2),
                     side: BorderSide.none,
                   )).toList(),
                 ),

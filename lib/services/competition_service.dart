@@ -1,8 +1,7 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:math';
 import 'package:flutter/foundation.dart';
-import 'package:path_provider/path_provider.dart';
+import 'storage_service.dart';
 import '../models/competition_model.dart';
 import 'score_service.dart';
 import 'streak_service.dart';
@@ -200,16 +199,10 @@ class CompetitionService extends ChangeNotifier {
   }
 
   // Persistance
-  Future<File> _getFile() async {
-    final dir = await getApplicationDocumentsDirectory();
-    return File('${dir.path}/competition_profile.json');
-  }
-
   Future<void> loadData() async {
     try {
-      final file = await _getFile();
-      if (await file.exists()) {
-        final content = await file.readAsString();
+      final content = await StorageService.instance.read('competition_profile.json');
+      if (content != null) {
         final data = jsonDecode(content) as Map<String, dynamic>;
         _profile = AnonymousProfile.fromJson(data);
         _generateChallenges();
@@ -223,8 +216,7 @@ class CompetitionService extends ChangeNotifier {
   Future<void> _saveProfile() async {
     try {
       if (_profile != null) {
-        final file = await _getFile();
-        await file.writeAsString(jsonEncode(_profile!.toJson()));
+        await StorageService.instance.write('competition_profile.json', jsonEncode(_profile!.toJson()));
       }
     } catch (e) {
       debugPrint('Erreur sauvegarde profil: $e');

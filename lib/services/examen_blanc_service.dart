@@ -1,8 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
+import 'storage_service.dart';
 import '../models/examen_blanc_model.dart';
 
 class ExamenBlancService extends ChangeNotifier {
@@ -69,12 +67,19 @@ class ExamenBlancService extends ChangeNotifier {
     };
 
     for (var result in termines) {
-      if (result.note < 5) repartition['0-5'] = repartition['0-5']! + 1;
-      else if (result.note < 10) repartition['5-10'] = repartition['5-10']! + 1;
-      else if (result.note < 12) repartition['10-12'] = repartition['10-12']! + 1;
-      else if (result.note < 14) repartition['12-14'] = repartition['12-14']! + 1;
-      else if (result.note < 16) repartition['14-16'] = repartition['14-16']! + 1;
-      else repartition['16-20'] = repartition['16-20']! + 1;
+      if (result.note < 5) {
+        repartition['0-5'] = repartition['0-5']! + 1;
+      } else if (result.note < 10) {
+        repartition['5-10'] = repartition['5-10']! + 1;
+      } else if (result.note < 12) {
+        repartition['10-12'] = repartition['10-12']! + 1;
+      } else if (result.note < 14) {
+        repartition['12-14'] = repartition['12-14']! + 1;
+      } else if (result.note < 16) {
+        repartition['14-16'] = repartition['14-16']! + 1;
+      } else {
+        repartition['16-20'] = repartition['16-20']! + 1;
+      }
     }
 
     // Meilleurs résultats
@@ -92,16 +97,10 @@ class ExamenBlancService extends ChangeNotifier {
   }
 
   // Persistance
-  Future<File> _getFile() async {
-    final dir = await getApplicationDocumentsDirectory();
-    return File('${dir.path}/examen_blanc_results.json');
-  }
-
   Future<void> loadResults() async {
     try {
-      final file = await _getFile();
-      if (await file.exists()) {
-        final content = await file.readAsString();
+      final content = await StorageService.instance.read('examen_blanc_results.json');
+      if (content != null) {
         final data = jsonDecode(content) as List<dynamic>;
         _results = data
             .map((e) => ExamenBlancResult.fromJson(e as Map<String, dynamic>))
@@ -115,9 +114,8 @@ class ExamenBlancService extends ChangeNotifier {
 
   Future<void> _saveResults() async {
     try {
-      final file = await _getFile();
       final data = _results.map((e) => e.toJson()).toList();
-      await file.writeAsString(jsonEncode(data));
+      await StorageService.instance.write('examen_blanc_results.json', jsonEncode(data));
     } catch (e) {
       debugPrint('Erreur sauvegarde résultats: $e');
     }
@@ -431,7 +429,7 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Résoudre y\'\' - 2y\' + y = x·e^x.',
                 indication: 'Racine double r=1.',
-                correction: 'Équation caractéristique : r² - 2r + 1 = 0 ⟹ r = 1 (double). Solution homogène : y_h = (C₁ + C₂x)e^x. Pour une solution particulière, racine double ⟹ chercher y_p = (ax³)e^x. Dérivées : y\'_p = (3ax² + ax³)e^x, y\"_p = (6ax + 6ax² + ax³)e^x. Substitution : (6ax + 6ax² + ax³ - 6ax² - 2ax³ + ax³)e^x = xe^x ⟹ 6ax = x ⟹ a = 1/6. Solution générale : y = (C₁ + C₂x + x³/6)e^x.',
+                correction: 'Équation caractéristique : r² - 2r + 1 = 0 ⟹ r = 1 (double). Solution homogène : y_h = (C₁ + C₂x)e^x. Pour une solution particulière, racine double ⟹ chercher y_p = (ax³)e^x. Dérivées : y\'_p = (3ax² + ax³)e^x, y"_p = (6ax + 6ax² + ax³)e^x. Substitution : (6ax + 6ax² + ax³ - 6ax² - 2ax³ + ax³)e^x = xe^x ⟹ 6ax = x ⟹ a = 1/6. Solution générale : y = (C₁ + C₂x + x³/6)e^x.',
                 points: 4,
               ),
               QuestionExamen(
@@ -1580,7 +1578,7 @@ class ExamenBlancService extends ChangeNotifier {
               QuestionExamen(
                 enonce: 'Soit X ~ Exp(λ). Montrer que X est sans mémoire : P(X > s+t | X > s) = P(X > t).',
                 indication: 'Utiliser P(X > x) = e^{-λx}.',
-                correction: 'P(X > s+t | X > s) = P(X > s+t ∩ X > s)/P(X > s) = P(X > s+t)/P(X > s) = e^{-λ(s+t)}/e^{-λs} = e^{-λt} = P(X > t). Propriété fondamentale de la loi exponentielle : \"l\'âge n\'a pas d\'effet sur la durée de vie restante\".',
+                correction: 'P(X > s+t | X > s) = P(X > s+t ∩ X > s)/P(X > s) = P(X > s+t)/P(X > s) = e^{-λ(s+t)}/e^{-λs} = e^{-λt} = P(X > t). Propriété fondamentale de la loi exponentielle : "l\'âge n\'a pas d\'effet sur la durée de vie restante".',
                 points: 3,
               ),
               QuestionExamen(

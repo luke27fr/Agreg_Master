@@ -179,7 +179,7 @@ class _ExercicesPageState extends State<ExercicesPage> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
         decoration: BoxDecoration(
-          color: isSelected ? color : color.withOpacity(0.1),
+          color: isSelected ? color : color.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: color),
         ),
@@ -219,7 +219,7 @@ class _ExercicesPageState extends State<ExercicesPage> {
               leading: Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.1),
+                  color: Colors.grey.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: const Icon(Icons.lock, color: Colors.grey),
@@ -238,7 +238,7 @@ class _ExercicesPageState extends State<ExercicesPage> {
         leading: Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: _getNiveauColor(ex['niveau']).withOpacity(0.1),
+            color: _getNiveauColor(ex['niveau']).withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Icon(Icons.fitness_center, color: _getNiveauColor(ex['niveau'])),
@@ -254,7 +254,7 @@ class _ExercicesPageState extends State<ExercicesPage> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
-                  color: _getNiveauColor(ex['niveau']).withOpacity(0.1),
+                  color: _getNiveauColor(ex['niveau']).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: Text(
@@ -280,9 +280,9 @@ class _ExercicesPageState extends State<ExercicesPage> {
             width: double.infinity,
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.blue.withOpacity(0.05),
+              color: Colors.blue.withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: Colors.blue.withOpacity(0.2)),
+              border: Border.all(color: Colors.blue.withValues(alpha: 0.2)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -303,9 +303,9 @@ class _ExercicesPageState extends State<ExercicesPage> {
             width: double.infinity,
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.amber.withOpacity(0.1),
+              color: Colors.amber.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: Colors.amber.withOpacity(0.3)),
+              border: Border.all(color: Colors.amber.withValues(alpha: 0.3)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -338,7 +338,7 @@ class _ExercicesPageState extends State<ExercicesPage> {
             children: (ex['tags'] as List).map((tag) => Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.1),
+                color: Colors.grey.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(tag, style: TextStyle(fontSize: 11, color: Colors.grey[600])),
@@ -352,7 +352,6 @@ class _ExercicesPageState extends State<ExercicesPage> {
   Widget _buildSolutionSection(Map<String, dynamic> ex, bool isDark) {
     return StatefulBuilder(
       builder: (context, setSolutionState) {
-        bool showSolution = false;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -373,7 +372,7 @@ class _ExercicesPageState extends State<ExercicesPage> {
                             children: [
                               CircleAvatar(
                                 radius: 12,
-                                backgroundColor: Colors.green.withOpacity(0.1),
+                                backgroundColor: Colors.green.withValues(alpha: 0.1),
                                 child: Text(
                                   '${entry.key + 1}',
                                   style: const TextStyle(fontSize: 10, color: Colors.green),

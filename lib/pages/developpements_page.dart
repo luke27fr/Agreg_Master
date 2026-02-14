@@ -6,6 +6,7 @@ import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
 import 'package:markdown/markdown.dart' as md;
 import '../widgets/global_search_button.dart';
 import '../pages/search_page.dart';
+import 'jury_virtuel_page.dart';
 
 class DeveloppementsPage extends StatefulWidget {
   const DeveloppementsPage({super.key});
@@ -16,6 +17,7 @@ class DeveloppementsPage extends StatefulWidget {
 
 class _DeveloppementsPageState extends State<DeveloppementsPage> {
   List<dynamic> _developpements = [];
+  List<Map<String, dynamic>> _lecons = [];
   bool _loading = true;
   String _searchQuery = '';
   String _filterDomaine = 'Tous';
@@ -35,8 +37,22 @@ class _DeveloppementsPageState extends State<DeveloppementsPage> {
     try {
       final json = await rootBundle.loadString('assets/data/developpements.json');
       final data = jsonDecode(json);
+
+      // Charger aussi les leçons pour la navigation
+      final leconsJson = await rootBundle.loadString('assets/data/lecons.json');
+      final leconsData = jsonDecode(leconsJson);
+      final allLecons = <Map<String, dynamic>>[];
+      if (leconsData is Map) {
+        for (final section in leconsData.values) {
+          if (section is List) {
+            allLecons.addAll(section.cast<Map<String, dynamic>>());
+          }
+        }
+      }
+
       setState(() {
         _developpements = data['developpements'] ?? [];
+        _lecons = allLecons;
         _loading = false;
       });
     } catch (e) {
@@ -91,11 +107,9 @@ class _DeveloppementsPageState extends State<DeveloppementsPage> {
       final cleanWord = word.replaceAll(RegExp(r'[^\w\séàèùâêîôûëïü-]'), '').toLowerCase();
       
       bool isImportant = false;
-      String? matchedTerm;
       for (final term in _termsImportants) {
         if (cleanWord.contains(term.toLowerCase())) {
           isImportant = true;
-          matchedTerm = term;
           break;
         }
       }
@@ -274,7 +288,7 @@ class _DeveloppementsPageState extends State<DeveloppementsPage> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: _getNiveauColor(niveau).withOpacity(0.1),
+                      color: _getNiveauColor(niveau).withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
@@ -300,9 +314,27 @@ class _DeveloppementsPageState extends State<DeveloppementsPage> {
                   const SizedBox(width: 16),
                   Icon(Icons.school, size: 16, color: Colors.grey[600]),
                   const SizedBox(width: 4),
-                  Text(
-                    'Leçons: ${lecons.join(", ")}',
-                    style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                  Expanded(
+                    child: Wrap(
+                      spacing: 4,
+                      runSpacing: 2,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        Text('Leçons: ', style: TextStyle(color: Colors.grey[600], fontSize: 12)),
+                        ...lecons.map((num) => GestureDetector(
+                          onTap: () => _navigateToLecon(context, num is int ? num : int.tryParse(num.toString()) ?? 0),
+                          child: Text(
+                            '${num}${num != lecons.last ? ',' : ''}',
+                            style: TextStyle(
+                              color: const Color(0xFF1A237E),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                        )),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -313,48 +345,29 @@ class _DeveloppementsPageState extends State<DeveloppementsPage> {
     );
   }
 
-  void _showLeconInfo(BuildContext context, int numero) {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Row(
-          children: [
-            const Icon(Icons.school, color: Color(0xFF1A237E)),
-            const SizedBox(width: 8),
-            Text('Leçon $numero'),
-          ],
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Cette leçon peut être consultée dans la section "Leçons d\'oral".',
-              style: TextStyle(fontSize: 14),
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'Ce développement peut être utilisé pour cette leçon.',
-              style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx),
-            child: const Text('Fermer'),
-          ),
-          ElevatedButton.icon(
-            onPressed: () {
-              Navigator.pop(ctx);
-              Navigator.pushNamed(context, '/lecons');
-            },
-            icon: const Icon(Icons.arrow_forward),
-            label: const Text('Voir les leçons'),
-          ),
-        ],
-      ),
+  void _navigateToLecon(BuildContext context, int numero) {
+    // Chercher la leçon dans les données chargées
+    final leconData = _lecons.firstWhere(
+      (l) => l['numero'] == numero,
+      orElse: () => <String, dynamic>{},
     );
+
+    if (leconData.isNotEmpty) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => LeconReferencePage(
+            leconNumero: numero.toString(),
+            leconData: leconData,
+          ),
+        ),
+      );
+    } else {
+      // Fallback : si la leçon n'est pas trouvée dans les données
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Leçon $numero non trouvée')),
+      );
+    }
   }
 
   void _showDevDetails(BuildContext context, Map<String, dynamic> dev) {
@@ -393,7 +406,7 @@ class _DeveloppementsPageState extends State<DeveloppementsPage> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.2),
+                      color: Colors.grey.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text('~${dev['duree_min']} min'),
@@ -558,14 +571,14 @@ class _DeveloppementsPageState extends State<DeveloppementsPage> {
                         const Icon(Icons.search, size: 14),
                       ],
                     ),
-                    backgroundColor: Colors.orange.withOpacity(0.1),
+                    backgroundColor: Colors.orange.withValues(alpha: 0.1),
                   ),
                 )).toList(),
               ),
 
               const SizedBox(height: 24),
 
-              // Leçons compatibles (cliquables)
+              // Leçons compatibles (cliquables → navigation directe)
               const Text(
                 'Leçons compatibles',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -574,23 +587,35 @@ class _DeveloppementsPageState extends State<DeveloppementsPage> {
               Wrap(
                 spacing: 8,
                 runSpacing: 8,
-                children: (dev['lecons'] as List).map((num) => InkWell(
-                  onTap: () {
-                    Navigator.pop(ctx); // Fermer le modal
-                    _showLeconInfo(context, num);
-                  },
-                  child: Chip(
-                    label: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text('Leçon $num'),
-                        const SizedBox(width: 4),
-                        const Icon(Icons.open_in_new, size: 14),
-                      ],
+                children: (dev['lecons'] as List).map((leconNum) {
+                  // Chercher le titre de la leçon si disponible
+                  final leconData = _lecons.firstWhere(
+                    (l) => l['numero'] == leconNum,
+                    orElse: () => <String, dynamic>{},
+                  );
+                  final titre = leconData.isNotEmpty
+                      ? (leconData['titre'] as String? ?? '')
+                      : '';
+                  final shortTitre = titre.length > 30
+                      ? '${titre.substring(0, 30)}...'
+                      : titre;
+
+                  return Tooltip(
+                    message: titre.isNotEmpty ? titre : 'Leçon $leconNum',
+                    child: ActionChip(
+                      avatar: const Icon(Icons.menu_book, size: 16, color: Color(0xFF1A237E)),
+                      label: Text(
+                        'Leçon $leconNum${shortTitre.isNotEmpty ? ' — $shortTitre' : ''}',
+                        style: const TextStyle(fontSize: 12),
+                      ),
+                      backgroundColor: const Color(0xFF1A237E).withValues(alpha: 0.08),
+                      onPressed: () {
+                        Navigator.pop(ctx); // Fermer le modal
+                        _navigateToLecon(context, leconNum is int ? leconNum : int.tryParse(leconNum.toString()) ?? 0);
+                      },
                     ),
-                    backgroundColor: const Color(0xFF1A237E).withOpacity(0.1),
-                  ),
-                )).toList(),
+                  );
+                }).toList(),
               ),
 
               const SizedBox(height: 40),

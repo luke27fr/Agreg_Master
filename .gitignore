@@ -47,10 +47,22 @@ app.*.map.json
 # Fichiers sensibles - NE PAS COMMITTER
 android/key.properties
 android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
 macos/Runner/GoogleService-Info.plist
 *.jks
 *.keystore
 .env
 .env.*
 *.p8
+*.pem
 AuthKey_*.p8
+upload_certificate.pem
+
+# Firebase
+.firebase/
+
+# Store assets (large images)
+google_play_feature_graphic_1024x500.png
+google_play_icon_512x512.png
+screenshot_tablet_10inch.png
+screenshot_tablet_7inch.png

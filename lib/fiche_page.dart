@@ -12,8 +12,9 @@ import 'package:agreg_master/services/notes_service.dart';
 import 'package:agreg_master/services/score_service.dart';
 import 'package:agreg_master/services/streak_service.dart';
 import 'package:agreg_master/services/reading_service.dart';
+import 'package:agreg_master/utils/theme_utils.dart';
 
-/// Custom builder for <glossary> tags that renders them as clickable links
+/// Custom builder for `<glossary>` tags that renders them as clickable links
 class GlossaryElementBuilder extends MarkdownElementBuilder {
   final void Function(String term) onTap;
   final Color linkColor;
@@ -38,7 +39,7 @@ class GlossaryElementBuilder extends MarkdownElementBuilder {
   }
 }
 
-/// Custom inline syntax for <glossary> HTML tags
+/// Custom inline syntax for `<glossary>` HTML tags
 class GlossaryTagSyntax extends md.InlineSyntax {
   GlossaryTagSyntax() : super(r'<glossary term="([^"]+)">([^<]+)</glossary>');
   
@@ -77,8 +78,6 @@ class _FichePageState extends State<FichePage> {
   
   // Controller pour les notes
   final TextEditingController _notesController = TextEditingController();
-  bool _isEditingNotes = false;
-
   String get _ficheId => widget.assetPath.split('/').last.replaceAll('.md', '');
 
   @override
@@ -118,11 +117,6 @@ class _FichePageState extends State<FichePage> {
     if (note != null) {
       _notesController.text = note.content;
     }
-  }
-
-  Future<void> _saveNotes() async {
-    await _notesService.saveNote(_ficheId, _notesController.text);
-    setState(() => _isEditingNotes = false);
   }
 
   // Chargement du glossaire depuis JSON (81 définitions)
@@ -173,12 +167,12 @@ class _FichePageState extends State<FichePage> {
               .map((q) => QuizQuestion.fromJson(q))
               .toList();
         });
-        print("Quiz trouvé pour $keyName : ${quizQuestions.length} questions.");
+        debugPrint("Quiz trouvé pour $keyName : ${quizQuestions.length} questions.");
       } else {
-        print("Aucun quiz trouvé pour $keyName");
+        debugPrint("Aucun quiz trouvé pour $keyName");
       }
     } catch (e) {
-      print("Erreur lors du chargement du quiz : $e");
+      debugPrint("Erreur lors du chargement du quiz : $e");
     }
   }
 
@@ -226,7 +220,7 @@ class _FichePageState extends State<FichePage> {
     }
 
     final fileName = widget.assetPath.split('/').last.replaceAll('.md', '');
-    final title = _titleCase(fileName);
+    final title = ThemeUtils.getFicheTitle(fileName);
     final isFavorite = _favoritesService.isFavorite(_ficheId);
     final hasNote = _notesService.hasNote(_ficheId);
     final score = _scoreService.getScore(_ficheId);
@@ -248,7 +242,7 @@ class _FichePageState extends State<FichePage> {
                 margin: const EdgeInsets.only(right: 8),
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: _getScoreColor(score.percentage).withOpacity(0.2),
+                  color: _getScoreColor(score.percentage).withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
@@ -332,9 +326,9 @@ class _FichePageState extends State<FichePage> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: isDark ? Colors.blue.withOpacity(0.1) : Colors.blue[50],
+        color: isDark ? Colors.blue.withValues(alpha: 0.1) : Colors.blue[50],
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.blue.withOpacity(0.3)),
+        border: Border.all(color: Colors.blue.withValues(alpha: 0.3)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -451,7 +445,7 @@ class _FichePageState extends State<FichePage> {
         continue;
       }
       if (item is! List<Map<String, String>>) continue;
-      final paragraph = item as List<Map<String, String>>;
+      final paragraph = item;
       for (final seg in paragraph) {
         if (seg.containsKey(_keyBlock)) {
           flushRun();
@@ -529,9 +523,7 @@ class _FichePageState extends State<FichePage> {
     String? definition = _glossaire[termLower];
     
     // Recherche 2 : avec underscore (ex: "espace affine" -> "espace_affine")
-    if (definition == null) {
-      definition = _glossaire[termLower.replaceAll(' ', '_')];
-    }
+    definition ??= _glossaire[termLower.replaceAll(' ', '_')];
     
     // Recherche 3 : normalisée (sans accents, avec underscores)
     if (definition == null) {
@@ -664,7 +656,7 @@ class _FichePageState extends State<FichePage> {
   /// Découpe le contenu : tout ce qui commence par > est un seul segment blockquote
   /// (jusqu’à ce qu’il n’y ait plus de lignes commençant par >). Le reste est
   /// découpé en texte / formules $$ et $.
-  /// Retourne List<dynamic> : Map = blockquote, List<Map> = un paragraphe (segments).
+  /// Retourne `List<dynamic>` : Map = blockquote, `List<Map>` = un paragraphe (segments).
   List<dynamic> _splitContentWithMath(String text) {
     final result = <dynamic>[];
     final lines = text.split('\n');
@@ -861,6 +853,7 @@ class _FichePageState extends State<FichePage> {
   }
 
   /// Découpe le contenu d’un blockquote en parties texte / formule bloc / formule inline.
+  // ignore: unused_element - kept for potential future use
   List<Map<String, String?>> _parseBlockquoteContent(String content) {
     final parts = <Map<String, String?>>[];
     int lastEnd = 0;

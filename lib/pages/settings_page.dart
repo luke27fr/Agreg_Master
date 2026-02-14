@@ -5,7 +5,6 @@ import '../services/settings_service.dart';
 import '../services/score_service.dart';
 import '../services/favorites_service.dart';
 import '../services/notes_service.dart';
-import '../services/reading_service.dart';
 import '../services/streak_service.dart';
 import '../services/subscription_service.dart';
 import 'export_pdf_page.dart';
@@ -358,7 +357,7 @@ class _SettingsPageState extends State<SettingsPage> {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: (isPremium ? Colors.amber : Colors.indigo).withOpacity(0.3),
+            color: (isPremium ? Colors.amber : Colors.indigo).withValues(alpha: 0.3),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -473,7 +472,7 @@ class _SettingsPageState extends State<SettingsPage> {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 4,
           ),
         ],

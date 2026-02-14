@@ -107,13 +107,13 @@ class _ContreExemplesPageState extends State<ContreExemplesPage> {
         leading: Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: Colors.red.withOpacity(0.1),
+            color: Colors.red.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
           ),
           child: const Icon(Icons.warning_amber, color: Colors.red),
         ),
-        title: Text(
-          ce['titre'],
+        title: LatexText(
+          data: ce['titre'],
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
         ),
         subtitle: Padding(
@@ -123,7 +123,7 @@ class _ContreExemplesPageState extends State<ContreExemplesPage> {
             children: (ce['tags'] as List).map((tag) => Container(
               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
               decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.1),
+                color: Colors.grey.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(4),
               ),
               child: Text(tag, style: TextStyle(fontSize: 10, color: Colors.grey[600])),
@@ -136,7 +136,7 @@ class _ContreExemplesPageState extends State<ContreExemplesPage> {
             width: double.infinity,
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.blue.withOpacity(0.1),
+              color: Colors.blue.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Column(
@@ -157,7 +157,7 @@ class _ContreExemplesPageState extends State<ContreExemplesPage> {
             width: double.infinity,
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.green.withOpacity(0.1),
+              color: Colors.green.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Column(

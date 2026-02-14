@@ -1,7 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:path_provider/path_provider.dart';
+import 'storage_service.dart';
 import 'spaced_repetition_service.dart';
 
 /// Représente le score d'un quiz pour une fiche
@@ -83,9 +82,9 @@ class ScoreService extends ChangeNotifier {
     if (_isLoaded) return;
     
     try {
-      final file = await _getScoreFile();
-      if (await file.exists()) {
-        final content = await file.readAsString();
+      final storage = StorageService.instance;
+      final content = await storage.read('agreg_master_scores.json');
+      if (content != null) {
         final Map<String, dynamic> data = jsonDecode(content);
         _scores.clear();
         data.forEach((key, value) {
@@ -94,9 +93,8 @@ class ScoreService extends ChangeNotifier {
       }
       
       // Charger l'historique
-      final historyFile = await _getHistoryFile();
-      if (await historyFile.exists()) {
-        final historyContent = await historyFile.readAsString();
+      final historyContent = await storage.read('agreg_master_history.json');
+      if (historyContent != null) {
         final List<dynamic> historyData = jsonDecode(historyContent);
         _history.clear();
         for (var entry in historyData) {
@@ -246,21 +244,10 @@ class ScoreService extends ChangeNotifier {
     return wrongQuestions;
   }
 
-  Future<File> _getScoreFile() async {
-    final dir = await getApplicationDocumentsDirectory();
-    return File('${dir.path}/agreg_master_scores.json');
-  }
-
-  Future<File> _getHistoryFile() async {
-    final dir = await getApplicationDocumentsDirectory();
-    return File('${dir.path}/agreg_master_history.json');
-  }
-
   Future<void> _persistScores() async {
     try {
-      final file = await _getScoreFile();
       final data = _scores.map((key, value) => MapEntry(key, value.toJson()));
-      await file.writeAsString(jsonEncode(data));
+      await StorageService.instance.write('agreg_master_scores.json', jsonEncode(data));
     } catch (e) {
       debugPrint('Erreur sauvegarde scores: $e');
     }
@@ -268,9 +255,8 @@ class ScoreService extends ChangeNotifier {
 
   Future<void> _persistHistory() async {
     try {
-      final file = await _getHistoryFile();
       final data = _history.map((e) => e.toJson()).toList();
-      await file.writeAsString(jsonEncode(data));
+      await StorageService.instance.write('agreg_master_history.json', jsonEncode(data));
     } catch (e) {
       debugPrint('Erreur sauvegarde historique: $e');
     }

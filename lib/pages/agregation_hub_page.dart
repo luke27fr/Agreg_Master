@@ -124,7 +124,7 @@ class _AgregationHubPageState extends State<AgregationHubPage> {
               margin: const EdgeInsets.only(bottom: 16),
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.orange.withOpacity(0.1),
+                color: Colors.orange.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: Colors.orange),
               ),
@@ -643,7 +643,7 @@ class _AgregationHubPageState extends State<AgregationHubPage> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.2),
+                color: Colors.white.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Row(
@@ -699,7 +699,7 @@ class _AgregationHubPageState extends State<AgregationHubPage> {
             borderRadius: BorderRadius.circular(4),
             child: LinearProgressIndicator(
               value: completionRate,
-              backgroundColor: Colors.grey.withOpacity(0.2),
+              backgroundColor: Colors.grey.withValues(alpha: 0.2),
               valueColor: AlwaysStoppedAnimation(
                 completionRate >= 1 ? Colors.green : Colors.orange,
               ),
@@ -757,7 +757,7 @@ class _AgregationHubPageState extends State<AgregationHubPage> {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.1),
+                  color: color.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(icon, color: color),
@@ -805,7 +805,7 @@ class _AgregationHubPageState extends State<AgregationHubPage> {
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: color.withOpacity(0.1),
+                      color: color.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Icon(icon, color: color, size: 28),

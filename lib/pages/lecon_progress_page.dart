@@ -121,7 +121,7 @@ class _LeconProgressPageState extends State<LeconProgressPage> with SingleTicker
                   borderRadius: BorderRadius.circular(8),
                   child: LinearProgressIndicator(
                     value: readyPercent / 100,
-                    backgroundColor: Colors.white.withOpacity(0.3),
+                    backgroundColor: Colors.white.withValues(alpha: 0.3),
                     valueColor: const AlwaysStoppedAnimation(Colors.greenAccent),
                     minHeight: 10,
                   ),
@@ -212,7 +212,7 @@ class _LeconProgressPageState extends State<LeconProgressPage> with SingleTicker
                   ),
                   CircleAvatar(
                     radius: 30,
-                    backgroundColor: _getDomaineColor(domaine).withOpacity(0.1),
+                    backgroundColor: _getDomaineColor(domaine).withValues(alpha: 0.1),
                     child: Text(
                       '${stats.averageMastery.round()}%',
                       style: TextStyle(
@@ -300,7 +300,7 @@ class _LeconProgressPageState extends State<LeconProgressPage> with SingleTicker
       ),
       child: ExpansionTile(
         leading: CircleAvatar(
-          backgroundColor: masteryColor.withOpacity(0.1),
+          backgroundColor: masteryColor.withValues(alpha: 0.1),
           child: Text(
             lecon.leconNumero,
             style: TextStyle(
@@ -431,7 +431,7 @@ class _LeconProgressPageState extends State<LeconProgressPage> with SingleTicker
         },
         dataSets: [
           RadarDataSet(
-            fillColor: const Color(0xFF1A237E).withOpacity(0.2),
+            fillColor: const Color(0xFF1A237E).withValues(alpha: 0.2),
             borderColor: const Color(0xFF1A237E),
             borderWidth: 2,
             dataEntries: [
@@ -483,7 +483,7 @@ class _LeconProgressPageState extends State<LeconProgressPage> with SingleTicker
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.2),
+            color: Colors.white.withValues(alpha: 0.2),
             shape: BoxShape.circle,
           ),
           child: Icon(icon, color: Colors.white, size: 28),
@@ -546,7 +546,7 @@ class _LeconProgressPageState extends State<LeconProgressPage> with SingleTicker
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: Colors.purple.withOpacity(0.1),
+                  color: Colors.purple.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(

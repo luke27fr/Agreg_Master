@@ -3,7 +3,7 @@ import 'package:share_plus/share_plus.dart';
 import '../services/backup_service.dart';
 
 class BackupPage extends StatefulWidget {
-  const BackupPage({Key? key}) : super(key: key);
+  const BackupPage({super.key});
 
   @override
   State<BackupPage> createState() => _BackupPageState();
@@ -131,7 +131,7 @@ class _BackupPageState extends State<BackupPage> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.blue.withOpacity(0.1),
+                color: Colors.blue.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: const Row(
@@ -359,9 +359,9 @@ class _BackupPageState extends State<BackupPage> {
 
   Future<void> _exportData() async {
     try {
-      final path = await _backupService.exportData();
-      if (path != null && mounted) {
-        await Share.shareXFiles([XFile(path)], text: 'Export Agreg Master');
+      final content = await _backupService.exportData();
+      if (content != null && mounted) {
+        await Share.share(content, subject: 'Export Agreg Master');
       }
     } catch (e) {
       if (mounted) {
@@ -436,7 +436,7 @@ class _BackupPageState extends State<BackupPage> {
 
     if (confirmed == true) {
       try {
-        await _backupService.restoreFromBackup(backup.path);
+        await _backupService.restoreFromBackup(backup.key);
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
@@ -459,7 +459,10 @@ class _BackupPageState extends State<BackupPage> {
   }
 
   Future<void> _shareBackup(BackupInfo backup) async {
-    await Share.shareXFiles([XFile(backup.path)], text: 'Backup Agreg Master');
+    final content = await _backupService.exportData();
+    if (content != null) {
+      await Share.share(content, subject: 'Backup Agreg Master');
+    }
   }
 
   Future<void> _deleteBackup(BackupInfo backup) async {
@@ -484,7 +487,7 @@ class _BackupPageState extends State<BackupPage> {
 
     if (confirmed == true) {
       try {
-        await _backupService.deleteBackup(backup.path);
+        await _backupService.deleteBackup(backup.key);
         await _loadBackups();
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -546,7 +549,7 @@ class _BackupPageState extends State<BackupPage> {
     if (confirmed == true) {
       try {
         for (final backup in oldBackups) {
-          await _backupService.deleteBackup(backup.path);
+          await _backupService.deleteBackup(backup.key);
         }
         await _loadBackups();
         if (mounted) {

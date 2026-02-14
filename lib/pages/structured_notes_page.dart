@@ -162,7 +162,7 @@ class _StructuredNotesPageState extends State<StructuredNotesPage> with SingleTi
                   return Container(
                     padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
-                      color: Colors.blue.withOpacity(0.1),
+                      color: Colors.blue.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(
@@ -255,7 +255,7 @@ class _StructuredNotesPageState extends State<StructuredNotesPage> with SingleTi
             trailing: Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               decoration: BoxDecoration(
-                color: _getCategoryColor(category).withOpacity(0.1),
+                color: _getCategoryColor(category).withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
@@ -296,7 +296,7 @@ class _StructuredNotesPageState extends State<StructuredNotesPage> with SingleTi
                 ),
                 const SizedBox(height: 16),
                 DropdownButtonFormField<String>(
-                  value: selectedCategory,
+                  initialValue: selectedCategory,
                   decoration: const InputDecoration(
                     labelText: 'Catégorie',
                     border: OutlineInputBorder(),

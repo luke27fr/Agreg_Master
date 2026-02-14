@@ -1,10 +1,11 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'storage_service.dart';
 import '../models/structured_notes_model.dart';
+
+// Conditional imports for PDF file export (mobile only)
+import 'storage_io_helper.dart' if (dart.library.html) 'storage_web_helper.dart' as io_helper;
 
 class StructuredNotesService extends ChangeNotifier {
   static final StructuredNotesService _instance = StructuredNotesService._internal();
@@ -120,8 +121,8 @@ class StructuredNotesService extends ChangeNotifier {
     return buffer.toString();
   }
 
-  /// Exporte une note en PDF
-  Future<File> exportToPDF(StructuredNote note) async {
+  /// Exporte une note en PDF. Returns file path on mobile, null on web.
+  Future<String?> exportToPDF(StructuredNote note) async {
     final pdf = pw.Document();
 
     pdf.addPage(
@@ -148,30 +149,15 @@ class StructuredNotesService extends ChangeNotifier {
       ),
     );
 
-    final dir = await getApplicationDocumentsDirectory();
-    final file = File('${dir.path}/note_${note.id}.pdf');
-    await file.writeAsBytes(await pdf.save());
-    
-    return file;
-  }
-
-  /// Exporte toutes les notes en ZIP (Markdown)
-  Future<File> exportAllNotes() async {
-    // TODO: Implémenter compression ZIP
-    throw UnimplementedError('Export ZIP à venir');
+    final bytes = await pdf.save();
+    return io_helper.savePdfFile('note_${note.id}.pdf', bytes);
   }
 
   // Persistance
-  Future<File> _getFile() async {
-    final dir = await getApplicationDocumentsDirectory();
-    return File('${dir.path}/structured_notes.json');
-  }
-
   Future<void> loadData() async {
     try {
-      final file = await _getFile();
-      if (await file.exists()) {
-        final content = await file.readAsString();
+      final content = await StorageService.instance.read('structured_notes.json');
+      if (content != null) {
         final data = jsonDecode(content) as List<dynamic>;
         _notes = data
             .map((e) => StructuredNote.fromJson(e as Map<String, dynamic>))
@@ -185,9 +171,8 @@ class StructuredNotesService extends ChangeNotifier {
 
   Future<void> _saveNotes() async {
     try {
-      final file = await _getFile();
       final data = _notes.map((e) => e.toJson()).toList();
-      await file.writeAsString(jsonEncode(data));
+      await StorageService.instance.write('structured_notes.json', jsonEncode(data));
     } catch (e) {
       debugPrint('Erreur sauvegarde notes: $e');
     }

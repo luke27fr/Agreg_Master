@@ -1,7 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:path_provider/path_provider.dart';
+import 'storage_service.dart';
 import '../models/smart_planner_model.dart';
 import 'lecon_progress_service.dart';
 import 'spaced_repetition_service.dart';
@@ -32,7 +31,6 @@ class SmartPlannerService extends ChangeNotifier {
 
     final tasks = <PlannedTask>[];
     final now = DateTime.now();
-    final joursRestants = _config!.dateExamen.difference(now).inDays;
     
     // Récupérer les données des services
     final progressService = LeconProgressService();
@@ -216,16 +214,6 @@ class SmartPlannerService extends ChangeNotifier {
   }
 
   // Persistance
-  Future<File> _getTasksFile() async {
-    final dir = await getApplicationDocumentsDirectory();
-    return File('${dir.path}/planned_tasks.json');
-  }
-
-  Future<File> _getConfigFile() async {
-    final dir = await getApplicationDocumentsDirectory();
-    return File('${dir.path}/planner_config.json');
-  }
-
   Future<void> loadData() async {
     await Future.wait([
       _loadTasks(),
@@ -235,9 +223,8 @@ class SmartPlannerService extends ChangeNotifier {
 
   Future<void> _loadTasks() async {
     try {
-      final file = await _getTasksFile();
-      if (await file.exists()) {
-        final content = await file.readAsString();
+      final content = await StorageService.instance.read('planned_tasks.json');
+      if (content != null) {
         final data = jsonDecode(content) as List<dynamic>;
         _tasks = data
             .map((e) => PlannedTask.fromJson(e as Map<String, dynamic>))
@@ -251,9 +238,8 @@ class SmartPlannerService extends ChangeNotifier {
 
   Future<void> _loadConfig() async {
     try {
-      final file = await _getConfigFile();
-      if (await file.exists()) {
-        final content = await file.readAsString();
+      final content = await StorageService.instance.read('planner_config.json');
+      if (content != null) {
         final data = jsonDecode(content) as Map<String, dynamic>;
         _config = PlannerConfig.fromJson(data);
         notifyListeners();
@@ -265,9 +251,8 @@ class SmartPlannerService extends ChangeNotifier {
 
   Future<void> _saveTasks() async {
     try {
-      final file = await _getTasksFile();
       final data = _tasks.map((e) => e.toJson()).toList();
-      await file.writeAsString(jsonEncode(data));
+      await StorageService.instance.write('planned_tasks.json', jsonEncode(data));
     } catch (e) {
       debugPrint('Erreur sauvegarde tâches: $e');
     }
@@ -275,9 +260,8 @@ class SmartPlannerService extends ChangeNotifier {
 
   Future<void> _saveConfig() async {
     try {
-      final file = await _getConfigFile();
       if (_config != null) {
-        await file.writeAsString(jsonEncode(_config!.toJson()));
+        await StorageService.instance.write('planner_config.json', jsonEncode(_config!.toJson()));
       }
     } catch (e) {
       debugPrint('Erreur sauvegarde config: $e');

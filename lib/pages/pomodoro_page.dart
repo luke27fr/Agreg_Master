@@ -24,7 +24,6 @@ class _PomodoroPageState extends State<PomodoroPage> {
   
   // Statistiques de la session
   int _totalWorkMinutes = 0;
-  DateTime? _sessionStartTime;
 
   @override
   void dispose() {
@@ -36,7 +35,6 @@ class _PomodoroPageState extends State<PomodoroPage> {
     setState(() {
       _state = PomodoroState.working;
       _remainingSeconds = _workMinutes * 60;
-      _sessionStartTime = DateTime.now();
     });
     _startTimer();
   }
@@ -257,7 +255,7 @@ class _PomodoroPageState extends State<PomodoroPage> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     decoration: BoxDecoration(
-                      color: _getStateColor().withOpacity(0.1),
+                      color: _getStateColor().withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
@@ -288,7 +286,7 @@ class _PomodoroPageState extends State<PomodoroPage> {
                                       ? _longBreakMinutes * 60
                                       : _shortBreakMinutes * 60))),
                           strokeWidth: 12,
-                          backgroundColor: Colors.grey.withOpacity(0.2),
+                          backgroundColor: Colors.grey.withValues(alpha: 0.2),
                           valueColor: AlwaysStoppedAnimation(_getStateColor()),
                         ),
                       ),

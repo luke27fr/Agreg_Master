@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
+import '../services/storage_service.dart';
 
 class SimulationPage extends StatefulWidget {
   const SimulationPage({super.key});
@@ -19,14 +17,11 @@ class _SimulationPageState extends State<SimulationPage> {
   Timer? _timer;
   bool _isRunning = false;
   bool _isPaused = false;
-  DateTime? _startTime;
-  
   // Sujet choisi
   String? _selectedSubject;
   List<String> _subjects = [];
   
   // Notes de l'utilisateur
-  String _notes = '';
   final _notesController = TextEditingController();
 
   // Historique
@@ -62,16 +57,10 @@ class _SimulationPageState extends State<SimulationPage> {
     });
   }
 
-  Future<File> _getHistoryFile() async {
-    final dir = await getApplicationDocumentsDirectory();
-    return File('${dir.path}/agreg_master_simulations.json');
-  }
-
   Future<void> _loadHistory() async {
     try {
-      final file = await _getHistoryFile();
-      if (await file.exists()) {
-        final content = await file.readAsString();
+      final content = await StorageService.instance.read('agreg_master_simulations.json');
+      if (content != null) {
         final List<dynamic> data = jsonDecode(content);
         setState(() {
           _history = data.map((e) => SimulationHistory.fromJson(e)).toList();
@@ -84,9 +73,8 @@ class _SimulationPageState extends State<SimulationPage> {
 
   Future<void> _saveHistory() async {
     try {
-      final file = await _getHistoryFile();
       final data = _history.map((e) => e.toJson()).toList();
-      await file.writeAsString(jsonEncode(data));
+      await StorageService.instance.write('agreg_master_simulations.json', jsonEncode(data));
     } catch (e) {
       debugPrint('Erreur sauvegarde historique: $e');
     }
@@ -103,8 +91,6 @@ class _SimulationPageState extends State<SimulationPage> {
     setState(() {
       _isRunning = true;
       _isPaused = false;
-      _startTime = DateTime.now();
-      _notes = '';
       _notesController.clear();
     });
 
@@ -253,9 +239,9 @@ class _SimulationPageState extends State<SimulationPage> {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.blue.withOpacity(0.1),
+              color: Colors.blue.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.blue.withOpacity(0.3)),
+              border: Border.all(color: Colors.blue.withValues(alpha: 0.3)),
             ),
             child: const Row(
               children: [
@@ -300,13 +286,17 @@ class _SimulationPageState extends State<SimulationPage> {
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           ),
           const SizedBox(height: 12),
-          ...(_subjects.map((subject) => RadioListTile<String>(
-            title: Text(subject),
-            value: subject,
+          RadioGroup<String>(
             groupValue: _selectedSubject,
             onChanged: (value) => setState(() => _selectedSubject = value),
-            contentPadding: EdgeInsets.zero,
-          ))),
+            child: Column(
+              children: _subjects.map((subject) => RadioListTile<String>(
+                title: Text(subject),
+                value: subject,
+                contentPadding: EdgeInsets.zero,
+              )).toList(),
+            ),
+          ),
 
           const SizedBox(height: 24),
 
@@ -390,7 +380,7 @@ class _SimulationPageState extends State<SimulationPage> {
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.1),
+                color: Colors.black.withValues(alpha: 0.1),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),
@@ -416,7 +406,7 @@ class _SimulationPageState extends State<SimulationPage> {
               const SizedBox(height: 16),
               LinearProgressIndicator(
                 value: progress,
-                backgroundColor: Colors.grey.withOpacity(0.2),
+                backgroundColor: Colors.grey.withValues(alpha: 0.2),
                 valueColor: AlwaysStoppedAnimation(_getTimeColor()),
                 minHeight: 8,
               ),

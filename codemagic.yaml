@@ -16,6 +16,10 @@ workflows:
       - name: Set up local properties
         script: echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
 
+      - name: Set up Firebase config for iOS
+        script: |
+          echo $GOOGLE_SERVICE_INFO_PLIST | base64 --decode > "$CM_BUILD_DIR/ios/Runner/GoogleService-Info.plist"
+
       - name: Get Flutter packages
         script: flutter packages pub get
 

@@ -1,8 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
+import 'storage_service.dart';
 
 /// Service singleton pour gérer les paramètres de l'application
 class SettingsService extends ChangeNotifier {
@@ -31,9 +29,8 @@ class SettingsService extends ChangeNotifier {
     if (_isLoaded) return;
     
     try {
-      final file = await _getSettingsFile();
-      if (await file.exists()) {
-        final content = await file.readAsString();
+      final content = await StorageService.instance.read('agreg_master_settings.json');
+      if (content != null) {
         final Map<String, dynamic> data = jsonDecode(content);
         _isDarkMode = data['isDarkMode'] as bool? ?? false;
         _fontSize = (data['fontSize'] as num?)?.toDouble() ?? 1.0;
@@ -91,15 +88,9 @@ class SettingsService extends ChangeNotifier {
     }
   }
 
-  Future<File> _getSettingsFile() async {
-    final dir = await getApplicationDocumentsDirectory();
-    return File('${dir.path}/agreg_master_settings.json');
-  }
-
   Future<void> _persistSettings() async {
     try {
-      final file = await _getSettingsFile();
-      await file.writeAsString(jsonEncode({
+      await StorageService.instance.write('agreg_master_settings.json', jsonEncode({
         'isDarkMode': _isDarkMode,
         'fontSize': _fontSize,
         'quizTimerEnabled': _quizTimerEnabled,

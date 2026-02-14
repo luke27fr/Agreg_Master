@@ -209,7 +209,7 @@ String _wrapRawLatexCommands(String text) {
             if (ch == ' ') {
               // Regarder si le prochain non-espace est un token math
               int peek = i + 1;
-              while (peek < text.length && text[peek] == ' ') peek++;
+              while (peek < text.length && text[peek] == ' ') { peek++; }
               if (peek < text.length &&
                   (text[peek] == '\\' || text[peek] == '^' || text[peek] == '_' ||
                    text[peek] == '{')) {
@@ -270,7 +270,7 @@ String _convertUnicode(String text) {
       final supPart = s.length > 1 ? '^{$s}' : '^$s';
       final subPart =
           sub.isNotEmpty ? (sub.length > 1 ? '_{$sub}' : '_$sub') : '';
-      buf.write('\$${prefix}$supPart$subPart\$');
+      buf.write('\$$prefix$supPart$subPart\$');
       continue;
     }
 
@@ -293,7 +293,7 @@ String _convertUnicode(String text) {
       final subPart = s.length > 1 ? '_{$s}' : '_$s';
       final supPart =
           sup.isNotEmpty ? (sup.length > 1 ? '^{$sup}' : '^$sup') : '';
-      buf.write('\$${prefix}$subPart$supPart\$');
+      buf.write('\$$prefix$subPart$supPart\$');
       continue;
     }
 
@@ -641,7 +641,7 @@ String _convertUnicode(String text) {
       }
       if (prefix.isNotEmpty || sup.isNotEmpty) {
         final supPart = sup.length > 1 ? '^{$sup}' : '^$sup';
-        buf.write('\$${prefix}$supPart\$');
+        buf.write('\$$prefix$supPart\$');
       } else {
         buf.write('^');
       }
@@ -793,7 +793,7 @@ String _mergeAdjacentMath(String text) {
           // ajouter un espace pour éviter \cdotP → \cdot P
           final needsSpace = RegExp(r'\\[a-zA-Z]+$').hasMatch(a) &&
               b.isNotEmpty && RegExp(r'^[a-zA-Z]').hasMatch(b);
-          return '\$${a}${needsSpace ? ' ' : ''}${b}\$';
+          return '\$$a${needsSpace ? ' ' : ''}$b\$';
         });
   }
 
@@ -809,7 +809,7 @@ String _mergeAdjacentMath(String text) {
           final a = m.group(1)!;
           final sep = m.group(2)!;
           final b = m.group(3)!;
-          return '\$${a}${sep}${b}\$';
+          return '\$$a$sep$b\$';
         });
   }
 

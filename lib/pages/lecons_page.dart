@@ -1,12 +1,11 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
-import 'package:markdown/markdown.dart' as md;
+import '../widgets/latex_text.dart';
 import '../widgets/global_search_button.dart';
 import '../services/subscription_service.dart';
 import 'paywall_page.dart';
+import 'jury_virtuel_page.dart';
 
 class LeconsPage extends StatefulWidget {
   const LeconsPage({super.key});
@@ -20,11 +19,6 @@ class _LeconsPageState extends State<LeconsPage> with SingleTickerProviderStateM
   bool _loading = true;
   late TabController _tabController;
   String _searchQuery = '';
-
-  static md.ExtensionSet get _latexExtensionSet => md.ExtensionSet(
-    [LatexBlockSyntax(), ...md.ExtensionSet.gitHubFlavored.blockSyntaxes],
-    [LatexInlineSyntax(), ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes],
-  );
 
   @override
   void initState() {
@@ -148,12 +142,17 @@ class _LeconsPageState extends State<LeconsPage> with SingleTickerProviderStateM
     final isLocked = !subscriptionService.isPremium && 
                      index >= subscriptionService.getFreeAccessCount('lecons');
 
+    final devCount = (lecon['developpements'] as List?)?.length ?? 0;
+    final themesCount = (lecon['theoremes_cles'] as List?)?.length ?? 0;
+
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       color: isDark ? const Color(0xFF1E1E1E) : Colors.white,
       child: InkWell(
-        onTap: () => isLocked ? _showPaywall() : _showLeconDetails(context, lecon),
+        onTap: () => isLocked
+            ? _showPaywall()
+            : _openLeconDetail(lecon),
         borderRadius: BorderRadius.circular(12),
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -163,7 +162,7 @@ class _LeconsPageState extends State<LeconsPage> with SingleTickerProviderStateM
                 width: 50,
                 height: 50,
                 decoration: BoxDecoration(
-                  color: const Color(0xFF1A237E).withOpacity(0.1),
+                  color: const Color(0xFF1A237E).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Center(
@@ -181,21 +180,17 @@ class _LeconsPageState extends State<LeconsPage> with SingleTickerProviderStateM
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    MarkdownBody(
-                      data: lecon['titre'],
-                      styleSheet: MarkdownStyleSheet(
-                        p: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                          color: isDark ? Colors.white : Colors.black87,
-                        ),
+                    LatexText(
+                      data: lecon['titre'] ?? '',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        color: isDark ? Colors.white : Colors.black87,
                       ),
-                      extensionSet: _latexExtensionSet,
-                      builders: {'latex': LatexElementBuilder()},
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      '${(lecon['developpements'] as List).length} développements',
+                      '$devCount développements • $themesCount théorèmes',
                       style: TextStyle(color: Colors.grey[600], fontSize: 12),
                     ),
                   ],
@@ -211,125 +206,12 @@ class _LeconsPageState extends State<LeconsPage> with SingleTickerProviderStateM
     );
   }
 
-  void _showLeconDetails(BuildContext context, Map<String, dynamic> lecon) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) => DraggableScrollableSheet(
-        initialChildSize: 0.85,
-        minChildSize: 0.5,
-        maxChildSize: 0.95,
-        expand: false,
-        builder: (_, controller) => SingleChildScrollView(
-          controller: controller,
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Header
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF1A237E),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Text(
-                      'Leçon ${lecon['numero']}',
-                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  const Spacer(),
-                  IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () => Navigator.pop(ctx),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              
-              // Titre
-              MarkdownBody(
-                data: lecon['titre'],
-                styleSheet: MarkdownStyleSheet(
-                  p: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                extensionSet: _latexExtensionSet,
-                builders: {'latex': LatexElementBuilder()},
-              ),
-              
-              const SizedBox(height: 24),
-              
-              // Points clés
-              const Text(
-                'Points clés à aborder',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              ...((lecon['points_cles'] as List).map((point) => Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Icon(Icons.check_circle, color: Colors.green, size: 20),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: MarkdownBody(
-                        data: point,
-                        styleSheet: MarkdownStyleSheet(p: const TextStyle(fontSize: 14)),
-                        extensionSet: _latexExtensionSet,
-                        builders: {'latex': LatexElementBuilder()},
-                      ),
-                    ),
-                  ],
-                ),
-              ))),
-              
-              const SizedBox(height: 24),
-              
-              // Développements
-              const Text(
-                'Développements compatibles',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: (lecon['developpements'] as List).map((dev) => Chip(
-                  label: Text(dev.toString().replaceAll('_', ' ')),
-                  backgroundColor: Colors.blue.withOpacity(0.1),
-                )).toList(),
-              ),
-              
-              const SizedBox(height: 24),
-              
-              // Prérequis
-              if (lecon['prerequis'] != null) ...[
-                const Text(
-                  'Prérequis',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 8),
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: (lecon['prerequis'] as List).map((req) => Chip(
-                    label: Text(req.toString().replaceAll('_', ' ')),
-                    backgroundColor: Colors.orange.withOpacity(0.1),
-                  )).toList(),
-                ),
-              ],
-              
-              const SizedBox(height: 40),
-            ],
-          ),
+  void _openLeconDetail(Map<String, dynamic> lecon) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => LeconReferencePage(
+          leconNumero: lecon['numero'].toString(),
+          leconData: lecon,
         ),
       ),
     );

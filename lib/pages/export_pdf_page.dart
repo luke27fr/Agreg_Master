@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
+import '../utils/theme_utils.dart';
 
 class ExportPdfPage extends StatefulWidget {
   const ExportPdfPage({super.key});
@@ -289,9 +290,9 @@ class _ExportPdfPageState extends State<ExportPdfPage> {
                   margin: const EdgeInsets.all(16),
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Colors.blue.withOpacity(0.1),
+                    color: Colors.blue.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.blue.withOpacity(0.3)),
+                    border: Border.all(color: Colors.blue.withValues(alpha: 0.3)),
                   ),
                   child: Row(
                     children: [
@@ -357,7 +358,7 @@ class _ExportPdfPageState extends State<ExportPdfPage> {
                             final isSelected = _selectedFiches.contains(ficheId);
                             
                             return CheckboxListTile(
-                              title: Text(ficheId),
+                              title: Text(ThemeUtils.getFicheTitle(ficheId)),
                               value: isSelected,
                               onChanged: (_) => _toggleFiche(ficheId),
                               controlAffinity: ListTileControlAffinity.leading,

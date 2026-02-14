@@ -1,7 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:path_provider/path_provider.dart';
+import 'storage_service.dart';
 import '../models/lecon_progress_model.dart';
 
 class LeconProgressService extends ChangeNotifier {
@@ -187,16 +186,10 @@ class LeconProgressService extends ChangeNotifier {
   }
 
   // Persistance des données
-  Future<File> _getFile() async {
-    final dir = await getApplicationDocumentsDirectory();
-    return File('${dir.path}/lecon_progress.json');
-  }
-
   Future<void> loadData() async {
     try {
-      final file = await _getFile();
-      if (await file.exists()) {
-        final content = await file.readAsString();
+      final content = await StorageService.instance.read('lecon_progress.json');
+      if (content != null) {
         final data = jsonDecode(content) as Map<String, dynamic>;
         
         _progressMap = data.map(
@@ -215,9 +208,8 @@ class LeconProgressService extends ChangeNotifier {
 
   Future<void> _saveData() async {
     try {
-      final file = await _getFile();
       final data = _progressMap.map((key, value) => MapEntry(key, value.toJson()));
-      await file.writeAsString(jsonEncode(data));
+      await StorageService.instance.write('lecon_progress.json', jsonEncode(data));
     } catch (e) {
       debugPrint('Erreur sauvegarde progression: $e');
     }

@@ -141,7 +141,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
               width: position == 1 ? 70 : 60,
               height: position == 1 ? 70 : 60,
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.2),
+                color: Colors.white.withValues(alpha: 0.2),
                 shape: BoxShape.circle,
               ),
               child: Center(
@@ -198,7 +198,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: entry.isCurrentUser
-            ? const Color(0xFF1A237E).withOpacity(0.2)
+            ? const Color(0xFF1A237E).withValues(alpha: 0.2)
             : (isDark ? const Color(0xFF1E1E1E) : Colors.white),
         borderRadius: BorderRadius.circular(12),
         border: entry.isCurrentUser ? Border.all(color: const Color(0xFF1A237E), width: 2) : null,
@@ -274,7 +274,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.1),
+                  color: color.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
@@ -296,7 +296,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
               Column(
                 children: [
                   Text(
-                    '${comp.valeurUtilisateur.toStringAsFixed(1)}',
+                    comp.valeurUtilisateur.toStringAsFixed(1),
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -322,7 +322,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
               Column(
                 children: [
                   Text(
-                    '${comp.moyenneNationale.toStringAsFixed(1)}',
+                    comp.moyenneNationale.toStringAsFixed(1),
                     style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   const Text('Moyenne', style: TextStyle(color: Colors.grey, fontSize: 12)),
@@ -372,7 +372,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
       decoration: BoxDecoration(
         color: isDark ? const Color(0xFF1E1E1E) : Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.amber.withOpacity(0.3)),
+        border: Border.all(color: Colors.amber.withValues(alpha: 0.3)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -402,7 +402,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.amber.withOpacity(0.1),
+              color: Colors.amber.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(

@@ -240,7 +240,7 @@ class _QuizPageState extends State<QuizPage> {
                 margin: const EdgeInsets.only(right: 8),
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
-                  color: _timeLeft <= 5 ? Colors.red : Colors.white.withOpacity(0.2),
+                  color: _timeLeft <= 5 ? Colors.red : Colors.white.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
@@ -322,7 +322,7 @@ class _QuizPageState extends State<QuizPage> {
                       borderRadius: BorderRadius.circular(10),
                       boxShadow: !isAnswered ? [
                         BoxShadow(
-                          color: Colors.grey.withOpacity(0.1),
+                          color: Colors.grey.withValues(alpha: 0.1),
                           spreadRadius: 1,
                           blurRadius: 3,
                           offset: const Offset(0, 2),

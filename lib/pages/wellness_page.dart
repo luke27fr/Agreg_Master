@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fl_chart/fl_chart.dart';
 import '../services/wellness_service.dart';
 import '../models/wellness_model.dart';
 
@@ -57,7 +56,7 @@ class _WellnessPageState extends State<WellnessPage> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Color(stats.couleurRisqueValue).withOpacity(0.7),
+                    Color(stats.couleurRisqueValue).withValues(alpha: 0.7),
                     Color(stats.couleurRisqueValue),
                   ],
                 ),
@@ -107,7 +106,7 @@ class _WellnessPageState extends State<WellnessPage> {
                     borderRadius: BorderRadius.circular(8),
                     child: LinearProgressIndicator(
                       value: stats.risqueBurnout / 100,
-                      backgroundColor: Colors.white.withOpacity(0.3),
+                      backgroundColor: Colors.white.withValues(alpha: 0.3),
                       valueColor: const AlwaysStoppedAnimation(Colors.white),
                       minHeight: 10,
                     ),
@@ -166,7 +165,7 @@ class _WellnessPageState extends State<WellnessPage> {
               children: [
                 Expanded(
                   child: _buildStatCard(
-                    '${stats.concentrationMoyenne.toStringAsFixed(1)}',
+                    stats.concentrationMoyenne.toStringAsFixed(1),
                     'Concentration',
                     Icons.psychology,
                     Colors.purple,

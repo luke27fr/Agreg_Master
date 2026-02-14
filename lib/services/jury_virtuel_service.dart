@@ -1,8 +1,7 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:math';
 import 'package:flutter/foundation.dart';
-import 'package:path_provider/path_provider.dart';
+import 'storage_service.dart';
 import '../models/jury_virtuel_model.dart';
 
 class JuryVirtuelService extends ChangeNotifier {
@@ -25,6 +24,13 @@ class JuryVirtuelService extends ChangeNotifier {
           categorie: 'definition',
           motsCles: ['définition'],
           difficulte: 1,
+          indicePedagogique: 'Soyez précis sur les hypothèses et les quantificateurs. Le jury attend une formulation rigoureuse.',
+          pointsCles: [
+            'Énoncer la définition avec toutes les hypothèses',
+            'Préciser le cadre (espace, structure algébrique...)',
+            'Mentionner les cas limites ou dégénérés',
+            'Donner un exemple immédiat illustrant la définition',
+          ],
         ),
         JuryQuestion(
           id: 'ex_1',
@@ -32,6 +38,13 @@ class JuryVirtuelService extends ChangeNotifier {
           categorie: 'exemple',
           motsCles: ['exemple', 'application'],
           difficulte: 2,
+          indicePedagogique: 'Choisissez un exemple non trivial mais accessible. Le jury apprécie les exemples qui illustrent la richesse du concept.',
+          pointsCles: [
+            'Choisir un exemple pertinent et non trivial',
+            'Vérifier explicitement les hypothèses sur l\'exemple',
+            'Montrer en quoi l\'exemple illustre le concept',
+            'Si possible, mentionner une application concrète',
+          ],
         ),
         JuryQuestion(
           id: 'contre_1',
@@ -39,13 +52,27 @@ class JuryVirtuelService extends ChangeNotifier {
           categorie: 'contre-exemple',
           motsCles: ['contre-exemple', 'pathologique'],
           difficulte: 3,
+          indicePedagogique: 'Les contre-exemples montrent que vous comprenez les limites du résultat. Précisez quelle hypothèse est violée.',
+          pointsCles: [
+            'Exhiber un contre-exemple précis',
+            'Identifier l\'hypothèse qui est violée',
+            'Expliquer pourquoi la conclusion tombe en défaut',
+            'Mentionner si le contre-exemple est classique (Weierstrass, Dirichlet...)',
+          ],
         ),
         JuryQuestion(
           id: 'lien_1',
-          question: 'Quel est le lien avec [autre concept de la leçon] ?',
+          question: 'Quel est le lien avec les autres concepts de la leçon ?',
           categorie: 'lien',
           motsCles: ['relation', 'connexion'],
           difficulte: 3,
+          indicePedagogique: 'Le jury cherche à évaluer votre vision d\'ensemble. Montrez les connexions entre les résultats.',
+          pointsCles: [
+            'Identifier les liens logiques (implication, équivalence)',
+            'Montrer comment les résultats s\'enchaînent',
+            'Mentionner les outils communs utilisés',
+            'Faire le pont avec d\'autres domaines si pertinent',
+          ],
         ),
         JuryQuestion(
           id: 'gen_1',
@@ -53,6 +80,13 @@ class JuryVirtuelService extends ChangeNotifier {
           categorie: 'generalisation',
           motsCles: ['généralisation', 'cas particulier'],
           difficulte: 4,
+          indicePedagogique: 'Montrez que vous savez situer le résultat dans un contexte plus large. Quelles hypothèses peut-on affaiblir ?',
+          pointsCles: [
+            'Énoncer la version plus générale du résultat',
+            'Identifier les hypothèses qu\'on peut affaiblir',
+            'Préciser ce qu\'on perd en généralisant',
+            'Donner le cadre optimal (catégories, espaces fonctionnels...)',
+          ],
         ),
         JuryQuestion(
           id: 'app_1',
@@ -60,6 +94,13 @@ class JuryVirtuelService extends ChangeNotifier {
           categorie: 'application',
           motsCles: ['utilité', 'application'],
           difficulte: 3,
+          indicePedagogique: 'Les applications montrent l\'utilité du résultat. Privilégiez les applications dans d\'autres domaines des mathématiques.',
+          pointsCles: [
+            'Décrire une application précise et pertinente',
+            'Expliquer comment le théorème intervient',
+            'Mentionner les domaines concernés (analyse, algèbre, physique...)',
+            'Si possible, donner un énoncé de corollaire utile',
+          ],
         ),
         JuryQuestion(
           id: 'dev_1',
@@ -68,6 +109,14 @@ class JuryVirtuelService extends ChangeNotifier {
           motsCles: ['démonstration', 'preuve'],
           difficulte: 5,
           reponseType: 'developpement',
+          indicePedagogique: 'Donnez les grandes étapes de la preuve. Le jury n\'attend pas tous les détails mais la structure logique.',
+          pointsCles: [
+            'Annoncer la stratégie de preuve (récurrence, absurde, construction...)',
+            'Donner les étapes clés avec les arguments essentiels',
+            'Mentionner les lemmes techniques utilisés',
+            'Identifier les points délicats de la preuve',
+            'Conclure proprement',
+          ],
         ),
         JuryQuestion(
           id: 'calc_1',
@@ -76,6 +125,13 @@ class JuryVirtuelService extends ChangeNotifier {
           motsCles: ['calcul', 'exemple'],
           difficulte: 3,
           reponseType: 'calcul',
+          indicePedagogique: 'Le jury veut voir que vous savez manipuler. Choisissez un exemple où le calcul est faisable au tableau.',
+          pointsCles: [
+            'Choisir un exemple de taille raisonnable',
+            'Poser clairement les données et le résultat attendu',
+            'Effectuer le calcul sans erreur',
+            'Vérifier le résultat (cohérence, cas particuliers)',
+          ],
         ),
         JuryQuestion(
           id: 'hyp_1',
@@ -83,6 +139,13 @@ class JuryVirtuelService extends ChangeNotifier {
           categorie: 'hypotheses',
           motsCles: ['hypothèses', 'conditions'],
           difficulte: 4,
+          indicePedagogique: 'Question piège classique du jury. Pour chaque hypothèse, montrez qu\'elle est nécessaire avec un contre-exemple.',
+          pointsCles: [
+            'Lister toutes les hypothèses du théorème',
+            'Pour chaque hypothèse, dire si elle est nécessaire',
+            'Fournir un contre-exemple quand on retire une hypothèse',
+            'Mentionner si certaines hypothèses peuvent être affaiblies',
+          ],
         ),
         JuryQuestion(
           id: 'hist_1',
@@ -90,6 +153,13 @@ class JuryVirtuelService extends ChangeNotifier {
           categorie: 'histoire',
           motsCles: ['histoire', 'auteur'],
           difficulte: 2,
+          indicePedagogique: 'Quelques éléments historiques montrent votre culture mathématique. Pas besoin d\'être exhaustif.',
+          pointsCles: [
+            'Nommer le(s) mathématicien(s) à l\'origine du résultat',
+            'Situer approximativement l\'époque',
+            'Mentionner le contexte de la découverte si connu',
+            'Évoquer les évolutions ultérieures du résultat',
+          ],
         ),
       ],
     };
@@ -217,16 +287,10 @@ class JuryVirtuelService extends ChangeNotifier {
   }
 
   // Persistance
-  Future<File> _getFile() async {
-    final dir = await getApplicationDocumentsDirectory();
-    return File('${dir.path}/jury_sessions.json');
-  }
-
   Future<void> loadData() async {
     try {
-      final file = await _getFile();
-      if (await file.exists()) {
-        final content = await file.readAsString();
+      final content = await StorageService.instance.read('jury_sessions.json');
+      if (content != null) {
         final data = jsonDecode(content) as List<dynamic>;
         _sessions = data
             .map((e) => JurySession.fromJson(e as Map<String, dynamic>))
@@ -240,9 +304,8 @@ class JuryVirtuelService extends ChangeNotifier {
 
   Future<void> _saveSessions() async {
     try {
-      final file = await _getFile();
       final data = _sessions.map((e) => e.toJson()).toList();
-      await file.writeAsString(jsonEncode(data));
+      await StorageService.instance.write('jury_sessions.json', jsonEncode(data));
     } catch (e) {
       debugPrint('Erreur sauvegarde jury sessions: $e');
     }

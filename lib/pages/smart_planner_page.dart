@@ -67,7 +67,7 @@ class _SmartPlannerPageState extends State<SmartPlannerPage> {
               margin: const EdgeInsets.all(16),
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.orange.withOpacity(0.1),
+                color: Colors.orange.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: Colors.orange),
               ),
@@ -104,7 +104,7 @@ class _SmartPlannerPageState extends State<SmartPlannerPage> {
             eventLoader: (day) => _service.getTasksForDate(day),
             calendarStyle: CalendarStyle(
               todayDecoration: BoxDecoration(
-                color: Colors.blue.withOpacity(0.3),
+                color: Colors.blue.withValues(alpha: 0.3),
                 shape: BoxShape.circle,
               ),
               selectedDecoration: const BoxDecoration(

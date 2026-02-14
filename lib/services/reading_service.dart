@@ -1,7 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:path_provider/path_provider.dart';
+import 'storage_service.dart';
 
 /// Service singleton pour gérer la progression de lecture
 class ReadingService extends ChangeNotifier {
@@ -21,9 +20,8 @@ class ReadingService extends ChangeNotifier {
     if (_isLoaded) return;
     
     try {
-      final file = await _getReadingFile();
-      if (await file.exists()) {
-        final content = await file.readAsString();
+      final content = await StorageService.instance.read('agreg_master_reading.json');
+      if (content != null) {
         final Map<String, dynamic> data = jsonDecode(content);
         _readFiches.clear();
         _readDates.clear();
@@ -87,19 +85,13 @@ class ReadingService extends ChangeNotifier {
     return getReadCount(ficheIds) / ficheIds.length * 100;
   }
 
-  Future<File> _getReadingFile() async {
-    final dir = await getApplicationDocumentsDirectory();
-    return File('${dir.path}/agreg_master_reading.json');
-  }
-
   Future<void> _persistReadingProgress() async {
     try {
-      final file = await _getReadingFile();
       final data = <String, String>{};
       for (var ficheId in _readFiches) {
         data[ficheId] = _readDates[ficheId]?.toIso8601String() ?? DateTime.now().toIso8601String();
       }
-      await file.writeAsString(jsonEncode(data));
+      await StorageService.instance.write('agreg_master_reading.json', jsonEncode(data));
     } catch (e) {
       debugPrint('Erreur sauvegarde lecture: $e');
     }

@@ -83,7 +83,7 @@ class _DemonstrationsPageState extends State<DemonstrationsPage> {
                   margin: const EdgeInsets.all(16),
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: _showProofs ? Colors.green.withOpacity(0.1) : Colors.orange.withOpacity(0.1),
+                    color: _showProofs ? Colors.green.withValues(alpha: 0.1) : Colors.orange.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
                       color: _showProofs ? Colors.green : Colors.orange,
@@ -163,7 +163,7 @@ class _DemonstrationsPageState extends State<DemonstrationsPage> {
           leading: Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.1),
+              color: Colors.grey.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: const Icon(Icons.lock, color: Colors.grey),
@@ -194,7 +194,7 @@ class _DemonstrationsPageState extends State<DemonstrationsPage> {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF1A237E).withOpacity(0.1),
+                    color: const Color(0xFF1A237E).withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Text(
@@ -212,7 +212,7 @@ class _DemonstrationsPageState extends State<DemonstrationsPage> {
                   children: (demo['tags'] as List).take(2).map((tag) => Container(
                     padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.1),
+                      color: Colors.grey.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(tag, style: TextStyle(fontSize: 10, color: Colors.grey[600])),
@@ -235,9 +235,9 @@ class _DemonstrationsPageState extends State<DemonstrationsPage> {
               width: double.infinity,
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.blue.withOpacity(0.05),
+                color: Colors.blue.withValues(alpha: 0.05),
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.blue.withOpacity(0.2)),
+                border: Border.all(color: Colors.blue.withValues(alpha: 0.2)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -265,9 +265,9 @@ class _DemonstrationsPageState extends State<DemonstrationsPage> {
                 return Container(
                   margin: const EdgeInsets.only(bottom: 8),
                   decoration: BoxDecoration(
-                    color: Colors.red.withOpacity(0.05),
+                    color: Colors.red.withValues(alpha: 0.05),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.red.withOpacity(0.2)),
+                    border: Border.all(color: Colors.red.withValues(alpha: 0.2)),
                   ),
                   child: ListTile(
                     dense: true,
@@ -322,9 +322,9 @@ class _DemonstrationsPageState extends State<DemonstrationsPage> {
                 width: double.infinity,
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: Colors.green.withOpacity(0.05),
+                  color: Colors.green.withValues(alpha: 0.05),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: Colors.green.withOpacity(0.2)),
+                  border: Border.all(color: Colors.green.withValues(alpha: 0.2)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,10 +1,12 @@
-import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../services/subscription_service.dart';
 
-/// Page PayWall Premium avec offres d'abonnement
+/// Page PayWall Premium avec offres d'abonnement.
+/// Utilise RevenueCat pour afficher les prix réels depuis les stores (iOS/Android)
+/// ou Stripe (Web), et gérer l'achat.
 class PaywallPage extends StatefulWidget {
   const PaywallPage({super.key});
 
@@ -14,33 +16,47 @@ class PaywallPage extends StatefulWidget {
 
 class _PaywallPageState extends State<PaywallPage> {
   final SubscriptionService _subscriptionService = SubscriptionService();
-  List<ProductDetails> _products = [];
-  String _selectedProductId = SubscriptionService.yearlyId; // Par défaut: annuel
+  List<Package> _packages = [];
+  Package? _selectedPackage;
   bool _isLoading = true;
+  bool _isPurchasing = false;
 
   @override
   void initState() {
     super.initState();
-    _loadProducts();
+    _loadOfferings();
   }
 
-  Future<void> _loadProducts() async {
+  Future<void> _loadOfferings() async {
     setState(() => _isLoading = true);
     try {
-      final products = await _subscriptionService
-          .getAvailableProducts()
-          .timeout(const Duration(seconds: 8), onTimeout: () => []);
-      if (mounted) {
-        setState(() {
-          _products = products;
-          _isLoading = false;
-        });
+      final offerings = await _subscriptionService.getOfferings();
+      if (offerings != null && offerings.current != null) {
+        final packages = offerings.current!.availablePackages;
+        if (mounted) {
+          setState(() {
+            _packages = packages;
+            // Sélectionner le package annuel par défaut, sinon le premier
+            _selectedPackage = packages.firstWhere(
+              (p) => p.packageType == PackageType.annual,
+              orElse: () => packages.first,
+            );
+            _isLoading = false;
+          });
+        }
+      } else {
+        if (mounted) {
+          setState(() {
+            _packages = [];
+            _isLoading = false;
+          });
+        }
       }
     } catch (e) {
-      debugPrint('Erreur chargement produits paywall: $e');
+      debugPrint('Erreur chargement offres paywall: $e');
       if (mounted) {
         setState(() {
-          _products = [];
+          _packages = [];
           _isLoading = false;
         });
       }
@@ -80,7 +96,7 @@ class _PaywallPageState extends State<PaywallPage> {
                     children: [
                       // Titre
                       const Text(
-                        '🎓 Agreg Master Premium',
+                        'Agreg Master Premium',
                         style: TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.bold,
@@ -112,28 +128,31 @@ class _PaywallPageState extends State<PaywallPage> {
                         const Center(
                           child: CircularProgressIndicator(color: Colors.white),
                         )
+                      else if (_packages.isEmpty)
+                        _buildNoOfferings()
                       else
                         _buildSubscriptionPlans(),
 
                       const SizedBox(height: 24),
 
-                      // Bouton restaurer achats
-                      TextButton(
-                        onPressed: _restorePurchases,
-                        child: Text(
-                          'Restaurer mes achats',
-                          style: TextStyle(
-                            color: Colors.white.withAlpha((0.7 * 255).round()),
-                            fontSize: 15,
+                      // Bouton restaurer achats (masqué sur web)
+                      if (!kIsWeb)
+                        TextButton(
+                          onPressed: _restorePurchases,
+                          child: Text(
+                            'Restaurer mes achats',
+                            style: TextStyle(
+                              color: Colors.white.withAlpha((0.7 * 255).round()),
+                              fontSize: 15,
+                            ),
                           ),
                         ),
-                      ),
 
                       const SizedBox(height: 8),
 
-                      // Texte légal
+                      // Texte légal adapté selon la plateforme
                       Text(
-                        'Paiement sécurisé via Google Play / App Store\nAnnulation possible à tout moment\nL\'abonnement se renouvelle automatiquement sauf annulation\nau moins 24h avant la fin de la période en cours.',
+                        _getLegalText(),
                         style: TextStyle(
                           color: Colors.white.withAlpha((0.6 * 255).round()),
                           fontSize: 12,
@@ -144,7 +163,7 @@ class _PaywallPageState extends State<PaywallPage> {
 
                       const SizedBox(height: 12),
 
-                      // Liens légaux (requis par les stores)
+                      // Liens légaux
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -271,53 +290,43 @@ class _PaywallPageState extends State<PaywallPage> {
     );
   }
 
-  ProductDetails _findProduct(String id, String fallbackPrice) {
-    for (final p in _products) {
-      if (p.id == id) return p;
-    }
-    return _createMockProduct(id, fallbackPrice);
+  Widget _buildNoOfferings() {
+    return Container(
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: Colors.white.withAlpha((0.1 * 255).round()),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        children: [
+          Icon(Icons.info_outline, color: Colors.white.withAlpha((0.7 * 255).round()), size: 48),
+          const SizedBox(height: 16),
+          Text(
+            'Offres non disponibles pour le moment.\nVeuillez réessayer plus tard.',
+            style: TextStyle(
+              color: Colors.white.withAlpha((0.8 * 255).round()),
+              fontSize: 16,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 16),
+          TextButton(
+            onPressed: _loadOfferings,
+            child: const Text('Réessayer', style: TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildSubscriptionPlans() {
-    // Récupérer les produits
-    final monthly = _findProduct(SubscriptionService.monthlyId, '4,99 €');
-    final yearly = _findProduct(SubscriptionService.yearlyId, '39,99 €');
-    final student = _findProduct(SubscriptionService.studentId, '29,99 €');
-
     return Column(
       children: [
-        // Plan Annuel (POPULAIRE)
-        _buildPlanCard(
-          product: yearly,
-          title: 'Annuel',
-          subtitle: 'Meilleur rapport qualité/prix',
-          badge: '🔥 POPULAIRE',
-          monthlyCost: '3,33 €/mois',
-          isSelected: _selectedProductId == yearly.id,
-        ),
-
-        const SizedBox(height: 12),
-
-        // Plan Mensuel
-        _buildPlanCard(
-          product: monthly,
-          title: 'Mensuel',
-          subtitle: 'Engagement flexible',
-          monthlyCost: monthly.price,
-          isSelected: _selectedProductId == monthly.id,
-        ),
-
-        const SizedBox(height: 12),
-
-        // Plan Étudiant
-        _buildPlanCard(
-          product: student,
-          title: 'Étudiant (1 an)',
-          subtitle: 'Tarif réduit avec justificatif',
-          badge: '🎓 PROMO',
-          monthlyCost: '2,50 €/mois',
-          isSelected: _selectedProductId == student.id,
-        ),
+        // Afficher chaque package disponible
+        ..._packages.map((package) => Padding(
+          padding: const EdgeInsets.only(bottom: 12),
+          child: _buildPlanCard(package: package),
+        )),
 
         const SizedBox(height: 24),
 
@@ -326,7 +335,9 @@ class _PaywallPageState extends State<PaywallPage> {
           width: double.infinity,
           height: 56,
           child: ElevatedButton(
-            onPressed: _subscriptionService.isLoading ? null : _handlePurchase,
+            onPressed: _isPurchasing || _selectedPackage == null
+                ? null
+                : _handlePurchase,
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white,
               foregroundColor: Colors.indigo.shade700,
@@ -335,7 +346,7 @@ class _PaywallPageState extends State<PaywallPage> {
               ),
               elevation: 8,
             ),
-            child: _subscriptionService.isLoading
+            child: _isPurchasing
                 ? const SizedBox(
                     height: 24,
                     width: 24,
@@ -354,17 +365,16 @@ class _PaywallPageState extends State<PaywallPage> {
     );
   }
 
-  Widget _buildPlanCard({
-    required ProductDetails product,
-    required String title,
-    required String subtitle,
-    String? badge,
-    required String monthlyCost,
-    required bool isSelected,
-  }) {
+  Widget _buildPlanCard({required Package package}) {
+    final isSelected = _selectedPackage?.identifier == package.identifier;
+    final storeProduct = package.storeProduct;
+    final title = _getPackageTitle(package);
+    final subtitle = _getPackageSubtitle(package);
+    final badge = _getPackageBadge(package);
+
     return GestureDetector(
       onTap: () {
-        setState(() => _selectedProductId = product.id);
+        setState(() => _selectedPackage = package);
       },
       child: Container(
         padding: const EdgeInsets.all(16),
@@ -382,7 +392,7 @@ class _PaywallPageState extends State<PaywallPage> {
         ),
         child: Row(
           children: [
-            // Radio
+            // Radio indicator
             Container(
               width: 24,
               height: 24,
@@ -462,20 +472,11 @@ class _PaywallPageState extends State<PaywallPage> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  product.price,
+                  storeProduct.priceString,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: isSelected ? Colors.indigo.shade700 : Colors.white,
-                  ),
-                ),
-                Text(
-                  monthlyCost,
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: isSelected
-                        ? Colors.indigo.shade700.withAlpha((0.6 * 255).round())
-                        : Colors.white.withAlpha((0.6 * 255).round()),
                   ),
                 ),
               ],
@@ -486,37 +487,85 @@ class _PaywallPageState extends State<PaywallPage> {
     );
   }
 
-  ProductDetails _createMockProduct(String id, String price) {
-    // Produit mock pour prévisualisation (si stores pas configurés)
-    return ProductDetails(
-      id: id,
-      title: id,
-      description: '',
-      price: price,
-      rawPrice: 0,
-      currencyCode: 'EUR',
-    );
+  // ============================================================================
+  // Helpers pour les labels de packages
+  // ============================================================================
+
+  String _getPackageTitle(Package package) {
+    switch (package.packageType) {
+      case PackageType.monthly:
+        return 'Mensuel';
+      case PackageType.annual:
+        return 'Annuel';
+      default:
+        return package.storeProduct.title;
+    }
   }
 
+  String _getPackageSubtitle(Package package) {
+    switch (package.packageType) {
+      case PackageType.monthly:
+        return 'Engagement flexible';
+      case PackageType.annual:
+        return 'Meilleur rapport qualité/prix';
+      default:
+        return package.storeProduct.description;
+    }
+  }
+
+  String? _getPackageBadge(Package package) {
+    switch (package.packageType) {
+      case PackageType.annual:
+        return 'POPULAIRE';
+      default:
+        return null;
+    }
+  }
+
+  /// Texte légal adapté selon la plateforme
+  String _getLegalText() {
+    if (kIsWeb) {
+      return 'Paiement sécurisé via Stripe\n'
+          'Annulation possible à tout moment depuis votre espace client\n'
+          'L\'abonnement se renouvelle automatiquement sauf annulation.';
+    }
+    return 'Paiement sécurisé via Google Play / App Store\n'
+        'Annulation possible à tout moment\n'
+        'L\'abonnement se renouvelle automatiquement sauf annulation\n'
+        'au moins 24h avant la fin de la période en cours.';
+  }
+
+  // ============================================================================
+  // Actions
+  // ============================================================================
+
   Future<void> _handlePurchase() async {
-    final success = await _subscriptionService.purchaseSubscription(_selectedProductId);
-    if (success && mounted) {
-      Navigator.of(context).pop(true); // Retour avec succès
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('✅ Abonnement activé ! Bienvenue Premium !'),
-          backgroundColor: Colors.green,
-          duration: Duration(seconds: 3),
-        ),
-      );
-    } else if (_subscriptionService.error != null && mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Erreur : ${_subscriptionService.error}'),
-          backgroundColor: Colors.red,
-          duration: const Duration(seconds: 4),
-        ),
-      );
+    if (_selectedPackage == null) return;
+
+    setState(() => _isPurchasing = true);
+    final success = await _subscriptionService.purchasePackage(_selectedPackage!);
+
+    if (mounted) {
+      setState(() => _isPurchasing = false);
+
+      if (success) {
+        Navigator.of(context).pop(true);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Abonnement activé ! Bienvenue Premium !'),
+            backgroundColor: Colors.green,
+            duration: Duration(seconds: 3),
+          ),
+        );
+      } else if (_subscriptionService.error != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Erreur : ${_subscriptionService.error}'),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 4),
+          ),
+        );
+      }
     }
   }
 
@@ -534,7 +583,7 @@ class _PaywallPageState extends State<PaywallPage> {
         SnackBar(
           content: Text(
             _subscriptionService.isPremium
-                ? '✅ Abonnement restauré !'
+                ? 'Abonnement restauré !'
                 : 'Aucun abonnement trouvé',
           ),
           backgroundColor: _subscriptionService.isPremium

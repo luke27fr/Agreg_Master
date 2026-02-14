@@ -87,9 +87,9 @@ class _QuestionsJuryPageState extends State<QuestionsJuryPage> {
                   margin: const EdgeInsets.all(16),
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Colors.orange.withOpacity(0.1),
+                    color: Colors.orange.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.orange.withOpacity(0.3)),
+                    border: Border.all(color: Colors.orange.withValues(alpha: 0.3)),
                   ),
                   child: const Row(
                     children: [
@@ -156,7 +156,7 @@ class _QuestionsJuryPageState extends State<QuestionsJuryPage> {
           width: 50,
           height: 50,
           decoration: BoxDecoration(
-            color: const Color(0xFF1A237E).withOpacity(0.1),
+            color: const Color(0xFF1A237E).withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Center(
@@ -189,7 +189,7 @@ class _QuestionsJuryPageState extends State<QuestionsJuryPage> {
                   width: 24,
                   height: 24,
                   decoration: BoxDecoration(
-                    color: Colors.orange.withOpacity(0.1),
+                    color: Colors.orange.withValues(alpha: 0.1),
                     shape: BoxShape.circle,
                   ),
                   child: Center(

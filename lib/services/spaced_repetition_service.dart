@@ -1,7 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:path_provider/path_provider.dart';
+import 'storage_service.dart';
 import '../models/spaced_repetition_model.dart';
 
 class SpacedRepetitionService extends ChangeNotifier {
@@ -54,7 +53,7 @@ class SpacedRepetitionService extends ChangeNotifier {
       addCard(ficheId);
     }
 
-    _cards[ficheId]!.updateAfterReview(quality);
+    _cards[ficheId] = _cards[ficheId]!.afterReview(quality);
     _reviewedToday.add(ficheId);
     _saveData();
     notifyListeners();
@@ -90,9 +89,6 @@ class SpacedRepetitionService extends ChangeNotifier {
 
   /// Réinitialise le compteur de révisions du jour (à appeler chaque jour)
   void resetDailyReviews() {
-    final now = DateTime.now();
-    final lastReset = DateTime(now.year, now.month, now.day);
-    
     // Vérifie si c'est un nouveau jour
     if (_reviewedToday.isNotEmpty) {
       _reviewedToday.clear();
@@ -123,16 +119,10 @@ class SpacedRepetitionService extends ChangeNotifier {
   }
 
   // Persistance des données
-  Future<File> _getFile() async {
-    final dir = await getApplicationDocumentsDirectory();
-    return File('${dir.path}/spaced_repetition.json');
-  }
-
   Future<void> loadData() async {
     try {
-      final file = await _getFile();
-      if (await file.exists()) {
-        final content = await file.readAsString();
+      final content = await StorageService.instance.read('spaced_repetition.json');
+      if (content != null) {
         final data = jsonDecode(content) as Map<String, dynamic>;
         
         _cards = (data['cards'] as Map<String, dynamic>).map(
@@ -155,13 +145,12 @@ class SpacedRepetitionService extends ChangeNotifier {
 
   Future<void> _saveData() async {
     try {
-      final file = await _getFile();
       final data = {
         'cards': _cards.map((key, value) => MapEntry(key, value.toJson())),
         'reviewedToday': _reviewedToday.toList(),
         'lastSave': DateTime.now().toIso8601String(),
       };
-      await file.writeAsString(jsonEncode(data));
+      await StorageService.instance.write('spaced_repetition.json', jsonEncode(data));
     } catch (e) {
       debugPrint('Erreur sauvegarde SRS: $e');
     }

@@ -132,7 +132,7 @@ class _BibliographiePageState extends State<BibliographiePage> {
         leading: Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: _getDomaineColor(livre['domaine']).withOpacity(0.1),
+            color: _getDomaineColor(livre['domaine']).withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
           ),
           child: const Icon(Icons.book, color: Color(0xFF1A237E)),
@@ -156,7 +156,7 @@ class _BibliographiePageState extends State<BibliographiePage> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: _getDomaineColor(livre['domaine']).withOpacity(0.1),
+                  color: _getDomaineColor(livre['domaine']).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Text(
@@ -171,7 +171,7 @@ class _BibliographiePageState extends State<BibliographiePage> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.1),
+                  color: Colors.grey.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Text(
@@ -200,7 +200,7 @@ class _BibliographiePageState extends State<BibliographiePage> {
         leading: Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: Colors.blue.withOpacity(0.1),
+            color: Colors.blue.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
           ),
           child: const Icon(Icons.language, color: Colors.blue),

@@ -33,6 +33,12 @@ class _HomeNavigationPageState extends State<HomeNavigationPage> {
     if (mounted) setState(() {});
   }
 
+  void _navigateToTab(int index) {
+    if (index >= 0 && index <= 4) {
+      setState(() => _currentIndex = index);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final dueCount = _srsService.getDueCards().length;
@@ -40,12 +46,12 @@ class _HomeNavigationPageState extends State<HomeNavigationPage> {
     return Scaffold(
       body: IndexedStack(
         index: _currentIndex,
-        children: const [
-          AccueilTab(),
-          ApprendreTab(),
-          EntrainerTab(),
-          OrganiserTab(),
-          ProfilTab(),
+        children: [
+          AccueilTab(onNavigateToTab: _navigateToTab),
+          const ApprendreTab(),
+          const EntrainerTab(),
+          const OrganiserTab(),
+          const ProfilTab(),
         ],
       ),
       bottomNavigationBar: NavigationBar(

@@ -117,7 +117,7 @@ class _BadgesPageState extends State<BadgesPage> {
                           borderRadius: BorderRadius.circular(4),
                           child: LinearProgressIndicator(
                             value: _badgeService.completionRate,
-                            backgroundColor: Colors.white.withOpacity(0.3),
+                            backgroundColor: Colors.white.withValues(alpha: 0.3),
                             valueColor: const AlwaysStoppedAnimation(Colors.white),
                             minHeight: 8,
                           ),
@@ -184,7 +184,7 @@ class _BadgesPageState extends State<BadgesPage> {
               ? Border.all(color: Colors.amber, width: 2)
               : null,
           boxShadow: isUnlocked
-              ? [BoxShadow(color: Colors.amber.withOpacity(0.3), blurRadius: 8)]
+              ? [BoxShadow(color: Colors.amber.withValues(alpha: 0.3), blurRadius: 8)]
               : null,
         ),
         child: Column(

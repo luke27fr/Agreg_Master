@@ -102,7 +102,7 @@ class _ExamenBlancPageState extends State<ExamenBlancPage> with SingleTickerProv
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
+              color: color.withValues(alpha: 0.1),
               borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
             ),
             child: Row(
@@ -161,7 +161,7 @@ class _ExamenBlancPageState extends State<ExamenBlancPage> with SingleTickerProv
               final exercice = examen.exercices[index];
               return ListTile(
                 leading: CircleAvatar(
-                  backgroundColor: color.withOpacity(0.1),
+                  backgroundColor: color.withValues(alpha: 0.1),
                   child: Text(
                     '${index + 1}',
                     style: TextStyle(color: color, fontWeight: FontWeight.bold),
@@ -277,7 +277,7 @@ class _ExamenBlancPageState extends State<ExamenBlancPage> with SingleTickerProv
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 decoration: BoxDecoration(
-                  color: noteColor.withOpacity(0.1),
+                  color: noteColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: noteColor),
                 ),
@@ -394,7 +394,7 @@ class _ExamenBlancPageState extends State<ExamenBlancPage> with SingleTickerProv
                   Icons.check_circle,
                 ),
                 _buildStatCircle(
-                  '${stats.noteMoyenne.toStringAsFixed(1)}',
+                  stats.noteMoyenne.toStringAsFixed(1),
                   'Moyenne',
                   Icons.grade,
                 ),
@@ -483,7 +483,7 @@ class _ExamenBlancPageState extends State<ExamenBlancPage> with SingleTickerProv
                       width: 40,
                       height: 40,
                       decoration: BoxDecoration(
-                        color: Colors.amber.withOpacity(0.2),
+                        color: Colors.amber.withValues(alpha: 0.2),
                         shape: BoxShape.circle,
                       ),
                       child: const Icon(Icons.emoji_events, color: Colors.amber),
@@ -528,7 +528,7 @@ class _ExamenBlancPageState extends State<ExamenBlancPage> with SingleTickerProv
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.2),
+            color: Colors.white.withValues(alpha: 0.2),
             shape: BoxShape.circle,
           ),
           child: Icon(icon, color: Colors.white, size: 28),
@@ -902,7 +902,7 @@ class _ExamenRunningPageState extends State<ExamenRunningPage> {
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                               decoration: BoxDecoration(
-                                color: const Color(0xFF1A237E).withOpacity(0.1),
+                                color: const Color(0xFF1A237E).withValues(alpha: 0.1),
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
@@ -932,9 +932,9 @@ class _ExamenRunningPageState extends State<ExamenRunningPage> {
                           Container(
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
-                              color: Colors.amber.withOpacity(0.1),
+                              color: Colors.amber.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(4),
-                              border: Border.all(color: Colors.amber.withOpacity(0.3)),
+                              border: Border.all(color: Colors.amber.withValues(alpha: 0.3)),
                             ),
                             child: Row(
                               children: [
@@ -969,9 +969,9 @@ class _ExamenRunningPageState extends State<ExamenRunningPage> {
                                 width: double.infinity,
                                 padding: const EdgeInsets.all(12),
                                 decoration: BoxDecoration(
-                                  color: Colors.green.withOpacity(0.05),
+                                  color: Colors.green.withValues(alpha: 0.05),
                                   borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(color: Colors.green.withOpacity(0.3)),
+                                  border: Border.all(color: Colors.green.withValues(alpha: 0.3)),
                                 ),
                                 child: Text(
                                   question.correction!,
@@ -985,9 +985,9 @@ class _ExamenRunningPageState extends State<ExamenRunningPage> {
                           Container(
                             padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
-                              color: Colors.orange.withOpacity(0.1),
+                              color: Colors.orange.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: Colors.orange.withOpacity(0.3)),
+                              border: Border.all(color: Colors.orange.withValues(alpha: 0.3)),
                             ),
                             child: Row(
                               children: [

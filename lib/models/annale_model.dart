@@ -9,11 +9,15 @@ class Annale {
   final int dureeMinutes;
   final int? baremeTotal;
   final List<String> themes; // ['Algèbre', 'Analyse', etc.]
-  final String? urlOfficielle; // Lien vers le sujet officiel
-  final String? urlCorrection; // Lien vers correction officielle si disponible
+  final String? urlSujet; // Lien vers le sujet officiel (PDF)
+  final String? urlCorrige; // Lien vers le corrigé (PDF)
+  final String? urlRapport; // Lien vers le rapport du jury (PDF)
+  final String? urlOfficielle; // Page officielle du ministère
+  final String? urlCorrection; // Legacy
   final String difficulte; // 'Facile', 'Moyen', 'Difficile', 'Très difficile'
   final List<String>? motsClefs;
-  final String? rapportGlobal; // Rapport global du jury pour ce sujet
+  final String? rapportGlobal; // Résumé du rapport du jury
+  final List<String>? parties; // Structure du sujet : ['Partie I - Titre', ...]
 
   Annale({
     required this.id,
@@ -22,15 +26,19 @@ class Annale {
     required this.typeEpreuve,
     required this.titre,
     this.description,
-    required this.exercices,
+    this.exercices = const [],
     required this.dureeMinutes,
     this.baremeTotal,
     required this.themes,
+    this.urlSujet,
+    this.urlCorrige,
+    this.urlRapport,
     this.urlOfficielle,
     this.urlCorrection,
     required this.difficulte,
     this.motsClefs,
     this.rapportGlobal,
+    this.parties,
   });
 
   factory Annale.fromJson(Map<String, dynamic> json) {
@@ -41,12 +49,17 @@ class Annale {
       typeEpreuve: json['typeEpreuve'] as String,
       titre: json['titre'] as String,
       description: json['description'] as String?,
-      exercices: (json['exercices'] as List)
-          .map((e) => ExerciceAnnale.fromJson(Map<String, dynamic>.from(e as Map)))
-          .toList(),
+      exercices: json['exercices'] != null
+          ? (json['exercices'] as List)
+              .map((e) => ExerciceAnnale.fromJson(Map<String, dynamic>.from(e as Map)))
+              .toList()
+          : const [],
       dureeMinutes: json['dureeMinutes'] as int,
       baremeTotal: json['baremeTotal'] as int?,
       themes: (json['themes'] as List).cast<String>(),
+      urlSujet: json['urlSujet'] as String?,
+      urlCorrige: json['urlCorrige'] as String?,
+      urlRapport: json['urlRapport'] as String?,
       urlOfficielle: json['urlOfficielle'] as String?,
       urlCorrection: json['urlCorrection'] as String?,
       difficulte: json['difficulte'] as String,
@@ -54,6 +67,9 @@ class Annale {
           ? (json['motsClefs'] as List).cast<String>() 
           : null,
       rapportGlobal: json['rapportGlobal'] as String?,
+      parties: json['parties'] != null
+          ? (json['parties'] as List).cast<String>()
+          : null,
     );
   }
 
@@ -69,24 +85,28 @@ class Annale {
       'dureeMinutes': dureeMinutes,
       'baremeTotal': baremeTotal,
       'themes': themes,
+      'urlSujet': urlSujet,
+      'urlCorrige': urlCorrige,
+      'urlRapport': urlRapport,
       'urlOfficielle': urlOfficielle,
       'urlCorrection': urlCorrection,
       'difficulte': difficulte,
       'motsClefs': motsClefs,
       'rapportGlobal': rapportGlobal,
+      'parties': parties,
     };
   }
 
   String get typeLabel {
     switch (typeEpreuve) {
       case 'ecrit1':
-        return 'Écrit 1 - Algèbre et géométrie';
+        return 'Épreuve 1 – Mathématiques générales';
       case 'ecrit2':
-        return 'Écrit 2 - Analyse et probabilités';
+        return 'Épreuve 2 – Analyse et probabilités';
       case 'oral1':
-        return 'Oral 1 - Leçon';
+        return 'Oral 1 – Leçon';
       case 'oral2':
-        return 'Oral 2 - Modélisation';
+        return 'Oral 2 – Modélisation';
       default:
         return typeEpreuve;
     }

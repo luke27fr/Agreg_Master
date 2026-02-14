@@ -1,23 +1,44 @@
-import 'dart:convert';
-import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import '../../models/quiz_model.dart';
-import '../quiz_page.dart';
+import '../../main.dart'; // ThemeItem
+import '../../constants/app_constants.dart';
+import '../../utils/theme_utils.dart';
+import '../../utils/manifest_loader.dart';
+import '../../utils/quiz_loader.dart';
+import '../../widgets/shared_widgets.dart';
+import '../../fiche_page.dart';
 import '../search_page.dart';
 import '../settings_page.dart';
 import '../review_page.dart';
 import '../flashcards_page.dart';
 import '../spaced_repetition_page.dart';
+import '../fiches_list_screen.dart';
+import '../examen_blanc_page.dart';
+import '../oral_simulation_page.dart';
+import '../jury_virtuel_page.dart';
+import '../annales_page.dart';
+import '../annales_pedagogiques_page.dart';
+import '../simulation_page.dart';
+import '../exercices_page.dart';
+import '../lecons_page.dart';
+import '../developpements_page.dart';
+import '../demonstrations_page.dart';
+import '../contre_exemples_page.dart';
+import '../maths_intuitives_page.dart';
+import '../mind_map_page.dart';
+import '../bibliotheque_ideale_page.dart';
+import '../conseils_agreg_page.dart';
+import '../../services/conseils_data.dart';
 import '../../services/score_service.dart';
 import '../../services/favorites_service.dart';
 import '../../services/streak_service.dart';
 import '../../services/spaced_repetition_service.dart';
 import '../../services/wellness_service.dart';
-import '../../fiche_page.dart';
+import '../../services/reading_service.dart';
 
 class AccueilTab extends StatefulWidget {
-  const AccueilTab({super.key});
+  final void Function(int tabIndex)? onNavigateToTab;
+
+  const AccueilTab({super.key, this.onNavigateToTab});
 
   @override
   State<AccueilTab> createState() => _AccueilTabState();
@@ -29,17 +50,9 @@ class _AccueilTabState extends State<AccueilTab> {
   final StreakService _streakService = StreakService();
   final SpacedRepetitionService _srsService = SpacedRepetitionService();
   final WellnessService _wellnessService = WellnessService();
+  final ReadingService _readingService = ReadingService();
   int _totalFiches = 0;
-
-  final List<String> _conseils = [
-    'Maîtrisez parfaitement 2 développements par leçon',
-    'Travaillez les leçons par thème et non par numéro',
-    'Pratiquez régulièrement les simulations orales',
-    'Révisez les contre-exemples classiques',
-    'Anticipez les questions du jury',
-    'Relisez les rapports du jury récents',
-    'Alternez algèbre, analyse et géométrie',
-  ];
+  List<ThemeItem> _themes = [];
 
   @override
   void initState() {
@@ -50,6 +63,7 @@ class _AccueilTabState extends State<AccueilTab> {
     _srsService.addListener(_onChanged);
     _wellnessService.addListener(_onChanged);
     _favoritesService.addListener(_onChanged);
+    _readingService.addListener(_onChanged);
   }
 
   @override
@@ -59,6 +73,7 @@ class _AccueilTabState extends State<AccueilTab> {
     _srsService.removeListener(_onChanged);
     _wellnessService.removeListener(_onChanged);
     _favoritesService.removeListener(_onChanged);
+    _readingService.removeListener(_onChanged);
     super.dispose();
   }
 
@@ -68,109 +83,94 @@ class _AccueilTabState extends State<AccueilTab> {
 
   Future<void> _loadManifest() async {
     try {
-      final json = await rootBundle.loadString('assets/fiches/manifest.json');
-      final data = jsonDecode(json) as Map<String, dynamic>;
-      final list = data['themes'] as List<dynamic>?;
-      int count = 0;
-      if (list != null) {
-        for (var t in list) {
-          count += ((t as Map<String, dynamic>)['files'] as List<dynamic>).length;
-        }
+      final results = await Future.wait([
+        ManifestLoader.getTotalFiches(),
+        ManifestLoader.loadThemes(),
+      ]);
+      if (mounted) {
+        setState(() {
+          _totalFiches = results[0] as int;
+          _themes = results[1] as List<ThemeItem>;
+        });
       }
-      if (mounted) setState(() => _totalFiches = count);
     } catch (e) {
       debugPrint('Erreur chargement manifest: $e');
-    }
-  }
-
-  Future<void> _startQuickQuiz() async {
-    try {
-      final String response = await rootBundle.loadString('assets/data/quiz.json');
-      final Map<String, dynamic> data = json.decode(response);
-      List<QuizQuestion> allQuestions = [];
-      data.forEach((key, value) {
-        if (value is List) {
-          for (var q in value) allQuestions.add(QuizQuestion.fromJson(q));
-        }
-      });
-      if (allQuestions.isEmpty) return;
-      allQuestions.shuffle(Random());
-      if (allQuestions.length > 10) allQuestions = allQuestions.sublist(0, 10);
       if (mounted) {
-        Navigator.push(context, MaterialPageRoute(
-          builder: (_) => QuizPage(title: "Quiz Rapide", questions: allQuestions),
-        ));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text(AppStrings.errorLoadingData)),
+        );
       }
-    } catch (e) {
-      debugPrint('Erreur quiz: $e');
     }
   }
 
   void _showFavoritesSheet() async {
     final favorites = _favoritesService.favorites.toList();
     if (favorites.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Aucun favori pour le moment')),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text(AppStrings.errorNoFavorites)),
+        );
+      }
       return;
     }
-    final manifestJson = await rootBundle.loadString('assets/fiches/manifest.json');
-    final manifest = jsonDecode(manifestJson) as Map<String, dynamic>;
-    final themes = manifest['themes'] as List<dynamic>;
-    final pathMap = <String, String>{};
-    for (var theme in themes) {
-      final themePath = theme['path'] as String;
-      final files = (theme['files'] as List<dynamic>).cast<String>();
-      for (var file in files) {
-        pathMap[file.replaceAll('.md', '')] = '$themePath/$file';
+    try {
+      final pathMap = await ManifestLoader.getPathMap();
+      if (!mounted) return;
+
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        builder: (ctx) => DraggableScrollableSheet(
+          initialChildSize: 0.5, minChildSize: 0.3, maxChildSize: 0.9, expand: false,
+          builder: (_, controller) => Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Row(children: [
+                  const Icon(Icons.star, color: Colors.amber),
+                  const SizedBox(width: 8),
+                  Text('Mes Favoris (${favorites.length})',
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                ]),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  controller: controller,
+                  itemCount: favorites.length,
+                  itemBuilder: (_, index) {
+                    final ficheId = favorites[index];
+                    final path = pathMap[ficheId];
+                    return ListTile(
+                      leading: const Icon(Icons.article),
+                      title: Text(ThemeUtils.getFicheTitle(ficheId)),
+                      onTap: path != null ? () {
+                        Navigator.pop(ctx);
+                        Navigator.push(context, MaterialPageRoute(builder: (_) => FichePage(assetPath: path)));
+                      } : null,
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    } catch (e) {
+      debugPrint('Erreur chargement favoris: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text(AppStrings.errorLoadingData)),
+        );
       }
     }
-    if (!mounted) return;
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) => DraggableScrollableSheet(
-        initialChildSize: 0.5, minChildSize: 0.3, maxChildSize: 0.9, expand: false,
-        builder: (_, controller) => Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(children: [
-                const Icon(Icons.star, color: Colors.amber),
-                const SizedBox(width: 8),
-                Text('Mes Favoris (${favorites.length})', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              ]),
-            ),
-            Expanded(
-              child: ListView.builder(
-                controller: controller,
-                itemCount: favorites.length,
-                itemBuilder: (_, index) {
-                  final ficheId = favorites[index];
-                  final path = pathMap[ficheId];
-                  return ListTile(
-                    leading: const Icon(Icons.article),
-                    title: Text(ficheId),
-                    onTap: path != null ? () {
-                      Navigator.pop(ctx);
-                      Navigator.push(context, MaterialPageRoute(builder: (_) => FichePage(assetPath: path)));
-                    } : null,
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = ThemeUtils.isDark(context);
     final globalAvg = _scoreService.getGlobalAverage();
     final completedCount = _scoreService.scores.length;
     final streak = _streakService.currentStreak;
@@ -178,12 +178,15 @@ class _AccueilTabState extends State<AccueilTab> {
     final dueCards = _srsService.getDueCards().length;
     final reviewCount = _scoreService.getFichesToReview().length;
     final favCount = _favoritesService.favorites.length;
-    final conseilIndex = DateTime.now().day % _conseils.length;
+    final pepiteDuJour = ConseilsData.getPepiteDuJour();
+    final pepiteIndex = ConseilsData.getPepiteIndex();
 
     return SafeArea(
       child: CustomScrollView(
         slivers: [
+          // ================================================================
           // Header
+          // ================================================================
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
@@ -193,20 +196,23 @@ class _AccueilTabState extends State<AccueilTab> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Bonjour !", style: TextStyle(fontSize: 15, color: Colors.grey[600])),
-                      Text("Agreg Master", style: TextStyle(
-                        fontSize: 26, fontWeight: FontWeight.bold,
-                        color: isDark ? Colors.white : const Color(0xFF1A237E),
+                      Text("Bonjour !", style: TextStyle(fontSize: 15, color: Colors.grey[500])),
+                      const SizedBox(height: 2),
+                      Text(AppStrings.appName, style: TextStyle(
+                        fontSize: 28, fontWeight: FontWeight.bold,
+                        color: ThemeUtils.titleColor(context),
                       )),
                     ],
                   ),
                   Row(children: [
                     IconButton(
                       icon: const Icon(Icons.search),
+                      tooltip: 'Rechercher',
                       onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SearchPage())),
                     ),
                     IconButton(
                       icon: const Icon(Icons.settings_outlined),
+                      tooltip: 'Paramètres',
                       onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SettingsPage())),
                     ),
                   ]),
@@ -218,28 +224,33 @@ class _AccueilTabState extends State<AccueilTab> {
           // Wellness alert
           if (_wellnessService.activeAlerts.isNotEmpty)
             SliverToBoxAdapter(
-              child: Container(
-                margin: const EdgeInsets.fromLTRB(20, 12, 20, 0),
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.orange.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.orange.withOpacity(0.5)),
+              child: Semantics(
+                liveRegion: true,
+                child: Container(
+                  margin: const EdgeInsets.fromLTRB(20, 12, 20, 0),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.orange.withValues(alpha: 0.08),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Colors.orange.withValues(alpha: 0.3)),
+                  ),
+                  child: Row(children: [
+                    const Icon(Icons.self_improvement, color: Colors.orange, size: 20, semanticLabel: 'Alerte bien-être'),
+                    const SizedBox(width: 8),
+                    Expanded(child: Text(
+                      'Pensez à faire une pause !',
+                      style: TextStyle(color: Colors.orange[800], fontSize: 13),
+                    )),
+                  ]),
                 ),
-                child: Row(children: [
-                  const Icon(Icons.self_improvement, color: Colors.orange, size: 20),
-                  const SizedBox(width: 8),
-                  Expanded(child: Text(
-                    'Pensez à faire une pause !',
-                    style: TextStyle(color: Colors.orange[800], fontSize: 13),
-                  )),
-                ]),
               ),
             ),
 
-          // Content
+          // ================================================================
+          // Content principal
+          // ================================================================
           SliverPadding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
             sliver: SliverList(
               delegate: SliverChildListDelegate([
                 // Streak card
@@ -248,50 +259,46 @@ class _AccueilTabState extends State<AccueilTab> {
 
                 // Quick stats row
                 Row(children: [
-                  Expanded(child: _buildStatCard(
-                    icon: Icons.library_books, 
-                    value: '$_totalFiches', 
-                    label: 'Fiches', 
+                  Expanded(child: StatCard(
+                    icon: Icons.library_books,
+                    value: '$_totalFiches',
+                    label: 'Fiches',
                     color: Colors.blue,
-                    isDark: isDark,
                   )),
-                  const SizedBox(width: 12),
-                  Expanded(child: _buildStatCard(
-                    icon: Icons.quiz, 
-                    value: '$completedCount', 
-                    label: 'Quiz faits', 
+                  const SizedBox(width: 10),
+                  Expanded(child: StatCard(
+                    icon: Icons.quiz,
+                    value: '$completedCount',
+                    label: 'Quiz faits',
                     color: Colors.green,
-                    isDark: isDark,
                   )),
-                  const SizedBox(width: 12),
-                  Expanded(child: _buildStatCard(
-                    icon: Icons.trending_up, 
-                    value: completedCount > 0 ? '${globalAvg.round()}%' : '--', 
-                    label: 'Moyenne', 
+                  const SizedBox(width: 10),
+                  Expanded(child: StatCard(
+                    icon: Icons.trending_up,
+                    value: completedCount > 0 ? '${globalAvg.round()}%' : '--',
+                    label: 'Moyenne',
                     color: Colors.purple,
-                    isDark: isDark,
                   )),
                 ]),
 
                 const SizedBox(height: 20),
 
-                // Daily objectives
+                // Objectives
                 _buildObjectivesCard(isDark),
 
                 const SizedBox(height: 16),
 
                 // Actions rapides
                 Text('Actions rapides', style: TextStyle(
-                  fontSize: 17, fontWeight: FontWeight.bold,
+                  fontSize: 18, fontWeight: FontWeight.bold,
                   color: isDark ? Colors.white : Colors.black87,
                 )),
                 const SizedBox(height: 10),
 
-                // Quick action cards
                 Row(children: [
                   Expanded(child: _buildQuickAction(
                     icon: Icons.flash_on, label: 'Quiz\nrapide', color: Colors.orange,
-                    onTap: _startQuickQuiz, isDark: isDark,
+                    onTap: () => QuizLoader.startQuickQuiz(context), isDark: isDark,
                   )),
                   const SizedBox(width: 10),
                   Expanded(child: _buildQuickAction(
@@ -315,66 +322,63 @@ class _AccueilTabState extends State<AccueilTab> {
                 // SRS due notification
                 if (dueCards > 0) ...[
                   const SizedBox(height: 16),
-                  Card(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                    color: Colors.deepOrange.withOpacity(isDark ? 0.2 : 0.05),
-                    child: InkWell(
-                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SpacedRepetitionPage())),
-                      borderRadius: BorderRadius.circular(12),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Row(children: [
-                          Container(
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: Colors.deepOrange.withOpacity(0.15),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: const Icon(Icons.psychology, color: Colors.deepOrange, size: 24),
-                          ),
-                          const SizedBox(width: 14),
-                          Expanded(child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('$dueCards fiche${dueCards > 1 ? 's' : ''} à réviser',
-                                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-                              const SizedBox(height: 2),
-                              Text('Répétition espacée - ne perdez pas votre avance !',
-                                style: TextStyle(color: Colors.grey[600], fontSize: 12)),
-                            ],
-                          )),
-                          const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.deepOrange),
-                        ]),
-                      ),
-                    ),
-                  ),
+                  _buildSrsNotification(dueCards, isDark),
                 ],
 
-                const SizedBox(height: 20),
+                const SizedBox(height: 24),
 
-                // Conseil du jour
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: isDark ? const Color(0xFF1E1E1E) : Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.amber.withOpacity(0.3)),
-                  ),
-                  child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    const Icon(Icons.lightbulb, color: Colors.amber, size: 22),
-                    const SizedBox(width: 12),
-                    Expanded(child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text('Conseil du jour', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
-                        const SizedBox(height: 4),
-                        Text(_conseils[conseilIndex], style: TextStyle(color: Colors.grey[600], fontSize: 13)),
-                      ],
-                    )),
-                  ]),
+                // ==============================================================
+                // Section Apprendre
+                // ==============================================================
+                SectionHeaderWithAction(
+                  title: 'Apprendre',
+                  onAction: widget.onNavigateToTab != null
+                      ? () => widget.onNavigateToTab!(1)
+                      : null,
                 ),
+                const SizedBox(height: 10),
+              ]),
+            ),
+          ),
 
-                const SizedBox(height: 20),
+          // Scroll horizontal des matières
+          SliverToBoxAdapter(
+            child: _buildApprendreCarousel(isDark),
+          ),
+
+          // ==============================================================
+          // Section S'entraîner
+          // ==============================================================
+          SliverPadding(
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+            sliver: SliverList(
+              delegate: SliverChildListDelegate([
+                SectionHeaderWithAction(
+                  title: "S'entraîner",
+                  onAction: widget.onNavigateToTab != null
+                      ? () => widget.onNavigateToTab!(2)
+                      : null,
+                ),
+                const SizedBox(height: 10),
+              ]),
+            ),
+          ),
+
+          // Scroll horizontal S'entraîner
+          SliverToBoxAdapter(
+            child: _buildEntrainerCarousel(isDark),
+          ),
+
+          SliverPadding(
+            padding: const EdgeInsets.fromLTRB(20, 24, 20, 24),
+            sliver: SliverList(
+              delegate: SliverChildListDelegate([
+                // Pépite du jour
+                ConseilCard(
+                  text: pepiteDuJour,
+                  badge: '#${pepiteIndex + 1}/${ConseilsData.pepitesDuJour.length}',
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ConseilsAgregPage())),
+                ),
               ]),
             ),
           ),
@@ -383,64 +387,59 @@ class _AccueilTabState extends State<AccueilTab> {
     );
   }
 
+  // ==========================================================================
+  // Streak card
+  // ==========================================================================
   Widget _buildStreakCard(int streak, int longestStreak) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: streak > 0
-              ? [Colors.orange, Colors.deepOrange]
-              : [Colors.grey.shade400, Colors.grey.shade600],
-        ),
-        borderRadius: BorderRadius.circular(14),
-      ),
-      child: Row(children: [
-        Text(streak > 0 ? '🔥' : '💤', style: const TextStyle(fontSize: 36)),
-        const SizedBox(width: 14),
-        Expanded(child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              streak > 0 ? '$streak jour${streak > 1 ? 's' : ''} de suite !' : 'Commencez votre streak !',
-              style: const TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),
-            ),
-            Text('Record : $longestStreak jours', style: const TextStyle(color: Colors.white70, fontSize: 12)),
-          ],
-        )),
-        if (streak > 0)
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Row(children: [
-              const Icon(Icons.local_fire_department, color: Colors.white, size: 16),
-              const SizedBox(width: 4),
-              Text('$streak', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-            ]),
+    return Semantics(
+      label: streak > 0
+          ? 'Streak: $streak jours de suite. Record: $longestStreak jours'
+          : 'Pas de streak actif. Record: $longestStreak jours',
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: streak > 0
+                ? [const Color(0xFFFF8A65), const Color(0xFFFF5722)]
+                : [Colors.grey.shade400, Colors.grey.shade600],
           ),
-      ]),
-    );
-  }
-
-  Widget _buildStatCard({required IconData icon, required String value, required String label, required Color color, required bool isDark}) {
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: isDark ? const Color(0xFF1E1E1E) : Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [BoxShadow(color: Colors.grey.withOpacity(isDark ? 0.05 : 0.08), blurRadius: 4)],
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Row(children: [
+          Text(streak > 0 ? '🔥' : '💤', style: const TextStyle(fontSize: 36)),
+          const SizedBox(width: 14),
+          Expanded(child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                streak > 0 ? '$streak jour${streak > 1 ? 's' : ''} de suite !' : 'Commencez votre streak !',
+                style: const TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 2),
+              Text('Record : $longestStreak jours', style: const TextStyle(color: Colors.white70, fontSize: 12)),
+            ],
+          )),
+          if (streak > 0)
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.2),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Row(children: [
+                const Icon(Icons.local_fire_department, color: Colors.white, size: 16),
+                const SizedBox(width: 4),
+                Text('$streak', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+              ]),
+            ),
+        ]),
       ),
-      child: Column(children: [
-        Icon(icon, color: color, size: 22),
-        const SizedBox(height: 6),
-        Text(value, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: isDark ? Colors.white : Colors.black87)),
-        Text(label, style: TextStyle(color: Colors.grey[500], fontSize: 11)),
-      ]),
     );
   }
 
+  // ==========================================================================
+  // Objectifs du jour
+  // ==========================================================================
   Widget _buildObjectivesCard(bool isDark) {
     final objectives = _streakService.todayObjectives;
     final completionRate = _streakService.getTodayCompletionRate();
@@ -448,72 +447,493 @@ class _AccueilTabState extends State<AccueilTab> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: isDark ? const Color(0xFF1E1E1E) : Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [BoxShadow(color: Colors.grey.withOpacity(isDark ? 0.05 : 0.08), blurRadius: 4)],
+        color: ThemeUtils.cardColor(context),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(
+          color: isDark ? Colors.white.withValues(alpha: 0.06) : Colors.grey.withValues(alpha: 0.12),
+        ),
       ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(children: [
-          const Icon(Icons.flag, color: Colors.green, size: 20),
-          const SizedBox(width: 8),
-          const Expanded(child: Text('Objectifs du jour', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15))),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+            padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
-              color: (completionRate >= 1 ? Colors.green : Colors.orange).withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
+              color: Colors.green.withValues(alpha: 0.1),
+              shape: BoxShape.circle,
             ),
-            child: Text('${(completionRate * 100).round()}%', style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 13,
-              color: completionRate >= 1 ? Colors.green : Colors.orange,
-            )),
+            child: const Icon(Icons.flag, color: Colors.green, size: 18, semanticLabel: 'Objectifs'),
+          ),
+          const SizedBox(width: 10),
+          const Expanded(child: Text('Objectifs du jour', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))),
+          Semantics(
+            label: 'Progression: ${(completionRate * 100).round()} pourcent',
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              decoration: BoxDecoration(
+                color: (completionRate >= 1 ? Colors.green : Colors.orange).withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text('${(completionRate * 100).round()}%', style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 13,
+                color: completionRate >= 1 ? Colors.green : Colors.orange,
+              )),
+            ),
           ),
         ]),
-        const SizedBox(height: 10),
+        const SizedBox(height: 12),
         ClipRRect(
           borderRadius: BorderRadius.circular(4),
           child: LinearProgressIndicator(
             value: completionRate,
-            backgroundColor: Colors.grey.withOpacity(0.15),
+            backgroundColor: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.grey.withValues(alpha: 0.12),
             valueColor: AlwaysStoppedAnimation(completionRate >= 1 ? Colors.green : Colors.orange),
-            minHeight: 5,
+            minHeight: 6,
           ),
         ),
         const SizedBox(height: 12),
         ...objectives.values.map((obj) => Padding(
           padding: const EdgeInsets.only(bottom: 6),
-          child: Row(children: [
-            Icon(obj.isCompleted ? Icons.check_circle : Icons.circle_outlined,
-              color: obj.isCompleted ? Colors.green : Colors.grey, size: 18),
-            const SizedBox(width: 8),
-            Expanded(child: Text(obj.title, style: const TextStyle(fontSize: 13))),
-            Text('${obj.progress}/${obj.target}', style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 12,
-              color: obj.isCompleted ? Colors.green : Colors.grey,
-            )),
-          ]),
+          child: Semantics(
+            label: '${obj.title}: ${obj.progress} sur ${obj.target}${obj.isCompleted ? ', terminé' : ''}',
+            child: Row(children: [
+              Icon(obj.isCompleted ? Icons.check_circle : Icons.circle_outlined,
+                color: obj.isCompleted ? Colors.green : Colors.grey, size: 18),
+              const SizedBox(width: 8),
+              Expanded(child: Text(obj.title, style: const TextStyle(fontSize: 13))),
+              Text('${obj.progress}/${obj.target}', style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 12,
+                color: obj.isCompleted ? Colors.green : Colors.grey,
+              )),
+            ]),
+          ),
         )),
       ]),
     );
   }
 
-  Widget _buildQuickAction({required IconData icon, required String label, required Color color, required VoidCallback onTap, required bool isDark}) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 6),
-        decoration: BoxDecoration(
-          color: isDark ? const Color(0xFF1E1E1E) : Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [BoxShadow(color: Colors.grey.withOpacity(isDark ? 0.05 : 0.08), blurRadius: 4)],
+  // ==========================================================================
+  // Quick action button
+  // ==========================================================================
+  Widget _buildQuickAction({
+    required IconData icon,
+    required String label,
+    required Color color,
+    required VoidCallback onTap,
+    required bool isDark,
+  }) {
+    return Material(
+      color: ThemeUtils.cardColor(context),
+      borderRadius: BorderRadius.circular(14),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(14),
+        child: Semantics(
+          button: true,
+          label: label.replaceAll('\n', ' '),
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 6),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(
+                color: isDark ? Colors.white.withValues(alpha: 0.06) : Colors.grey.withValues(alpha: 0.12),
+              ),
+            ),
+            child: Column(children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: color.withValues(alpha: isDark ? 0.2 : 0.1),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(icon, color: color, size: 22),
+              ),
+              const SizedBox(height: 8),
+              Text(label, style: TextStyle(
+                fontSize: 11, fontWeight: FontWeight.w500,
+                color: isDark ? Colors.white70 : Colors.grey[700],
+              ), textAlign: TextAlign.center),
+            ]),
+          ),
         ),
-        child: Column(children: [
-          Icon(icon, color: color, size: 26),
-          const SizedBox(height: 6),
-          Text(label, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: isDark ? Colors.white70 : Colors.grey[700]),
-            textAlign: TextAlign.center),
-        ]),
       ),
     );
   }
+
+  // ==========================================================================
+  // SRS notification
+  // ==========================================================================
+  Widget _buildSrsNotification(int dueCards, bool isDark) {
+    return Material(
+      color: Colors.deepOrange.withValues(alpha: isDark ? 0.15 : 0.04),
+      borderRadius: BorderRadius.circular(14),
+      child: InkWell(
+        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SpacedRepetitionPage())),
+        borderRadius: BorderRadius.circular(14),
+        child: Semantics(
+          button: true,
+          label: '$dueCards fiches à réviser avec la répétition espacée',
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: Colors.deepOrange.withValues(alpha: 0.2)),
+            ),
+            child: Row(children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.deepOrange.withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(Icons.psychology, color: Colors.deepOrange, size: 24),
+              ),
+              const SizedBox(width: 14),
+              Expanded(child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('$dueCards fiche${dueCards > 1 ? 's' : ''} à réviser',
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                  const SizedBox(height: 2),
+                  Text('Répétition espacée', style: TextStyle(color: Colors.grey[500], fontSize: 12)),
+                ],
+              )),
+              const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.deepOrange),
+            ]),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // ==========================================================================
+  // Section Apprendre — carousel horizontal (matières + outils)
+  // ==========================================================================
+  Widget _buildApprendreCarousel(bool isDark) {
+    // Outils d'apprentissage
+    final outils = <_OutilItem>[
+      _OutilItem(icon: Icons.menu_book, title: 'Leçons', color: Colors.blue,
+        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const LeconsPage()))),
+      _OutilItem(icon: Icons.science, title: 'Développements', color: Colors.purple,
+        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const DeveloppementsPage()))),
+      _OutilItem(icon: Icons.functions, title: 'Démonstrations', color: Colors.green,
+        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const DemonstrationsPage()))),
+      _OutilItem(icon: Icons.warning_amber, title: 'Contre-exemples', color: Colors.red,
+        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ContreExemplesPage()))),
+      _OutilItem(icon: Icons.lightbulb_outline, title: 'Maths Intuitives', color: Colors.purple.shade600,
+        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MathsIntuitivesPage()))),
+      _OutilItem(icon: Icons.account_tree, title: 'Carte Mentale', color: Colors.indigo,
+        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MindMapPage()))),
+      _OutilItem(icon: Icons.auto_stories, title: 'Bibliothèque', color: Colors.amber.shade800,
+        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const BibliothequeIdealePage()))),
+      _OutilItem(icon: Icons.emoji_events, title: 'Conseils', color: Colors.deepOrange,
+        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ConseilsAgregPage()))),
+    ];
+
+    final totalItems = _themes.length + outils.length;
+
+    if (_themes.isEmpty && outils.isEmpty) {
+      return const SizedBox(height: 40, child: Center(child: CircularProgressIndicator(strokeWidth: 2)));
+    }
+
+    return SizedBox(
+      height: 110,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        itemCount: totalItems,
+        itemBuilder: (context, index) {
+          final isMatiere = index < _themes.length;
+
+          if (isMatiere) {
+            return _buildMatiereChip(_themes[index], isDark, index < totalItems - 1);
+          } else {
+            final outil = outils[index - _themes.length];
+            return _buildOutilChip(outil, isDark, index < totalItems - 1);
+          }
+        },
+      ),
+    );
+  }
+
+  Widget _buildMatiereChip(ThemeItem theme, bool isDark, bool hasMargin) {
+    final color = ThemeUtils.getThemeColor(theme.id);
+    final icon = ThemeUtils.getThemeIcon(theme.id);
+    final readCount = _readingService.getReadCount(theme.files);
+    final totalCount = theme.files.length;
+    final progress = totalCount > 0 ? readCount / totalCount : 0.0;
+
+    return Padding(
+      padding: EdgeInsets.only(right: hasMargin ? 10 : 0),
+      child: Material(
+        color: ThemeUtils.cardColor(context),
+        borderRadius: BorderRadius.circular(14),
+        child: InkWell(
+          onTap: () => Navigator.push(context,
+            MaterialPageRoute(builder: (_) => FichesListScreen(theme: theme)),
+          ),
+          borderRadius: BorderRadius.circular(14),
+          child: Container(
+            width: 130,
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(
+                color: isDark ? Colors.white.withValues(alpha: 0.06) : Colors.grey.withValues(alpha: 0.12),
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: color.withValues(alpha: isDark ? 0.2 : 0.08),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(icon, color: color, size: 18),
+                ),
+                const Spacer(),
+                Text(
+                  theme.label,
+                  style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 4),
+                Row(
+                  children: [
+                    Text(
+                      '$readCount/$totalCount',
+                      style: TextStyle(fontSize: 10, color: Colors.grey[500]),
+                    ),
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(2),
+                        child: LinearProgressIndicator(
+                          value: progress,
+                          backgroundColor: isDark
+                              ? Colors.white.withValues(alpha: 0.08)
+                              : Colors.grey.withValues(alpha: 0.12),
+                          color: color,
+                          minHeight: 3,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildOutilChip(_OutilItem outil, bool isDark, bool hasMargin) {
+    return Padding(
+      padding: EdgeInsets.only(right: hasMargin ? 10 : 0),
+      child: Material(
+        color: ThemeUtils.cardColor(context),
+        borderRadius: BorderRadius.circular(14),
+        child: InkWell(
+          onTap: outil.onTap,
+          borderRadius: BorderRadius.circular(14),
+          child: Container(
+            width: 110,
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(
+                color: isDark ? Colors.white.withValues(alpha: 0.06) : Colors.grey.withValues(alpha: 0.12),
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: outil.color.withValues(alpha: isDark ? 0.2 : 0.08),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(outil.icon, color: outil.color, size: 18),
+                ),
+                const Spacer(),
+                Text(
+                  outil.title,
+                  style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // ==========================================================================
+  // Section S'entraîner — carousel horizontal compact
+  // ==========================================================================
+  Widget _buildEntrainerCarousel(bool isDark) {
+    final items = [
+      _EntrainerItem(
+        icon: Icons.flash_on,
+        title: 'Grand Quiz',
+        subtitle: 'Tous domaines',
+        color: Colors.orange,
+        onTap: () => QuizLoader.startGrandQuiz(context),
+      ),
+      _EntrainerItem(
+        icon: Icons.assignment_turned_in,
+        title: 'Examens Blancs',
+        subtitle: 'Sujets corrigés',
+        color: Colors.purple,
+        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ExamenBlancPage())),
+      ),
+      _EntrainerItem(
+        icon: Icons.record_voice_over,
+        title: 'Simulation Oral',
+        subtitle: 'Tirage + oral',
+        color: Colors.deepPurple,
+        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const OralSimulationPage())),
+      ),
+      _EntrainerItem(
+        icon: Icons.gavel,
+        title: 'Jury Virtuel',
+        subtitle: 'Questions jury',
+        color: const Color(0xFF7E57C2),
+        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const JuryVirtuelMainPage())),
+      ),
+      _EntrainerItem(
+        icon: Icons.history_edu,
+        title: 'Annales',
+        subtitle: 'Sujets 2017-2025',
+        color: Colors.indigo,
+        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AnnalesPage())),
+      ),
+      _EntrainerItem(
+        icon: Icons.school,
+        title: 'Annales pédagogiques',
+        subtitle: 'Corrigés pas à pas',
+        color: Colors.amber.shade800,
+        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AnnalesPedagogiquesPage())),
+      ),
+      _EntrainerItem(
+        icon: Icons.timer,
+        title: 'Simulation Écrit',
+        subtitle: '5h chronométrées',
+        color: const Color(0xFF1A237E),
+        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SimulationPage())),
+      ),
+      _EntrainerItem(
+        icon: Icons.fitness_center,
+        title: 'Exercices',
+        subtitle: 'Incontournables',
+        color: Colors.teal,
+        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ExercicesPage())),
+      ),
+      _EntrainerItem(
+        icon: Icons.psychology,
+        title: 'Répétition Espacée',
+        subtitle: 'Mémorisation SRS',
+        color: Colors.deepOrange,
+        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SpacedRepetitionPage())),
+      ),
+      _EntrainerItem(
+        icon: Icons.style,
+        title: 'Flashcards',
+        subtitle: 'Révision rapide',
+        color: Colors.teal.shade300,
+        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const FlashcardsPage())),
+      ),
+    ];
+
+    return SizedBox(
+      height: 110,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          final item = items[index];
+          return Padding(
+            padding: EdgeInsets.only(right: index < items.length - 1 ? 10 : 0),
+            child: Material(
+              color: ThemeUtils.cardColor(context),
+              borderRadius: BorderRadius.circular(14),
+              child: InkWell(
+                onTap: item.onTap,
+                borderRadius: BorderRadius.circular(14),
+                child: Container(
+                  width: 130,
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(
+                      color: isDark ? Colors.white.withValues(alpha: 0.06) : Colors.grey.withValues(alpha: 0.12),
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: item.color.withValues(alpha: isDark ? 0.2 : 0.08),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Icon(item.icon, color: item.color, size: 18),
+                      ),
+                      const Spacer(),
+                      Text(item.title, style: const TextStyle(
+                        fontWeight: FontWeight.w600, fontSize: 12,
+                      ), maxLines: 1, overflow: TextOverflow.ellipsis),
+                      const SizedBox(height: 2),
+                      Text(item.subtitle, style: TextStyle(
+                        fontSize: 10, color: Colors.grey[500],
+                      ), maxLines: 1, overflow: TextOverflow.ellipsis),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+// Helper classes
+class _EntrainerItem {
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final Color color;
+  final VoidCallback onTap;
+
+  const _EntrainerItem({
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.color,
+    required this.onTap,
+  });
+}
+
+class _OutilItem {
+  final IconData icon;
+  final String title;
+  final Color color;
+  final VoidCallback onTap;
+
+  const _OutilItem({
+    required this.icon,
+    required this.title,
+    required this.color,
+    required this.onTap,
+  });
 }

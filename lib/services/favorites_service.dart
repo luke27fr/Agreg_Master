@@ -1,7 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:path_provider/path_provider.dart';
+import 'storage_service.dart';
 
 /// Service singleton pour gérer les fiches favorites
 class FavoritesService extends ChangeNotifier {
@@ -20,9 +19,8 @@ class FavoritesService extends ChangeNotifier {
     if (_isLoaded) return;
     
     try {
-      final file = await _getFavoritesFile();
-      if (await file.exists()) {
-        final content = await file.readAsString();
+      final content = await StorageService.instance.read('agreg_master_favorites.json');
+      if (content != null) {
         final List<dynamic> data = jsonDecode(content);
         _favorites.clear();
         _favorites.addAll(data.cast<String>());
@@ -66,15 +64,9 @@ class FavoritesService extends ChangeNotifier {
     }
   }
 
-  Future<File> _getFavoritesFile() async {
-    final dir = await getApplicationDocumentsDirectory();
-    return File('${dir.path}/agreg_master_favorites.json');
-  }
-
   Future<void> _persistFavorites() async {
     try {
-      final file = await _getFavoritesFile();
-      await file.writeAsString(jsonEncode(_favorites.toList()));
+      await StorageService.instance.write('agreg_master_favorites.json', jsonEncode(_favorites.toList()));
     } catch (e) {
       debugPrint('Erreur sauvegarde favoris: $e');
     }

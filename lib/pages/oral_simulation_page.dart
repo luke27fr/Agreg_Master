@@ -7,6 +7,9 @@ import 'jury_virtuel_page.dart';
 
 import '../widgets/global_search_button.dart';
 
+// Re-export LeconReferencePage for use in this file
+// (already imported via jury_virtuel_page.dart)
+
 class OralSimulationPage extends StatefulWidget {
   const OralSimulationPage({super.key});
 
@@ -130,8 +133,8 @@ class _OralSimulationPageState extends State<OralSimulationPage> {
       context,
       MaterialPageRoute(
         builder: (_) => JuryVirtuelPage(
-          leconId: _selectedLecon!['titre'] ?? 'lecon',
-          leconTitre: _selectedLecon!['titre'] ?? 'Leçon',
+          leconId: _selectedLecon!['numero'].toString(),
+          leconTitre: 'Leçon ${_selectedLecon!['numero']} – ${_selectedLecon!['titre'] ?? ''}',
         ),
       ),
     ).then((_) {
@@ -154,6 +157,29 @@ class _OralSimulationPageState extends State<OralSimulationPage> {
       _drawnLecons = [];
       _selectedLecon = null;
       _notesController.clear();
+    });
+  }
+
+  /// Ouvre la fiche de la leçon sélectionnée (pause le timer)
+  void _openLeconReference([Map<String, dynamic>? lecon]) {
+    final target = lecon ?? _selectedLecon;
+    if (target == null) return;
+    
+    _timer?.cancel(); // Pause le timer
+    
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => LeconReferencePage(
+          leconNumero: target['numero'].toString(),
+          leconData: target,
+        ),
+      ),
+    ).then((_) {
+      // Reprendre le timer au retour
+      if (mounted && (_state == SimulationState.preparation || _state == SimulationState.presentation)) {
+        _startTimer();
+      }
     });
   }
 
@@ -409,7 +435,7 @@ class _OralSimulationPageState extends State<OralSimulationPage> {
         children: [
           CircleAvatar(
             radius: 12,
-            backgroundColor: const Color(0xFF1A237E).withOpacity(0.1),
+            backgroundColor: const Color(0xFF1A237E).withValues(alpha: 0.1),
             child: Text(
               number,
               style: const TextStyle(
@@ -484,8 +510,8 @@ class _OralSimulationPageState extends State<OralSimulationPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: lecon['domaine'] == 'Algèbre' 
-                          ? Colors.blue.withOpacity(0.1)
-                          : Colors.pink.withOpacity(0.1),
+                          ? Colors.blue.withValues(alpha: 0.1)
+                          : Colors.pink.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: Text(
@@ -504,14 +530,30 @@ class _OralSimulationPageState extends State<OralSimulationPage> {
                 style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 16),
-              ElevatedButton.icon(
-                onPressed: () => _selectLecon(lecon),
-                icon: const Icon(Icons.check),
-                label: const Text('Choisir cette leçon'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  foregroundColor: Colors.white,
-                ),
+              Row(
+                children: [
+                  OutlinedButton.icon(
+                    onPressed: () => _openLeconReference(lecon),
+                    icon: const Icon(Icons.menu_book, size: 18),
+                    label: const Text('Voir la leçon'),
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: const Color(0xFF1A237E),
+                      side: const BorderSide(color: Color(0xFF1A237E)),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: ElevatedButton.icon(
+                      onPressed: () => _selectLecon(lecon),
+                      icon: const Icon(Icons.check),
+                      label: const Text('Choisir'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        foregroundColor: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -532,7 +574,7 @@ class _OralSimulationPageState extends State<OralSimulationPage> {
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.1),
+                color: Colors.black.withValues(alpha: 0.1),
                 blurRadius: 10,
               ),
             ],
@@ -573,7 +615,7 @@ class _OralSimulationPageState extends State<OralSimulationPage> {
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: const Color(0xFF1A237E).withOpacity(0.1),
+              color: const Color(0xFF1A237E).withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Column(
@@ -598,6 +640,25 @@ class _OralSimulationPageState extends State<OralSimulationPage> {
                   )),
                 ],
               ],
+            ),
+          ),
+        ),
+
+        // Bouton voir la leçon complète
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          child: SizedBox(
+            width: double.infinity,
+            child: OutlinedButton.icon(
+              onPressed: _openLeconReference,
+              icon: const Icon(Icons.menu_book),
+              label: const Text('Consulter la fiche de la leçon'),
+              style: OutlinedButton.styleFrom(
+                foregroundColor: const Color(0xFF1A237E),
+                side: const BorderSide(color: Color(0xFF1A237E)),
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              ),
             ),
           ),
         ),
@@ -712,6 +773,21 @@ class _OralSimulationPageState extends State<OralSimulationPage> {
             children: [
               SizedBox(
                 width: double.infinity,
+                child: OutlinedButton.icon(
+                  onPressed: _openLeconReference,
+                  icon: const Icon(Icons.menu_book),
+                  label: const Text('Consulter la fiche de la leçon'),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: const Color(0xFF1A237E),
+                    side: const BorderSide(color: Color(0xFF1A237E)),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+              SizedBox(
+                width: double.infinity,
                 child: ElevatedButton.icon(
                   onPressed: _startJurySession,
                   icon: const Icon(Icons.gavel),
@@ -779,9 +855,9 @@ class _OralSimulationPageState extends State<OralSimulationPage> {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.blue.withOpacity(0.1),
+              color: Colors.blue.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.blue.withOpacity(0.3)),
+              border: Border.all(color: Colors.blue.withValues(alpha: 0.3)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

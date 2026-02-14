@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../services/spaced_repetition_service.dart';
 import '../models/spaced_repetition_model.dart';
 import 'package:intl/intl.dart';
+import '../utils/theme_utils.dart';
 
 import '../widgets/global_search_button.dart';
 
@@ -292,7 +293,7 @@ class _SpacedRepetitionPageState extends State<SpacedRepetitionPage> with Single
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
-                      color: _getMasteryColor(entry.key).withOpacity(0.1),
+                      color: _getMasteryColor(entry.key).withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
@@ -327,9 +328,9 @@ class _SpacedRepetitionPageState extends State<SpacedRepetitionPage> with Single
       ),
       child: ListTile(
         leading: CircleAvatar(
-          backgroundColor: masteryColor.withOpacity(0.1),
+          backgroundColor: masteryColor.withValues(alpha: 0.1),
           child: Text(
-            '${masteryLevel}%',
+            '$masteryLevel%',
             style: TextStyle(
               color: masteryColor,
               fontWeight: FontWeight.bold,
@@ -338,7 +339,7 @@ class _SpacedRepetitionPageState extends State<SpacedRepetitionPage> with Single
           ),
         ),
         title: Text(
-          card.ficheId,
+          ThemeUtils.getFicheTitle(card.ficheId),
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         subtitle: Text(
@@ -368,7 +369,7 @@ class _SpacedRepetitionPageState extends State<SpacedRepetitionPage> with Single
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text('Réviser : ${card.ficheId}'),
+        title: Text('Réviser : ${ThemeUtils.getFicheTitle(card.ficheId)}'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,

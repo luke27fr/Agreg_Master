@@ -1,9 +1,8 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
+import 'storage_service.dart';
 import 'score_service.dart';
 import 'favorites_service.dart';
 import 'notes_service.dart';
@@ -22,12 +21,12 @@ class BackupService extends ChangeNotifier {
   bool _isBackingUp = false;
   bool _isRestoring = false;
   DateTime? _lastBackupTime;
-  String? _lastBackupPath;
+  String? _lastBackupKey;
 
   bool get isBackingUp => _isBackingUp;
   bool get isRestoring => _isRestoring;
   DateTime? get lastBackupTime => _lastBackupTime;
-  String? get lastBackupPath => _lastBackupPath;
+  String? get lastBackupKey => _lastBackupKey;
 
   // Charger les infos de backup
   Future<void> loadBackupInfo() async {
@@ -37,7 +36,7 @@ class BackupService extends ChangeNotifier {
       if (timestamp != null) {
         _lastBackupTime = DateTime.parse(timestamp);
       }
-      _lastBackupPath = prefs.getString('last_backup_path');
+      _lastBackupKey = prefs.getString('last_backup_key');
       notifyListeners();
     } catch (e) {
       debugPrint('Erreur chargement info backup: $e');
@@ -55,27 +54,28 @@ class BackupService extends ChangeNotifier {
       // Collecter toutes les données
       final data = await _collectAllData();
 
-      // Créer le fichier de backup
-      final directory = await getApplicationDocumentsDirectory();
+      // Créer la clé de backup
       final timestamp = DateFormat('yyyy-MM-dd_HH-mm-ss').format(DateTime.now());
-      final fileName = 'agreg_backup_$timestamp.json';
-      final file = File('${directory.path}/$fileName');
+      final backupKey = 'agreg_backup_$timestamp.json';
 
-      // Écrire les données
-      await file.writeAsString(jsonEncode(data));
+      // Écrire les données via StorageService
+      await StorageService.instance.write(backupKey, jsonEncode(data));
+
+      // Mettre à jour l'index des backups
+      await _addToBackupIndex(backupKey, DateTime.now());
 
       // Sauvegarder les infos
       _lastBackupTime = DateTime.now();
-      _lastBackupPath = file.path;
+      _lastBackupKey = backupKey;
 
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('last_backup_time', _lastBackupTime!.toIso8601String());
-      await prefs.setString('last_backup_path', _lastBackupPath!);
+      await prefs.setString('last_backup_key', _lastBackupKey!);
 
       _isBackingUp = false;
       notifyListeners();
 
-      return file.path;
+      return backupKey;
     } catch (e) {
       _isBackingUp = false;
       notifyListeners();
@@ -104,55 +104,92 @@ class BackupService extends ChangeNotifier {
     };
   }
 
-  // Restaurer depuis un backup
-  Future<void> restoreFromBackup(String filePath) async {
+  // Restaurer depuis un backup (sécurisé : valide avant d'effacer)
+  Future<void> restoreFromBackup(String backupKey) async {
     if (_isRestoring) return;
 
     _isRestoring = true;
     notifyListeners();
 
     try {
-      // Lire le fichier
-      final file = File(filePath);
-      if (!await file.exists()) {
+      // Lire les données depuis StorageService
+      final content = await StorageService.instance.read(backupKey);
+      if (content == null) {
         throw Exception('Fichier de backup introuvable');
       }
 
-      final content = await file.readAsString();
       final backup = jsonDecode(content) as Map<String, dynamic>;
 
       // Vérifier la version
-      if (backup['version'] != '1.0.0') {
-        throw Exception('Version de backup incompatible');
+      final version = backup['version'] as String?;
+      if (version == null || version != '1.0.0') {
+        throw Exception('Version de backup incompatible: $version');
       }
 
-      // Restaurer les données
-      final data = backup['data'] as Map<String, dynamic>;
+      // Valider la structure des données AVANT d'effacer
+      final data = backup['data'];
+      if (data == null || data is! Map<String, dynamic>) {
+        throw Exception('Format de données invalide dans le backup');
+      }
+
+      // Vérifier que les données sont non vides
+      if (data.isEmpty) {
+        throw Exception('Le backup ne contient aucune donnée');
+      }
+
+      // Créer un backup de sécurité avant la restauration
       final prefs = await SharedPreferences.getInstance();
+      final previousData = await _collectAllData();
+      
+      try {
+        // Effacer les données actuelles
+        await prefs.clear();
 
-      // Effacer les données actuelles
-      await prefs.clear();
+        // Restaurer les données
+        for (final entry in data.entries) {
+          final key = entry.key;
+          final value = entry.value;
 
-      // Restaurer les données
-      for (final entry in data.entries) {
-        final key = entry.key;
-        final value = entry.value;
-
-        if (value is String) {
-          await prefs.setString(key, value);
-        } else if (value is int) {
-          await prefs.setInt(key, value);
-        } else if (value is double) {
-          await prefs.setDouble(key, value);
-        } else if (value is bool) {
-          await prefs.setBool(key, value);
-        } else if (value is List<String>) {
-          await prefs.setStringList(key, value);
+          if (value is String) {
+            await prefs.setString(key, value);
+          } else if (value is int) {
+            await prefs.setInt(key, value);
+          } else if (value is double) {
+            await prefs.setDouble(key, value);
+          } else if (value is bool) {
+            await prefs.setBool(key, value);
+          } else if (value is List) {
+            await prefs.setStringList(key, value.cast<String>());
+          }
         }
-      }
 
-      // Recharger tous les services
-      await _reloadAllServices();
+        // Recharger tous les services
+        await _reloadAllServices();
+      } catch (restoreError) {
+        // Restauration échouée : tenter de remettre les données précédentes
+        debugPrint('Erreur pendant la restauration, rollback: $restoreError');
+        try {
+          await prefs.clear();
+          final prevData = previousData['data'] as Map<String, dynamic>;
+          for (final entry in prevData.entries) {
+            if (entry.value is String) {
+              await prefs.setString(entry.key, entry.value);
+            } else if (entry.value is int) {
+              await prefs.setInt(entry.key, entry.value);
+            } else if (entry.value is double) {
+              await prefs.setDouble(entry.key, entry.value);
+            } else if (entry.value is bool) {
+              await prefs.setBool(entry.key, entry.value);
+            } else if (entry.value is List) {
+              await prefs.setStringList(entry.key, (entry.value as List).cast<String>());
+            }
+          }
+          await _reloadAllServices();
+        } catch (rollbackError) {
+          debugPrint('Erreur rollback: $rollbackError');
+        }
+        rethrow;
+      }
 
       _isRestoring = false;
       notifyListeners();
@@ -182,33 +219,39 @@ class BackupService extends ChangeNotifier {
   // Obtenir la liste des backups disponibles
   Future<List<BackupInfo>> getAvailableBackups() async {
     try {
-      final directory = await getApplicationDocumentsDirectory();
-      final files = directory.listSync();
+      final index = await _getBackupIndex();
       final backups = <BackupInfo>[];
 
-      for (final file in files) {
-        if (file is File && file.path.contains('agreg_backup_')) {
-          final stat = await file.stat();
-          final name = file.path.split(Platform.pathSeparator).last;
+      for (final entry in index.entries) {
+        final key = entry.key;
+        final dateStr = entry.value as String?;
 
-          // Extraire la date du nom
-          final dateMatch = RegExp(r'agreg_backup_(\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2})').firstMatch(name);
-          DateTime? date;
+        DateTime date;
+        if (dateStr != null) {
+          date = DateTime.parse(dateStr);
+        } else {
+          // Extraire la date du nom de clé
+          final dateMatch = RegExp(r'agreg_backup_(\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2})').firstMatch(key);
           if (dateMatch != null) {
             try {
               date = DateFormat('yyyy-MM-dd_HH-mm-ss').parse(dateMatch.group(1)!);
             } catch (e) {
-              date = stat.modified;
+              date = DateTime.now();
             }
           } else {
-            date = stat.modified;
+            date = DateTime.now();
           }
+        }
 
+        // Vérifier que le backup existe encore
+        final exists = await StorageService.instance.exists(key);
+        if (exists) {
+          final content = await StorageService.instance.read(key);
           backups.add(BackupInfo(
-            path: file.path,
-            name: name,
+            key: key,
+            name: key,
             date: date,
-            size: stat.size,
+            size: content?.length ?? 0,
           ));
         }
       }
@@ -223,13 +266,11 @@ class BackupService extends ChangeNotifier {
   }
 
   // Supprimer un backup
-  Future<void> deleteBackup(String filePath) async {
+  Future<void> deleteBackup(String backupKey) async {
     try {
-      final file = File(filePath);
-      if (await file.exists()) {
-        await file.delete();
-        notifyListeners();
-      }
+      await StorageService.instance.delete(backupKey);
+      await _removeFromBackupIndex(backupKey);
+      notifyListeners();
     } catch (e) {
       debugPrint('Erreur suppression backup: $e');
       rethrow;
@@ -249,37 +290,63 @@ class BackupService extends ChangeNotifier {
     await createBackup();
   }
 
-  // Exporter vers un fichier partageable
+  // Exporter les données (retourne le contenu JSON)
   Future<String?> exportData() async {
     try {
       final data = await _collectAllData();
-      final directory = await getApplicationDocumentsDirectory();
-      final timestamp = DateFormat('yyyy-MM-dd').format(DateTime.now());
-      final fileName = 'agreg_export_$timestamp.json';
-      final file = File('${directory.path}/$fileName');
-
-      await file.writeAsString(jsonEncode(data));
-      return file.path;
+      return jsonEncode(data);
     } catch (e) {
       debugPrint('Erreur export: $e');
       return null;
     }
   }
 
-  // Importer depuis un fichier
-  Future<void> importData(String filePath) async {
-    await restoreFromBackup(filePath);
+  // Importer depuis un contenu JSON
+  Future<void> importData(String jsonContent) async {
+    // Stocker temporairement dans StorageService, puis restaurer
+    const tempKey = '_temp_import_backup.json';
+    await StorageService.instance.write(tempKey, jsonContent);
+    try {
+      await restoreFromBackup(tempKey);
+    } finally {
+      await StorageService.instance.delete(tempKey);
+    }
+  }
+
+  // Gestion de l'index des backups
+  Future<Map<String, dynamic>> _getBackupIndex() async {
+    try {
+      final content = await StorageService.instance.read('_backup_index.json');
+      if (content != null) {
+        return jsonDecode(content) as Map<String, dynamic>;
+      }
+    } catch (e) {
+      debugPrint('Erreur lecture index backups: $e');
+    }
+    return {};
+  }
+
+  Future<void> _addToBackupIndex(String key, DateTime date) async {
+    final index = await _getBackupIndex();
+    index[key] = date.toIso8601String();
+    await StorageService.instance.write('_backup_index.json', jsonEncode(index));
+  }
+
+  Future<void> _removeFromBackupIndex(String key) async {
+    final index = await _getBackupIndex();
+    index.remove(key);
+    await StorageService.instance.write('_backup_index.json', jsonEncode(index));
   }
 }
 
 class BackupInfo {
-  final String path;
+  final String key;
   final String name;
   final DateTime date;
   final int size;
 
   BackupInfo({
-    required this.path,
+    required this.key,
     required this.name,
     required this.date,
     required this.size,

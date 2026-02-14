@@ -1,7 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
+import '../services/storage_service.dart';
 import '../services/score_service.dart';
 
 class PlanificateurPage extends StatefulWidget {
@@ -22,16 +21,10 @@ class _PlanificateurPageState extends State<PlanificateurPage> {
     _loadPlan();
   }
 
-  Future<File> _getPlanFile() async {
-    final dir = await getApplicationDocumentsDirectory();
-    return File('${dir.path}/agreg_master_plan.json');
-  }
-
   Future<void> _loadPlan() async {
     try {
-      final file = await _getPlanFile();
-      if (await file.exists()) {
-        final content = await file.readAsString();
+      final content = await StorageService.instance.read('agreg_master_plan.json');
+      if (content != null) {
         final Map<String, dynamic> data = jsonDecode(content);
         _planItems.clear();
         data.forEach((key, value) {
@@ -48,10 +41,9 @@ class _PlanificateurPageState extends State<PlanificateurPage> {
 
   Future<void> _savePlan() async {
     try {
-      final file = await _getPlanFile();
       final data = _planItems.map((key, value) => 
           MapEntry(key, value.map((item) => item.toJson()).toList()));
-      await file.writeAsString(jsonEncode(data));
+      await StorageService.instance.write('agreg_master_plan.json', jsonEncode(data));
     } catch (e) {
       debugPrint('Erreur sauvegarde plan: $e');
     }
@@ -145,7 +137,7 @@ class _PlanificateurPageState extends State<PlanificateurPage> {
                               const SizedBox(height: 8),
                               LinearProgressIndicator(
                                 value: items.isEmpty ? 0 : completedCount / items.length,
-                                backgroundColor: Colors.grey.withOpacity(0.2),
+                                backgroundColor: Colors.grey.withValues(alpha: 0.2),
                                 valueColor: const AlwaysStoppedAnimation(Colors.green),
                               ),
                               const SizedBox(height: 4),
@@ -344,7 +336,7 @@ class _PlanificateurPageState extends State<PlanificateurPage> {
               ),
               const SizedBox(height: 16),
               DropdownButtonFormField<String>(
-                value: type,
+                initialValue: type,
                 decoration: const InputDecoration(labelText: 'Type'),
                 items: const [
                   DropdownMenuItem(value: 'lecon', child: Text('Leçon')),

@@ -126,7 +126,7 @@ class _MindMapPageState extends State<MindMapPage> with SingleTickerProviderStat
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
-                    color: _getLevelColor(level).withOpacity(0.2),
+                    color: _getLevelColor(level).withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(color: _getLevelColor(level)),
                   ),
@@ -171,7 +171,7 @@ class _MindMapPageState extends State<MindMapPage> with SingleTickerProviderStat
           color: isDark ? const Color(0xFF1E1E1E) : Colors.white,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: _getTypeColor(node.type).withOpacity(0.3),
+            color: _getTypeColor(node.type).withValues(alpha: 0.3),
             width: 1.5,
           ),
         ),
@@ -254,7 +254,7 @@ class _MindMapPageState extends State<MindMapPage> with SingleTickerProviderStat
         leading: Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: const Color(0xFF1A237E).withOpacity(0.1),
+            color: const Color(0xFF1A237E).withValues(alpha: 0.1),
             shape: BoxShape.circle,
           ),
           child: const Icon(Icons.route, color: Color(0xFF1A237E)),
@@ -278,7 +278,7 @@ class _MindMapPageState extends State<MindMapPage> with SingleTickerProviderStat
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: Colors.blue.withOpacity(0.1),
+                    color: Colors.blue.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Row(
@@ -317,7 +317,7 @@ class _MindMapPageState extends State<MindMapPage> with SingleTickerProviderStat
                         color: isDark ? const Color(0xFF2A2A2A) : Colors.grey[100],
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
-                          color: Colors.deepPurple.withOpacity(0.3),
+                          color: Colors.deepPurple.withValues(alpha: 0.3),
                           width: 1,
                         ),
                       ),
@@ -325,7 +325,7 @@ class _MindMapPageState extends State<MindMapPage> with SingleTickerProviderStat
                         children: [
                           CircleAvatar(
                             radius: 16,
-                            backgroundColor: _getLevelColor(node.niveau).withOpacity(0.2),
+                            backgroundColor: _getLevelColor(node.niveau).withValues(alpha: 0.2),
                             child: Text(
                               '${index + 1}',
                               style: TextStyle(
@@ -404,7 +404,7 @@ class _MindMapPageState extends State<MindMapPage> with SingleTickerProviderStat
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [_getTypeColor(node.type), _getTypeColor(node.type).withOpacity(0.7)],
+                    colors: [_getTypeColor(node.type), _getTypeColor(node.type).withValues(alpha: 0.7)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -434,7 +434,7 @@ class _MindMapPageState extends State<MindMapPage> with SingleTickerProviderStat
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.3),
+                            color: Colors.white.withValues(alpha: 0.3),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Row(
@@ -453,7 +453,7 @@ class _MindMapPageState extends State<MindMapPage> with SingleTickerProviderStat
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.3),
+                            color: Colors.white.withValues(alpha: 0.3),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Row(
@@ -513,7 +513,7 @@ class _MindMapPageState extends State<MindMapPage> with SingleTickerProviderStat
                               child: Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                                 decoration: BoxDecoration(
-                                  color: _getTypeColor(prereqNode.type).withOpacity(0.1),
+                                  color: _getTypeColor(prereqNode.type).withValues(alpha: 0.1),
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(color: _getTypeColor(prereqNode.type)),
                                 ),
@@ -531,7 +531,7 @@ class _MindMapPageState extends State<MindMapPage> with SingleTickerProviderStat
                                       ),
                                     ),
                                     const SizedBox(width: 4),
-                                    Icon(Icons.touch_app, size: 12, color: _getTypeColor(prereqNode.type).withOpacity(0.7)),
+                                    Icon(Icons.touch_app, size: 12, color: _getTypeColor(prereqNode.type).withValues(alpha: 0.7)),
                                   ],
                                 ),
                               ),
@@ -568,7 +568,7 @@ class _MindMapPageState extends State<MindMapPage> with SingleTickerProviderStat
                               child: Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                                 decoration: BoxDecoration(
-                                  color: _getTypeColor(nextNode.type).withOpacity(0.1),
+                                  color: _getTypeColor(nextNode.type).withValues(alpha: 0.1),
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(color: _getTypeColor(nextNode.type)),
                                 ),
@@ -586,7 +586,7 @@ class _MindMapPageState extends State<MindMapPage> with SingleTickerProviderStat
                                       ),
                                     ),
                                     const SizedBox(width: 4),
-                                    Icon(Icons.touch_app, size: 12, color: _getTypeColor(nextNode.type).withOpacity(0.7)),
+                                    Icon(Icons.touch_app, size: 12, color: _getTypeColor(nextNode.type).withValues(alpha: 0.7)),
                                   ],
                                 ),
                               ),
@@ -626,9 +626,9 @@ class _MindMapPageState extends State<MindMapPage> with SingleTickerProviderStat
                               child: Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                                 decoration: BoxDecoration(
-                                  color: Colors.deepPurple.withOpacity(0.1),
+                                  color: Colors.deepPurple.withValues(alpha: 0.1),
                                   borderRadius: BorderRadius.circular(16),
-                                  border: Border.all(color: Colors.deepPurple.withOpacity(0.3)),
+                                  border: Border.all(color: Colors.deepPurple.withValues(alpha: 0.3)),
                                 ),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -44,11 +43,7 @@ class CloudSyncService extends ChangeNotifier {
 
   /// Vérifie si Firebase est disponible (mobile uniquement)
   bool get _isFirebaseAvailable {
-    try {
-      return Platform.isAndroid || Platform.isIOS;
-    } catch (_) {
-      return false;
-    }
+    return !kIsWeb;
   }
 
   /// Initialiser le service de synchronisation
@@ -371,7 +366,7 @@ class CloudSyncService extends ChangeNotifier {
       final mergedData = {
         'currentStreak': _maxInt(localData['currentStreak'] as int, cloudData['currentStreak'] as int? ?? 0),
         'longestStreak': _maxInt(localData['longestStreak'] as int, cloudData['longestStreak'] as int? ?? 0),
-        'lastActivityDate': _maxInt(localData['lastActivityDate'] as int? ?? 0, cloudData['lastActivityDate'] as int? ?? 0),
+        'lastActivityDate': _maxInt(localData['lastActivityDate'] ?? 0, cloudData['lastActivityDate'] as int? ?? 0),
         'totalDays': _maxInt(localData['totalDays'] as int, cloudData['totalDays'] as int? ?? 0),
       };
 

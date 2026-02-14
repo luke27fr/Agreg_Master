@@ -311,13 +311,13 @@ class _FlashcardsPageState extends State<FlashcardsPage> with SingleTickerProvid
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
+                            color: Colors.black.withValues(alpha: 0.1),
                             blurRadius: 10,
                             offset: const Offset(0, 5),
                           ),
                         ],
                         border: Border.all(
-                          color: isFront ? Colors.grey.withOpacity(0.2) : Colors.blue.withOpacity(0.3),
+                          color: isFront ? Colors.grey.withValues(alpha: 0.2) : Colors.blue.withValues(alpha: 0.3),
                           width: 2,
                         ),
                       ),

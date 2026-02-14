@@ -84,7 +84,7 @@ class _MathsIntuitivesPageState extends State<MathsIntuitivesPage> {
                       'Les concepts de l\'agrégation expliqués simplement',
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.white.withOpacity(0.9),
+                        color: Colors.white.withValues(alpha: 0.9),
                       ),
                     ),
                   ],
@@ -108,7 +108,7 @@ class _MathsIntuitivesPageState extends State<MathsIntuitivesPage> {
                   end: Alignment.bottomRight,
                 ),
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: Colors.purple.withOpacity(0.3)),
+                border: Border.all(color: Colors.purple.withValues(alpha: 0.3)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -267,8 +267,8 @@ class _MathsIntuitivesPageState extends State<MathsIntuitivesPage> {
             borderRadius: BorderRadius.circular(16),
             gradient: LinearGradient(
               colors: [
-                _getDomaineColor(concept.domaine).withOpacity(0.1),
-                _getDomaineColor(concept.domaine).withOpacity(0.05),
+                _getDomaineColor(concept.domaine).withValues(alpha: 0.1),
+                _getDomaineColor(concept.domaine).withValues(alpha: 0.05),
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -312,7 +312,7 @@ class _MathsIntuitivesPageState extends State<MathsIntuitivesPage> {
                               Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                                 decoration: BoxDecoration(
-                                  color: _getDomaineColor(concept.domaine).withOpacity(0.2),
+                                  color: _getDomaineColor(concept.domaine).withValues(alpha: 0.2),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: Text(
@@ -467,7 +467,7 @@ class _MathsIntuitivesPageState extends State<MathsIntuitivesPage> {
                             gradient: LinearGradient(
                               colors: [
                                 _getDomaineColor(concept.domaine),
-                                _getDomaineColor(concept.domaine).withOpacity(0.7),
+                                _getDomaineColor(concept.domaine).withValues(alpha: 0.7),
                               ],
                             ),
                             borderRadius: BorderRadius.circular(16),
@@ -497,7 +497,7 @@ class _MathsIntuitivesPageState extends State<MathsIntuitivesPage> {
                                   Container(
                                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                                     decoration: BoxDecoration(
-                                      color: Colors.white.withOpacity(0.3),
+                                      color: Colors.white.withValues(alpha: 0.3),
                                       borderRadius: BorderRadius.circular(12),
                                     ),
                                     child: Row(
@@ -516,7 +516,7 @@ class _MathsIntuitivesPageState extends State<MathsIntuitivesPage> {
                                   Container(
                                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                                     decoration: BoxDecoration(
-                                      color: Colors.white.withOpacity(0.3),
+                                      color: Colors.white.withValues(alpha: 0.3),
                                       borderRadius: BorderRadius.circular(12),
                                     ),
                                     child: Row(
@@ -723,9 +723,9 @@ class _MathsIntuitivesPageState extends State<MathsIntuitivesPage> {
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: couleur.withOpacity(0.05),
+            color: couleur.withValues(alpha: 0.05),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: couleur.withOpacity(0.2)),
+            border: Border.all(color: couleur.withValues(alpha: 0.2)),
           ),
           child: MarkdownBody(
             data: contenu,

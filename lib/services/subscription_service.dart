@@ -1,29 +1,35 @@
 import 'package:flutter/foundation.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:flutter/services.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:async';
 
-/// Service de gestion des abonnements premium
-/// Gère In-App Purchase (Google Play + App Store) et logique freemium
+/// Service de gestion des abonnements premium via RevenueCat.
+/// Gère les abonnements sur iOS (App Store), Android (Google Play) et Web (Stripe).
 class SubscriptionService extends ChangeNotifier {
   static final SubscriptionService _instance = SubscriptionService._internal();
   factory SubscriptionService() => _instance;
   SubscriptionService._internal();
 
-  final InAppPurchase _iap = InAppPurchase.instance;
-  late StreamSubscription<List<PurchaseDetails>> _subscription;
-
   // État de l'abonnement
   bool _isPremium = false;
-  String? _currentPlan; // 'monthly', 'yearly', 'student'
+  String? _currentPlan;
   DateTime? _expirationDate;
   bool _isLoading = false;
   String? _error;
+  bool _isInitialized = false;
 
-  // Product IDs (doivent correspondre aux configurations stores)
+  // RevenueCat Entitlement ID (configuré dans le Dashboard RevenueCat)
+  static const String entitlementId = 'Agreg Master Pro';
+
+  // Product IDs (doivent correspondre aux configurations RevenueCat + stores)
   static const String monthlyId = 'agreg_master_premium_monthly';
   static const String yearlyId = 'agreg_master_premium_yearly';
-  static const String studentId = 'agreg_master_premium_student';
+
+  // RevenueCat API Keys — à remplacer par les vraies clés du Dashboard RevenueCat
+  // Ces clés sont publiques (côté client), elles ne sont pas secrètes.
+  static const String _rcAppleApiKey = 'appl_KGZJHYCjiiPMQbarNCnJbyakVGP';
+  static const String _rcGoogleApiKey = 'goog_YNbXFosilLoiNCiTyQvgEGRgXUw';
+  static const String _rcWebApiKey = 'strp_TbOCGUgTVDBKMFCXtVXXmuUQnkc';
 
   // Getters
   bool get isPremium => _isPremium;
@@ -31,127 +37,142 @@ class SubscriptionService extends ChangeNotifier {
   DateTime? get expirationDate => _expirationDate;
   bool get isLoading => _isLoading;
   String? get error => _error;
+  bool get isInitialized => _isInitialized;
 
-  /// Initialiser le service d'abonnement
-  Future<void> initialize() async {
-    _isLoading = true;
-    notifyListeners();
+  /// Initialiser RevenueCat sur toutes les plateformes.
+  /// [appUserID] : Firebase UID pour synchroniser les abonnements cross-plateforme.
+  Future<void> initialize({String? appUserID}) async {
+    if (_isInitialized) return;
 
-    try {
-      // Vérifier disponibilité In-App Purchase
-      final available = await _iap.isAvailable();
-      if (!available) {
-        _error = 'In-App Purchase non disponible';
-        _isLoading = false;
-        notifyListeners();
-        return;
-      }
-
-      // Charger statut depuis stockage local
-      await _loadSubscriptionStatus();
-
-      // Écouter les mises à jour d'achats
-      _subscription = _iap.purchaseStream.listen(
-        _handlePurchaseUpdate,
-        onDone: () => _subscription.cancel(),
-        onError: (error) {
-          debugPrint('Erreur stream achats: $error');
-          _error = error.toString();
-          notifyListeners();
-        },
-      );
-
-      // Restaurer achats précédents (important au premier lancement)
-      await restorePurchases();
-
-      _isLoading = false;
-      notifyListeners();
-    } catch (e) {
-      debugPrint('Erreur initialisation subscription: $e');
-      _error = e.toString();
-      _isLoading = false;
-      notifyListeners();
-    }
-  }
-
-  /// Charger le statut d'abonnement depuis le stockage local
-  Future<void> _loadSubscriptionStatus() async {
-    final prefs = await SharedPreferences.getInstance();
-    _isPremium = prefs.getBool('isPremium') ?? false;
-    _currentPlan = prefs.getString('currentPlan');
-    
-    final expirationTimestamp = prefs.getInt('expirationDate');
-    if (expirationTimestamp != null) {
-      _expirationDate = DateTime.fromMillisecondsSinceEpoch(expirationTimestamp);
-      
-      // Vérifier si expiré
-      if (_expirationDate!.isBefore(DateTime.now())) {
-        _isPremium = false;
-        _currentPlan = null;
-        await _saveSubscriptionStatus();
-      }
-    }
-  }
-
-  /// Sauvegarder le statut d'abonnement localement
-  Future<void> _saveSubscriptionStatus() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('isPremium', _isPremium);
-    await prefs.setString('currentPlan', _currentPlan ?? '');
-    if (_expirationDate != null) {
-      await prefs.setInt('expirationDate', _expirationDate!.millisecondsSinceEpoch);
-    } else {
-      await prefs.remove('expirationDate');
-    }
-  }
-
-  /// Récupérer les produits disponibles
-  Future<List<ProductDetails>> getAvailableProducts() async {
-    try {
-      final available = await _iap.isAvailable();
-      if (!available) {
-        debugPrint('In-App Purchase non disponible');
-        return [];
-      }
-
-      final Set<String> productIds = {monthlyId, yearlyId, studentId};
-      
-      final ProductDetailsResponse response = await _iap.queryProductDetails(productIds);
-      
-      if (response.error != null) {
-        _error = response.error!.message;
-        notifyListeners();
-        return [];
-      }
-
-      return response.productDetails;
-    } catch (e) {
-      debugPrint('Erreur chargement produits: $e');
-      return [];
-    }
-  }
-
-  /// Acheter un abonnement
-  Future<bool> purchaseSubscription(String productId) async {
     _isLoading = true;
     _error = null;
     notifyListeners();
 
     try {
-      final products = await getAvailableProducts();
-      final product = products.firstWhere(
-        (p) => p.id == productId,
-        orElse: () => throw Exception('Produit non trouvé'),
-      );
+      // Choisir la bonne API key selon la plateforme
+      late String apiKey;
+      if (kIsWeb) {
+        apiKey = _rcWebApiKey;
+      } else if (defaultTargetPlatform == TargetPlatform.iOS ||
+                 defaultTargetPlatform == TargetPlatform.macOS) {
+        apiKey = _rcAppleApiKey;
+      } else {
+        apiKey = _rcGoogleApiKey;
+      }
 
-      final purchaseParam = PurchaseParam(productDetails: product);
-      
-      // Lancer l'achat
-      final success = await _iap.buyNonConsumable(purchaseParam: purchaseParam);
-      
+      // Configurer RevenueCat
+      final configuration = PurchasesConfiguration(apiKey);
+      if (appUserID != null) {
+        configuration.appUserID = appUserID;
+      }
+
+      await Purchases.configure(configuration);
+
+      // Activer le mode debug en développement
+      if (kDebugMode) {
+        await Purchases.setLogLevel(LogLevel.debug);
+      }
+
+      // Vérifier le statut initial
+      await _refreshSubscriptionStatus();
+
+      // Écouter les changements de statut (achat, restauration, expiration)
+      Purchases.addCustomerInfoUpdateListener(_onCustomerInfoUpdated);
+
+      _isInitialized = true;
+      debugPrint('RevenueCat initialisé (premium=$_isPremium, plan=$_currentPlan)');
+    } catch (e) {
+      debugPrint('Erreur initialisation RevenueCat: $e');
+      _error = e.toString();
+
+      // Fallback : charger le statut depuis le stockage local
+      await _loadLocalStatus();
+    }
+
+    _isLoading = false;
+    notifyListeners();
+  }
+
+  /// Callback RevenueCat : appelé quand le statut change
+  void _onCustomerInfoUpdated(CustomerInfo customerInfo) {
+    _updateFromCustomerInfo(customerInfo);
+    _saveLocalStatus();
+    notifyListeners();
+  }
+
+  /// Met à jour l'état interne depuis les infos RevenueCat
+  void _updateFromCustomerInfo(CustomerInfo info) {
+    final entitlement = info.entitlements.all[entitlementId];
+
+    if (entitlement != null && entitlement.isActive) {
+      _isPremium = true;
+      _currentPlan = _getPlanFromProductId(entitlement.productIdentifier);
+
+      if (entitlement.expirationDate != null) {
+        _expirationDate = DateTime.tryParse(entitlement.expirationDate!);
+      }
+    } else {
+      _isPremium = false;
+      _currentPlan = null;
+      _expirationDate = null;
+    }
+
+    _error = null;
+  }
+
+  /// Rafraîchir le statut depuis RevenueCat
+  Future<void> _refreshSubscriptionStatus() async {
+    try {
+      final customerInfo = await Purchases.getCustomerInfo();
+      _updateFromCustomerInfo(customerInfo);
+      await _saveLocalStatus();
+    } catch (e) {
+      debugPrint('Erreur refresh statut: $e');
+    }
+  }
+
+  /// Récupérer les offres disponibles (prix, packages)
+  Future<Offerings?> getOfferings() async {
+    try {
+      final offerings = await Purchases.getOfferings();
+      return offerings;
+    } catch (e) {
+      debugPrint('Erreur chargement offres: $e');
+      _error = 'Impossible de charger les offres';
+      notifyListeners();
+      return null;
+    }
+  }
+
+  /// Acheter un package RevenueCat (fonctionne sur toutes les plateformes).
+  /// Sur mobile : ouvre le flow natif (App Store / Google Play).
+  /// Sur web : ouvre le flow Stripe via RevenueCat.
+  Future<bool> purchasePackage(Package package) async {
+    _isLoading = true;
+    _error = null;
+    notifyListeners();
+
+    try {
+      final purchaseResult = await Purchases.purchase(
+        PurchaseParams.package(package),
+      );
+      _updateFromCustomerInfo(purchaseResult.customerInfo);
+      await _saveLocalStatus();
+
       _isLoading = false;
       notifyListeners();
-      return success;
+      return _isPremium;
+    } on PlatformException catch (e) {
+      if (e.code == '1' /* userCancelledError */) {
+        debugPrint('Achat annulé par l\'utilisateur');
+        _error = null;
+      } else {
+        debugPrint('Erreur achat: ${e.code} ${e.message}');
+        _error = 'Erreur lors de l\'achat';
+      }
+      _isLoading = false;
+      notifyListeners();
+      return false;
     } catch (e) {
       debugPrint('Erreur achat: $e');
       _error = e.toString();
@@ -161,65 +182,6 @@ class SubscriptionService extends ChangeNotifier {
     }
   }
 
-  /// Gérer les mises à jour d'achats
-  void _handlePurchaseUpdate(List<PurchaseDetails> purchaseDetailsList) async {
-    for (final PurchaseDetails purchase in purchaseDetailsList) {
-      if (purchase.status == PurchaseStatus.pending) {
-        // En attente de paiement
-        _isLoading = true;
-        notifyListeners();
-      } else if (purchase.status == PurchaseStatus.purchased ||
-          purchase.status == PurchaseStatus.restored) {
-        // Achat réussi
-        await _verifyAndActivatePurchase(purchase);
-      } else if (purchase.status == PurchaseStatus.error) {
-        // Erreur
-        _error = purchase.error?.message ?? 'Erreur d\'achat';
-        _isLoading = false;
-        notifyListeners();
-      }
-
-      // Compléter l'achat
-      if (purchase.pendingCompletePurchase) {
-        await _iap.completePurchase(purchase);
-      }
-    }
-  }
-
-  /// Vérifier et activer un achat
-  Future<void> _verifyAndActivatePurchase(PurchaseDetails purchase) async {
-    // TODO: En production, TOUJOURS vérifier avec backend (Cloud Function)
-    // Pour éviter le piratage
-    // Pour l'instant, on active directement (version MVP)
-    
-    _isPremium = true;
-    _currentPlan = _getPlanFromProductId(purchase.productID);
-    _expirationDate = _calculateExpiration(purchase.productID);
-    
-    await _saveSubscriptionStatus();
-    
-    _isLoading = false;
-    notifyListeners();
-    
-    debugPrint('✅ Abonnement activé: $_currentPlan jusqu\'au $_expirationDate');
-  }
-
-  String _getPlanFromProductId(String productId) {
-    if (productId == monthlyId) return 'monthly';
-    if (productId == yearlyId) return 'yearly';
-    if (productId == studentId) return 'student';
-    return 'unknown';
-  }
-
-  DateTime _calculateExpiration(String productId) {
-    final now = DateTime.now();
-    if (productId == monthlyId) return now.add(const Duration(days: 30));
-    if (productId == yearlyId || productId == studentId) {
-      return now.add(const Duration(days: 365));
-    }
-    return now.add(const Duration(days: 30));
-  }
-
   /// Restaurer les achats précédents
   Future<void> restorePurchases() async {
     _isLoading = true;
@@ -227,31 +189,34 @@ class SubscriptionService extends ChangeNotifier {
     notifyListeners();
 
     try {
-      await _iap.restorePurchases();
-      _isLoading = false;
-      notifyListeners();
+      final customerInfo = await Purchases.restorePurchases();
+      _updateFromCustomerInfo(customerInfo);
+      await _saveLocalStatus();
     } catch (e) {
-      debugPrint('Erreur restauration achats: $e');
+      debugPrint('Erreur restauration: $e');
       _error = 'Impossible de restaurer les achats';
-      _isLoading = false;
-      notifyListeners();
     }
+
+    _isLoading = false;
+    notifyListeners();
   }
+
+  // ============================================================================
+  // API de compatibilité (utilisée par les pages existantes)
+  // ============================================================================
 
   /// Vérifier si l'utilisateur peut accéder à une fonctionnalité
   bool canAccess(String feature) {
-    // Si premium, accès total
     if (_isPremium) return true;
 
-    // Fonctionnalités gratuites (freemium)
     final freeFeatures = [
       'quiz',
       'search',
       'pomodoro',
-      'maths_intuitives_preview', // 10 premiers concepts
-      'lecons_preview', // 5 premières leçons
-      'exercices_preview', // 10 premiers exercices
-      'demonstrations_preview', // 5 premières
+      'maths_intuitives_preview',
+      'lecons_preview',
+      'exercices_preview',
+      'demonstrations_preview',
       'badges',
       'streak',
     ];
@@ -259,7 +224,7 @@ class SubscriptionService extends ChangeNotifier {
     return freeFeatures.contains(feature);
   }
 
-  /// Vérifier combien de contenu gratuit reste accessible
+  /// Nombre de contenu gratuit accessible par type
   int getFreeAccessCount(String contentType) {
     if (_isPremium) return 999999; // Illimité
 
@@ -269,49 +234,105 @@ class SubscriptionService extends ChangeNotifier {
       case 'exercices':
         return 10;
       case 'examens_blancs':
-        return 1; // 1 sujet complet
+        return 1;
       case 'maths_intuitives':
         return 10;
       case 'demonstrations':
         return 5;
       case 'annales':
-        return 0; // Premium uniquement
+        return 4; // Première année gratuite (ext MG + AP + int EP1 + EP2)
+      case 'annales_ped':
+        return 1; // Premier sujet pédagogique gratuit
       default:
         return 0;
     }
   }
 
-  /// Activer premium manuellement (testing uniquement - protégé en production)
+  // ============================================================================
+  // Debug / Test (protégé en production)
+  // ============================================================================
+
+  /// Activer premium manuellement (testing uniquement)
   Future<void> activatePremiumManually(String plan, {int days = 30}) async {
     if (!kDebugMode) {
-      debugPrint('⛔ activatePremiumManually bloqué en mode production');
+      debugPrint('activatePremiumManually bloqué en mode production');
       return;
     }
     _isPremium = true;
     _currentPlan = plan;
     _expirationDate = DateTime.now().add(Duration(days: days));
-    await _saveSubscriptionStatus();
+    await _saveLocalStatus();
     notifyListeners();
-    debugPrint('✅ Premium activé manuellement: $plan pour $days jours');
+    debugPrint('Premium activé manuellement: $plan pour $days jours');
   }
 
-  /// Désactiver premium (testing uniquement - protégé en production)
+  /// Désactiver premium (testing uniquement)
   Future<void> deactivatePremium() async {
     if (!kDebugMode) {
-      debugPrint('⛔ deactivatePremium bloqué en mode production');
+      debugPrint('deactivatePremium bloqué en mode production');
       return;
     }
     _isPremium = false;
     _currentPlan = null;
     _expirationDate = null;
-    await _saveSubscriptionStatus();
+    await _saveLocalStatus();
     notifyListeners();
   }
 
-  /// Nettoyer à la fermeture
+  // ============================================================================
+  // Persistance locale (fallback si RevenueCat indisponible)
+  // ============================================================================
+
+  Future<void> _saveLocalStatus() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('isPremium', _isPremium);
+      await prefs.setString('currentPlan', _currentPlan ?? '');
+      if (_expirationDate != null) {
+        await prefs.setInt('expirationDate', _expirationDate!.millisecondsSinceEpoch);
+      } else {
+        await prefs.remove('expirationDate');
+      }
+    } catch (e) {
+      debugPrint('Erreur sauvegarde statut local: $e');
+    }
+  }
+
+  Future<void> _loadLocalStatus() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      _isPremium = prefs.getBool('isPremium') ?? false;
+      _currentPlan = prefs.getString('currentPlan');
+      if (_currentPlan?.isEmpty ?? true) _currentPlan = null;
+
+      final expirationTimestamp = prefs.getInt('expirationDate');
+      if (expirationTimestamp != null) {
+        _expirationDate = DateTime.fromMillisecondsSinceEpoch(expirationTimestamp);
+        // Vérifier si expiré
+        if (_expirationDate!.isBefore(DateTime.now())) {
+          _isPremium = false;
+          _currentPlan = null;
+          _expirationDate = null;
+        }
+      }
+    } catch (e) {
+      debugPrint('Erreur chargement statut local: $e');
+    }
+  }
+
+  // ============================================================================
+  // Helpers
+  // ============================================================================
+
+  String _getPlanFromProductId(String productId) {
+    if (productId.contains('monthly')) return 'monthly';
+    if (productId.contains('yearly')) return 'yearly';
+    return 'unknown';
+  }
+
   @override
   void dispose() {
-    _subscription.cancel();
+    // RevenueCat gère son propre cycle de vie
     super.dispose();
   }
 }
