@@ -286,7 +286,7 @@ class _SettingsPageState extends State<SettingsPage> {
               title: const Text('Politique de confidentialité'),
               subtitle: const Text('Comment nous protégeons vos données'),
               trailing: const Icon(Icons.open_in_new, size: 16),
-              onTap: () => _openUrl('https://luke27fr.github.io/agregmaster-legal/privacy.html'),
+              onTap: () => _openUrl('https://luke27fr.github.io/Agreg_Master/privacy.html'),
             ),
             const Divider(height: 1),
             ListTile(
@@ -294,14 +294,14 @@ class _SettingsPageState extends State<SettingsPage> {
               title: const Text('Conditions Générales d\'Utilisation'),
               subtitle: const Text('Règles d\'utilisation de l\'application'),
               trailing: const Icon(Icons.open_in_new, size: 16),
-              onTap: () => _openUrl('https://luke27fr.github.io/agregmaster-legal/terms.html'),
+              onTap: () => _openUrl('https://luke27fr.github.io/Agreg_Master/terms.html'),
             ),
             const Divider(height: 1),
             ListTile(
               leading: const Icon(Icons.gavel_outlined),
               title: const Text('Mentions légales'),
               trailing: const Icon(Icons.open_in_new, size: 16),
-              onTap: () => _openUrl('https://luke27fr.github.io/agregmaster-legal/legal.html'),
+              onTap: () => _openUrl('https://luke27fr.github.io/Agreg_Master/terms.html'),
             ),
           ]),
 

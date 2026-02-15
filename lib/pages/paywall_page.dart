@@ -5,8 +5,8 @@ import 'package:url_launcher/url_launcher.dart';
 import '../services/subscription_service.dart';
 
 /// Page PayWall Premium avec offres d'abonnement.
-/// Utilise RevenueCat pour afficher les prix réels depuis les stores (iOS/Android)
-/// ou Stripe (Web), et gérer l'achat.
+/// Utilise RevenueCat pour afficher les prix réels depuis les stores
+/// et gérer l'achat.
 class PaywallPage extends StatefulWidget {
   const PaywallPage({super.key});
 
@@ -163,32 +163,32 @@ class _PaywallPageState extends State<PaywallPage> {
 
                       const SizedBox(height: 12),
 
-                      // Liens légaux
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      // Liens légaux (requis par Apple 3.1.2)
+                      Wrap(
+                        alignment: WrapAlignment.center,
                         children: [
                           TextButton(
-                            onPressed: () => _openLegalPage('https://luke27fr.github.io/agregmaster-legal/privacy.html'),
+                            onPressed: () => _openLegalPage('https://luke27fr.github.io/Agreg_Master/privacy.html'),
                             child: Text(
                               'Politique de confidentialité',
                               style: TextStyle(
-                                color: Colors.white.withAlpha((0.6 * 255).round()),
-                                fontSize: 12,
+                                color: Colors.white.withAlpha((0.7 * 255).round()),
+                                fontSize: 13,
                                 decoration: TextDecoration.underline,
-                                decorationColor: Colors.white.withAlpha((0.6 * 255).round()),
+                                decorationColor: Colors.white.withAlpha((0.7 * 255).round()),
                               ),
                             ),
                           ),
-                          Text(' | ', style: TextStyle(color: Colors.white.withAlpha((0.4 * 255).round()))),
+                          Text(' • ', style: TextStyle(color: Colors.white.withAlpha((0.4 * 255).round()))),
                           TextButton(
-                            onPressed: () => _openLegalPage('https://luke27fr.github.io/agregmaster-legal/terms.html'),
+                            onPressed: () => _openLegalPage('https://luke27fr.github.io/Agreg_Master/terms.html'),
                             child: Text(
-                              'CGU',
+                              'Conditions d\'utilisation (EULA)',
                               style: TextStyle(
-                                color: Colors.white.withAlpha((0.6 * 255).round()),
-                                fontSize: 12,
+                                color: Colors.white.withAlpha((0.7 * 255).round()),
+                                fontSize: 13,
                                 decoration: TextDecoration.underline,
-                                decorationColor: Colors.white.withAlpha((0.6 * 255).round()),
+                                decorationColor: Colors.white.withAlpha((0.7 * 255).round()),
                               ),
                             ),
                           ),
@@ -529,7 +529,13 @@ class _PaywallPageState extends State<PaywallPage> {
           'Annulation possible à tout moment depuis votre espace client\n'
           'L\'abonnement se renouvelle automatiquement sauf annulation.';
     }
-    return 'Paiement sécurisé via Google Play / App Store\n'
+    if (defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.macOS) {
+      return 'Paiement sécurisé via l\'App Store\n'
+          'Annulation possible à tout moment dans les réglages de votre compte\n'
+          'L\'abonnement se renouvelle automatiquement sauf annulation\n'
+          'au moins 24h avant la fin de la période en cours.';
+    }
+    return 'Paiement sécurisé via votre store\n'
         'Annulation possible à tout moment\n'
         'L\'abonnement se renouvelle automatiquement sauf annulation\n'
         'au moins 24h avant la fin de la période en cours.';
