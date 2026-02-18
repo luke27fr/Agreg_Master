@@ -118,15 +118,6 @@
       "tags": ["corrélation", "indépendance"]
     },
     {
-      "id": "cv_proba_pas_ps",
-      "titre": "Convergence en probabilité sans convergence p.s.",
-      "domaine": "Probabilités",
-      "enonce": "Suite de Borel-Cantelli inverse",
-      "explication": "Xₙ = 𝟙_{Aₙ} avec P(Aₙ) = 1/n indépendants. Xₙ → 0 en proba mais pas p.s.",
-      "lecons": [262],
-      "tags": ["convergence", "probabilité"]
-    },
-    {
       "id": "ouvert_pas_connexe",
       "titre": "Ouvert de ℝ non connexe",
       "domaine": "Analyse",
@@ -269,6 +260,150 @@
       "explication": "$\\|f\\|_1 \\leq \\|f\\|_\\infty$ mais pas l'inverse : $f_n(x) = x^n$ a $\\|f_n\\|_\\infty = 1$ mais $\\|f_n\\|_1 = 1/(n+1) \\to 0$. En dim finie toutes les normes sont équivalentes, en dim infinie non.",
       "lecons": [208],
       "tags": ["normes", "dimension infinie", "équivalence"]
+    },
+    {
+      "id": "cv_proba_pas_ps",
+      "titre": "Convergence en probabilité mais pas p.s.",
+      "domaine": "Probabilités",
+      "enonce": "$X_n = \\mathbf{1}_{[k2^{-m}, (k+1)2^{-m}]}$ sur $\\Omega = [0,1]$, indicatrices d'intervalles dyadiques glissants ($n = 2^m + k$)",
+      "explication": "$P(X_n = 1) = 2^{-m} \\to 0$ donc $X_n \\to 0$ en probabilité. Mais pour tout $\\omega \\in [0,1]$, $\\omega$ est couvert par une infinité d'intervalles $[k2^{-m}, (k+1)2^{-m}]$, donc $X_n(\\omega) = 1$ pour une infinité de $n$ : $X_n \\not\\to 0$ p.s. La convergence en probabilité est strictement plus faible que la convergence p.s.",
+      "lecons": [302, 304],
+      "tags": ["convergence en probabilité", "convergence p.s.", "contre-exemple"]
+    },
+    {
+      "id": "cv_loi_pas_proba",
+      "titre": "Convergence en loi mais pas en probabilité",
+      "domaine": "Probabilités",
+      "enonce": "$X \\sim \\mathcal{N}(0,1)$ et $X_n = -X$ pour tout $n$",
+      "explication": "$X_n = -X \\sim \\mathcal{N}(0,1)$ pour tout $n$ (la loi $\\mathcal{N}(0,1)$ est symétrique), donc $X_n \\xrightarrow{\\mathcal{L}} \\mathcal{N}(0,1)$, i.e. $X_n \\xrightarrow{\\mathcal{L}} X$. Mais $P(|X_n - X| \\geq \\varepsilon) = P(2|X| \\geq \\varepsilon) > 0$ pour tout $\\varepsilon > 0$ : pas de convergence en probabilité. La convergence en loi ne détecte pas la dépendance entre les variables.",
+      "lecons": [302, 304],
+      "tags": ["convergence en loi", "convergence en probabilité"]
+    },
+    {
+      "id": "non_correle_pas_independant",
+      "titre": "Variables non corrélées mais non indépendantes",
+      "domaine": "Probabilités",
+      "enonce": "$X \\sim \\mathcal{U}(\\{-1, 0, 1\\})$ uniforme et $Y = X^2$",
+      "explication": "$\\mathrm{Cov}(X, Y) = E[XY] - E[X]E[Y] = E[X^3] - 0 = 0$ (par symétrie de la loi de $X$). Mais $Y = X^2$ est une fonction déterministe de $X$ : sachant $X = 0$, on a $Y = 0$ avec certitude, alors que $P(Y = 0) = 1/3$. Absence de corrélation n'implique pas indépendance (c'est vrai seulement pour des vecteurs gaussiens).",
+      "lecons": [303, 305],
+      "tags": ["corrélation", "indépendance", "covariance"]
+    },
+    {
+      "id": "esperance_infinie",
+      "titre": "Variable aléatoire sans espérance (loi de Cauchy)",
+      "domaine": "Probabilités",
+      "enonce": "$X \\sim \\mathrm{Cauchy}(0,1)$, de densité $f(x) = \\frac{1}{\\pi(1+x^2)}$",
+      "explication": "$E[|X|] = \\frac{2}{\\pi}\\int_0^{+\\infty} \\frac{x}{1+x^2}\\, dx = \\frac{1}{\\pi}[\\ln(1+x^2)]_0^{+\\infty} = +\\infty$. L'espérance n'existe pas. La loi de Cauchy n'a aucun moment d'ordre $\\geq 1$. La valeur principale de Cauchy $\\lim_{T \\to \\infty} \\int_{-T}^T x f(x)\\, dx = 0$ n'est pas l'espérance. La loi faible des grands nombres ne s'applique pas.",
+      "lecons": [301, 305],
+      "tags": ["Cauchy", "espérance", "intégrabilité", "moments"]
+    },
+    {
+      "id": "variance_infinie_esperance_finie",
+      "titre": "Variance infinie avec espérance finie",
+      "domaine": "Probabilités",
+      "enonce": "$X$ de loi de Pareto : $f(x) = 2/x^3$ pour $x \\geq 1$",
+      "explication": "$E[X] = \\int_1^{+\\infty} 2x^{-2}\\, dx = 2$ est finie. Mais $E[X^2] = \\int_1^{+\\infty} 2x^{-1}\\, dx = +\\infty$, donc $\\mathrm{Var}(X) = +\\infty$. La loi faible des grands nombres s'applique (par troncation), mais le TCL classique ne donne pas la vitesse $1/\\sqrt{n}$. Les lois à queue lourde modélisent les distributions de richesse (loi de Pareto).",
+      "lecons": [303, 305],
+      "tags": ["variance", "Pareto", "moments", "queues lourdes"]
+    },
+    {
+      "id": "somme_va_non_gaussienne",
+      "titre": "Somme de v.a. de même loi qui ne suit pas la même loi",
+      "domaine": "Probabilités",
+      "enonce": "$X_1, X_2$ i.i.d. $\\sim \\mathcal{U}([0,1])$, $S = X_1 + X_2$",
+      "explication": "$S$ a pour densité la convolution $f_S = f_{X_1} * f_{X_2}$ : loi triangulaire sur $[0,2]$ avec $f_S(s) = s$ si $0 \\leq s \\leq 1$ et $f_S(s) = 2 - s$ si $1 < s \\leq 2$. Ce n'est pas une loi uniforme. La stabilité par somme est une propriété remarquable de la loi gaussienne, de la loi de Cauchy et des lois stables. Les lois uniformes ne sont pas stables.",
+      "lecons": [301, 307],
+      "tags": ["convolution", "stabilité", "loi uniforme"]
+    },
+    {
+      "id": "loi_forte_pas_l2",
+      "titre": "Convergence p.s. sans convergence $L^2$",
+      "domaine": "Probabilités",
+      "enonce": "$X_n = n \\cdot \\mathbf{1}_{A_n}$ avec $P(A_n) = 1/n^2$, $(A_n)$ indépendants",
+      "explication": "$\\sum P(A_n) = \\sum 1/n^2 < \\infty$ : par Borel-Cantelli, $X_n = 0$ pour $n$ assez grand p.s., donc $X_n \\to 0$ p.s. Mais $E[X_n^2] = n^2 \\cdot P(A_n) = 1$ pour tout $n$, donc $\\|X_n - 0\\|_{L^2}^2 = 1 \\not\\to 0$. La convergence p.s. n'implique pas la convergence $L^2$, même avec domination ponctuelle p.s. à partir d'un rang.",
+      "lecons": [302, 304],
+      "tags": ["convergence p.s.", "convergence L2", "Borel-Cantelli"]
+    },
+    {
+      "id": "markov_non_reversible",
+      "titre": "Chaîne de Markov irréductible non réversible",
+      "domaine": "Probabilités",
+      "enonce": "Marche orientée sur $\\{1, 2, 3\\}$ : $P(i \\to i+1 \\bmod 3) = 2/3$, $P(i \\to i-1 \\bmod 3) = 1/3$",
+      "explication": "La mesure stationnaire est $\\pi = (1/3, 1/3, 1/3)$ (par symétrie des taux totaux). Mais la condition de réversibilité $\\pi_i P_{ij} = \\pi_j P_{ji}$ échoue : $\\pi_1 P_{12} = 2/9 \\neq 1/9 = \\pi_2 P_{21}$. La chaîne a un courant net $1 \\to 2 \\to 3 \\to 1$. La réversibilité (bilan détaillé) est plus forte que la stationnarité.",
+      "lecons": [306, 308],
+      "tags": ["Markov", "réversibilité", "mesure stationnaire"]
+    },
+    {
+      "id": "surface_non_orientable",
+      "titre": "Surface non orientable (ruban de Möbius)",
+      "domaine": "Géométrie",
+      "enonce": "Ruban de Möbius : $\\gamma(u,v) = ((1 + v\\cos(u/2))\\cos u,\\, (1 + v\\cos(u/2))\\sin u,\\, v\\sin(u/2))$, $u \\in [0, 2\\pi]$, $v \\in [-\\tfrac{1}{2}, \\tfrac{1}{2}]$",
+      "explication": "Après un tour complet ($u : 0 \\to 2\\pi$), la normale $\\vec{n}$ s'inverse : on ne peut définir de champ normal continu. La surface n'est pas orientable. Conséquence : le théorème de Stokes classique ($\\int_S \\mathrm{rot}\\, \\vec{F} \\cdot d\\vec{S} = \\oint_{\\partial S} \\vec{F} \\cdot d\\vec{r}$) ne s'applique pas tel quel sur le Möbius.",
+      "lecons": [407, 410],
+      "tags": ["orientabilité", "surfaces", "Möbius"]
+    },
+    {
+      "id": "courbe_continue_non_rectifiable",
+      "titre": "Courbe continue non rectifiable (Koch)",
+      "domaine": "Géométrie",
+      "enonce": "Flocon de Von Koch",
+      "explication": "Construite par itération : chaque segment est remplacé par 4 segments de longueur 3 fois moindre. La longueur à l'étape $n$ est $(4/3)^n L_0 \\to +\\infty$. La courbe limite est continue (convergence uniforme des approximations) mais de longueur infinie : elle n'est pas rectifiable. Sa dimension de Hausdorff est $\\ln 4/\\ln 3 \\approx 1{,}26$, strictement entre 1 et 2.",
+      "lecons": [406, 408],
+      "tags": ["rectifiabilité", "fractales", "longueur", "Koch"]
+    },
+    {
+      "id": "convexe_non_ferme",
+      "titre": "Ensemble convexe non fermé et projection non unique",
+      "domaine": "Géométrie",
+      "enonce": "$C = \\{(x,y) \\in \\mathbb{R}^2 : y > 0\\}$ (demi-plan ouvert)",
+      "explication": "$C$ est convexe et ouvert, mais non fermé. Pour le point $a = (0, 0) \\notin C$, la distance $d(a, C) = \\inf_{(x,y) \\in C} \\|(x,y)\\| = 0$ mais cette borne inférieure n'est pas atteinte : il n'existe pas de projeté de $a$ sur $C$. Dans un espace de Hilbert, la projection sur un convexe fermé existe et est unique, mais la fermeture est essentielle.",
+      "lecons": [404, 411],
+      "tags": ["convexité", "projection", "fermeture"]
+    },
+    {
+      "id": "isometrie_affine_non_lineaire",
+      "titre": "Isométrie affine qui n'est pas linéaire",
+      "domaine": "Géométrie",
+      "enonce": "Translation $T_{\\vec{v}}(x) = x + \\vec{v}$ avec $\\vec{v} \\neq \\vec{0}$",
+      "explication": "$T_{\\vec{v}}$ conserve les distances : $\\|T_{\\vec{v}}(x) - T_{\\vec{v}}(y)\\| = \\|x - y\\|$, c'est bien une isométrie. Mais $T_{\\vec{v}}(0) = \\vec{v} \\neq 0$ : ce n'est pas une application linéaire. Toute isométrie d'un espace euclidien est affine (théorème de Mazur-Ulam), mais elle est linéaire si et seulement si elle fixe l'origine. En pratique : isométrie = partie linéaire (dans $O(n)$) + translation.",
+      "lecons": [401, 403],
+      "tags": ["isométries", "applications affines", "linéarité"]
+    },
+    {
+      "id": "courbe_sans_tangente",
+      "titre": "Courbe continue sans tangente en tout point (Weierstrass)",
+      "domaine": "Géométrie",
+      "enonce": "Graphe de $f(x) = \\sum_{n=0}^{\\infty} a^n \\cos(b^n \\pi x)$ avec $0 < a < 1$, $b$ impair, $ab > 1 + 3\\pi/2$",
+      "explication": "La série converge uniformément ($|a^n \\cos(\\cdot)| \\leq a^n$, $\\sum a^n < \\infty$), donc $f$ est continue. Mais $f$ n'est dérivable en aucun point : les oscillations à l'échelle $1/b^n$ ont une amplitude $a^n$ et une « pente » de l'ordre de $(ab)^n \\to \\infty$. Le graphe de $f$ est une courbe continue sans tangente nulle part, montrant que continuité n'implique pas dérivabilité (même en un seul point).",
+      "lecons": [406, 408],
+      "tags": ["Weierstrass", "dérivabilité", "continuité", "pathologie"]
+    },
+    {
+      "id": "projection_non_orthogonale",
+      "titre": "Projection non unique sur un convexe (norme non strictement convexe)",
+      "domaine": "Géométrie",
+      "enonce": "$E = (\\mathbb{R}^2, \\|\\cdot\\|_\\infty)$, $C = \\{(x, 0) : x \\in \\mathbb{R}\\}$, $a = (0, 1)$",
+      "explication": "$\\|a - (x, 0)\\|_\\infty = \\max(|x|, 1) \\geq 1$ pour tout $x$, avec égalité pour tout $|x| \\leq 1$. La projection de $a$ sur $C$ n'est pas unique : tout $(x, 0)$ avec $|x| \\leq 1$ réalise la distance. Dans un Hilbert, la projection sur un convexe fermé est toujours unique grâce à la stricte convexité de $\\|\\cdot\\|^2$. L'unicité échoue dès que la boule unité n'est pas strictement convexe.",
+      "lecons": [404, 411],
+      "tags": ["projection", "convexité", "normes", "unicité"]
+    },
+    {
+      "id": "geodesique_non_minimisante",
+      "titre": "Géodésique qui n'est pas un plus court chemin",
+      "domaine": "Géométrie",
+      "enonce": "Grand arc de cercle sur la sphère $S^2$ de rayon $R$ (longueur $> \\pi R$)",
+      "explication": "Les géodésiques de $S^2$ sont les grands cercles. Entre deux points non antipodaux, le petit arc (longueur $< \\pi R$) est le plus court chemin. Le grand arc (longueur $> \\pi R$) est aussi une géodésique, mais pas minimisante : il passe par le point antipodal (point conjugué). Au-delà du point conjugué, la géodésique cesse de minimiser la distance. C'est une illustration du théorème de Jacobi sur les champs de Jacobi et les points conjugués.",
+      "lecons": [407, 410],
+      "tags": ["géodésiques", "sphère", "points conjugués", "distance"]
+    },
+    {
+      "id": "quadrique_degeneree",
+      "titre": "Quadrique dégénérée (cône, cylindre)",
+      "domaine": "Géométrie",
+      "enonce": "$x^2 + y^2 - z^2 = 0$ (cône) et $x^2 + y^2 = 1$ (cylindre) dans $\\mathbb{R}^3$",
+      "explication": "Le cône $x^2 + y^2 - z^2 = 0$ a la matrice $\\mathrm{diag}(1,1,-1)$ de rang 3, mais passe par l'origine : c'est une quadrique à point singulier (sommet du cône). Le cylindre $x^2 + y^2 = 1$ a une direction propre de valeur propre 0 (axe $z$) : quadrique non bornée et dégénérée. Ces cas limites apparaissent quand le déterminant de la matrice augmentée $4 \\times 4$ est nul. Les quadriques régulières sont les ellipsoïdes, hyperboloïdes et paraboloïdes.",
+      "lecons": [402, 405],
+      "tags": ["quadriques", "dégénérescence", "classification", "formes quadratiques"]
     },
     {
       "id": "operateur_borne_non_compact",

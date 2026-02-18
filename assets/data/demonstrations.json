@@ -620,6 +620,406 @@
       "videos": [],
       "difficulte": 4,
       "remarque": "Lien fondamental entre $L^2$ et $\\ell^2$ via la transformée de Fourier"
+    },
+    {
+      "id": "loi_grands_nombres",
+      "titre": "Loi faible des grands nombres",
+      "domaine": "Probabilités",
+      "enonce": "Soit $(X_n)$ une suite de v.a. i.i.d. d'espérance $\\mu$ et de variance $\\sigma^2$ finie. Alors $\\bar{X}_n = \\frac{1}{n}\\sum_{k=1}^n X_k \\xrightarrow{P} \\mu$.",
+      "preuve": [
+        "$E[\\bar{X}_n] = \\mu$ et $\\mathrm{Var}(\\bar{X}_n) = \\sigma^2/n$ (indépendance).",
+        "Par l'inégalité de Bienaymé-Tchebychev : $P(|\\bar{X}_n - \\mu| \\geq \\varepsilon) \\leq \\frac{\\sigma^2}{n\\varepsilon^2}$.",
+        "Le membre de droite tend vers 0 quand $n \\to \\infty$, pour tout $\\varepsilon > 0$.",
+        "Donc $\\bar{X}_n \\to \\mu$ en probabilité."
+      ],
+      "corollaires": [
+        "Loi forte des grands nombres (convergence p.s. sous la seule hypothèse $E[|X_1|] < \\infty$)",
+        "Méthode de Monte-Carlo : approximation de $E[f(X)]$ par moyenne empirique"
+      ],
+      "lecons": [301, 304],
+      "tags": ["convergence", "espérance", "grands nombres"],
+      "difficulte": 3,
+      "remarque": "Fondement de la statistique et des méthodes de simulation"
+    },
+    {
+      "id": "tcl",
+      "titre": "Théorème de la limite centrale",
+      "domaine": "Probabilités",
+      "enonce": "Soit $(X_n)$ i.i.d. d'espérance $\\mu$ et de variance $\\sigma^2 > 0$. Alors $\\frac{\\sqrt{n}(\\bar{X}_n - \\mu)}{\\sigma} \\xrightarrow{\\mathcal{L}} \\mathcal{N}(0,1)$.",
+      "preuve": [
+        "Poser $Y_k = (X_k - \\mu)/\\sigma$ et $S_n = \\frac{1}{\\sqrt{n}}\\sum_{k=1}^n Y_k$. Alors $\\varphi_{S_n}(t) = \\varphi_{Y_1}(t/\\sqrt{n})^n$.",
+        "DL de la fonction caractéristique : $\\varphi_{Y_1}(u) = 1 - u^2/2 + o(u^2)$ au voisinage de 0.",
+        "Donc $\\varphi_{S_n}(t) = \\left(1 - \\frac{t^2}{2n} + o(1/n)\\right)^n \\to e^{-t^2/2}$.",
+        "Par le théorème de continuité de Lévy, $S_n \\xrightarrow{\\mathcal{L}} \\mathcal{N}(0,1)$."
+      ],
+      "corollaires": [
+        "Intervalles de confiance asymptotiques",
+        "Approximation normale de la binomiale : $\\mathrm{Bin}(n,p) \\approx \\mathcal{N}(np, np(1-p))$"
+      ],
+      "lecons": [301, 304, 307],
+      "tags": ["convergence en loi", "gaussienne", "fonctions caractéristiques"],
+      "difficulte": 4,
+      "remarque": "Résultat central en probabilités, justifie l'omniprésence de la loi normale"
+    },
+    {
+      "id": "bayes",
+      "titre": "Formule de Bayes",
+      "domaine": "Probabilités",
+      "enonce": "Soit $(A_i)_{i \\in I}$ un système complet d'événements avec $P(A_i) > 0$, et $B$ un événement avec $P(B) > 0$. Alors $P(A_i | B) = \\frac{P(B | A_i)\\, P(A_i)}{\\sum_j P(B | A_j)\\, P(A_j)}$.",
+      "preuve": [
+        "Par définition : $P(A_i | B) = P(A_i \\cap B)/P(B)$.",
+        "Probabilités composées : $P(A_i \\cap B) = P(B | A_i)\\, P(A_i)$.",
+        "Formule des probabilités totales : $P(B) = \\sum_j P(B \\cap A_j) = \\sum_j P(B | A_j)\\, P(A_j)$.",
+        "En substituant le numérateur et le dénominateur, on obtient la formule."
+      ],
+      "corollaires": [
+        "Formule des probabilités totales",
+        "Fondement de la statistique bayésienne : mise à jour des croyances"
+      ],
+      "lecons": [301, 302],
+      "tags": ["probabilités conditionnelles", "Bayes", "probabilités totales"],
+      "difficulte": 2,
+      "remarque": "Outil fondamental en statistique et en intelligence artificielle"
+    },
+    {
+      "id": "inegalite_bienayme_tchebychev",
+      "titre": "Inégalité de Bienaymé-Tchebychev",
+      "domaine": "Probabilités",
+      "enonce": "Soit $X$ une variable aléatoire de variance finie. Pour tout $\\varepsilon > 0$ : $P(|X - E[X]| \\geq \\varepsilon) \\leq \\frac{\\mathrm{Var}(X)}{\\varepsilon^2}$.",
+      "preuve": [
+        "Inégalité de Markov : pour $Y \\geq 0$ et $a > 0$, $P(Y \\geq a) \\leq E[Y]/a$.",
+        "Appliquer Markov à $Y = (X - E[X])^2 \\geq 0$ et $a = \\varepsilon^2$.",
+        "$P((X - E[X])^2 \\geq \\varepsilon^2) \\leq \\frac{E[(X - E[X])^2]}{\\varepsilon^2} = \\frac{\\mathrm{Var}(X)}{\\varepsilon^2}$.",
+        "Or $(X - E[X])^2 \\geq \\varepsilon^2 \\Leftrightarrow |X - E[X]| \\geq \\varepsilon$, d'où le résultat."
+      ],
+      "corollaires": [
+        "Loi faible des grands nombres",
+        "Inégalité de concentration : $P(|X - \\mu| \\geq k\\sigma) \\leq 1/k^2$"
+      ],
+      "lecons": [301, 303],
+      "tags": ["inégalités", "variance", "concentration"],
+      "difficulte": 2,
+      "remarque": "Inégalité universelle mais peu précise ; améliorée par Chernoff, Hoeffding"
+    },
+    {
+      "id": "formule_transfert",
+      "titre": "Formule de transfert (espérance)",
+      "domaine": "Probabilités",
+      "enonce": "Soit $X$ une v.a. de loi $\\mu_X$ et $g : \\mathbb{R} \\to \\mathbb{R}$ mesurable. Alors $E[g(X)] = \\int_{\\mathbb{R}} g(x)\\, d\\mu_X(x)$. En particulier, si $X$ a une densité $f_X$ : $E[g(X)] = \\int_{\\mathbb{R}} g(x) f_X(x)\\, dx$.",
+      "preuve": [
+        "Pour $g = \\mathbf{1}_A$ : $E[\\mathbf{1}_A(X)] = P(X \\in A) = \\int_A d\\mu_X = \\int \\mathbf{1}_A\\, d\\mu_X$.",
+        "Par linéarité, le résultat s'étend aux fonctions étagées positives.",
+        "Par le théorème de convergence monotone, aux fonctions mesurables positives.",
+        "Pour $g$ intégrable, décomposer $g = g^+ - g^-$ et conclure par différence."
+      ],
+      "corollaires": [
+        "Calcul de $E[X^k]$ sans connaître la loi de $X^k$",
+        "Formule de changement de variable dans les espérances"
+      ],
+      "lecons": [301, 305],
+      "tags": ["espérance", "densité", "transfert", "intégration"],
+      "difficulte": 3,
+      "remarque": "Évite de calculer la loi de $g(X)$ pour obtenir son espérance"
+    },
+    {
+      "id": "convergence_ps_proba",
+      "titre": "Convergence p.s. implique convergence en probabilité",
+      "domaine": "Probabilités",
+      "enonce": "Si $X_n \\to X$ presque sûrement, alors $X_n \\to X$ en probabilité.",
+      "preuve": [
+        "Soit $\\varepsilon > 0$ et $A_n = \\{|X_n - X| \\geq \\varepsilon\\}$.",
+        "$X_n \\to X$ p.s. signifie $P(\\limsup_n A_n) = 0$.",
+        "Or $A_n \\subset \\bigcup_{k \\geq n} A_k$, donc $P(A_n) \\leq P(\\bigcup_{k \\geq n} A_k) \\searrow P(\\limsup_n A_n) = 0$.",
+        "Donc $P(|X_n - X| \\geq \\varepsilon) \\to 0$ : convergence en probabilité."
+      ],
+      "corollaires": [
+        "Hiérarchie : cv p.s. $\\Rightarrow$ cv proba $\\Rightarrow$ cv en loi",
+        "La réciproque est fausse (contre-exemple des indicatrices glissantes)"
+      ],
+      "lecons": [302, 304],
+      "tags": ["convergence p.s.", "convergence en probabilité", "modes de convergence"],
+      "difficulte": 3,
+      "remarque": "Implication stricte : la réciproque nécessite une extraction (sous-suite)"
+    },
+    {
+      "id": "markov_ergodicite",
+      "titre": "Théorème ergodique pour chaînes de Markov finies",
+      "domaine": "Probabilités",
+      "enonce": "Soit $(X_n)$ une chaîne de Markov sur un espace fini $E$, irréductible et apériodique, de matrice $P$ et de mesure stationnaire $\\pi$. Alors pour toute $f : E \\to \\mathbb{R}$ : $\\frac{1}{n}\\sum_{k=0}^{n-1} f(X_k) \\xrightarrow{p.s.} \\sum_{x \\in E} f(x)\\pi(x)$.",
+      "preuve": [
+        "Existence et unicité de $\\pi$ : $\\pi P = \\pi$, $\\pi_i > 0$ (Perron-Frobenius appliqué à $P$ primitive).",
+        "Convergence de $P^n$ : irréductibilité + apériodicité impliquent $P^n_{ij} \\to \\pi_j$ (convergence exponentielle).",
+        "Temps de retour : $E_i[T_i] = 1/\\pi_i < \\infty$. Par le théorème de renouvellement, $\\frac{1}{n}\\#\\{k < n : X_k = x\\} \\to \\pi_x$ p.s.",
+        "Par combinaison linéaire : $\\frac{1}{n}\\sum f(X_k) \\to \\sum f(x)\\pi(x)$ p.s."
+      ],
+      "corollaires": [
+        "Algorithme MCMC (Metropolis-Hastings, échantillonneur de Gibbs)",
+        "Convergence des moyennes temporelles vers les moyennes spatiales"
+      ],
+      "lecons": [306, 308],
+      "tags": ["Markov", "ergodicité", "mesure stationnaire", "Perron-Frobenius"],
+      "difficulte": 5,
+      "remarque": "Fondement théorique des méthodes MCMC en statistique bayésienne"
+    },
+    {
+      "id": "kolmogorov_01",
+      "titre": "Loi du 0-1 de Kolmogorov",
+      "domaine": "Probabilités",
+      "enonce": "Soit $(X_n)$ une suite de v.a. indépendantes. Tout événement $A$ de la tribu terminale $\\mathcal{T} = \\bigcap_{n \\geq 1} \\sigma(X_k, k \\geq n)$ vérifie $P(A) \\in \\{0, 1\\}$.",
+      "preuve": [
+        "$\\mathcal{T} \\subset \\sigma(X_k, k \\geq n)$ est indépendante de $\\sigma(X_1, \\ldots, X_{n-1})$ pour tout $n$.",
+        "Donc $\\mathcal{T}$ est indépendante de $\\mathcal{A}_n = \\sigma(X_1, \\ldots, X_n)$ pour tout $n$.",
+        "La classe $\\bigcup_n \\mathcal{A}_n$ est stable par intersection finie et engendre $\\sigma(X_k, k \\geq 1) \\supset \\mathcal{T}$.",
+        "Par le lemme de Dynkin, $\\mathcal{T}$ est indépendante d'elle-même : $P(A) = P(A \\cap A) = P(A)^2$, soit $P(A) \\in \\{0,1\\}$."
+      ],
+      "corollaires": [
+        "La convergence de $\\sum X_n$ (indépendantes) est un événement de probabilité 0 ou 1",
+        "Le $\\limsup$ d'une suite i.i.d. est p.s. constant"
+      ],
+      "lecons": [303, 306],
+      "tags": ["tribu terminale", "indépendance", "0-1", "Kolmogorov"],
+      "difficulte": 4,
+      "remarque": "Résultat profond sur la structure des événements asymptotiques"
+    },
+    {
+      "id": "borel_cantelli",
+      "titre": "Lemmes de Borel-Cantelli",
+      "domaine": "Probabilités",
+      "enonce": "(BC1) Si $\\sum P(A_n) < \\infty$, alors $P(\\limsup A_n) = 0$. (BC2) Si les $(A_n)$ sont mutuellement indépendants et $\\sum P(A_n) = +\\infty$, alors $P(\\limsup A_n) = 1$.",
+      "preuve": [
+        "BC1 : $P(\\limsup A_n) = P(\\bigcap_n \\bigcup_{k \\geq n} A_k) \\leq P(\\bigcup_{k \\geq n} A_k) \\leq \\sum_{k \\geq n} P(A_k)$. Ce reste de série convergente tend vers 0.",
+        "BC2 : $P(\\bigcap_{k=n}^{N} A_k^c) = \\prod_{k=n}^{N}(1 - P(A_k))$ (indépendance).",
+        "Or $1-x \\leq e^{-x}$, donc $\\prod_{k=n}^{N}(1 - P(A_k)) \\leq \\exp\\!\\left(-\\sum_{k=n}^{N} P(A_k)\\right) \\to 0$ quand $N \\to \\infty$.",
+        "Donc $P(\\bigcup_{k \\geq n} A_k) = 1$ pour tout $n$, d'où $P(\\limsup A_n) = 1$."
+      ],
+      "corollaires": [
+        "Critère de convergence presque sûre",
+        "Loi du 0-1 pour les événements de la queue (sous indépendance)"
+      ],
+      "lecons": [302, 303],
+      "tags": ["Borel-Cantelli", "limsup", "indépendance", "convergence p.s."],
+      "difficulte": 3,
+      "remarque": "Outil incontournable pour la convergence p.s., la réciproque du BC2 sans indépendance est fausse"
+    },
+    {
+      "id": "densite_gaussienne",
+      "titre": "Calcul de l'intégrale de Gauss",
+      "domaine": "Probabilités",
+      "enonce": "$\\int_{-\\infty}^{+\\infty} e^{-x^2/2}\\, dx = \\sqrt{2\\pi}$.",
+      "preuve": [
+        "Poser $I = \\int_{\\mathbb{R}} e^{-x^2/2}\\, dx$. Alors $I^2 = \\int_{\\mathbb{R}^2} e^{-(x^2+y^2)/2}\\, dx\\, dy$ (Fubini-Tonelli).",
+        "Passage en coordonnées polaires : $x = r\\cos\\theta$, $y = r\\sin\\theta$, jacobien $r$.",
+        "$I^2 = \\int_0^{2\\pi}\\!\\int_0^{+\\infty} e^{-r^2/2}\\, r\\, dr\\, d\\theta = 2\\pi \\int_0^{+\\infty} r\\, e^{-r^2/2}\\, dr$.",
+        "$\\int_0^{+\\infty} r\\, e^{-r^2/2}\\, dr = \\left[-e^{-r^2/2}\\right]_0^{+\\infty} = 1$. Donc $I^2 = 2\\pi$, soit $I = \\sqrt{2\\pi}$."
+      ],
+      "corollaires": [
+        "La densité gaussienne $\\frac{1}{\\sqrt{2\\pi}} e^{-x^2/2}$ est bien normalisée",
+        "Fonction Gamma : $\\Gamma(1/2) = \\sqrt{\\pi}$"
+      ],
+      "lecons": [301, 305],
+      "tags": ["gaussienne", "intégrale", "coordonnées polaires", "Fubini"],
+      "difficulte": 3,
+      "remarque": "Calcul classique reliant probabilités, analyse et géométrie"
+    },
+    {
+      "id": "classification_isometries_plan",
+      "titre": "Classification des isométries du plan",
+      "domaine": "Géométrie",
+      "enonce": "Toute isométrie du plan euclidien est une translation, une rotation, une réflexion ou une réflexion glissée.",
+      "preuve": [
+        "Soit $f$ une isométrie. Sa partie linéaire $\\vec{f} \\in O(2)$ vérifie $\\det(\\vec{f}) = \\pm 1$.",
+        "Cas $\\det = +1$ : $\\vec{f}$ est une rotation d'angle $\\theta$. Si $\\theta = 0$, $f$ est une translation. Sinon $\\vec{f} - \\mathrm{Id}$ est inversible, donc $f$ a un unique point fixe : $f$ est une rotation.",
+        "Cas $\\det = -1$ : $\\vec{f}$ est une réflexion vectorielle. L'ensemble des points fixes de $f$ est une droite affine (réflexion) ou vide.",
+        "Si $f$ n'a pas de point fixe : $f = t_{\\vec{u}} \\circ s_D$ avec $\\vec{u}$ parallèle à $D$ (réflexion glissée). Preuve : décomposer $\\vec{u}$ en composantes parallèle et orthogonale à $D$."
+      ],
+      "corollaires": [
+        "Le groupe des isométries est engendré par les réflexions",
+        "Toute isométrie du plan est composée d'au plus 3 réflexions"
+      ],
+      "lecons": [401, 403],
+      "tags": ["isométries", "plan euclidien", "classification", "groupe orthogonal"],
+      "difficulte": 3,
+      "remarque": "Se généralise en dimension $n$ via la décomposition en réflexions"
+    },
+    {
+      "id": "equation_coniques",
+      "titre": "Équation réduite d'une conique",
+      "domaine": "Géométrie",
+      "enonce": "Toute conique non dégénérée admet, dans un repère orthonormé bien choisi, une équation réduite : $\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1$ (ellipse), $\\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1$ (hyperbole) ou $y^2 = 2px$ (parabole).",
+      "preuve": [
+        "L'équation générale $Ax^2 + 2Bxy + Cy^2 + Dx + Ey + F = 0$ fait intervenir la matrice $M = \\begin{pmatrix} A & B \\\\ B & C \\end{pmatrix}$.",
+        "Par le théorème spectral, $M$ est diagonalisable en base orthonormée : une rotation élimine le terme $xy$.",
+        "Après rotation : $\\lambda_1 X^2 + \\lambda_2 Y^2 + D'X + E'Y + F = 0$. Translation (complétion du carré) pour éliminer les termes linéaires.",
+        "Classification selon les valeurs propres : $\\lambda_1, \\lambda_2$ de même signe (ellipse), de signes opposés (hyperbole), l'une nulle (parabole)."
+      ],
+      "corollaires": [
+        "Classification des coniques par l'excentricité $e$ : ellipse ($e < 1$), parabole ($e = 1$), hyperbole ($e > 1$)",
+        "Définition bifocale des coniques"
+      ],
+      "lecons": [402, 405],
+      "tags": ["coniques", "formes quadratiques", "réduction", "théorème spectral"],
+      "difficulte": 3,
+      "remarque": "Application directe du théorème spectral à la géométrie"
+    },
+    {
+      "id": "theoreme_gauss_bonnet",
+      "titre": "Théorème de Gauss-Bonnet (surfaces)",
+      "domaine": "Géométrie",
+      "enonce": "Pour une surface compacte orientable $S$ sans bord, de courbure de Gauss $K$ : $\\int_S K\\, dA = 2\\pi\\, \\chi(S)$ où $\\chi(S)$ est la caractéristique d'Euler.",
+      "preuve": [
+        "Version locale : pour un triangle géodésique d'angles $\\alpha, \\beta, \\gamma$, l'excès angulaire vaut $\\int_T K\\, dA = (\\alpha + \\beta + \\gamma) - \\pi$.",
+        "Trianguler $S$ en $F$ triangles géodésiques, avec $V$ sommets et $E$ arêtes. Sommer l'excès sur tous les triangles.",
+        "Chaque arête intérieure est partagée par deux triangles : les contributions s'annulent. Autour de chaque sommet intérieur, la somme des angles vaut $2\\pi$.",
+        "La somme globale donne $\\int_S K\\, dA = 2\\pi V - \\pi F + \\pi F - \\pi E + \\ldots = 2\\pi(V - E + F) = 2\\pi\\, \\chi(S)$."
+      ],
+      "corollaires": [
+        "Sphère ($\\chi = 2$) : $\\int K = 4\\pi$. Tore ($\\chi = 0$) : $\\int K = 0$.",
+        "Invariance topologique de la courbure totale"
+      ],
+      "lecons": [407, 410],
+      "tags": ["courbure de Gauss", "topologie", "surfaces", "caractéristique d'Euler"],
+      "difficulte": 5,
+      "remarque": "Pont remarquable entre géométrie différentielle et topologie"
+    },
+    {
+      "id": "courbure_courbe_plane",
+      "titre": "Formule de courbure d'une courbe plane",
+      "domaine": "Géométrie",
+      "enonce": "Soit $\\gamma(t) = (x(t), y(t))$ une courbe plane régulière. Sa courbure est $\\kappa(t) = \\frac{|x'y'' - x''y'|}{(x'^2 + y'^2)^{3/2}}$.",
+      "preuve": [
+        "Paramétrage par longueur d'arc : $s(t) = \\int_0^t \\|\\gamma'(u)\\|\\, du$, d'où $ds/dt = \\|\\gamma'(t)\\|$.",
+        "Le vecteur tangent unitaire est $T = \\gamma'(t)/\\|\\gamma'(t)\\|$. La courbure est $\\kappa = \\|dT/ds\\|$.",
+        "Par la règle de la chaîne : $\\frac{dT}{ds} = \\frac{dT/dt}{ds/dt}$. On calcule $dT/dt$ en dérivant $\\gamma'/\\|\\gamma'\\|$.",
+        "Après calcul (produit vectoriel en 2D) : $\\kappa = \\frac{|x'y'' - x''y'|}{(x'^2 + y'^2)^{3/2}}$."
+      ],
+      "corollaires": [
+        "Rayon de courbure : $R = 1/\\kappa$",
+        "Cercle osculateur : cercle tangent de rayon $R$ du côté de la concavité"
+      ],
+      "lecons": [406, 408],
+      "tags": ["courbure", "courbes planes", "abscisse curviligne", "cercle osculateur"],
+      "difficulte": 3,
+      "remarque": "Cas particulier du graphe $y = f(x)$ : $\\kappa = |f''|/(1+f'^2)^{3/2}$"
+    },
+    {
+      "id": "euler_polyedres",
+      "titre": "Formule d'Euler pour les polyèdres",
+      "domaine": "Géométrie",
+      "enonce": "Pour tout polyèdre convexe : $V - E + F = 2$ où $V$ = sommets, $E$ = arêtes, $F$ = faces.",
+      "preuve": [
+        "Retirer une face et projeter sur le plan : on obtient un graphe planaire connexe avec $V$ sommets, $E$ arêtes, $F-1$ régions intérieures.",
+        "Trianguler chaque face : l'ajout d'une diagonale augmente $E$ et le nombre de régions de 1 chacun, donc $V - E + F$ est invariant.",
+        "Retirer les triangles du bord : suppression d'une arête extérieure (diminue $E$ et les régions de 1) ou d'un sommet de degré 2 (diminue $V$ de 1, $E$ de 2, régions de 1).",
+        "On aboutit à un triangle : $V = 3$, $E = 3$, $1$ région. $3 - 3 + 1 = 1$, soit $V - E + F = 2$ pour le polyèdre."
+      ],
+      "corollaires": [
+        "Il n'existe que 5 polyèdres réguliers convexes (solides de Platon)",
+        "Caractéristique d'Euler pour les surfaces : $\\chi(S^2) = 2$"
+      ],
+      "lecons": [401, 409],
+      "tags": ["polyèdres", "topologie combinatoire", "formule d'Euler", "graphes planaires"],
+      "difficulte": 3,
+      "remarque": "Premier résultat de topologie combinatoire, se généralise aux CW-complexes"
+    },
+    {
+      "id": "separation_convexes",
+      "titre": "Théorème de séparation des convexes (Hahn-Banach géométrique)",
+      "domaine": "Géométrie",
+      "enonce": "Soient $A$ compact convexe et $B$ fermé convexe de $\\mathbb{R}^n$ avec $A \\cap B = \\emptyset$. Alors il existe un hyperplan les séparant strictement.",
+      "preuve": [
+        "La distance $d(A,B) = \\inf\\{\\|a-b\\| : a \\in A, b \\in B\\}$ est atteinte (compacité de $A$, fermeture de $B$) en $(a_0, b_0)$. $d(A,B) > 0$ car $A \\cap B = \\emptyset$.",
+        "L'hyperplan médiateur $H = \\{x : \\langle x - \\frac{a_0+b_0}{2}, b_0 - a_0 \\rangle = 0\\}$ sépare $A$ et $B$.",
+        "Pour $a \\in A$ : par optimalité de $a_0$, $\\langle a - a_0, b_0 - a_0 \\rangle \\leq 0$, d'où $\\langle a, b_0 - a_0 \\rangle \\leq \\langle a_0, b_0 - a_0 \\rangle < \\frac{\\|b_0 - a_0\\|^2 + \\langle a_0 + b_0, b_0 - a_0\\rangle}{2}$.",
+        "Raisonnement analogue pour $b \\in B$, ce qui garantit la séparation stricte."
+      ],
+      "corollaires": [
+        "Théorème de Hahn-Banach géométrique (version en dimension infinie)",
+        "Unicité de la projection sur un convexe fermé dans un Hilbert"
+      ],
+      "lecons": [404, 411],
+      "tags": ["convexité", "séparation", "hyperplan", "Hahn-Banach"],
+      "difficulte": 4,
+      "remarque": "Version géométrique de Hahn-Banach, fondamental en optimisation convexe"
+    },
+    {
+      "id": "rodrigues_rotation",
+      "titre": "Formule de Rodrigues pour les rotations",
+      "domaine": "Géométrie",
+      "enonce": "La rotation d'angle $\\theta$ autour de l'axe unitaire $\\vec{u}$ est : $R(\\vec{v}) = \\cos\\theta\\, \\vec{v} + (1-\\cos\\theta)\\langle \\vec{v}, \\vec{u}\\rangle\\, \\vec{u} + \\sin\\theta\\, (\\vec{u} \\wedge \\vec{v})$.",
+      "preuve": [
+        "Décomposer $\\vec{v} = \\vec{v}_\\parallel + \\vec{v}_\\perp$ avec $\\vec{v}_\\parallel = \\langle \\vec{v}, \\vec{u}\\rangle\\, \\vec{u}$ (projection sur l'axe).",
+        "$R(\\vec{v}_\\parallel) = \\vec{v}_\\parallel$ : la composante axiale est invariante par rotation.",
+        "Dans le plan orthogonal à $\\vec{u}$, le couple $(\\vec{v}_\\perp,\\, \\vec{u} \\wedge \\vec{v}_\\perp)$ forme une base orthogonale directe.",
+        "$R(\\vec{v}_\\perp) = \\cos\\theta\\, \\vec{v}_\\perp + \\sin\\theta\\, (\\vec{u} \\wedge \\vec{v}_\\perp)$. Comme $\\vec{u} \\wedge \\vec{v}_\\perp = \\vec{u} \\wedge \\vec{v}$ et $\\vec{v}_\\perp = \\vec{v} - \\langle \\vec{v}, \\vec{u}\\rangle\\vec{u}$, on obtient la formule."
+      ],
+      "corollaires": [
+        "Matrice de rotation en dimension 3 : $R = \\cos\\theta\\, I + (1-\\cos\\theta)\\, \\vec{u}\\vec{u}^T + \\sin\\theta\\, [\\vec{u}]_\\times$",
+        "Exponentielle de matrice antisymétrique : $e^{\\theta [\\vec{u}]_\\times} = R$"
+      ],
+      "lecons": [403, 412],
+      "tags": ["rotations", "produit vectoriel", "SO(3)", "axe de rotation"],
+      "difficulte": 3,
+      "remarque": "Formule explicite essentielle en mécanique et en informatique graphique"
+    },
+    {
+      "id": "similitudes_directes",
+      "titre": "Classification des similitudes directes du plan",
+      "domaine": "Géométrie",
+      "enonce": "Toute similitude directe du plan $\\simeq \\mathbb{C}$ est de la forme $z \\mapsto az + b$ avec $a \\in \\mathbb{C}^*$, $b \\in \\mathbb{C}$. Si $a \\neq 1$, elle admet un unique point fixe $\\omega = b/(1-a)$.",
+      "preuve": [
+        "Une similitude directe de rapport $k$ et d'angle $\\theta$ est une isométrie directe composée avec une homothétie.",
+        "En écriture complexe : isométrie directe $z \\mapsto e^{i\\alpha}z + c$, homothétie $z \\mapsto kz$. Composée : $z \\mapsto ke^{i\\alpha}z + c' = az + b$ avec $|a| = k$.",
+        "Point fixe : $\\omega = a\\omega + b \\Leftrightarrow \\omega(1-a) = b \\Leftrightarrow \\omega = b/(1-a)$ (si $a \\neq 1$).",
+        "Si $a = 1$ : translation. Si $|a| = 1$, $a \\neq 1$ : rotation de centre $\\omega$. Si $|a| \\neq 1$ : similitude-rotation de centre $\\omega$, rapport $|a|$, angle $\\arg(a)$."
+      ],
+      "corollaires": [
+        "Le groupe des similitudes directes est isomorphe au groupe affine $\\mathbb{C}^* \\ltimes \\mathbb{C}$",
+        "Toute similitude directe non triviale est une rotation-homothétie"
+      ],
+      "lecons": [401, 403],
+      "tags": ["similitudes", "nombres complexes", "classification", "transformations"],
+      "difficulte": 3,
+      "remarque": "L'écriture complexe unifie la classification des similitudes directes"
+    },
+    {
+      "id": "theoreme_ptolemee",
+      "titre": "Théorème de Ptolémée",
+      "domaine": "Géométrie",
+      "enonce": "Pour un quadrilatère $ABCD$ inscrit dans un cercle : $AC \\cdot BD = AB \\cdot CD + AD \\cdot BC$.",
+      "preuve": [
+        "Méthode par inversion : appliquer l'inversion de pôle $A$ et de rapport $r^2$.",
+        "Le cercle passant par $A$ est envoyé sur une droite. Les images $B'$, $C'$, $D'$ sont alignées, avec $C'$ entre $B'$ et $D'$ (convexité du quadrilatère).",
+        "Relation d'alignement : $B'D' = B'C' + C'D'$. Or les distances sous inversion vérifient $|P'Q'| = \\frac{r^2 |PQ|}{|AP| \\cdot |AQ|}$.",
+        "En substituant : $\\frac{BD}{AB \\cdot AD} = \\frac{BC}{AB \\cdot AC} + \\frac{CD}{AC \\cdot AD}$. En multipliant par $AB \\cdot AC \\cdot AD$ : $AC \\cdot BD = AB \\cdot CD + AD \\cdot BC$."
+      ],
+      "corollaires": [
+        "Inégalité de Ptolémée pour un quadrilatère quelconque : $AC \\cdot BD \\leq AB \\cdot CD + AD \\cdot BC$",
+        "Retrouver la formule $\\sin(\\alpha + \\beta) = \\sin\\alpha\\cos\\beta + \\cos\\alpha\\sin\\beta$"
+      ],
+      "lecons": [405, 413],
+      "tags": ["cercle inscrit", "inversion", "Ptolémée", "quadrilatère cyclique"],
+      "difficulte": 4,
+      "remarque": "Preuve élégante par inversion, l'égalité caractérise les quadrilatères inscriptibles"
+    },
+    {
+      "id": "enveloppe_droites",
+      "titre": "Enveloppe d'une famille de droites",
+      "domaine": "Géométrie",
+      "enonce": "Soit $F(x,y,t) = 0$ une famille de courbes paramétrée par $t$. L'enveloppe est obtenue par élimination de $t$ entre $F(x,y,t) = 0$ et $\\frac{\\partial F}{\\partial t}(x,y,t) = 0$.",
+      "preuve": [
+        "Soit $\\gamma(t)$ un point de l'enveloppe, tangent à la courbe $C_t$ d'équation $F(x,y,t) = 0$.",
+        "$\\gamma(t)$ est sur $C_t$ pour tout $t$ : $F(x(t), y(t), t) = 0$ identiquement.",
+        "En dérivant par rapport à $t$ : $F_x\\, x' + F_y\\, y' + F_t = 0$. Le vecteur $\\gamma'(t) = (x', y')$ est tangent à $C_t$, donc $F_x\\, x' + F_y\\, y' = 0$ (gradient de $F$ en $(x,y)$ orthogonal à $C_t$).",
+        "Par soustraction : $F_t(x(t), y(t), t) = 0$. Les deux conditions $F = 0$ et $F_t = 0$ caractérisent l'enveloppe."
+      ],
+      "corollaires": [
+        "Caustiques en optique géométrique",
+        "Développée d'une courbe = enveloppe des normales"
+      ],
+      "lecons": [406, 414],
+      "tags": ["enveloppes", "familles de courbes", "tangence", "géométrie différentielle"],
+      "difficulte": 3,
+      "remarque": "Méthode générale pour les familles à un paramètre, attention aux points de rebroussement"
     }
   ]
 }
