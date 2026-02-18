@@ -1,7 +1,7 @@
 name: agreg_master
 description: Application de fiches de cours pour l'agrégation (Algèbre, Analyse).
 publish_to: 'none'
-version: 1.0.2+6
+version: 1.0.3+7
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -44,9 +44,10 @@ flutter:
     - assets/fiches/
     - assets/fiches/algebre/
     - assets/fiches/analyse/
-    - assets/fiches/probabilites/      
-    - assets/fiches/geometrie/ 
+    - assets/fiches/probabilites/
+    - assets/fiches/geometrie/
     - assets/data/
     - assets/glossaire.json
+    - shorebird.yaml
 
     
