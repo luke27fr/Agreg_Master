@@ -66,6 +66,13 @@ class FichePage extends StatefulWidget {
   State<FichePage> createState() => _FichePageState();
 }
 
+class _TocEntry {
+  final String title;
+  final int level;
+  final int charOffset;
+  _TocEntry(this.title, this.level, this.charOffset);
+}
+
 class _FichePageState extends State<FichePage> {
   // Variables d'état
   List<QuizQuestion> quizQuestions = [];
@@ -78,6 +85,9 @@ class _FichePageState extends State<FichePage> {
   
   // Controller pour les notes
   final TextEditingController _notesController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
+  final List<GlobalKey> _sectionKeys = [];
+  List<_TocEntry> _tocEntries = [];
   String get _ficheId => widget.assetPath.split('/').last.replaceAll('.md', '');
 
   @override
@@ -105,6 +115,7 @@ class _FichePageState extends State<FichePage> {
     _favoritesService.removeListener(_onDataChanged);
     _notesService.removeListener(_onDataChanged);
     _notesController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -186,6 +197,11 @@ class _FichePageState extends State<FichePage> {
       if (mounted) {
         setState(() {
           _content = content;
+          _tocEntries = _extractToc(content);
+          _sectionKeys.clear();
+          for (var i = 0; i < _tocEntries.length; i++) {
+            _sectionKeys.add(GlobalKey());
+          }
           _loading = false;
         });
       }
@@ -198,6 +214,96 @@ class _FichePageState extends State<FichePage> {
       }
     }
   }
+
+  static final _headerRegex = RegExp(r'^(#{1,3})\s+(.+)$', multiLine: true);
+
+  List<_TocEntry> _extractToc(String markdown) {
+    final entries = <_TocEntry>[];
+    for (final m in _headerRegex.allMatches(markdown)) {
+      final level = m.group(1)!.length;
+      final title = m.group(2)!.trim();
+      entries.add(_TocEntry(title, level, m.start));
+    }
+    return entries;
+  }
+
+  void _scrollToSection(int index) {
+    if (index >= _sectionKeys.length) return;
+    final key = _sectionKeys[index];
+    final ctx = key.currentContext;
+    if (ctx != null) {
+      Scrollable.ensureVisible(ctx, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
+    }
+  }
+
+  void _showToc(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: isDark ? const Color(0xFF1E1E1E) : Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (ctx) {
+        return DraggableScrollableSheet(
+          initialChildSize: 0.5,
+          minChildSize: 0.3,
+          maxChildSize: 0.8,
+          expand: false,
+          builder: (_, scrollCtrl) {
+            return Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(top: 12),
+                  width: 40,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[400],
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Text(
+                    'Table des matières',
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const Divider(height: 1),
+                Expanded(
+                  child: ListView.builder(
+                    controller: scrollCtrl,
+                    itemCount: _tocEntries.length,
+                    itemBuilder: (_, i) {
+                      final entry = _tocEntries[i];
+                      return ListTile(
+                        contentPadding: EdgeInsets.only(left: 16.0 + (entry.level - 1) * 20.0, right: 16),
+                        dense: true,
+                        title: Text(
+                          entry.title,
+                          style: TextStyle(
+                            fontSize: entry.level == 1 ? 16 : (entry.level == 2 ? 14 : 13),
+                            fontWeight: entry.level == 1 ? FontWeight.bold : FontWeight.normal,
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.pop(ctx);
+                          _scrollToSection(i);
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
+  int _tocKeyIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -255,7 +361,12 @@ class _FichePageState extends State<FichePage> {
                 ),
               ),
             ),
-          // Bouton Notes
+          if (_tocEntries.isNotEmpty)
+            IconButton(
+              icon: const Icon(Icons.list),
+              onPressed: () => _showToc(context),
+              tooltip: 'Table des matières',
+            ),
           IconButton(
             icon: Icon(
               hasNote ? Icons.note : Icons.note_add_outlined,
@@ -276,6 +387,7 @@ class _FichePageState extends State<FichePage> {
         ],
       ),
       body: SingleChildScrollView(
+        controller: _scrollController,
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -416,11 +528,21 @@ class _FichePageState extends State<FichePage> {
   static const double _paragraphSpacing = 10.0;
 
   List<Widget> _buildBodyRows(BuildContext context, List<dynamic> segments, MarkdownStyleSheet styleSheet) {
+    _tocKeyIndex = 0;
     final rows = <Widget>[];
     final run = <Map<String, String>>[];
 
     void addSpacing() {
       if (rows.isNotEmpty) rows.add(const SizedBox(height: _paragraphSpacing));
+    }
+
+    Widget _maybeWrapTocKey(Widget child, String text) {
+      if (_tocKeyIndex < _sectionKeys.length && _headerRegex.hasMatch(text.trim())) {
+        final keyed = Container(key: _sectionKeys[_tocKeyIndex], child: child);
+        _tocKeyIndex++;
+        return keyed;
+      }
+      return child;
     }
 
     void flushRun() {
@@ -466,6 +588,17 @@ class _FichePageState extends State<FichePage> {
               onTapLink: (text, href, title) => _showGlossaireDialog(context, href ?? ''),
             ),
             ));
+          } else if (text.trimLeft().startsWith('#')) {
+            flushRun();
+            addSpacing();
+            final widget = MarkdownBody(
+              data: text,
+              styleSheet: styleSheet,
+              extensionSet: _markdownLatexExtensionSet,
+              builders: _getBuilders(Colors.blue),
+              onTapLink: (text, href, title) => _showGlossaireDialog(context, href ?? ''),
+            );
+            rows.add(_maybeWrapTocKey(widget, text));
           } else {
             run.add(seg);
           }
