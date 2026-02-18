@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://agreg-master-prod.web.app/sitemap.xml
