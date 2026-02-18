@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "agreg-master-prod"
-  }
+  },
+  "targets": {
+    "agreg-master-prod": {
+      "hosting": {
+        "production": [
+          "agreg-master-prod"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
