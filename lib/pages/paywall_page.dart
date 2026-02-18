@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../services/subscription_service.dart';
+import '../services/analytics_service.dart';
 
 /// Page PayWall Premium avec offres d'abonnement.
 /// Utilise RevenueCat pour afficher les prix réels depuis les stores
@@ -20,11 +21,13 @@ class _PaywallPageState extends State<PaywallPage> {
   Package? _selectedPackage;
   bool _isLoading = true;
   bool _isPurchasing = false;
+  final AnalyticsService _analyticsService = AnalyticsService();
 
   @override
   void initState() {
     super.initState();
     _loadOfferings();
+    _analyticsService.logPaywallView();
   }
 
   Future<void> _loadOfferings() async {
@@ -548,6 +551,10 @@ class _PaywallPageState extends State<PaywallPage> {
   Future<void> _handlePurchase() async {
     if (_selectedPackage == null) return;
 
+    _analyticsService.logPurchaseStart(
+      productId: _selectedPackage!.storeProduct.identifier,
+      packageType: _selectedPackage!.packageType.name,
+    );
     setState(() => _isPurchasing = true);
     final success = await _subscriptionService.purchasePackage(_selectedPackage!);
 
@@ -555,6 +562,10 @@ class _PaywallPageState extends State<PaywallPage> {
       setState(() => _isPurchasing = false);
 
       if (success) {
+        _analyticsService.logPurchaseComplete(
+          productId: _selectedPackage!.storeProduct.identifier,
+          packageType: _selectedPackage!.packageType.name,
+        );
         Navigator.of(context).pop(true);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -564,6 +575,10 @@ class _PaywallPageState extends State<PaywallPage> {
           ),
         );
       } else if (_subscriptionService.error != null) {
+        _analyticsService.logPurchaseError(
+          productId: _selectedPackage!.storeProduct.identifier,
+          error: _subscriptionService.error ?? 'unknown',
+        );
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Erreur : ${_subscriptionService.error}'),

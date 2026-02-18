@@ -5,6 +5,7 @@ import 'tabs/entrainer_tab.dart';
 import 'tabs/organiser_tab.dart';
 import 'tabs/profil_tab.dart';
 import '../services/spaced_repetition_service.dart';
+import '../services/analytics_service.dart';
 
 class HomeNavigationPage extends StatefulWidget {
   const HomeNavigationPage({super.key});
@@ -56,7 +57,7 @@ class _HomeNavigationPageState extends State<HomeNavigationPage> {
       ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _currentIndex,
-        onDestinationSelected: (i) => setState(() => _currentIndex = i),
+        onDestinationSelected: (i) { setState(() => _currentIndex = i); AnalyticsService().logTabChange(tabName: const ['accueil', 'apprendre', 'entrainer', 'organiser', 'profil'][i]); },
         labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
         destinations: [
           const NavigationDestination(

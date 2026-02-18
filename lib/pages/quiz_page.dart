@@ -9,6 +9,7 @@ import '../services/score_service.dart';
 import '../services/settings_service.dart';
 import '../services/streak_service.dart';
 import '../services/badge_service.dart';
+import '../services/analytics_service.dart';
 
 class QuizPage extends StatefulWidget {
   final String title;
@@ -32,6 +33,7 @@ class _QuizPageState extends State<QuizPage> {
   int? selectedOption;
   int score = 0;
   List<int> wrongIndices = []; // Track des questions ratées
+  final AnalyticsService _analyticsService = AnalyticsService();
   
   // Timer
   final SettingsService _settingsService = SettingsService();
@@ -48,6 +50,7 @@ class _QuizPageState extends State<QuizPage> {
   void initState() {
     super.initState();
     _startTimerIfEnabled();
+    _analyticsService.logQuizStart(quizId: widget.ficheId ?? widget.title, questionCount: widget.questions.length);
   }
 
   @override
@@ -127,7 +130,9 @@ class _QuizPageState extends State<QuizPage> {
     
     // Vérifier les badges
     await BadgeService().checkAndUnlockBadges();
-    
+
+    _analyticsService.logQuizComplete(quizId: widget.ficheId ?? widget.title, score: score, total: total);
+
     String message;
     IconData icon;
     Color color;

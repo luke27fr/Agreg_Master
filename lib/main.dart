@@ -30,6 +30,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:agreg_master/services/analytics_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -193,6 +194,7 @@ class _AgregMasterAppState extends State<AgregMasterApp> {
     return MaterialApp(
       title: AppStrings.appName,
       debugShowCheckedModeBanner: false,
+      navigatorObservers: [AnalyticsService().observer],
       themeMode: _settingsService.themeMode,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(

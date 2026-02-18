@@ -6,6 +6,7 @@ import '../utils/theme_utils.dart';
 import '../utils/debouncer.dart';
 import '../widgets/shared_widgets.dart';
 import '../fiche_page.dart';
+import '../services/analytics_service.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -109,6 +110,9 @@ class _SearchPageState extends State<SearchPage> {
       });
 
       setState(() => _filteredFiches = results);
+      if (query.length >= 3) {
+        AnalyticsService().logSearch(query: query, resultCount: _filteredFiches.length);
+      }
     });
   }
 

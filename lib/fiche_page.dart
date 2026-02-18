@@ -13,6 +13,7 @@ import 'package:agreg_master/services/streak_service.dart';
 import 'package:agreg_master/services/reading_service.dart';
 import 'package:agreg_master/utils/theme_utils.dart';
 import 'package:agreg_master/utils/content_loader.dart';
+import 'package:agreg_master/services/analytics_service.dart';
 
 /// Custom builder for `<glossary>` tags that renders them as clickable links
 class GlossaryElementBuilder extends MarkdownElementBuilder {
@@ -82,6 +83,7 @@ class _FichePageState extends State<FichePage> {
   final FavoritesService _favoritesService = FavoritesService();
   final NotesService _notesService = NotesService();
   final ScoreService _scoreService = ScoreService();
+  final AnalyticsService _analyticsService = AnalyticsService();
   
   // Controller pour les notes
   final TextEditingController _notesController = TextEditingController();
@@ -101,6 +103,7 @@ class _FichePageState extends State<FichePage> {
     _loadNotes();
     // Enregistrer l'activité de lecture
     _trackReading();
+    _analyticsService.logLessonView(lessonId: _ficheId, lessonTitle: _ficheId);
   }
 
   Future<void> _trackReading() async {
