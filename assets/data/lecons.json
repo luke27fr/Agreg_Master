@@ -91,6 +91,10 @@
         "Les théorèmes de Sylow sont un développement classique : savoir les démontrer (au moins Sylow I) par action sur les sous-ensembles de cardinal $p^\\alpha$",
         "Avoir des exemples concrets de dénombrement par Burnside montre une bonne maîtrise de la leçon",
         "Le jury apprécie que l'on illustre l'équation aux classes sur des groupes explicites ($S_3$, $D_n$, $GL_2(\\mathbb{F}_p)$)"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -182,6 +186,10 @@
         "Savoir calculer les premiers polynômes cyclotomiques par la formule $\\Phi_n(X) = (X^n - 1)/\\prod_{d \\mid n, d < n} \\Phi_d(X)$",
         "L'irréductibilité de $\\Phi_p$ pour $p$ premier (via Eisenstein après le changement $X \\mapsto X+1$) est un développement classique",
         "Le jury apprécie le lien entre racines de l'unité et transformée de Fourier discrète"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -272,6 +280,10 @@
         "La simplicité de $A_n$ pour $n \\geq 5$ est un développement classique : savoir le démontrer en utilisant les 3-cycles",
         "Connaître les classes de conjugaison de $S_n$ et savoir calculer l'équation aux classes de $S_3$, $S_4$",
         "Le jury apprécie qu'on distingue clairement les trois théorèmes d'isomorphisme et qu'on donne un exemple pour chacun"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -365,6 +377,10 @@
         "Savoir classifier les groupes d'ordre $\\leq 15$ est un exercice classique que le jury peut demander",
         "La démonstration du théorème de structure des groupes abéliens finis est un développement très apprécié",
         "Avoir des exemples non abéliens variés ($D_n$, $Q_8$, $A_4$) montre une bonne culture"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -457,6 +473,10 @@
         "La simplicité de $A_n$ pour $n \\geq 5$ est un développement incontournable",
         "Connaître les formules pour les dérangements et le lien avec $e^{-1}$ est apprécié",
         "Le jury attend que l'on sache calculer rapidement l'ordre et la signature d'une permutation"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -549,6 +569,10 @@
         "Savoir calculer $|GL_n(\\mathbb{F}_q)|$ par un argument de construction de base est un classique",
         "La démonstration que $SL_n(K)$ est engendré par les transvections est un bon développement",
         "Le jury apprécie les liens entre $GL_n$ et les groupes géométriques"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -639,6 +663,10 @@
         "Savoir démontrer que $S_n = \\langle (1\\,2), (1\\,2\\,\\ldots\\,n) \\rangle$",
         "La preuve que $SL_n(K)$ est engendré par les transvections via le pivot de Gauss est un développement efficace",
         "Le jury attend des exemples variés touchant à la théorie des groupes, l'algèbre linéaire et l'arithmétique"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -732,6 +760,10 @@
         "Le théorème chinois et ses applications sont des classiques incontournables",
         "Savoir montrer l'existence d'une racine primitive modulo $p$ est un développement apprécié",
         "Le jury attend une bonne maîtrise des calculs modulaires"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -823,6 +855,10 @@
         "Connaître plusieurs preuves de l'infinité des premiers montre une bonne culture",
         "Le résultat de Tchebychev est un bon développement",
         "Le jury apprécie le lien entre $\\zeta$ et la répartition des premiers"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -915,6 +951,10 @@
         "La preuve du théorème des deux carrés via $\\mathbb{Z}[i]$ est un développement très apprécié",
         "Savoir distinguer euclidien, principal, factoriel",
         "Le jury apprécie le lien avec la structure des modules de type fini"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -1007,6 +1047,10 @@
         "Savoir construire explicitement $\\mathbb{F}_4$, $\\mathbb{F}_8$, $\\mathbb{F}_9$",
         "La preuve d'existence et d'unicité est un développement classique",
         "Le jury apprécie les applications aux codes correcteurs"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -1097,6 +1141,10 @@
         "Le théorème des deux carrés via $\\mathbb{Z}[i]$ est un développement classique",
         "Savoir résoudre Pell-Fermat pour de petites valeurs de $D$",
         "Le jury apprécie une variété de méthodes"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -1188,6 +1236,10 @@
         "Savoir appliquer les critères sur des exemples concrets",
         "L'irréductibilité de $\\Phi_p$ est un développement classique",
         "Avoir un panorama d'exemples sur différents corps est indispensable"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -1279,6 +1331,10 @@
         "Savoir dérouler Euclide étendu sur un exemple numérique est indispensable",
         "Le théorème de Lamé et Fibonacci est une application élégante",
         "Le jury attend qu'on sache calculer des PGCD dans $\\mathbb{Z}$ et $K[X]$"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -1369,6 +1425,10 @@
         "Le théorème du rang est fondamental : savoir l'appliquer partout",
         "Connaître la dimension des sous-espaces classiques de $M_n(K)$",
         "Le jury apprécie deux méthodes pour le rang : pivot et mineurs"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -1488,6 +1548,10 @@
         "Le jury attend des théorèmes de géométrie classique (Ménélaüs, Céva) comme illustrations naturelles de la leçon. Savoir les démontrer en coordonnées barycentriques",
         "Ne pas oublier la structure de produit semi-direct du groupe affine : $\\mathrm{GA}(E) \\simeq \\mathrm{GL}(\\vec{E}) \\ltimes \\vec{E}$. C'est un point d'algèbre apprécié",
         "Avoir un exemple de calcul concret (par exemple : trouver l'intersection de deux droites affines dans $\\mathbb{R}^3$ ou vérifier si trois droites sont concourantes)"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -1579,6 +1643,10 @@
         "Savoir calculer Vandermonde est incontournable",
         "Variété dans les méthodes de calcul : développement, pivot, récurrence",
         "L'interprétation géométrique (volume, orientation) doit être maîtrisée"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -1671,6 +1739,10 @@
         "Cayley-Hamilton : connaître deux preuves (triangulation, comatrice)",
         "Savoir appliquer Dunford sur un exemple $3 \\times 3$",
         "Le jury apprécie le lien polynôme minimal / diagonalisabilité / puissances"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -1761,6 +1833,10 @@
         "Le théorème de réduction simultanée est un résultat clé",
         "Lien trigonalisabilité / drapeau stable est important",
         "Connaître le lemme de Schur montre une bonne culture"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -1852,6 +1928,10 @@
         "Savoir diagonaliser une matrice $3 \\times 3$ rapidement",
         "Les projecteurs spectraux forment un beau développement",
         "Distinguer clairement les différentes CNS"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -1943,6 +2023,10 @@
         "Savoir calculer $e^{tA}$ pour $2 \\times 2$ et $3 \\times 3$ par réduction",
         "La formule $\\det(e^A) = e^{\\mathrm{tr}(A)}$ est un résultat élégant",
         "Le jury apprécie le lien exponentielle / EDO linéaires"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -2033,6 +2117,10 @@
         "Dunford est un développement classique : démontrer par le lemme des noyaux",
         "Savoir calculer Jordan d'une matrice $3 \\times 3$",
         "Bon catalogue de matrices nilpotentes apprécié"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -2125,6 +2213,10 @@
         "Démonstration du spectral par récurrence est un classique",
         "Rayleigh et Courant-Fischer pour encadrer les v.p.",
         "Distinguer positive, définie positive, semi-définie positive"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -2217,6 +2309,10 @@
         "Beaucoup d'exemples concrets pour illustrer cette leçon abstraite",
         "Savoir manipuler orthogonaux et transposées",
         "Lien dualité algébrique / dualité hilbertienne apprécié"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -2308,6 +2404,10 @@
         "Le spectral et sa démonstration sont attendus",
         "Savoir calculer une décomposition polaire",
         "La SVD et ses applications sont appréciées"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -2400,6 +2500,10 @@
         "Cartan-Dieudonné : démontrer par récurrence",
         "Savoir classifier en dim $2$ et $3$",
         "Applications géométriques concrètes appréciées"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -2492,6 +2596,10 @@
         "Savoir résoudre un $3 \\times 3$ rapidement",
         "$LU$ et analyse de complexité montrent une bonne culture",
         "Mentionner la stabilité numérique est apprécié"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -2582,6 +2690,10 @@
         "Réduire par complétion du carré est indispensable",
         "Démonstration de Sylvester est un classique",
         "Applications géométriques : coniques et quadriques"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -2673,6 +2785,10 @@
         "Savoir réduire une conique par son équation",
         "Connaître les propriétés focales et passer d'une définition à l'autre",
         "Applications physiques appréciées"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     }
   ],
@@ -2769,6 +2885,10 @@
       "prerequis": [
         "espaces_normes",
         "suites_fonctions"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -2871,6 +2991,10 @@
       "prerequis": [
         "topologie",
         "espaces_normes"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -2967,6 +3091,10 @@
       "prerequis": [
         "topologie",
         "compacite"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -3062,6 +3190,10 @@
       "prerequis": [
         "connexite",
         "topologie"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -3157,6 +3289,10 @@
       "prerequis": [
         "espaces_normes",
         "compacite"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -3250,6 +3386,10 @@
       ],
       "prerequis": [
         "espaces_normes"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -3343,6 +3483,9 @@
       ],
       "prerequis": [
         "espaces_prehilbertiens"
+      ],
+      "tags": [
+        "externe"
       ]
     },
     {
@@ -3435,6 +3578,9 @@
       ],
       "prerequis": [
         "calcul_differentiel"
+      ],
+      "tags": [
+        "externe"
       ]
     },
     {
@@ -3528,6 +3674,9 @@
       ],
       "prerequis": [
         "calcul_differentiel"
+      ],
+      "tags": [
+        "externe"
       ]
     },
     {
@@ -3621,6 +3770,9 @@
       ],
       "prerequis": [
         "calcul_differentiel"
+      ],
+      "tags": [
+        "externe"
       ]
     },
     {
@@ -3713,6 +3865,10 @@
       ],
       "prerequis": [
         "eq_diff_lineaires"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -3805,6 +3961,10 @@
       ],
       "prerequis": [
         "eq_diff_lineaires"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -3899,6 +4059,10 @@
       ],
       "prerequis": [
         "suites_reelles"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -3991,6 +4155,10 @@
       ],
       "prerequis": [
         "suites_reelles"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -4084,6 +4252,10 @@
       ],
       "prerequis": [
         "derivation"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -4178,6 +4350,10 @@
       "prerequis": [
         "derivation",
         "integration"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -4272,6 +4448,10 @@
       ],
       "prerequis": [
         "series_numeriques"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -4366,6 +4546,10 @@
       ],
       "prerequis": [
         "integration_lebesgue"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -4459,6 +4643,10 @@
       "prerequis": [
         "integration",
         "convergences_integrales"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -4552,6 +4740,10 @@
       ],
       "prerequis": [
         "integration"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -4647,6 +4839,10 @@
       "prerequis": [
         "integration",
         "convergences_integrales"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -4740,6 +4936,10 @@
       ],
       "prerequis": [
         "suites_fonctions"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -4834,6 +5034,10 @@
       ],
       "prerequis": [
         "series_entieres"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -4927,6 +5131,9 @@
       ],
       "prerequis": [
         "fonctions_holomorphes"
+      ],
+      "tags": [
+        "externe"
       ]
     },
     {
@@ -5020,6 +5227,10 @@
       ],
       "prerequis": [
         "series_fourier"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -5115,6 +5326,9 @@
       "prerequis": [
         "series_fourier",
         "integration_lebesgue"
+      ],
+      "tags": [
+        "externe"
       ]
     },
     {
@@ -5209,6 +5423,10 @@
       "prerequis": [
         "derivation",
         "espaces_normes"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -5303,6 +5521,10 @@
       "prerequis": [
         "variables_densite",
         "esperance_variance"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -5396,6 +5618,10 @@
       ],
       "prerequis": [
         "convergences"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -5490,6 +5716,10 @@
       "prerequis": [
         "denombrement",
         "variables_discretes"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -5584,6 +5814,10 @@
       "prerequis": [
         "derivation",
         "integration"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     },
     {
@@ -5678,6 +5912,10 @@
       "prerequis": [
         "convergences_integrales",
         "integration_lebesgue"
+      ],
+      "tags": [
+        "interne",
+        "externe"
       ]
     }
   ]

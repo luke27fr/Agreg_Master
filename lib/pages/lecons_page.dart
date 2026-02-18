@@ -19,6 +19,7 @@ class _LeconsPageState extends State<LeconsPage> with SingleTickerProviderStateM
   bool _loading = true;
   late TabController _tabController;
   String _searchQuery = '';
+  String _filterTag = 'Toutes';
 
   @override
   void initState() {
@@ -47,8 +48,11 @@ class _LeconsPageState extends State<LeconsPage> with SingleTickerProviderStateM
   }
 
   List<dynamic> _filterLecons(List<dynamic> lecons) {
-    if (_searchQuery.isEmpty) return lecons;
     return lecons.where((l) {
+      final matchTag = _filterTag == 'Toutes' ||
+          (l['tags'] as List<dynamic>?)?.contains(_filterTag.toLowerCase()) == true;
+      if (!matchTag) return false;
+      if (_searchQuery.isEmpty) return true;
       final titre = (l['titre'] as String).toLowerCase();
       final numero = l['numero'].toString();
       return titre.contains(_searchQuery.toLowerCase()) || numero.contains(_searchQuery);
@@ -80,9 +84,8 @@ class _LeconsPageState extends State<LeconsPage> with SingleTickerProviderStateM
           ? const Center(child: CircularProgressIndicator())
           : Column(
               children: [
-                // Barre de recherche
                 Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
                   child: TextField(
                     decoration: InputDecoration(
                       hintText: 'Rechercher une leçon (numéro ou titre)...',
@@ -97,6 +100,30 @@ class _LeconsPageState extends State<LeconsPage> with SingleTickerProviderStateM
                     onChanged: (value) => setState(() => _searchQuery = value),
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Row(
+                    children: ['Toutes', 'Externe', 'Interne'].map((tag) {
+                      final selected = _filterTag == tag;
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 8),
+                        child: ChoiceChip(
+                          label: Text(tag),
+                          selected: selected,
+                          onSelected: (_) => setState(() => _filterTag = tag),
+                          selectedColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
+                          labelStyle: TextStyle(
+                            color: selected
+                                ? Theme.of(context).colorScheme.primary
+                                : isDark ? Colors.grey[400] : Colors.grey[700],
+                            fontWeight: selected ? FontWeight.bold : FontWeight.normal,
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+                const SizedBox(height: 8),
                 // Liste des leçons
                 Expanded(
                   child: TabBarView(
