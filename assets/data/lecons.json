@@ -5918,5 +5918,2864 @@
         "externe"
       ]
     }
+  ],
+  "probabilites": [
+    {
+      "numero": 301,
+      "titre": "Espaces probabilisés. Tribu, probabilité, propriétés élémentaires.",
+      "points_cles": [
+        "Tribu et espace mesurable",
+        "Mesure de probabilité : axiomes de Kolmogorov",
+        "Propriétés : continuité monotone, sous-additivité",
+        "Tribu engendrée et tribu borélienne",
+        "Indépendance d'événements",
+        "Lemme de Borel-Cantelli"
+      ],
+      "developpements": [
+        "borel_cantelli",
+        "construction_proba_kolmogorov",
+        "pi_lambda_dynkin"
+      ],
+      "prerequis": [
+        "theorie_mesure",
+        "topologie_generale"
+      ],
+      "plan": [
+        {
+          "section": "Tribus et espaces mesurables",
+          "sous_parties": [
+            "Définition d'une tribu $\\mathcal{A}$ sur $\\Omega$ : stabilité par complémentaire et réunion dénombrable",
+            "Tribu engendrée par une famille de parties : $\\sigma(\\mathcal{C})$",
+            "Tribu borélienne $\\mathcal{B}(\\mathbb{R})$ : engendrée par les ouverts de $\\mathbb{R}$"
+          ]
+        },
+        {
+          "section": "Mesures de probabilité",
+          "sous_parties": [
+            "Définition : application $P : \\mathcal{A} \\to [0, 1]$ avec $P(\\Omega) = 1$ et $\\sigma$-additivité",
+            "Propriétés immédiates : monotonie, $P(A^c) = 1 - P(A)$, formule de Poincaré",
+            "Continuité monotone : $A_n \\uparrow A \\Rightarrow P(A_n) \\to P(A)$"
+          ]
+        },
+        {
+          "section": "Théorème d'extension de Kolmogorov",
+          "sous_parties": [
+            "Contenu de probabilité et extension sur une algèbre",
+            "Théorème de Carathéodory : extension en une mesure sur $\\sigma(\\mathcal{C})$",
+            "Lemme de classe monotone et théorème $\\pi$-$\\lambda$ de Dynkin"
+          ]
+        },
+        {
+          "section": "Indépendance d'événements",
+          "sous_parties": [
+            "Indépendance de deux événements : $P(A \\cap B) = P(A) P(B)$",
+            "Indépendance mutuelle d'une famille d'événements",
+            "Indépendance de tribus : $\\mathcal{A}_i$ indépendantes si $P(A_1 \\cap \\cdots \\cap A_n) = \\prod P(A_i)$"
+          ]
+        },
+        {
+          "section": "Lemmes de Borel-Cantelli",
+          "sous_parties": [
+            "Premier lemme : si $\\sum P(A_n) < +\\infty$ alors $P(\\limsup A_n) = 0$",
+            "Second lemme : si les $A_n$ sont indépendants et $\\sum P(A_n) = +\\infty$ alors $P(\\limsup A_n) = 1$",
+            "Loi du zéro-un de Kolmogorov pour la tribu asymptotique"
+          ]
+        },
+        {
+          "section": "Exemples fondamentaux",
+          "sous_parties": [
+            "Espace probabilisé discret : $\\Omega$ dénombrable, $\\mathcal{A} = \\mathcal{P}(\\Omega)$",
+            "Probabilité uniforme sur un ensemble fini : $P(A) = |A|/|\\Omega|$",
+            "Mesure de Lebesgue sur $([0,1], \\mathcal{B}([0,1]))$"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Théorème d'extension de Carathéodory : toute pré-mesure $\\sigma$-additive sur une algèbre s'étend de manière unique en une mesure sur la tribu engendrée",
+        "Lemme $\\pi$-$\\lambda$ de Dynkin : si $\\mathcal{P}$ est un $\\pi$-système et $\\mathcal{D}$ un $\\lambda$-système avec $\\mathcal{P} \\subset \\mathcal{D}$, alors $\\sigma(\\mathcal{P}) \\subset \\mathcal{D}$",
+        "Premier lemme de Borel-Cantelli : $\\sum P(A_n) < +\\infty \\Rightarrow P(\\limsup_n A_n) = 0$",
+        "Second lemme de Borel-Cantelli : si les $(A_n)$ sont indépendants et $\\sum P(A_n) = +\\infty$, alors $P(\\limsup_n A_n) = 1$",
+        "Loi du zéro-un de Kolmogorov : tout événement de la tribu asymptotique $\\mathcal{T} = \\bigcap_n \\sigma(X_k, k \\geq n)$ a pour probabilité $0$ ou $1$"
+      ],
+      "exemples_importants": [
+        "Le problème du singe dactylographe : Borel-Cantelli implique que toute suite finie apparaît p.s. dans une suite i.i.d. uniforme",
+        "La tribu borélienne de $\\mathbb{R}$ est engendrée par les intervalles $]-\\infty, a]$, $a \\in \\mathbb{Q}$",
+        "Lancer d'une infinité de pièces : $\\Omega = \\{0, 1\\}^\\mathbb{N}$, tribu produit, probabilité produit"
+      ],
+      "erreurs_courantes": [
+        "Confondre indépendance deux à deux et indépendance mutuelle",
+        "Oublier l'hypothèse d'indépendance dans le second lemme de Borel-Cantelli",
+        "Confondre $\\sigma$-additivité et additivité finie"
+      ],
+      "conseils_jury": [
+        "Le théorème $\\pi$-$\\lambda$ est un outil fondamental : savoir l'énoncer et l'appliquer pour prouver l'unicité d'une mesure",
+        "Avoir un exemple concret d'application de chaque lemme de Borel-Cantelli",
+        "Le jury attend une maîtrise des fondements : ne pas négliger les axiomes"
+      ],
+      "tags": [
+        "interne",
+        "externe"
+      ]
+    },
+    {
+      "numero": 302,
+      "titre": "Variables aléatoires discrètes. Loi, espérance, variance.",
+      "points_cles": [
+        "Variable aléatoire discrète : définition et mesurabilité",
+        "Loi d'une variable aléatoire discrète",
+        "Espérance : définition, linéarité, monotonie",
+        "Variance et écart-type",
+        "Lois classiques : Bernoulli, binomiale, Poisson, géométrique",
+        "Inégalités : Markov, Bienaymé-Tchebychev"
+      ],
+      "developpements": [
+        "approximation_poisson",
+        "formule_transfert"
+      ],
+      "prerequis": [
+        "espaces_probabilises",
+        "series_numeriques"
+      ],
+      "plan": [
+        {
+          "section": "Variables aléatoires discrètes",
+          "sous_parties": [
+            "Définition : $X : \\Omega \\to E$ mesurable avec $X(\\Omega)$ dénombrable",
+            "Loi de $X$ : mesure image $P_X(\\{x\\}) = P(X = x)$",
+            "Fonction de répartition : $F_X(t) = P(X \\leq t)$"
+          ]
+        },
+        {
+          "section": "Espérance d'une variable aléatoire discrète",
+          "sous_parties": [
+            "Définition : $E[X] = \\sum_{x \\in X(\\Omega)} x \\, P(X = x)$ lorsque la série converge absolument",
+            "Formule de transfert : $E[g(X)] = \\sum_{x} g(x) P(X = x)$",
+            "Linéarité : $E[aX + bY] = aE[X] + bE[Y]$",
+            "Monotonie : $X \\leq Y$ p.s. implique $E[X] \\leq E[Y]$"
+          ]
+        },
+        {
+          "section": "Variance et moments",
+          "sous_parties": [
+            "Variance : $\\mathrm{Var}(X) = E[(X - E[X])^2] = E[X^2] - (E[X])^2$",
+            "Écart-type : $\\sigma(X) = \\sqrt{\\mathrm{Var}(X)}$",
+            "Formule de König-Huygens et propriétés de la variance",
+            "Covariance : $\\mathrm{Cov}(X, Y) = E[XY] - E[X]E[Y]$"
+          ]
+        },
+        {
+          "section": "Lois discrètes classiques",
+          "sous_parties": [
+            "Loi de Bernoulli $\\mathcal{B}(p)$ et loi binomiale $\\mathcal{B}(n, p)$ : $P(X = k) = \\binom{n}{k} p^k (1-p)^{n-k}$",
+            "Loi de Poisson $\\mathcal{P}(\\lambda)$ : $P(X = k) = e^{-\\lambda} \\frac{\\lambda^k}{k!}$",
+            "Loi géométrique $\\mathcal{G}(p)$ : $P(X = k) = p(1-p)^{k-1}$, propriété d'absence de mémoire"
+          ]
+        },
+        {
+          "section": "Inégalités fondamentales",
+          "sous_parties": [
+            "Inégalité de Markov : $P(|X| \\geq a) \\leq \\frac{E[|X|]}{a}$ pour $a > 0$",
+            "Inégalité de Bienaymé-Tchebychev : $P(|X - E[X]| \\geq \\varepsilon) \\leq \\frac{\\mathrm{Var}(X)}{\\varepsilon^2}$",
+            "Inégalité de Jensen pour les fonctions convexes"
+          ]
+        },
+        {
+          "section": "Applications",
+          "sous_parties": [
+            "Approximation de la loi binomiale par la loi de Poisson quand $n \\to +\\infty$, $np_n \\to \\lambda$",
+            "Loi faible des grands nombres pour des variables discrètes",
+            "Paradoxe du collecteur de coupons : temps d'attente moyen $n H_n$"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Formule de transfert : si $X$ est une v.a. discrète et $g$ une fonction, $E[g(X)] = \\sum_{x \\in X(\\Omega)} g(x) P(X = x)$",
+        "Inégalité de Markov : pour $X \\geq 0$ et $a > 0$, $P(X \\geq a) \\leq E[X]/a$",
+        "Inégalité de Bienaymé-Tchebychev : $P(|X - E[X]| \\geq \\varepsilon) \\leq \\mathrm{Var}(X)/\\varepsilon^2$",
+        "Approximation de Poisson : si $X_n \\sim \\mathcal{B}(n, \\lambda/n)$, alors $X_n \\xrightarrow{\\mathcal{L}} \\mathcal{P}(\\lambda)$"
+      ],
+      "exemples_importants": [
+        "Somme de $n$ variables de Bernoulli indépendantes : loi binomiale $\\mathcal{B}(n, p)$, $E[X] = np$, $\\mathrm{Var}(X) = np(1-p)$",
+        "Loi de Poisson comme limite de lois binomiales : modélisation d'événements rares",
+        "Loi géométrique et temps d'attente du premier succès : $E[X] = 1/p$, $\\mathrm{Var}(X) = (1-p)/p^2$",
+        "Le problème du collecteur de coupons : somme de v.a. géométriques"
+      ],
+      "erreurs_courantes": [
+        "Oublier la condition de sommabilité absolue dans la définition de l'espérance",
+        "Confondre $E[X^2]$ et $(E[X])^2$ dans le calcul de la variance",
+        "Appliquer la linéarité de la variance sans vérifier l'indépendance"
+      ],
+      "conseils_jury": [
+        "L'approximation de Poisson est un développement classique et très apprécié",
+        "Savoir calculer espérance et variance des lois classiques sans hésitation",
+        "Le jury apprécie qu'on mentionne des applications concrètes (files d'attente, fiabilité)"
+      ],
+      "tags": [
+        "interne",
+        "externe"
+      ]
+    },
+    {
+      "numero": 303,
+      "titre": "Couples de variables aléatoires. Indépendance.",
+      "points_cles": [
+        "Loi conjointe et lois marginales",
+        "Indépendance de variables aléatoires",
+        "Covariance et corrélation",
+        "Formule de convolution",
+        "Somme de variables aléatoires indépendantes"
+      ],
+      "developpements": [
+        "convolution_binomiales",
+        "coefficient_correlation"
+      ],
+      "prerequis": [
+        "variables_aleatoires_discretes",
+        "espaces_probabilises"
+      ],
+      "plan": [
+        {
+          "section": "Loi conjointe d'un couple de variables aléatoires",
+          "sous_parties": [
+            "Loi conjointe de $(X, Y)$ : $P(X = x_i, Y = y_j)$ pour tout $(i, j)$",
+            "Lois marginales par sommation : $P(X = x_i) = \\sum_j P(X = x_i, Y = y_j)$",
+            "La loi conjointe détermine les marginales, mais pas réciproquement"
+          ]
+        },
+        {
+          "section": "Indépendance de variables aléatoires",
+          "sous_parties": [
+            "Définition : $X$ et $Y$ indépendantes si $P(X = x, Y = y) = P(X = x) P(Y = y)$ pour tout $(x, y)$",
+            "Caractérisation : $X$ et $Y$ indépendantes ssi $\\sigma(X)$ et $\\sigma(Y)$ sont indépendantes",
+            "Indépendance mutuelle d'une famille $(X_i)_{i \\in I}$"
+          ]
+        },
+        {
+          "section": "Covariance et coefficient de corrélation",
+          "sous_parties": [
+            "Covariance : $\\mathrm{Cov}(X, Y) = E[XY] - E[X]E[Y]$",
+            "Coefficient de corrélation linéaire : $\\rho(X, Y) = \\mathrm{Cov}(X, Y) / (\\sigma(X) \\sigma(Y))$",
+            "Inégalité de Cauchy-Schwarz : $|\\rho(X, Y)| \\leq 1$, cas d'égalité",
+            "Indépendance implique non-corrélation, mais la réciproque est fausse"
+          ]
+        },
+        {
+          "section": "Formule de convolution",
+          "sous_parties": [
+            "Loi de $X + Y$ pour $X, Y$ indépendantes : $P(X + Y = k) = \\sum_j P(X = k - j) P(Y = j)$",
+            "Somme de variables de Poisson indépendantes : $\\mathcal{P}(\\lambda) * \\mathcal{P}(\\mu) = \\mathcal{P}(\\lambda + \\mu)$",
+            "Somme de binomiales indépendantes de même paramètre $p$"
+          ]
+        },
+        {
+          "section": "Espérance et variance de sommes",
+          "sous_parties": [
+            "Linéarité de l'espérance (sans hypothèse d'indépendance)",
+            "Variance d'une somme : $\\mathrm{Var}(X + Y) = \\mathrm{Var}(X) + \\mathrm{Var}(Y) + 2\\mathrm{Cov}(X, Y)$",
+            "Cas indépendant : $\\mathrm{Var}(X + Y) = \\mathrm{Var}(X) + \\mathrm{Var}(Y)$"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Caractérisation de l'indépendance par les fonctions génératrices : $X, Y$ indépendantes ssi $G_{X+Y}(s) = G_X(s) G_Y(s)$",
+        "Inégalité de Cauchy-Schwarz : $|E[XY]|^2 \\leq E[X^2] E[Y^2]$, avec égalité ssi $X$ et $Y$ sont proportionnelles p.s.",
+        "Stabilité de la loi de Poisson par convolution : si $X \\sim \\mathcal{P}(\\lambda)$ et $Y \\sim \\mathcal{P}(\\mu)$ indépendantes, $X + Y \\sim \\mathcal{P}(\\lambda + \\mu)$",
+        "Formule de la variance totale : $\\mathrm{Var}(X) = E[\\mathrm{Var}(X|Y)] + \\mathrm{Var}(E[X|Y])$"
+      ],
+      "exemples_importants": [
+        "Couple $(X, Y)$ uniforme sur un ensemble fini : calcul de la loi conjointe et des marginales",
+        "Variables non corrélées mais non indépendantes : $X$ uniforme sur $\\{-1, 0, 1\\}$, $Y = X^2$",
+        "Somme de $n$ Bernoulli indépendantes : retrouver la loi binomiale par convolution"
+      ],
+      "erreurs_courantes": [
+        "Confondre non-corrélation ($\\mathrm{Cov}(X,Y) = 0$) et indépendance",
+        "Appliquer $\\mathrm{Var}(X+Y) = \\mathrm{Var}(X) + \\mathrm{Var}(Y)$ sans vérifier l'indépendance",
+        "Oublier que la loi conjointe contient plus d'information que les deux marginales séparées"
+      ],
+      "conseils_jury": [
+        "Avoir un contre-exemple clair de variables non corrélées mais dépendantes",
+        "La stabilité par convolution des lois classiques est un résultat attendu",
+        "Le jury apprécie un plan qui distingue clairement le cas discret et le cas à densité"
+      ],
+      "tags": [
+        "interne",
+        "externe"
+      ]
+    },
+    {
+      "numero": 304,
+      "titre": "Loi des grands nombres. Théorème de la limite centrale.",
+      "points_cles": [
+        "Loi faible des grands nombres",
+        "Loi forte des grands nombres",
+        "Théorème de la limite centrale",
+        "Convergence en loi vers la gaussienne",
+        "Applications statistiques"
+      ],
+      "developpements": [
+        "loi_grands_nombres",
+        "tcl_demo",
+        "methode_monte_carlo"
+      ],
+      "prerequis": [
+        "variables_aleatoires_discretes",
+        "fonctions_caracteristiques",
+        "convergences_probabilistes"
+      ],
+      "plan": [
+        {
+          "section": "Loi faible des grands nombres",
+          "sous_parties": [
+            "Énoncé : $\\bar{X}_n = \\frac{1}{n}\\sum_{i=1}^n X_i \\xrightarrow{P} E[X_1]$ pour des $(X_i)$ i.i.d. intégrables",
+            "Démonstration dans le cas $L^2$ par l'inégalité de Tchebychev",
+            "Démonstration générale par les fonctions caractéristiques"
+          ]
+        },
+        {
+          "section": "Loi forte des grands nombres",
+          "sous_parties": [
+            "Énoncé : $\\bar{X}_n \\xrightarrow{\\text{p.s.}} E[X_1]$ pour des $(X_i)$ i.i.d. intégrables",
+            "Idée de la preuve : contrôle des moments d'ordre $4$ et Borel-Cantelli",
+            "Version de Kolmogorov pour des variables indépendantes (non identiquement distribuées)"
+          ]
+        },
+        {
+          "section": "Théorème de la limite centrale",
+          "sous_parties": [
+            "Énoncé : $\\frac{\\bar{X}_n - \\mu}{\\sigma/\\sqrt{n}} \\xrightarrow{\\mathcal{L}} \\mathcal{N}(0, 1)$ pour $(X_i)$ i.i.d. avec $E[X_1] = \\mu$, $\\mathrm{Var}(X_1) = \\sigma^2$",
+            "Démonstration par les fonctions caractéristiques : $\\varphi_{S_n}(t) \\to e^{-t^2/2}$",
+            "Théorème de continuité de Lévy"
+          ]
+        },
+        {
+          "section": "Vitesse de convergence",
+          "sous_parties": [
+            "Inégalité de Berry-Esseen : $\\sup_x |F_n(x) - \\Phi(x)| \\leq \\frac{C \\, E[|X_1|^3]}{\\sigma^3 \\sqrt{n}}$",
+            "Développements d'Edgeworth",
+            "Correction de continuité pour les v.a. discrètes"
+          ]
+        },
+        {
+          "section": "Applications",
+          "sous_parties": [
+            "Intervalles de confiance asymptotiques : $\\bar{X}_n \\pm z_{\\alpha/2} \\frac{\\sigma}{\\sqrt{n}}$",
+            "Méthode de Monte-Carlo : estimation de $\\int_0^1 f(x) \\, dx$ par $\\frac{1}{n}\\sum f(U_i)$",
+            "Approximation normale de la loi binomiale : $\\mathcal{B}(n, p) \\approx \\mathcal{N}(np, np(1-p))$"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Loi faible des grands nombres : si $(X_n)$ i.i.d. $L^1$, alors $\\frac{1}{n}\\sum_{i=1}^n X_i \\xrightarrow{P} E[X_1]$",
+        "Loi forte des grands nombres (Kolmogorov) : si $(X_n)$ i.i.d. intégrables, $\\frac{1}{n}\\sum_{i=1}^n X_i \\xrightarrow{\\text{p.s.}} E[X_1]$",
+        "Théorème de la limite centrale : si $(X_n)$ i.i.d. $L^2$, $\\sqrt{n}(\\bar{X}_n - \\mu)/\\sigma \\xrightarrow{\\mathcal{L}} \\mathcal{N}(0, 1)$",
+        "Théorème de continuité de Lévy : $X_n \\xrightarrow{\\mathcal{L}} X$ ssi $\\varphi_{X_n}(t) \\to \\varphi_X(t)$ pour tout $t$"
+      ],
+      "exemples_importants": [
+        "Fréquence empirique : $\\frac{1}{n}\\sum \\mathbf{1}_{A_i} \\to P(A)$ p.s.",
+        "Estimation de $\\pi$ par Monte-Carlo : lancer dans le carré $[0,1]^2$ et compter les points dans le quart de disque",
+        "Approximation de $\\mathcal{B}(100, 0{,}5)$ par $\\mathcal{N}(50, 25)$",
+        "Le théorème de Weierstrass via les polynômes de Bernstein (preuve probabiliste)"
+      ],
+      "erreurs_courantes": [
+        "Confondre convergence en probabilité et convergence presque sûre",
+        "Appliquer le TCL sans vérifier l'existence de la variance",
+        "Oublier le facteur $\\sqrt{n}$ dans la normalisation du TCL"
+      ],
+      "conseils_jury": [
+        "La démonstration du TCL par les fonctions caractéristiques est un développement phare",
+        "Illustrer la loi des grands nombres par une simulation ou un exemple concret",
+        "Le jury attend qu'on distingue clairement loi faible et loi forte"
+      ],
+      "tags": [
+        "interne",
+        "externe"
+      ]
+    },
+    {
+      "numero": 305,
+      "titre": "Variables aléatoires à densité. Exemples et applications.",
+      "points_cles": [
+        "Densité de probabilité et loi absolument continue",
+        "Calcul d'espérance par intégration",
+        "Lois classiques à densité : uniforme, exponentielle, gaussienne",
+        "Changement de variable et loi de fonctions de v.a.",
+        "Couples de variables à densité"
+      ],
+      "developpements": [
+        "calcul_densite_quotient",
+        "loi_normale_proprietes"
+      ],
+      "prerequis": [
+        "integration_lebesgue",
+        "variables_aleatoires_discretes",
+        "espaces_probabilises"
+      ],
+      "plan": [
+        {
+          "section": "Variables aléatoires à densité",
+          "sous_parties": [
+            "Définition : $X$ admet une densité $f_X$ si $P(X \\in B) = \\int_B f_X(x) \\, dx$ pour tout borélien $B$",
+            "Conditions sur $f_X$ : $f_X \\geq 0$ et $\\int_{\\mathbb{R}} f_X(x) \\, dx = 1$",
+            "Fonction de répartition : $F_X(t) = \\int_{-\\infty}^t f_X(x) \\, dx$, dérivable p.p. avec $F'_X = f_X$ p.p."
+          ]
+        },
+        {
+          "section": "Espérance et moments",
+          "sous_parties": [
+            "Espérance : $E[X] = \\int_{\\mathbb{R}} x f_X(x) \\, dx$",
+            "Formule de transfert : $E[g(X)] = \\int_{\\mathbb{R}} g(x) f_X(x) \\, dx$",
+            "Moments d'ordre $k$ : $E[X^k] = \\int x^k f_X(x) \\, dx$"
+          ]
+        },
+        {
+          "section": "Lois classiques à densité",
+          "sous_parties": [
+            "Loi uniforme $\\mathcal{U}([a, b])$ : $f(x) = \\frac{1}{b-a} \\mathbf{1}_{[a,b]}(x)$",
+            "Loi exponentielle $\\mathcal{E}(\\lambda)$ : $f(x) = \\lambda e^{-\\lambda x} \\mathbf{1}_{x \\geq 0}$, propriété d'absence de mémoire",
+            "Loi normale $\\mathcal{N}(\\mu, \\sigma^2)$ : $f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-(x-\\mu)^2/(2\\sigma^2)}$",
+            "Loi gamma $\\Gamma(\\alpha, \\beta)$ et loi du $\\chi^2$"
+          ]
+        },
+        {
+          "section": "Changement de variable",
+          "sous_parties": [
+            "Si $Y = g(X)$ avec $g$ un $C^1$-difféomorphisme : $f_Y(y) = f_X(g^{-1}(y)) \\, |{(g^{-1})}'(y)|$",
+            "Cas non bijectif : somme des contributions sur chaque branche",
+            "Méthode de la fonction de répartition : $F_Y(y) = P(g(X) \\leq y)$"
+          ]
+        },
+        {
+          "section": "Couples de variables à densité",
+          "sous_parties": [
+            "Densité conjointe $f_{(X,Y)}(x, y)$ et densités marginales par intégration",
+            "Indépendance : $f_{(X,Y)}(x,y) = f_X(x) f_Y(y)$",
+            "Densité de $X + Y$ par convolution : $f_{X+Y}(z) = \\int f_X(x) f_Y(z-x) \\, dx$"
+          ]
+        },
+        {
+          "section": "Applications",
+          "sous_parties": [
+            "Simulation : méthode de l'inverse $X = F^{-1}(U)$ avec $U \\sim \\mathcal{U}([0,1])$",
+            "Stabilité de la loi normale par somme indépendante",
+            "Loi du maximum et du minimum de $n$ v.a. i.i.d."
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Formule de changement de variable : si $g$ est un $C^1$-difféomorphisme et $X$ a pour densité $f_X$, alors $g(X)$ a pour densité $y \\mapsto f_X(g^{-1}(y)) |(g^{-1})'(y)|$",
+        "Convolution des densités : si $X, Y$ sont indépendantes de densités $f_X, f_Y$, alors $X+Y$ a pour densité $f_X * f_Y(z) = \\int f_X(x) f_Y(z - x) dx$",
+        "Stabilité de la loi normale : si $X \\sim \\mathcal{N}(\\mu_1, \\sigma_1^2)$ et $Y \\sim \\mathcal{N}(\\mu_2, \\sigma_2^2)$ indépendantes, $X + Y \\sim \\mathcal{N}(\\mu_1 + \\mu_2, \\sigma_1^2 + \\sigma_2^2)$",
+        "Méthode de l'inverse : si $U \\sim \\mathcal{U}([0,1])$ et $F$ est une f.d.r. continue strictement croissante, alors $F^{-1}(U)$ a pour f.d.r. $F$"
+      ],
+      "exemples_importants": [
+        "Loi exponentielle et propriété d'absence de mémoire : $P(X > s + t \\mid X > s) = P(X > t)$",
+        "Somme de deux exponentielles indépendantes de même paramètre $\\lambda$ : loi gamma $\\Gamma(2, \\lambda)$",
+        "Loi de $X^2$ pour $X \\sim \\mathcal{N}(0, 1)$ : loi du $\\chi^2$ à $1$ degré de liberté",
+        "Simulation d'une loi exponentielle : $X = -\\frac{1}{\\lambda} \\ln(U)$"
+      ],
+      "erreurs_courantes": [
+        "Oublier le jacobien (la valeur absolue de la dérivée) lors d'un changement de variable",
+        "Confondre densité et probabilité ponctuelle : $P(X = x) = 0$ pour une v.a. à densité",
+        "Écrire $f_X(x) dx = P(X = x)$ au lieu de $f_X(x) dx \\approx P(X \\in [x, x+dx])$"
+      ],
+      "conseils_jury": [
+        "La méthode de changement de variable est un outil fondamental : s'entraîner sur de nombreux exemples",
+        "Savoir démontrer la stabilité de la loi normale par fonctions caractéristiques ou par convolution",
+        "Le jury apprécie qu'on illustre la simulation par la méthode de l'inverse"
+      ],
+      "tags": [
+        "interne",
+        "externe"
+      ]
+    },
+    {
+      "numero": 306,
+      "titre": "Fonctions génératrices. Applications.",
+      "points_cles": [
+        "Fonction génératrice des probabilités",
+        "Fonction génératrice des moments",
+        "Fonction caractéristique",
+        "Caractérisation de la loi par la fonction génératrice",
+        "Applications au calcul de lois de sommes"
+      ],
+      "developpements": [
+        "fonction_caracteristique_gaussienne",
+        "theoreme_continuite_levy"
+      ],
+      "prerequis": [
+        "series_entieres",
+        "variables_aleatoires_discretes",
+        "transformee_fourier"
+      ],
+      "plan": [
+        {
+          "section": "Fonction génératrice des probabilités",
+          "sous_parties": [
+            "Définition pour $X$ à valeurs dans $\\mathbb{N}$ : $G_X(s) = E[s^X] = \\sum_{k=0}^{+\\infty} P(X=k) s^k$",
+            "Rayon de convergence $\\geq 1$ et $G_X(1) = 1$",
+            "Extraction des probabilités : $P(X = k) = G_X^{(k)}(0)/k!$"
+          ]
+        },
+        {
+          "section": "Propriétés des fonctions génératrices",
+          "sous_parties": [
+            "Calcul des moments : $E[X] = G'_X(1^-)$, $E[X(X-1)] = G''_X(1^-)$",
+            "Produit pour des v.a. indépendantes : $G_{X+Y}(s) = G_X(s) G_Y(s)$",
+            "Caractérisation : la f.g.p. détermine la loi de $X$"
+          ]
+        },
+        {
+          "section": "Fonction génératrice des moments",
+          "sous_parties": [
+            "Définition : $M_X(t) = E[e^{tX}]$ définie sur un intervalle contenant $0$",
+            "Calcul des moments : $E[X^k] = M_X^{(k)}(0)$",
+            "Avantage : s'applique aux v.a. continues ; inconvénient : n'existe pas toujours"
+          ]
+        },
+        {
+          "section": "Fonction caractéristique",
+          "sous_parties": [
+            "Définition : $\\varphi_X(t) = E[e^{itX}]$, définie pour tout $t \\in \\mathbb{R}$",
+            "Propriétés : $|\\varphi_X(t)| \\leq 1$, $\\varphi_X(0) = 1$, $\\overline{\\varphi_X(t)} = \\varphi_X(-t)$",
+            "Caractérisation de la loi : la fonction caractéristique détermine la loi (injectivité)"
+          ]
+        },
+        {
+          "section": "Théorème de continuité de Lévy",
+          "sous_parties": [
+            "Énoncé : $X_n \\xrightarrow{\\mathcal{L}} X$ ssi $\\varphi_{X_n}(t) \\to \\varphi_X(t)$ pour tout $t$",
+            "Application à la démonstration du TCL",
+            "Formule d'inversion de Fourier pour les densités"
+          ]
+        },
+        {
+          "section": "Applications",
+          "sous_parties": [
+            "Calcul de la f.g.p. des lois classiques : Poisson, binomiale, géométrique",
+            "Fonction caractéristique de la loi normale : $\\varphi_{\\mathcal{N}(\\mu, \\sigma^2)}(t) = e^{i\\mu t - \\sigma^2 t^2/2}$",
+            "Utilisation pour prouver la stabilité des familles de lois par convolution"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "La fonction génératrice des probabilités caractérise la loi : si $G_X = G_Y$ sur $[0, 1]$, alors $X$ et $Y$ ont même loi",
+        "Pour $X, Y$ indépendantes à valeurs dans $\\mathbb{N}$ : $G_{X+Y}(s) = G_X(s) \\cdot G_Y(s)$",
+        "Théorème de continuité de Lévy : $\\mu_n \\xrightarrow{\\mathcal{L}} \\mu$ ssi $\\hat{\\mu}_n(t) \\to \\hat{\\mu}(t)$ pour tout $t \\in \\mathbb{R}$, la limite étant continue en $0$",
+        "Formule d'inversion : si $\\varphi_X \\in L^1(\\mathbb{R})$, alors $X$ admet une densité $f_X(x) = \\frac{1}{2\\pi}\\int e^{-itx} \\varphi_X(t) \\, dt$"
+      ],
+      "exemples_importants": [
+        "F.g.p. de la loi de Poisson : $G_X(s) = e^{\\lambda(s-1)}$, retrouver $E[X] = \\lambda$ et $\\mathrm{Var}(X) = \\lambda$",
+        "Fonction caractéristique de la loi de Cauchy : $\\varphi(t) = e^{-|t|}$, pas de moment d'ordre $1$",
+        "Preuve que la somme de Poisson indépendantes est Poisson via les f.g.p."
+      ],
+      "erreurs_courantes": [
+        "Confondre fonction génératrice des probabilités, des moments et fonction caractéristique",
+        "Oublier que la f.g.m. n'existe pas toujours (ex. loi de Cauchy)",
+        "Négliger l'hypothèse de continuité en $0$ dans le théorème de Lévy"
+      ],
+      "conseils_jury": [
+        "Savoir calculer rapidement la fonction caractéristique de la loi normale",
+        "Le théorème de Lévy est un outil puissant : montrer qu'on sait l'utiliser (notamment pour le TCL)",
+        "Le jury apprécie la comparaison entre les trois types de fonctions génératrices"
+      ],
+      "tags": [
+        "interne",
+        "externe"
+      ]
+    },
+    {
+      "numero": 307,
+      "titre": "Convergence des variables aléatoires. Modes de convergence.",
+      "points_cles": [
+        "Convergence presque sûre",
+        "Convergence en probabilité",
+        "Convergence en loi",
+        "Convergence dans $L^p$",
+        "Implications entre les modes de convergence"
+      ],
+      "developpements": [
+        "contre_exemples_convergences",
+        "theoreme_slutsky"
+      ],
+      "prerequis": [
+        "espaces_probabilises",
+        "variables_aleatoires_discretes",
+        "integration_lebesgue"
+      ],
+      "plan": [
+        {
+          "section": "Convergence presque sûre",
+          "sous_parties": [
+            "Définition : $P(\\{\\omega : X_n(\\omega) \\to X(\\omega)\\}) = 1$",
+            "Caractérisation : $\\forall \\varepsilon > 0$, $P(\\sup_{k \\geq n} |X_k - X| > \\varepsilon) \\to 0$",
+            "Critère de Borel-Cantelli : si $\\sum P(|X_n - X| > \\varepsilon) < +\\infty$ pour tout $\\varepsilon > 0$"
+          ]
+        },
+        {
+          "section": "Convergence en probabilité",
+          "sous_parties": [
+            "Définition : $\\forall \\varepsilon > 0$, $P(|X_n - X| > \\varepsilon) \\to 0$",
+            "Convergence p.s. implique convergence en probabilité",
+            "Réciproque partielle : de toute suite convergeant en probabilité, on peut extraire une sous-suite convergeant p.s."
+          ]
+        },
+        {
+          "section": "Convergence dans $L^p$",
+          "sous_parties": [
+            "Définition : $E[|X_n - X|^p] \\to 0$",
+            "Convergence $L^p$ implique convergence en probabilité (Markov)",
+            "Convergence $L^q$ implique convergence $L^p$ pour $q \\geq p$ (Jensen)",
+            "Théorème de convergence dominée comme outil"
+          ]
+        },
+        {
+          "section": "Convergence en loi",
+          "sous_parties": [
+            "Définition : $F_{X_n}(x) \\to F_X(x)$ en tout point de continuité de $F_X$",
+            "Caractérisation par les fonctions caractéristiques (Lévy)",
+            "Convergence en probabilité implique convergence en loi (réciproque fausse en général)"
+          ]
+        },
+        {
+          "section": "Relations entre les modes de convergence",
+          "sous_parties": [
+            "Hiérarchie : p.s. $\\Rightarrow$ proba $\\Rightarrow$ loi ; $L^p \\Rightarrow$ proba",
+            "Contre-exemples pour les réciproques",
+            "Théorème de Scheffé : convergence des densités implique convergence en loi"
+          ]
+        },
+        {
+          "section": "Compléments : Slutsky et applications",
+          "sous_parties": [
+            "Théorème de Slutsky : si $X_n \\xrightarrow{\\mathcal{L}} X$ et $Y_n \\xrightarrow{P} c$, alors $(X_n, Y_n) \\xrightarrow{\\mathcal{L}} (X, c)$",
+            "Application au TCL avec variance estimée",
+            "Méthode delta : $g(X_n)$ et sa loi asymptotique"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Hiérarchie des convergences : convergence p.s. $\\Rightarrow$ convergence en probabilité $\\Rightarrow$ convergence en loi, et convergence $L^p$ $\\Rightarrow$ convergence en probabilité",
+        "Théorème de Slutsky : si $X_n \\xrightarrow{\\mathcal{L}} X$ et $Y_n \\xrightarrow{P} c$ (constante), alors $X_n + Y_n \\xrightarrow{\\mathcal{L}} X + c$ et $X_n Y_n \\xrightarrow{\\mathcal{L}} cX$",
+        "Théorème de Scheffé : si $f_n \\to f$ p.p. (densités), alors $\\|P_n - P\\|_{TV} \\to 0$",
+        "Théorème de sous-suite : $X_n \\xrightarrow{P} X$ ssi de toute sous-suite on peut extraire une sous-sous-suite convergeant p.s."
+      ],
+      "exemples_importants": [
+        "Convergence en probabilité mais pas p.s. : indicatrices d'intervalles glissants $\\mathbf{1}_{[k/n, (k+1)/n]}$ sur $[0,1]$",
+        "Convergence en loi mais pas en probabilité : $X_n \\sim \\mathcal{N}(0,1)$ i.i.d. converge en loi vers $\\mathcal{N}(0,1)$ mais pas en probabilité",
+        "Convergence p.s. mais pas $L^1$ : $X_n = n \\mathbf{1}_{[0, 1/n]}$ converge p.s. vers $0$ mais $E[X_n] = 1$"
+      ],
+      "erreurs_courantes": [
+        "Croire que convergence en loi implique convergence en probabilité",
+        "Oublier que la convergence $L^p$ n'implique pas la convergence p.s.",
+        "Confondre convergence en loi vers une constante et convergence en probabilité vers cette constante (qui sont équivalentes)"
+      ],
+      "conseils_jury": [
+        "Avoir un diagramme clair des implications entre les modes de convergence avec les contre-exemples",
+        "Le théorème de Slutsky est souvent négligé mais très utile en statistique",
+        "Le jury apprécie des contre-exemples précis et bien expliqués"
+      ],
+      "tags": [
+        "interne",
+        "externe"
+      ]
+    },
+    {
+      "numero": 308,
+      "titre": "Chaînes de Markov à espace d'états fini.",
+      "points_cles": [
+        "Matrice de transition et propriété de Markov",
+        "Classification des états : transience, récurrence",
+        "Irréductibilité et apériodicité",
+        "Mesure stationnaire et théorème ergodique",
+        "Convergence vers l'équilibre"
+      ],
+      "developpements": [
+        "theoreme_ergodique_markov",
+        "perron_frobenius",
+        "pagerank"
+      ],
+      "prerequis": [
+        "algebre_lineaire",
+        "espaces_probabilises",
+        "matrices"
+      ],
+      "plan": [
+        {
+          "section": "Définition et propriété de Markov",
+          "sous_parties": [
+            "Processus stochastique $(X_n)_{n \\geq 0}$ à valeurs dans un ensemble fini $E$",
+            "Propriété de Markov : $P(X_{n+1} = j \\mid X_n = i, X_{n-1}, \\ldots, X_0) = P(X_{n+1} = j \\mid X_n = i)$",
+            "Matrice de transition $P = (p_{ij})$ avec $p_{ij} = P(X_{n+1} = j \\mid X_n = i)$",
+            "Chaîne homogène : la matrice $P$ ne dépend pas de $n$"
+          ]
+        },
+        {
+          "section": "Classification des états",
+          "sous_parties": [
+            "Accessibilité : $i \\to j$ s'il existe $n$ tel que $p_{ij}^{(n)} > 0$",
+            "Communication : $i \\leftrightarrow j$ si $i \\to j$ et $j \\to i$. Classes de communication",
+            "État récurrent : $P(T_i < +\\infty \\mid X_0 = i) = 1$ ; état transient sinon",
+            "Période d'un état : $d(i) = \\gcd\\{n \\geq 1 : p_{ii}^{(n)} > 0\\}$"
+          ]
+        },
+        {
+          "section": "Irréductibilité et mesure invariante",
+          "sous_parties": [
+            "Chaîne irréductible : tous les états communiquent",
+            "Mesure invariante $\\pi$ : $\\pi P = \\pi$ avec $\\sum_i \\pi_i = 1$",
+            "Existence et unicité de $\\pi$ pour une chaîne irréductible sur un espace fini"
+          ]
+        },
+        {
+          "section": "Théorème ergodique",
+          "sous_parties": [
+            "Énoncé : $\\frac{1}{n}\\sum_{k=0}^{n-1} \\mathbf{1}_{X_k = i} \\xrightarrow{\\text{p.s.}} \\pi_i$ pour tout $i$",
+            "Lien avec le théorème de Perron-Frobenius",
+            "Convergence de $P^n$ vers la matrice dont chaque ligne est $\\pi$ (cas apériodique)"
+          ]
+        },
+        {
+          "section": "Convergence vers l'équilibre",
+          "sous_parties": [
+            "Cas apériodique irréductible : $p_{ij}^{(n)} \\to \\pi_j$ quand $n \\to +\\infty$",
+            "Vitesse de convergence : trou spectral $1 - |\\lambda_2|$",
+            "Temps de mélange : $t_{\\text{mix}}(\\varepsilon) = \\min\\{n : \\|P^n(x, \\cdot) - \\pi\\|_{TV} \\leq \\varepsilon\\}$"
+          ]
+        },
+        {
+          "section": "Applications",
+          "sous_parties": [
+            "Algorithme PageRank : marche aléatoire sur le graphe du web",
+            "Marche aléatoire sur un graphe fini : $\\pi_i = \\deg(i) / (2|E|)$",
+            "Algorithme de Metropolis-Hastings et méthodes MCMC"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Théorème ergodique pour les chaînes de Markov : si la chaîne est irréductible sur un espace fini, $\\frac{1}{n}\\sum_{k=0}^{n-1} f(X_k) \\xrightarrow{\\text{p.s.}} \\sum_i \\pi_i f(i)$",
+        "Théorème de Perron-Frobenius : une matrice stochastique irréductible admet $1$ comme valeur propre simple dominante, de vecteur propre à gauche $\\pi > 0$",
+        "Convergence en loi : si la chaîne est irréductible apériodique, $P^n(i, j) \\to \\pi_j$ pour tout $i, j$",
+        "Tout état récurrent d'une chaîne irréductible finie est récurrent positif"
+      ],
+      "exemples_importants": [
+        "Marche aléatoire symétrique sur $\\mathbb{Z}/n\\mathbb{Z}$ : irréductible, apériodique si $n$ est impair",
+        "Modèle d'Ehrenfest : $2N$ particules entre deux urnes, mesure invariante binomiale",
+        "Chaîne à deux états : $P = \\begin{pmatrix} 1-a & a \\\\ b & 1-b \\end{pmatrix}$, $\\pi = \\left(\\frac{b}{a+b}, \\frac{a}{a+b}\\right)$"
+      ],
+      "erreurs_courantes": [
+        "Confondre irréductibilité et apériodicité",
+        "Oublier que l'existence de la mesure invariante est automatique en dimension finie (mais pas en général)",
+        "Appliquer le théorème de convergence sans vérifier l'apériodicité"
+      ],
+      "conseils_jury": [
+        "Le théorème de Perron-Frobenius est un développement apprécié qui relie algèbre et probabilités",
+        "Savoir traiter complètement un exemple de chaîne à $3$ ou $4$ états",
+        "Le jury apprécie les applications modernes comme PageRank"
+      ],
+      "tags": [
+        "externe"
+      ]
+    },
+    {
+      "numero": 309,
+      "titre": "Martingales discrètes. Exemples et applications.",
+      "points_cles": [
+        "Filtration et temps d'arrêt",
+        "Définition de martingale, sous- et sur-martingale",
+        "Théorème d'arrêt de Doob",
+        "Inégalité maximale de Doob",
+        "Théorème de convergence des martingales"
+      ],
+      "developpements": [
+        "theoreme_arret_doob",
+        "ruine_joueur",
+        "convergence_martingales_bornees_L2"
+      ],
+      "prerequis": [
+        "espaces_probabilises",
+        "esperance_conditionnelle",
+        "convergences_probabilistes"
+      ],
+      "plan": [
+        {
+          "section": "Filtrations et espérance conditionnelle",
+          "sous_parties": [
+            "Filtration $(\\mathcal{F}_n)_{n \\geq 0}$ : suite croissante de tribus",
+            "Espérance conditionnelle $E[X \\mid \\mathcal{F}_n]$ : propriétés (linéarité, tour, monotonie)",
+            "Processus adapté : $X_n$ est $\\mathcal{F}_n$-mesurable pour tout $n$"
+          ]
+        },
+        {
+          "section": "Martingales : définition et premiers exemples",
+          "sous_parties": [
+            "Martingale : $E[X_{n+1} \\mid \\mathcal{F}_n] = X_n$ p.s.",
+            "Sous-martingale ($\\geq$) et sur-martingale ($\\leq$)",
+            "Exemples : $S_n = \\sum_{i=1}^n Y_i$ (marche aléatoire centrée), $M_n = \\prod_{i=1}^n Z_i / E[Z_i]$"
+          ]
+        },
+        {
+          "section": "Temps d'arrêt et théorème d'arrêt",
+          "sous_parties": [
+            "Temps d'arrêt $T$ : $\\{T = n\\} \\in \\mathcal{F}_n$ pour tout $n$",
+            "Théorème d'arrêt de Doob : si $T$ est borné, $E[X_T] = E[X_0]$",
+            "Version avec $T$ p.s. fini et intégrabilité uniforme"
+          ]
+        },
+        {
+          "section": "Inégalités maximales",
+          "sous_parties": [
+            "Inégalité maximale de Doob : $P(\\max_{0 \\leq k \\leq n} X_k \\geq \\lambda) \\leq E[X_n^+]/\\lambda$ (sous-martingale)",
+            "Inégalité $L^p$ de Doob : $\\|\\max_{k \\leq n} |X_k|\\|_p \\leq \\frac{p}{p-1} \\|X_n\\|_p$ pour $p > 1$"
+          ]
+        },
+        {
+          "section": "Théorème de convergence",
+          "sous_parties": [
+            "Théorème de convergence de Doob : une martingale bornée dans $L^2$ converge p.s. et dans $L^2$",
+            "Théorème de convergence des sous-martingales : si $\\sup_n E[X_n^+] < +\\infty$, alors $X_n$ converge p.s.",
+            "Martingale régulière et convergence dans $L^1$"
+          ]
+        },
+        {
+          "section": "Applications",
+          "sous_parties": [
+            "Problème de la ruine du joueur : probabilité de ruine par le théorème d'arrêt",
+            "Martingale de Doléans : $\\mathcal{E}(M)_n = \\exp(M_n - \\frac{1}{2}\\langle M \\rangle_n)$",
+            "Loi du zéro-un de Kolmogorov comme conséquence de la convergence des martingales"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Théorème d'arrêt de Doob : si $(M_n)$ est une martingale et $T$ un temps d'arrêt borné ($T \\leq N$), alors $E[M_T] = E[M_0]$",
+        "Inégalité maximale de Doob : pour une sous-martingale positive $(X_n)$ et $\\lambda > 0$, $\\lambda P(\\max_{k \\leq n} X_k \\geq \\lambda) \\leq E[X_n]$",
+        "Théorème de convergence de Doob : si $(M_n)$ est une martingale bornée dans $L^2$ ($\\sup_n E[M_n^2] < \\infty$), alors $M_n$ converge p.s. et dans $L^2$",
+        "Décomposition de Doob : toute sous-martingale $(X_n)$ s'écrit $X_n = M_n + A_n$ avec $(M_n)$ martingale et $(A_n)$ prévisible croissant"
+      ],
+      "exemples_importants": [
+        "Ruine du joueur : fortune $S_n$ avec gains $\\pm 1$ ; probabilité de ruine $P(S_T = 0) = b/(a+b)$ à partir de $a$ contre un adversaire de fortune $b$",
+        "Martingale de Wald : $e^{\\theta S_n - n \\psi(\\theta)}$ pour une marche aléatoire $(S_n)$",
+        "Urne de Pólya : proportion de boules rouges = martingale bornée, converge p.s."
+      ],
+      "erreurs_courantes": [
+        "Appliquer le théorème d'arrêt à un temps d'arrêt non borné sans vérifier l'intégrabilité uniforme",
+        "Confondre martingale et sous-martingale dans les inégalités",
+        "Oublier que la convergence p.s. n'implique pas la convergence $L^1$ pour les martingales"
+      ],
+      "conseils_jury": [
+        "La ruine du joueur est un développement classique mettant en jeu le théorème d'arrêt",
+        "Connaître plusieurs exemples de martingales (somme, produit, urne de Pólya)",
+        "Le jury apprécie la distinction entre convergence p.s. et convergence $L^1$"
+      ],
+      "tags": [
+        "externe"
+      ]
+    },
+    {
+      "numero": 310,
+      "titre": "Probabilités conditionnelles. Formule de Bayes.",
+      "points_cles": [
+        "Probabilité conditionnelle : définition",
+        "Formule des probabilités totales",
+        "Formule de Bayes",
+        "Indépendance conditionnelle",
+        "Applications : tests, diagnostics"
+      ],
+      "developpements": [
+        "bayes_applications",
+        "esperance_conditionnelle_L2"
+      ],
+      "prerequis": [
+        "espaces_probabilises",
+        "variables_aleatoires_discretes"
+      ],
+      "plan": [
+        {
+          "section": "Probabilité conditionnelle",
+          "sous_parties": [
+            "Définition : $P(A \\mid B) = P(A \\cap B) / P(B)$ pour $P(B) > 0$",
+            "La loi conditionnelle $P(\\cdot \\mid B)$ est une probabilité sur $(\\Omega, \\mathcal{A})$",
+            "Formule des probabilités composées : $P(A_1 \\cap \\cdots \\cap A_n) = P(A_1) P(A_2 \\mid A_1) \\cdots P(A_n \\mid A_1 \\cap \\cdots \\cap A_{n-1})$"
+          ]
+        },
+        {
+          "section": "Formule des probabilités totales",
+          "sous_parties": [
+            "Système complet d'événements $(B_i)$ : $\\Omega = \\bigsqcup B_i$, $P(B_i) > 0$",
+            "Formule : $P(A) = \\sum_i P(A \\mid B_i) P(B_i)$",
+            "Version continue : $P(A) = \\int P(A \\mid X = x) f_X(x) \\, dx$"
+          ]
+        },
+        {
+          "section": "Formule de Bayes",
+          "sous_parties": [
+            "Énoncé : $P(B_i \\mid A) = \\frac{P(A \\mid B_i) P(B_i)}{\\sum_j P(A \\mid B_j) P(B_j)}$",
+            "Interprétation bayésienne : probabilité a priori vs a posteriori",
+            "Vraisemblance et loi a posteriori"
+          ]
+        },
+        {
+          "section": "Espérance conditionnelle",
+          "sous_parties": [
+            "Espérance conditionnelle sachant un événement : $E[X \\mid B] = E[X \\mathbf{1}_B] / P(B)$",
+            "Espérance conditionnelle sachant une variable aléatoire : $E[X \\mid Y]$",
+            "Propriétés : linéarité, formule de la tour $E[E[X \\mid Y]] = E[X]$"
+          ]
+        },
+        {
+          "section": "Indépendance conditionnelle",
+          "sous_parties": [
+            "Définition : $X$ et $Y$ conditionnellement indépendants sachant $Z$",
+            "Indépendance conditionnelle n'implique pas l'indépendance (et réciproquement)",
+            "Application aux modèles graphiques (réseaux bayésiens)"
+          ]
+        },
+        {
+          "section": "Applications",
+          "sous_parties": [
+            "Test de diagnostic médical : sensibilité, spécificité, valeur prédictive positive",
+            "Le paradoxe de Monty Hall par les probabilités conditionnelles",
+            "Filtre bayésien naïf pour la classification"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Formule de Bayes : $P(B_i \\mid A) = \\frac{P(A \\mid B_i) P(B_i)}{P(A)}$ avec $P(A) = \\sum_j P(A \\mid B_j) P(B_j)$",
+        "Formule des probabilités totales : pour un système complet $(B_i)$, $P(A) = \\sum_i P(A \\mid B_i) P(B_i)$",
+        "Formule de la tour : $E[E[X \\mid Y]] = E[X]$ (loi des espérances itérées)",
+        "Formule de la variance totale : $\\mathrm{Var}(X) = E[\\mathrm{Var}(X \\mid Y)] + \\mathrm{Var}(E[X \\mid Y])$"
+      ],
+      "exemples_importants": [
+        "Test médical : prévalence $1\\%$, sensibilité $99\\%$, spécificité $95\\%$ : $P(\\text{malade} \\mid \\text{test}+) \\approx 17\\%$",
+        "Paradoxe de Monty Hall : changer de porte donne une probabilité $2/3$ de gagner",
+        "Urne de Pólya : loi conditionnelle et mise à jour bayésienne",
+        "Tirages sans remise : probabilités conditionnelles successives"
+      ],
+      "erreurs_courantes": [
+        "Confondre $P(A \\mid B)$ et $P(B \\mid A)$ (erreur du procureur)",
+        "Négliger la prévalence (probabilité a priori) dans l'interprétation d'un test",
+        "Oublier la condition $P(B) > 0$ dans la définition de $P(A \\mid B)$"
+      ],
+      "conseils_jury": [
+        "L'erreur du procureur est un exemple frappant que le jury apprécie",
+        "Maîtriser l'espérance conditionnelle à la fois comme variable aléatoire et comme projection $L^2$",
+        "Illustrer Bayes par un exemple numérique concret"
+      ],
+      "tags": [
+        "interne",
+        "externe"
+      ]
+    },
+    {
+      "numero": 311,
+      "titre": "Vecteurs gaussiens. Propriétés.",
+      "points_cles": [
+        "Définition d'un vecteur gaussien",
+        "Caractérisation par la fonction caractéristique",
+        "Matrice de covariance et densité",
+        "Propriétés des lois gaussiennes : stabilité, indépendance et non-corrélation",
+        "Conditionnement gaussien"
+      ],
+      "developpements": [
+        "vecteur_gaussien_independance",
+        "regression_lineaire_gaussienne"
+      ],
+      "prerequis": [
+        "algebre_lineaire",
+        "variables_aleatoires_densite",
+        "fonctions_caracteristiques"
+      ],
+      "plan": [
+        {
+          "section": "Définition et caractérisation",
+          "sous_parties": [
+            "Vecteur gaussien : $X = (X_1, \\ldots, X_n)$ tel que toute combinaison linéaire $\\sum a_i X_i$ est gaussienne",
+            "Fonction caractéristique : $\\varphi_X(t) = \\exp\\left(i \\langle m, t \\rangle - \\frac{1}{2} t^T \\Sigma t\\right)$",
+            "Paramètres : $m = E[X]$ (vecteur moyenne) et $\\Sigma = \\mathrm{Cov}(X)$ (matrice de covariance)"
+          ]
+        },
+        {
+          "section": "Densité d'un vecteur gaussien",
+          "sous_parties": [
+            "Cas non dégénéré ($\\Sigma$ inversible) : $f_X(x) = \\frac{1}{(2\\pi)^{n/2} (\\det \\Sigma)^{1/2}} \\exp\\left(-\\frac{1}{2}(x - m)^T \\Sigma^{-1}(x - m)\\right)$",
+            "Cas dégénéré : le vecteur vit dans un sous-espace affine",
+            "Lien avec la diagonalisation de $\\Sigma$ et les composantes principales"
+          ]
+        },
+        {
+          "section": "Propriétés de stabilité",
+          "sous_parties": [
+            "Toute transformation affine d'un vecteur gaussien est gaussienne : $AX + b \\sim \\mathcal{N}(Am + b, A\\Sigma A^T)$",
+            "Les marginales d'un vecteur gaussien sont gaussiennes",
+            "Somme de vecteurs gaussiens indépendants : stabilité"
+          ]
+        },
+        {
+          "section": "Indépendance et non-corrélation",
+          "sous_parties": [
+            "Théorème fondamental : pour un vecteur gaussien, non-corrélation équivaut à indépendance",
+            "Démonstration par la factorisation de la fonction caractéristique",
+            "Conséquence : $X_i$ et $X_j$ indépendantes ssi $\\Sigma_{ij} = 0$"
+          ]
+        },
+        {
+          "section": "Conditionnement gaussien",
+          "sous_parties": [
+            "Loi conditionnelle de $X_1$ sachant $X_2 = x_2$ : gaussienne",
+            "Espérance conditionnelle : $E[X_1 \\mid X_2] = m_1 + \\Sigma_{12} \\Sigma_{22}^{-1}(X_2 - m_2)$ (régression linéaire)",
+            "Variance conditionnelle : $\\mathrm{Var}(X_1 \\mid X_2) = \\Sigma_{11} - \\Sigma_{12} \\Sigma_{22}^{-1} \\Sigma_{21}$ (matrice de Schur)"
+          ]
+        },
+        {
+          "section": "Applications",
+          "sous_parties": [
+            "Régression linéaire gaussienne et moindres carrés",
+            "Théorème de Cochran et décomposition de la variance",
+            "Analyse en composantes principales (ACP) : diagonalisation de $\\Sigma$"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Caractérisation : $X$ est un vecteur gaussien ssi $\\varphi_X(t) = \\exp(i\\langle m, t \\rangle - \\frac{1}{2} t^T \\Sigma t)$ pour un vecteur $m$ et une matrice $\\Sigma \\geq 0$",
+        "Pour un vecteur gaussien, indépendance $\\Leftrightarrow$ non-corrélation : $X_i \\perp X_j \\iff \\mathrm{Cov}(X_i, X_j) = 0$",
+        "Théorème de Cochran : si $X \\sim \\mathcal{N}(0, I_n)$ et $\\mathbb{R}^n = \\bigoplus E_i$, alors les projections orthogonales $\\pi_{E_i}(X)$ sont indépendantes et $\\|\\pi_{E_i}(X)\\|^2 \\sim \\chi^2(\\dim E_i)$",
+        "Conditionnement gaussien : la loi de $X_1 \\mid X_2 = x_2$ est $\\mathcal{N}(m_1 + \\Sigma_{12}\\Sigma_{22}^{-1}(x_2 - m_2), \\Sigma_{11} - \\Sigma_{12}\\Sigma_{22}^{-1}\\Sigma_{21})$"
+      ],
+      "exemples_importants": [
+        "Vecteur gaussien standard $\\mathcal{N}(0, I_n)$ : composantes i.i.d. $\\mathcal{N}(0,1)$",
+        "Couple $(X, Y)$ gaussien avec $\\rho = \\mathrm{Cor}(X, Y)$ : $\\Sigma = \\begin{pmatrix} 1 & \\rho \\\\ \\rho & 1 \\end{pmatrix}$",
+        "Théorème de Cochran appliqué à $\\bar{X}$ et $S^2$ : indépendance de la moyenne et de la variance empiriques"
+      ],
+      "erreurs_courantes": [
+        "Croire que des marginales gaussiennes impliquent un vecteur gaussien (faux en général)",
+        "Confondre non-corrélation et indépendance hors du cadre gaussien",
+        "Oublier que la matrice de covariance doit être symétrique semi-définie positive"
+      ],
+      "conseils_jury": [
+        "L'équivalence indépendance/non-corrélation est un résultat central : savoir le démontrer",
+        "Le théorème de Cochran est un développement apprécié pour cette leçon",
+        "Le jury attend une maîtrise du conditionnement gaussien et ses formules"
+      ],
+      "tags": [
+        "externe"
+      ]
+    },
+    {
+      "numero": 312,
+      "titre": "Estimation et intervalles de confiance.",
+      "points_cles": [
+        "Estimateur : biais, convergence, efficacité",
+        "Maximum de vraisemblance",
+        "Intervalle de confiance",
+        "Borne de Cramér-Rao",
+        "Estimateurs classiques : moyenne, variance empiriques"
+      ],
+      "developpements": [
+        "cramer_rao",
+        "maximum_vraisemblance_consistance"
+      ],
+      "prerequis": [
+        "variables_aleatoires_densite",
+        "loi_grands_nombres",
+        "tcl"
+      ],
+      "plan": [
+        {
+          "section": "Modèle statistique et estimateurs",
+          "sous_parties": [
+            "Modèle paramétrique : $(\\Omega, \\mathcal{A}, (P_\\theta)_{\\theta \\in \\Theta})$",
+            "Statistique et estimateur ponctuel de $\\theta$",
+            "Biais : $b(\\hat{\\theta}) = E_\\theta[\\hat{\\theta}] - \\theta$, estimateur sans biais"
+          ]
+        },
+        {
+          "section": "Qualité d'un estimateur",
+          "sous_parties": [
+            "Erreur quadratique moyenne : $\\mathrm{MSE}(\\hat{\\theta}) = \\mathrm{Var}(\\hat{\\theta}) + b(\\hat{\\theta})^2$",
+            "Consistance : $\\hat{\\theta}_n \\xrightarrow{P} \\theta$",
+            "Normalité asymptotique et efficacité"
+          ]
+        },
+        {
+          "section": "Borne de Cramér-Rao",
+          "sous_parties": [
+            "Information de Fisher : $I(\\theta) = E_\\theta\\left[\\left(\\frac{\\partial}{\\partial \\theta} \\ln f(X; \\theta)\\right)^2\\right]$",
+            "Inégalité : $\\mathrm{Var}_\\theta(\\hat{\\theta}) \\geq \\frac{(1 + b'(\\theta))^2}{n I(\\theta)}$ (estimateur sans biais : $\\geq 1/(nI(\\theta))$)",
+            "Estimateur efficace : atteint la borne de Cramér-Rao"
+          ]
+        },
+        {
+          "section": "Maximum de vraisemblance",
+          "sous_parties": [
+            "Vraisemblance : $L(\\theta; x_1, \\ldots, x_n) = \\prod_{i=1}^n f(x_i; \\theta)$",
+            "EMV : $\\hat{\\theta}_{MV} = \\arg\\max_\\theta L(\\theta; x)$",
+            "Propriétés asymptotiques : consistance, normalité asymptotique $\\sqrt{n}(\\hat{\\theta}_{MV} - \\theta) \\xrightarrow{\\mathcal{L}} \\mathcal{N}(0, I(\\theta)^{-1})$"
+          ]
+        },
+        {
+          "section": "Intervalles de confiance",
+          "sous_parties": [
+            "Définition : $P_\\theta(\\theta \\in I_n) \\geq 1 - \\alpha$ pour tout $\\theta$",
+            "Quantité pivotale : $T = (\\hat{\\theta} - \\theta)/\\hat{\\sigma}$ de loi connue (ou asymptotiquement connue)",
+            "IC pour la moyenne gaussienne : $\\bar{X}_n \\pm t_{n-1, \\alpha/2} \\frac{S_n}{\\sqrt{n}}$ (loi de Student)",
+            "IC asymptotique par le TCL : $\\hat{\\theta}_n \\pm z_{\\alpha/2} / \\sqrt{n I(\\hat{\\theta}_n)}$"
+          ]
+        },
+        {
+          "section": "Exemples",
+          "sous_parties": [
+            "Estimation de la moyenne et de la variance d'une loi normale",
+            "Estimation du paramètre d'une loi de Poisson",
+            "Estimation de la proportion dans un sondage : $\\hat{p} \\pm z_{\\alpha/2} \\sqrt{\\hat{p}(1-\\hat{p})/n}$"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Inégalité de Cramér-Rao : pour un estimateur sans biais $\\hat{\\theta}$, $\\mathrm{Var}_\\theta(\\hat{\\theta}) \\geq 1/(nI(\\theta))$ où $I(\\theta)$ est l'information de Fisher",
+        "Normalité asymptotique de l'EMV : sous des conditions de régularité, $\\sqrt{n}(\\hat{\\theta}_{MV} - \\theta_0) \\xrightarrow{\\mathcal{L}} \\mathcal{N}(0, I(\\theta_0)^{-1})$",
+        "Théorème de Lehmann-Scheffé : un estimateur sans biais fonction d'une statistique exhaustive complète est l'unique estimateur sans biais de variance minimale (UMVUE)",
+        "Si $X_i \\sim \\mathcal{N}(\\mu, \\sigma^2)$, alors $\\bar{X} \\sim \\mathcal{N}(\\mu, \\sigma^2/n)$ et $(n-1)S^2/\\sigma^2 \\sim \\chi^2(n-1)$, indépendants"
+      ],
+      "exemples_importants": [
+        "Loi normale : $\\bar{X}$ est l'EMV de $\\mu$, estimateur efficace ; $S^2 = \\frac{1}{n-1}\\sum(X_i - \\bar{X})^2$ est sans biais pour $\\sigma^2$",
+        "Loi de Poisson $\\mathcal{P}(\\lambda)$ : $\\bar{X}$ est l'EMV de $\\lambda$, efficace, $I(\\lambda) = 1/\\lambda$",
+        "Estimation de proportion : IC de Wald vs IC de Wilson"
+      ],
+      "erreurs_courantes": [
+        "Confondre estimateur et estimation (variable aléatoire vs réalisation)",
+        "Oublier le facteur $1/(n-1)$ dans la variance empirique sans biais",
+        "Interpréter l'IC comme « la probabilité que $\\theta$ soit dans l'intervalle » (interprétation fréquentiste incorrecte)"
+      ],
+      "conseils_jury": [
+        "La borne de Cramér-Rao est un développement classique pour cette leçon",
+        "Savoir dériver l'EMV et vérifier les conditions de régularité",
+        "Le jury apprécie une discussion sur l'interprétation correcte des intervalles de confiance"
+      ],
+      "tags": [
+        "interne",
+        "externe"
+      ]
+    },
+    {
+      "numero": 313,
+      "titre": "Inégalités de concentration. Markov, Tchebychev, Hoeffding.",
+      "points_cles": [
+        "Inégalité de Markov et Tchebychev",
+        "Inégalité de Hoeffding",
+        "Méthode de Chernoff (borne exponentielle)",
+        "Inégalité de McDiarmid",
+        "Applications : bornes de déviation"
+      ],
+      "developpements": [
+        "hoeffding_demo",
+        "chernoff_bounds"
+      ],
+      "prerequis": [
+        "variables_aleatoires_discretes",
+        "fonctions_convexes",
+        "loi_grands_nombres"
+      ],
+      "plan": [
+        {
+          "section": "Inégalités élémentaires",
+          "sous_parties": [
+            "Inégalité de Markov : $P(X \\geq a) \\leq E[X]/a$ pour $X \\geq 0$",
+            "Inégalité de Bienaymé-Tchebychev : $P(|X - E[X]| \\geq \\varepsilon) \\leq \\mathrm{Var}(X)/\\varepsilon^2$",
+            "Inégalité de Jensen : $E[\\varphi(X)] \\geq \\varphi(E[X])$ pour $\\varphi$ convexe"
+          ]
+        },
+        {
+          "section": "Méthode de Chernoff",
+          "sous_parties": [
+            "Principe : $P(X \\geq a) = P(e^{tX} \\geq e^{ta}) \\leq e^{-ta} E[e^{tX}]$ puis optimiser en $t > 0$",
+            "Transformée de Laplace $\\Lambda_X(t) = \\ln E[e^{tX}]$ : propriétés de convexité",
+            "Borne de Chernoff pour les variables de Bernoulli : $P(S_n \\geq (1+\\delta)np) \\leq \\left(\\frac{e^\\delta}{(1+\\delta)^{1+\\delta}}\\right)^{np}$"
+          ]
+        },
+        {
+          "section": "Inégalité de Hoeffding",
+          "sous_parties": [
+            "Lemme de Hoeffding : si $a \\leq X \\leq b$ et $E[X] = 0$, alors $E[e^{tX}] \\leq e^{t^2(b-a)^2/8}$",
+            "Théorème de Hoeffding : $P\\left(\\bar{X}_n - \\mu \\geq t\\right) \\leq \\exp\\left(-\\frac{2n t^2}{\\sum(b_i - a_i)^2}\\right)$",
+            "Borne bilatérale : $P(|\\bar{X}_n - \\mu| \\geq t) \\leq 2\\exp(-2nt^2/(b-a)^2)$"
+          ]
+        },
+        {
+          "section": "Inégalité de McDiarmid",
+          "sous_parties": [
+            "Condition des différences bornées : $|f(x_1, \\ldots, x_i, \\ldots) - f(x_1, \\ldots, x'_i, \\ldots)| \\leq c_i$",
+            "Énoncé : $P(f(X) - E[f(X)] \\geq t) \\leq \\exp(-2t^2 / \\sum c_i^2)$",
+            "Généralisation de Hoeffding aux fonctions de variables indépendantes"
+          ]
+        },
+        {
+          "section": "Inégalités sous-gaussiennes",
+          "sous_parties": [
+            "Variable sous-gaussienne : $E[e^{tX}] \\leq e^{\\sigma^2 t^2/2}$ pour tout $t$",
+            "Exemples : variable bornée, variable gaussienne",
+            "Somme de sous-gaussiennes indépendantes : contrôle exponentiel"
+          ]
+        },
+        {
+          "section": "Applications",
+          "sous_parties": [
+            "Bornes de déviation pour les sondages : $n \\geq \\frac{\\ln(2/\\delta)}{2\\varepsilon^2}$",
+            "Apprentissage statistique : bornes de généralisation PAC",
+            "Concentration de la norme d'un vecteur gaussien"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Inégalité de Hoeffding : si $X_1, \\ldots, X_n$ sont indépendantes avec $a_i \\leq X_i \\leq b_i$, alors $P(\\bar{X}_n - E[\\bar{X}_n] \\geq t) \\leq \\exp\\left(-\\frac{2n^2 t^2}{\\sum_{i=1}^n (b_i - a_i)^2}\\right)$",
+        "Inégalité de McDiarmid : sous les différences bornées $c_i$, $P(f(X) - E[f(X)] \\geq t) \\leq \\exp(-2t^2/\\sum c_i^2)$",
+        "Borne de Chernoff multiplicative : pour $S_n \\sim \\mathcal{B}(n, p)$ et $\\delta > 0$, $P(S_n \\geq (1+\\delta)np) \\leq e^{-np \\delta^2/3}$ (pour $\\delta \\leq 1$)",
+        "Lemme de Hoeffding : si $E[X] = 0$ et $a \\leq X \\leq b$, alors $E[e^{tX}] \\leq \\exp(t^2(b-a)^2/8)$"
+      ],
+      "exemples_importants": [
+        "Pile ou face : $P(|\\bar{X}_n - 1/2| \\geq 0{,}01) \\leq 2e^{-n/50000}$ par Hoeffding",
+        "Concentration de la médiane empirique",
+        "Taille d'échantillon pour un sondage avec marge d'erreur $\\varepsilon$ et confiance $1 - \\delta$"
+      ],
+      "erreurs_courantes": [
+        "Appliquer Hoeffding à des variables non bornées",
+        "Oublier l'hypothèse d'indépendance dans Hoeffding et McDiarmid",
+        "Confondre les bornes additives et multiplicatives de Chernoff"
+      ],
+      "conseils_jury": [
+        "La démonstration de l'inégalité de Hoeffding (via le lemme) est un développement apprécié",
+        "Savoir comparer la qualité des différentes bornes sur des exemples",
+        "Le jury apprécie les applications modernes (apprentissage, algorithmes randomisés)"
+      ],
+      "tags": [
+        "interne",
+        "externe"
+      ]
+    },
+    {
+      "numero": 314,
+      "titre": "Marches aléatoires. Exemples et applications.",
+      "points_cles": [
+        "Marche aléatoire simple sur $\\mathbb{Z}$",
+        "Récurrence et transience",
+        "Loi de l'arc-sinus",
+        "Principe de réflexion",
+        "Applications : ruine du joueur, trajectoires"
+      ],
+      "developpements": [
+        "recurrence_marche_aleatoire",
+        "loi_arc_sinus",
+        "principe_reflexion"
+      ],
+      "prerequis": [
+        "espaces_probabilises",
+        "series_numeriques",
+        "combinatoire"
+      ],
+      "plan": [
+        {
+          "section": "Marche aléatoire simple sur $\\mathbb{Z}$",
+          "sous_parties": [
+            "Définition : $S_n = \\sum_{i=1}^n X_i$ avec $P(X_i = +1) = p$, $P(X_i = -1) = 1 - p$",
+            "Espérance $E[S_n] = n(2p - 1)$ et variance $\\mathrm{Var}(S_n) = 4np(1-p)$",
+            "Cas symétrique $p = 1/2$ : $E[S_n] = 0$, martingale"
+          ]
+        },
+        {
+          "section": "Récurrence et transience",
+          "sous_parties": [
+            "Probabilité de retour à l'origine : $P(S_{2n} = 0) = \\binom{2n}{n} (p(1-p))^n \\sim \\frac{1}{\\sqrt{\\pi n}}$ (cas symétrique)",
+            "Récurrence en dimension $1$ et $2$ (théorème de Pólya)",
+            "Transience en dimension $d \\geq 3$"
+          ]
+        },
+        {
+          "section": "Temps d'atteinte et principe de réflexion",
+          "sous_parties": [
+            "Temps d'atteinte $T_a = \\inf\\{n : S_n = a\\}$",
+            "Principe de réflexion : $P(S_n = b, \\max_{k \\leq n} S_k \\geq a) = P(S_n = 2a - b)$ pour $b < a$",
+            "Loi du maximum : $P(\\max_{k \\leq n} S_k \\geq a) = 2P(S_n \\geq a) - P(S_n = a)$"
+          ]
+        },
+        {
+          "section": "Loi de l'arc-sinus",
+          "sous_parties": [
+            "Dernier retour à l'origine avant le temps $2n$ : $P(L_{2n} = 2k) = P(S_{2k} = 0)P(S_{2(n-k)} = 0)$",
+            "Convergence vers la loi de l'arc-sinus : densité $f(x) = \\frac{1}{\\pi \\sqrt{x(1-x)}}$ sur $]0, 1[$",
+            "Temps passé du côté positif : même loi de l'arc-sinus"
+          ]
+        },
+        {
+          "section": "Problème de la ruine du joueur",
+          "sous_parties": [
+            "Joueur de fortune initiale $a$ contre un adversaire de fortune $b$",
+            "Probabilité de ruine : cas $p = 1/2$ et cas $p \\neq 1/2$",
+            "Durée moyenne du jeu"
+          ]
+        },
+        {
+          "section": "Généralisations",
+          "sous_parties": [
+            "Marche aléatoire sur $\\mathbb{Z}^d$ et récurrence de Pólya",
+            "Invariance de Donsker : convergence vers le mouvement brownien",
+            "Marche aléatoire sur un graphe"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Théorème de récurrence de Pólya : la marche aléatoire simple symétrique sur $\\mathbb{Z}^d$ est récurrente si $d \\leq 2$ et transiente si $d \\geq 3$",
+        "Principe de réflexion : pour la marche symétrique, $P(T_a \\leq n, S_n = b) = P(S_n = 2a - b)$ pour $b < a$",
+        "Loi de l'arc-sinus : la proportion du temps passé du côté positif par une marche symétrique converge en loi vers $\\mathrm{Arcsin}$, de densité $\\frac{1}{\\pi\\sqrt{x(1-x)}}$",
+        "Ruine du joueur : si $p \\neq 1/2$, la probabilité de ruine à partir de $a$ est $\\frac{(q/p)^a - (q/p)^{a+b}}{1 - (q/p)^{a+b}}$ où $q = 1 - p$"
+      ],
+      "exemples_importants": [
+        "Marche symétrique sur $\\mathbb{Z}$ : récurrente mais pas de moment fini pour le temps de retour",
+        "Trajectoire d'une marche de $2n$ pas : nombre de chemins de Dyck et nombres de Catalan",
+        "Marche aléatoire biaisée ($p > 1/2$) : $S_n/n \\to 2p - 1 > 0$ p.s."
+      ],
+      "erreurs_courantes": [
+        "Confondre récurrence (retour p.s.) et récurrence positive (temps de retour moyen fini)",
+        "Appliquer le principe de réflexion sans vérifier la symétrie",
+        "Oublier que récurrence en dimension $2$ est un résultat non trivial"
+      ],
+      "conseils_jury": [
+        "La récurrence de la marche en dimension $1$ et $2$ (Pólya) est un développement classique",
+        "La loi de l'arc-sinus est un résultat surprenant que le jury apprécie",
+        "Savoir traiter le problème de la ruine avec les deux méthodes : martingale et récurrence"
+      ],
+      "tags": [
+        "interne",
+        "externe"
+      ]
+    },
+    {
+      "numero": 315,
+      "titre": "Processus de Poisson. Applications.",
+      "points_cles": [
+        "Processus de comptage et processus de Poisson",
+        "Propriété de Markov et accroissements indépendants stationnaires",
+        "Construction à partir de temps inter-arrivées exponentiels",
+        "Amincissement et superposition",
+        "Applications : files d'attente, modélisation d'événements"
+      ],
+      "developpements": [
+        "construction_processus_poisson",
+        "file_attente_mm1"
+      ],
+      "prerequis": [
+        "variables_aleatoires_densite",
+        "loi_exponentielle",
+        "chaines_markov"
+      ],
+      "plan": [
+        {
+          "section": "Processus de comptage",
+          "sous_parties": [
+            "Définition : processus $(N(t))_{t \\geq 0}$ à valeurs dans $\\mathbb{N}$, croissant, continu à droite",
+            "Accroissements indépendants et stationnaires",
+            "Intensité : $\\lambda = \\lim_{h \\to 0} P(N(h) = 1)/h$"
+          ]
+        },
+        {
+          "section": "Définition et caractérisations du processus de Poisson",
+          "sous_parties": [
+            "Définition axiomatique : accroissements indépendants, $N(t) - N(s) \\sim \\mathcal{P}(\\lambda(t-s))$",
+            "Construction par les temps inter-arrivées : $(T_n)$ i.i.d. $\\mathcal{E}(\\lambda)$, $N(t) = \\max\\{n : S_n \\leq t\\}$",
+            "Équivalence des deux définitions"
+          ]
+        },
+        {
+          "section": "Propriétés fondamentales",
+          "sous_parties": [
+            "Loi des temps d'arrivée : $S_n = T_1 + \\cdots + T_n \\sim \\Gamma(n, \\lambda)$",
+            "Propriété de Markov forte",
+            "Conditionnement : sachant $N(t) = n$, les instants d'arrivée ont la loi de la statistique d'ordre de $n$ uniformes sur $[0, t]$"
+          ]
+        },
+        {
+          "section": "Opérations sur les processus de Poisson",
+          "sous_parties": [
+            "Superposition : somme de Poisson indépendants d'intensités $\\lambda_1, \\lambda_2$ est Poisson d'intensité $\\lambda_1 + \\lambda_2$",
+            "Amincissement (thinning) : chaque événement est conservé avec probabilité $p$ indépendamment",
+            "Processus de Poisson non homogène : intensité $\\lambda(t)$ variable"
+          ]
+        },
+        {
+          "section": "Processus de Poisson composé",
+          "sous_parties": [
+            "Définition : $Y(t) = \\sum_{i=1}^{N(t)} Z_i$ avec $(Z_i)$ i.i.d.",
+            "Espérance et variance : $E[Y(t)] = \\lambda t E[Z_1]$, $\\mathrm{Var}(Y(t)) = \\lambda t E[Z_1^2]$",
+            "Application en assurance : modèle de Cramér-Lundberg"
+          ]
+        },
+        {
+          "section": "Applications",
+          "sous_parties": [
+            "File d'attente $M/M/1$ : arrivées Poisson, service exponentiel, condition de stabilité $\\rho = \\lambda/\\mu < 1$",
+            "Modèle de désintégration radioactive",
+            "Modélisation du trafic réseau et des appels téléphoniques (formule d'Erlang)"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Caractérisation du processus de Poisson : un processus de comptage est de Poisson d'intensité $\\lambda$ ssi ses temps inter-arrivées sont i.i.d. $\\mathcal{E}(\\lambda)$",
+        "Conditionnement : sachant $N(t) = n$, les instants d'arrivée $(S_1, \\ldots, S_n)$ ont la loi de la statistique d'ordre de $n$ v.a. uniformes sur $[0, t]$",
+        "Superposition : si $N_1, N_2$ sont des processus de Poisson indépendants d'intensités $\\lambda_1, \\lambda_2$, alors $N_1 + N_2$ est un processus de Poisson d'intensité $\\lambda_1 + \\lambda_2$",
+        "Amincissement : si $(N(t))$ est Poisson$(\\lambda)$ et chaque point est retenu avec probabilité $p$, le processus retenu est Poisson$(p\\lambda)$"
+      ],
+      "exemples_importants": [
+        "File $M/M/1$ : nombre de clients en régime stationnaire suit une loi géométrique de paramètre $\\rho$",
+        "Processus de Poisson composé en assurance : $Y(t) = \\sum_{i=1}^{N(t)} Z_i$ modélise les sinistres cumulés",
+        "Paradoxe de l'inspection : le temps inter-arrivées vu par un observateur arrivant à un instant fixe"
+      ],
+      "erreurs_courantes": [
+        "Confondre processus de Poisson homogène et non homogène",
+        "Oublier que les accroissements sont indépendants ET stationnaires",
+        "Confondre temps d'arrivée $S_n$ et temps inter-arrivée $T_n$"
+      ],
+      "conseils_jury": [
+        "La construction du processus de Poisson à partir des exponentielles est un développement fondamental",
+        "Le paradoxe de l'inspection est un exemple élégant de conditionnement",
+        "Le jury apprécie qu'on connaisse les applications en files d'attente et assurance"
+      ],
+      "tags": [
+        "externe"
+      ]
+    }
+  ],
+  "geometrie": [
+    {
+      "numero": 401,
+      "titre": "Isométries d'un espace affine euclidien. Classification en dimension 2 et 3.",
+      "points_cles": [
+        "Isométrie : définition et partie linéaire",
+        "Groupe des isométries et décomposition en réflexions",
+        "Classification en dimension 2 : translations, rotations, réflexions, réflexions glissées",
+        "Classification en dimension 3 : ajout des vissages",
+        "Isométries directes et indirectes"
+      ],
+      "developpements": [
+        "classification_isometries_plan",
+        "theoreme_cartan_dieudonne"
+      ],
+      "prerequis": [
+        "espaces_euclidiens",
+        "groupe_orthogonal",
+        "espaces_affines"
+      ],
+      "plan": [
+        {
+          "section": "Isométries d'un espace affine euclidien",
+          "sous_parties": [
+            "Définition : $f : E \\to E$ affine telle que $d(f(A), f(B)) = d(A, B)$ pour tout $A, B$",
+            "Partie linéaire $\\vec{f} \\in O(\\vec{E})$ : isométrie vectorielle associée",
+            "Décomposition : $f = t_{\\vec{v}} \\circ g$ avec $g$ isométrie fixant un point et $t_{\\vec{v}}$ translation"
+          ]
+        },
+        {
+          "section": "Théorème de Cartan-Dieudonné",
+          "sous_parties": [
+            "Énoncé : toute isométrie de $\\mathbb{R}^n$ est composée d'au plus $n$ réflexions",
+            "Conséquence : le groupe $O(n)$ est engendré par les réflexions",
+            "Application à la décomposition en réflexions d'une rotation"
+          ]
+        },
+        {
+          "section": "Classification en dimension 2",
+          "sous_parties": [
+            "Isométries directes ($\\det \\vec{f} = 1$) : translations et rotations",
+            "Isométries indirectes ($\\det \\vec{f} = -1$) : réflexions et réflexions glissées",
+            "Recherche d'éléments fixes et classification complète"
+          ]
+        },
+        {
+          "section": "Classification en dimension 3",
+          "sous_parties": [
+            "Isométries directes : translations, rotations d'axe $D$, vissages (rotation + translation parallèle à l'axe)",
+            "Isométries indirectes : réflexions par rapport à un plan, anti-rotations, anti-déplacements",
+            "Résumé : toute isométrie de $\\mathbb{R}^3$ est un vissage ou un anti-vissage"
+          ]
+        },
+        {
+          "section": "Sous-groupes du groupe des isométries",
+          "sous_parties": [
+            "Groupe diédral $D_n$ : isométries d'un polygone régulier à $n$ côtés",
+            "Groupes de symétrie des polyèdres réguliers",
+            "Sous-groupes finis de $O(3)$ : classification"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Théorème de Cartan-Dieudonné : toute isométrie vectorielle de $\\mathbb{R}^n$ est composée d'au plus $n$ réflexions (hyperplans)",
+        "Classification en dimension $2$ : toute isométrie du plan euclidien est une translation, une rotation, une réflexion ou une réflexion glissée",
+        "Classification en dimension $3$ : toute isométrie directe de $\\mathbb{R}^3$ est une translation, une rotation ou un vissage ; toute isométrie indirecte est une réflexion, une anti-rotation ou un anti-vissage",
+        "Toute isométrie affine est la composée d'une isométrie fixant un point et d'une translation"
+      ],
+      "exemples_importants": [
+        "Groupe diédral $D_3$ : $6$ isométries du triangle équilatéral ($3$ rotations, $3$ réflexions)",
+        "Rotation d'angle $\\theta$ autour de l'origine dans $\\mathbb{R}^2$ : matrice $\\begin{pmatrix} \\cos\\theta & -\\sin\\theta \\\\ \\sin\\theta & \\cos\\theta \\end{pmatrix}$",
+        "Vissage de $\\mathbb{R}^3$ : rotation d'angle $\\theta$ autour de l'axe $Oz$ composée avec la translation $(0, 0, h)$",
+        "Réflexion glissée : réflexion par rapport à une droite suivie d'une translation le long de cette droite"
+      ],
+      "erreurs_courantes": [
+        "Oublier les réflexions glissées dans la classification en dimension $2$",
+        "Confondre isométrie affine et isométrie vectorielle (linéaire)",
+        "Croire que toute isométrie directe de $\\mathbb{R}^3$ est une rotation (il y a aussi les vissages)"
+      ],
+      "conseils_jury": [
+        "La preuve de Cartan-Dieudonné est un développement classique et apprécié",
+        "Savoir retrouver la classification à partir de l'étude des points fixes",
+        "Le jury attend des exemples géométriques concrets illustrant chaque type d'isométrie"
+      ],
+      "tags": [
+        "interne",
+        "externe"
+      ]
+    },
+    {
+      "numero": 402,
+      "titre": "Coniques. Équations réduites, propriétés métriques.",
+      "points_cles": [
+        "Définition bifocale et définition par foyer-directrice",
+        "Classification : ellipse, hyperbole, parabole",
+        "Équations réduites dans un repère adapté",
+        "Excentricité et propriétés métriques",
+        "Tangentes et propriétés de réflexion"
+      ],
+      "developpements": [
+        "classification_coniques",
+        "propriete_reflexion_ellipse"
+      ],
+      "prerequis": [
+        "formes_quadratiques",
+        "espaces_euclidiens",
+        "courbes_parametrees"
+      ],
+      "plan": [
+        {
+          "section": "Définitions des coniques",
+          "sous_parties": [
+            "Définition par foyer et directrice : $\\{M : d(M, F) = e \\cdot d(M, \\mathcal{D})\\}$",
+            "Définition bifocale : $\\{M : d(M, F_1) + d(M, F_2) = 2a\\}$ (ellipse), $|d(M, F_1) - d(M, F_2)| = 2a$ (hyperbole)",
+            "Section d'un cône par un plan : origine du nom"
+          ]
+        },
+        {
+          "section": "Classification et équations réduites",
+          "sous_parties": [
+            "Ellipse ($0 < e < 1$) : $\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1$ avec $b^2 = a^2(1 - e^2)$",
+            "Hyperbole ($e > 1$) : $\\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1$ avec $b^2 = a^2(e^2 - 1)$",
+            "Parabole ($e = 1$) : $y^2 = 4px$ (pas de centre de symétrie)"
+          ]
+        },
+        {
+          "section": "Paramètres géométriques",
+          "sous_parties": [
+            "Excentricité $e$, demi-grand axe $a$, demi-petit axe $b$, distance focale $c = ae$",
+            "Foyers, sommets, directrices",
+            "Paramètre $p = b^2/a$ (ellipse, hyperbole) ou demi-latus rectum"
+          ]
+        },
+        {
+          "section": "Propriétés métriques et tangentes",
+          "sous_parties": [
+            "Équation polaire : $r = \\frac{p}{1 + e\\cos\\theta}$",
+            "Propriété de réflexion de l'ellipse : la tangente en $M$ est la bissectrice extérieure de $(F_1M, F_2M)$",
+            "Propriété de réflexion de la parabole : tout rayon parallèle à l'axe est réfléchi vers le foyer"
+          ]
+        },
+        {
+          "section": "Réduction d'une équation du second degré",
+          "sous_parties": [
+            "Forme générale : $ax^2 + 2bxy + cy^2 + dx + ey + f = 0$",
+            "Méthode : diagonalisation de la partie quadratique puis complétion du carré",
+            "Invariants : discriminant $\\Delta = ac - b^2$ et classification"
+          ]
+        },
+        {
+          "section": "Applications",
+          "sous_parties": [
+            "Orbites keplériennes : les planètes décrivent des ellipses dont le Soleil occupe un foyer",
+            "Antennes paraboliques et réflecteurs",
+            "Construction à la règle et au compas : méthode du jardinier pour l'ellipse"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Toute conique non dégénérée est une ellipse ($e < 1$), une parabole ($e = 1$) ou une hyperbole ($e > 1$), déterminée à isométrie près par son excentricité",
+        "Propriété de réflexion de l'ellipse : la tangente en $M$ fait des angles égaux avec $F_1M$ et $F_2M$",
+        "Équation polaire d'une conique de foyer à l'origine : $r = \\frac{p}{1 + e\\cos\\theta}$",
+        "Théorème de classification par réduction : toute conique $ax^2 + 2bxy + cy^2 + dx + ey + f = 0$ se ramène à une forme réduite par rotation et translation"
+      ],
+      "exemples_importants": [
+        "Cercle : ellipse d'excentricité $0$ ($a = b$)",
+        "Parabole $y^2 = 4x$ : foyer $(1, 0)$, directrice $x = -1$",
+        "Hyperbole $x^2 - y^2 = 1$ : excentricité $\\sqrt{2}$, asymptotes $y = \\pm x$",
+        "Première loi de Kepler : les orbites planétaires sont des ellipses"
+      ],
+      "erreurs_courantes": [
+        "Confondre demi-grand axe $a$ et distance focale $c$",
+        "Oublier les cas dégénérés dans la classification (deux droites, un point, l'ensemble vide)",
+        "Ne pas vérifier le sens de l'inégalité pour l'excentricité de chaque type"
+      ],
+      "conseils_jury": [
+        "La classification complète des coniques par réduction est un développement classique",
+        "Savoir passer de la forme générale à la forme réduite rapidement",
+        "Le jury apprécie le lien avec la mécanique céleste (lois de Kepler)"
+      ],
+      "tags": [
+        "interne",
+        "externe"
+      ]
+    },
+    {
+      "numero": 403,
+      "titre": "Quadriques. Classification et propriétés.",
+      "points_cles": [
+        "Définition d'une quadrique dans $\\mathbb{R}^n$",
+        "Réduction de la forme quadratique associée",
+        "Classification des quadriques de $\\mathbb{R}^3$ : ellipsoïde, hyperboloïdes, paraboloïdes, cylindres, cônes",
+        "Sections planes et génératrices",
+        "Quadriques réglées"
+      ],
+      "developpements": [
+        "classification_quadriques_R3",
+        "quadrique_reglee"
+      ],
+      "prerequis": [
+        "formes_quadratiques",
+        "reduction_endomorphismes",
+        "espaces_affines"
+      ],
+      "plan": [
+        {
+          "section": "Définition et forme quadratique associée",
+          "sous_parties": [
+            "Quadrique : ensemble des zéros d'un polynôme de degré $2$ en $n$ variables",
+            "Écriture matricielle : $X^T A X + B^T X + c = 0$ avec $A$ symétrique",
+            "Quadrique affine et quadrique projective"
+          ]
+        },
+        {
+          "section": "Méthode de réduction",
+          "sous_parties": [
+            "Diagonalisation de la partie quadratique par une rotation (théorème spectral)",
+            "Complétion des carrés pour les termes linéaires",
+            "Translation pour éliminer les termes de degré $1$ (si possible)"
+          ]
+        },
+        {
+          "section": "Classification en dimension 3",
+          "sous_parties": [
+            "Quadriques propres non dégénérées : ellipsoïde, hyperboloïde à une nappe, hyperboloïde à deux nappes",
+            "Paraboloïdes : elliptique et hyperbolique",
+            "Cas dégénérés : cône, cylindre elliptique, cylindre hyperbolique, cylindre parabolique"
+          ]
+        },
+        {
+          "section": "Propriétés géométriques",
+          "sous_parties": [
+            "Centre de symétrie (s'il existe) : solution de $A\\vec{x} = -B/2$",
+            "Plans de symétrie et axes principaux",
+            "Sections planes : les sections d'une quadrique par un plan sont des coniques"
+          ]
+        },
+        {
+          "section": "Quadriques réglées",
+          "sous_parties": [
+            "Hyperboloïde à une nappe : deux familles de droites (génératrices)",
+            "Paraboloïde hyperbolique : surface « selle », deux familles de droites",
+            "Paramétrage par les génératrices"
+          ]
+        },
+        {
+          "section": "Applications",
+          "sous_parties": [
+            "Complétion en carrés et formes normales",
+            "Intersection de deux quadriques : courbe de degré $4$",
+            "Quadriques en architecture et design (voûtes hyperboliques)"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Théorème de classification : toute quadrique non dégénérée de $\\mathbb{R}^3$ est, à isométrie près, un ellipsoïde, un hyperboloïde (une ou deux nappes) ou un paraboloïde (elliptique ou hyperbolique)",
+        "Loi d'inertie de Sylvester : la signature $(p, q)$ de la forme quadratique est un invariant de la quadrique",
+        "Toute section plane d'une quadrique est une conique (éventuellement dégénérée)",
+        "L'hyperboloïde à une nappe et le paraboloïde hyperbolique sont des surfaces réglées doublement"
+      ],
+      "exemples_importants": [
+        "Ellipsoïde : $\\frac{x^2}{a^2} + \\frac{y^2}{b^2} + \\frac{z^2}{c^2} = 1$",
+        "Hyperboloïde à une nappe : $\\frac{x^2}{a^2} + \\frac{y^2}{b^2} - \\frac{z^2}{c^2} = 1$, surface réglée",
+        "Paraboloïde hyperbolique (selle de cheval) : $z = \\frac{x^2}{a^2} - \\frac{y^2}{b^2}$",
+        "Cône de révolution : $x^2 + y^2 - z^2 = 0$, quadrique dégénérée"
+      ],
+      "erreurs_courantes": [
+        "Oublier les cas dégénérés (cônes, cylindres, plans) dans la classification",
+        "Confondre hyperboloïde à une nappe et à deux nappes",
+        "Ne pas vérifier si la quadrique a un centre de symétrie avant de tenter la réduction"
+      ],
+      "conseils_jury": [
+        "La classification complète avec les cas dégénérés est attendue",
+        "Savoir retrouver le type d'une quadrique à partir d'une équation quelconque",
+        "Le jury apprécie des dessins clairs des différentes quadriques"
+      ],
+      "tags": [
+        "interne",
+        "externe"
+      ]
+    },
+    {
+      "numero": 404,
+      "titre": "Courbes planes. Études locales et globales.",
+      "points_cles": [
+        "Courbes paramétrées et courbes implicites",
+        "Tangente, points singuliers, branches infinies",
+        "Courbure et rayon de courbure",
+        "Points d'inflexion et concavité",
+        "Courbes classiques"
+      ],
+      "developpements": [
+        "courbure_courbe_plane",
+        "formule_longueur_arc"
+      ],
+      "prerequis": [
+        "calcul_differentiel",
+        "courbes_parametrees",
+        "integrales"
+      ],
+      "plan": [
+        {
+          "section": "Courbes paramétrées : généralités",
+          "sous_parties": [
+            "Arc paramétré : application $\\gamma : I \\to \\mathbb{R}^2$, $t \\mapsto (x(t), y(t))$",
+            "Point régulier : $\\gamma'(t) \\neq 0$ ; point singulier : $\\gamma'(t) = 0$",
+            "Reparamétrage et invariance des propriétés géométriques"
+          ]
+        },
+        {
+          "section": "Étude locale",
+          "sous_parties": [
+            "Vecteur tangent en un point régulier : $\\gamma'(t)$",
+            "Étude des points singuliers : développement de Taylor, points de rebroussement",
+            "Point de rebroussement de première et deuxième espèce"
+          ]
+        },
+        {
+          "section": "Courbure",
+          "sous_parties": [
+            "Abscisse curviligne : $s(t) = \\int_{t_0}^t \\|\\gamma'(u)\\| \\, du$",
+            "Courbure : $\\kappa = \\frac{|x'y'' - x''y'|}{(x'^2 + y'^2)^{3/2}}$",
+            "Rayon de courbure $R = 1/|\\kappa|$ et centre de courbure",
+            "Développée : lieu des centres de courbure"
+          ]
+        },
+        {
+          "section": "Branches infinies et asymptotes",
+          "sous_parties": [
+            "Direction asymptotique : $\\lim_{t \\to a} y(t)/x(t)$",
+            "Asymptote rectiligne : $y \\sim mx + p$ quand $t \\to a$",
+            "Branche parabolique : direction asymptotique sans asymptote"
+          ]
+        },
+        {
+          "section": "Courbes implicites",
+          "sous_parties": [
+            "Définition : $\\{(x, y) : F(x, y) = 0\\}$",
+            "Théorème des fonctions implicites : existence locale d'un paramétrage",
+            "Points singuliers d'une courbe implicite : $\\nabla F = 0$"
+          ]
+        },
+        {
+          "section": "Exemples de courbes classiques",
+          "sous_parties": [
+            "Cycloïde : $x = t - \\sin t$, $y = 1 - \\cos t$ (brachistochrone)",
+            "Cardioïde : $r = 1 + \\cos\\theta$ en polaires",
+            "Lemniscate de Bernoulli : $(x^2 + y^2)^2 = x^2 - y^2$"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Formule de la courbure : $\\kappa(t) = \\frac{x'(t)y''(t) - x''(t)y'(t)}{(x'(t)^2 + y'(t)^2)^{3/2}}$",
+        "Longueur d'un arc : $L = \\int_a^b \\|\\gamma'(t)\\| \\, dt = \\int_a^b \\sqrt{x'(t)^2 + y'(t)^2} \\, dt$",
+        "Théorème des fonctions implicites : si $F(x_0, y_0) = 0$ et $\\partial F/\\partial y(x_0, y_0) \\neq 0$, alors localement $y = \\varphi(x)$",
+        "Formule des quatre sommets : toute courbe fermée convexe simple de $\\mathbb{R}^2$ admet au moins $4$ sommets (extrema de la courbure)"
+      ],
+      "exemples_importants": [
+        "Cycloïde : point de rebroussement de première espèce en $t = 2k\\pi$, longueur d'une arche $= 8$",
+        "Astroïde : $x^{2/3} + y^{2/3} = 1$, quatre points de rebroussement",
+        "Spirale logarithmique : $r = e^{a\\theta}$, autosimiilaire",
+        "Développée de l'ellipse : astroïde"
+      ],
+      "erreurs_courantes": [
+        "Confondre point de rebroussement et point double (auto-intersection)",
+        "Oublier de vérifier la régularité avant d'appliquer les formules de courbure",
+        "Ne pas distinguer branche parabolique et asymptote"
+      ],
+      "conseils_jury": [
+        "Savoir tracer et étudier complètement une courbe (régularité, tangentes, concavité, branches infinies)",
+        "Avoir plusieurs courbes classiques en réserve avec leurs propriétés",
+        "Le jury apprécie une présentation soignée avec des dessins"
+      ],
+      "tags": [
+        "interne",
+        "externe"
+      ]
+    },
+    {
+      "numero": 405,
+      "titre": "Convexité dans $\\mathbb{R}^n$. Théorèmes de séparation.",
+      "points_cles": [
+        "Ensembles convexes : définition et exemples",
+        "Enveloppe convexe et points extrémaux",
+        "Projection sur un convexe fermé",
+        "Théorèmes de séparation par un hyperplan",
+        "Applications en optimisation"
+      ],
+      "developpements": [
+        "hahn_banach_geometrique",
+        "krein_milman"
+      ],
+      "prerequis": [
+        "espaces_vectoriels_normes",
+        "topologie_Rn",
+        "formes_lineaires"
+      ],
+      "plan": [
+        {
+          "section": "Ensembles convexes",
+          "sous_parties": [
+            "Définition : $C$ convexe si $\\forall x, y \\in C, \\forall t \\in [0,1], tx + (1-t)y \\in C$",
+            "Exemples : boules, demi-espaces, polyèdres, épigraphes de fonctions convexes",
+            "Opérations : intersection, somme de Minkowski, image par application linéaire"
+          ]
+        },
+        {
+          "section": "Enveloppe convexe",
+          "sous_parties": [
+            "Définition : plus petit convexe contenant un ensemble $A$",
+            "Théorème de Carathéodory : dans $\\mathbb{R}^n$, tout point de $\\mathrm{conv}(A)$ est barycentre de $n+1$ points de $A$",
+            "Points extrémaux : $x \\in C$ est extrémal s'il n'est milieu d'aucun segment inclus dans $C$"
+          ]
+        },
+        {
+          "section": "Projection sur un convexe fermé",
+          "sous_parties": [
+            "Théorème de projection : pour tout $x \\in \\mathbb{R}^n$ et tout convexe fermé non vide $C$, il existe un unique $p_C(x) \\in C$ minimisant $\\|x - c\\|$",
+            "Caractérisation : $p_C(x) = p$ ssi $\\langle x - p, c - p \\rangle \\leq 0$ pour tout $c \\in C$",
+            "Le projecteur $p_C$ est $1$-lipschitzien"
+          ]
+        },
+        {
+          "section": "Théorèmes de séparation",
+          "sous_parties": [
+            "Hyperplan séparant : $A$ et $B$ sont séparés par $H$ si $A \\subset H^+$ et $B \\subset H^-$",
+            "Théorème de séparation faible : deux convexes disjoints dont l'un est compact peuvent être strictement séparés",
+            "Théorème de Hahn-Banach géométrique : un convexe fermé et un point extérieur sont strictement séparés par un hyperplan"
+          ]
+        },
+        {
+          "section": "Théorème de Krein-Milman",
+          "sous_parties": [
+            "Énoncé : tout convexe compact non vide est l'enveloppe convexe fermée de ses points extrémaux",
+            "Application : la boule unité de $\\mathbb{R}^n$ (norme euclidienne) a pour points extrémaux la sphère",
+            "Application : description des matrices bistochastiques (théorème de Birkhoff)"
+          ]
+        },
+        {
+          "section": "Applications",
+          "sous_parties": [
+            "Programmation linéaire : l'optimum est atteint en un sommet du polyèdre",
+            "Inégalité de Jensen pour les fonctions convexes",
+            "Dualité en optimisation convexe"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Théorème de Carathéodory : dans $\\mathbb{R}^n$, tout point de $\\mathrm{conv}(A)$ s'écrit comme combinaison convexe d'au plus $n+1$ points de $A$",
+        "Théorème de séparation stricte : si $C$ est un convexe fermé de $\\mathbb{R}^n$ et $x \\notin C$, il existe un hyperplan séparant strictement $\\{x\\}$ et $C$",
+        "Théorème de Krein-Milman : tout convexe compact non vide de $\\mathbb{R}^n$ est l'enveloppe convexe de ses points extrémaux",
+        "Théorème de Birkhoff : les points extrémaux de l'ensemble des matrices bistochastiques sont les matrices de permutation"
+      ],
+      "exemples_importants": [
+        "Enveloppe convexe de $n+1$ points en position générale dans $\\mathbb{R}^n$ : simplexe",
+        "Projection sur un sous-espace affine : projection orthogonale classique",
+        "Boule unité de $\\ell^1(\\mathbb{R}^n)$ : points extrémaux $= \\{\\pm e_i\\}$",
+        "Théorème de Birkhoff : matrice doublement stochastique = combinaison convexe de matrices de permutation"
+      ],
+      "erreurs_courantes": [
+        "Confondre séparation faible et séparation stricte",
+        "Oublier l'hypothèse de compacité dans Krein-Milman",
+        "Appliquer la projection sans vérifier que le convexe est fermé"
+      ],
+      "conseils_jury": [
+        "Le théorème de Krein-Milman est un développement apprécié",
+        "Savoir appliquer le théorème de séparation pour démontrer d'autres résultats (Farkas, programmation linéaire)",
+        "Le jury attend une bonne connaissance des exemples géométriques"
+      ],
+      "tags": [
+        "interne",
+        "externe"
+      ]
+    },
+    {
+      "numero": 406,
+      "titre": "Surfaces de $\\mathbb{R}^3$. Première et deuxième forme fondamentale.",
+      "points_cles": [
+        "Surface régulière et paramétrage",
+        "Plan tangent et vecteur normal",
+        "Première forme fondamentale : métrique induite",
+        "Deuxième forme fondamentale : courbure",
+        "Courbure de Gauss et courbure moyenne"
+      ],
+      "developpements": [
+        "theorema_egregium",
+        "gauss_bonnet"
+      ],
+      "prerequis": [
+        "calcul_differentiel",
+        "formes_bilineaires",
+        "courbes_parametrees"
+      ],
+      "plan": [
+        {
+          "section": "Surfaces régulières",
+          "sous_parties": [
+            "Paramétrage : $\\Phi : U \\subset \\mathbb{R}^2 \\to \\mathbb{R}^3$, $(u, v) \\mapsto \\Phi(u, v)$ avec $\\Phi_u \\wedge \\Phi_v \\neq 0$",
+            "Plan tangent en $p$ : $T_p S = \\mathrm{Vect}(\\Phi_u, \\Phi_v)$",
+            "Vecteur normal unitaire : $N = \\frac{\\Phi_u \\wedge \\Phi_v}{\\|\\Phi_u \\wedge \\Phi_v\\|}$"
+          ]
+        },
+        {
+          "section": "Première forme fondamentale",
+          "sous_parties": [
+            "Définition : $I_p(w) = \\langle w, w \\rangle$ pour $w \\in T_p S$ (métrique induite)",
+            "Coefficients : $E = \\langle \\Phi_u, \\Phi_u \\rangle$, $F = \\langle \\Phi_u, \\Phi_v \\rangle$, $G = \\langle \\Phi_v, \\Phi_v \\rangle$",
+            "Applications : calcul de longueurs, d'angles et d'aires sur la surface"
+          ]
+        },
+        {
+          "section": "Deuxième forme fondamentale",
+          "sous_parties": [
+            "Application de Gauss (ou application normale) : $N : S \\to S^2$",
+            "Endomorphisme de Weingarten : $dN_p : T_pS \\to T_pS$ (autoadjoint)",
+            "Deuxième forme fondamentale : $II_p(w) = -\\langle dN_p(w), w \\rangle$, coefficients $L, M, N$"
+          ]
+        },
+        {
+          "section": "Courbures",
+          "sous_parties": [
+            "Courbures principales $\\kappa_1, \\kappa_2$ : valeurs propres de $dN_p$",
+            "Courbure de Gauss : $K = \\kappa_1 \\kappa_2 = \\frac{LN - M^2}{EG - F^2}$",
+            "Courbure moyenne : $H = \\frac{\\kappa_1 + \\kappa_2}{2} = \\frac{EN - 2FM + GL}{2(EG - F^2)}$"
+          ]
+        },
+        {
+          "section": "Theorema Egregium de Gauss",
+          "sous_parties": [
+            "Énoncé : la courbure de Gauss $K$ ne dépend que de la première forme fondamentale",
+            "Conséquence : $K$ est un invariant intrinsèque (invariant par isométrie locale)",
+            "On ne peut pas aplatir une sphère sans la déformer : $K_{\\text{sphère}} = 1/R^2 \\neq 0$"
+          ]
+        },
+        {
+          "section": "Applications",
+          "sous_parties": [
+            "Sphère de rayon $R$ : $K = 1/R^2$, $H = 1/R$",
+            "Surfaces minimales : $H = 0$ (caténoïde, hélicoïde)",
+            "Théorème de Gauss-Bonnet : $\\int_S K \\, dA = 2\\pi \\chi(S)$ (formule topologique)"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Theorema Egregium de Gauss : la courbure de Gauss $K$ d'une surface est un invariant de la première forme fondamentale (invariant isométrique)",
+        "Théorème de Gauss-Bonnet : pour une surface compacte orientable sans bord, $\\int_S K \\, dA = 2\\pi \\chi(S)$ où $\\chi(S)$ est la caractéristique d'Euler",
+        "Formule de la courbure de Gauss : $K = (LN - M^2)/(EG - F^2)$ en termes des coefficients des deux formes fondamentales",
+        "Les surfaces minimales (surfaces d'aire minimale à bord fixé) sont caractérisées par $H = 0$"
+      ],
+      "exemples_importants": [
+        "Sphère $S^2(R)$ : $K = 1/R^2$ (constante), $H = 1/R$, Gauss-Bonnet donne $4\\pi R^2 \\cdot 1/R^2 = 4\\pi = 2\\pi \\chi(S^2)$",
+        "Cylindre : $K = 0$, développable (isométrique localement au plan)",
+        "Tore : régions de courbure positive (extérieur) et négative (intérieur), Gauss-Bonnet donne $\\int K \\, dA = 0$",
+        "Pseudosphère (surface de révolution de la tractrice) : $K = -1$ constante"
+      ],
+      "erreurs_courantes": [
+        "Confondre courbure de Gauss (intrinsèque) et courbure moyenne (extrinsèque)",
+        "Oublier que le Theorema Egregium dit que $K$ ne dépend que de $E, F, G$ et de leurs dérivées",
+        "Appliquer Gauss-Bonnet sans vérifier que la surface est compacte sans bord"
+      ],
+      "conseils_jury": [
+        "Le Theorema Egregium est un développement incontournable pour cette leçon",
+        "Savoir calculer les courbures sur des exemples concrets (sphère, cylindre, tore)",
+        "Le théorème de Gauss-Bonnet illustre magnifiquement le lien entre géométrie et topologie"
+      ],
+      "tags": [
+        "externe"
+      ]
+    },
+    {
+      "numero": 407,
+      "titre": "Groupe des rotations. $SO(n)$ et ses sous-groupes.",
+      "points_cles": [
+        "Groupe orthogonal $O(n)$ et groupe spécial orthogonal $SO(n)$",
+        "Structure de $SO(2)$ et $SO(3)$",
+        "Paramétrage des rotations : angles d'Euler, quaternions",
+        "Sous-groupes finis de $SO(3)$",
+        "Algèbre de Lie $\\mathfrak{so}(n)$"
+      ],
+      "developpements": [
+        "sous_groupes_finis_SO3",
+        "parametrage_quaternions"
+      ],
+      "prerequis": [
+        "algebre_lineaire",
+        "groupes_structures",
+        "espaces_euclidiens"
+      ],
+      "plan": [
+        {
+          "section": "Groupe orthogonal et groupe spécial orthogonal",
+          "sous_parties": [
+            "Définition : $O(n) = \\{A \\in GL_n(\\mathbb{R}) : A^T A = I_n\\}$, $SO(n) = O(n) \\cap SL_n(\\mathbb{R})$",
+            "Topologie : $O(n)$ compact, $SO(n)$ compact connexe",
+            "Spectre d'une matrice orthogonale : valeurs propres de module $1$"
+          ]
+        },
+        {
+          "section": "Structure de $SO(2)$",
+          "sous_parties": [
+            "Isomorphisme $SO(2) \\cong \\mathbb{U}$ (cercle unité)",
+            "Matrice de rotation d'angle $\\theta$ : $R_\\theta = \\begin{pmatrix} \\cos\\theta & -\\sin\\theta \\\\ \\sin\\theta & \\cos\\theta \\end{pmatrix}$",
+            "Sous-groupes : les sous-groupes fermés de $SO(2)$ sont $SO(2)$ et les groupes cycliques $C_n$"
+          ]
+        },
+        {
+          "section": "Structure de $SO(3)$",
+          "sous_parties": [
+            "Théorème d'Euler : toute rotation de $\\mathbb{R}^3$ a un axe (vecteur propre pour la valeur propre $1$)",
+            "Paramétrage par axe et angle : $R(\\vec{u}, \\theta)$",
+            "Angles d'Euler : décomposition $R = R_z(\\alpha) R_x(\\beta) R_z(\\gamma)$"
+          ]
+        },
+        {
+          "section": "Quaternions et rotations",
+          "sous_parties": [
+            "Corps des quaternions $\\mathbb{H}$ et quaternions unitaires $S^3$",
+            "Revêtement $SU(2) \\to SO(3)$ : $q \\mapsto (v \\mapsto qv\\bar{q})$, noyau $\\{\\pm 1\\}$",
+            "Application : interpolation de rotations (SLERP)"
+          ]
+        },
+        {
+          "section": "Sous-groupes finis de $SO(3)$",
+          "sous_parties": [
+            "Classification : cycliques $C_n$, diédraux $D_n$, tétraédrique $A_4$, octaédrique $S_4$, icosaédrique $A_5$",
+            "Démonstration par comptage des pôles",
+            "Lien avec les polyèdres réguliers"
+          ]
+        },
+        {
+          "section": "Algèbre de Lie $\\mathfrak{so}(n)$",
+          "sous_parties": [
+            "Espace tangent à $SO(n)$ en $I_n$ : matrices antisymétriques $\\mathfrak{so}(n) = \\{A : A^T = -A\\}$",
+            "Exponentielle matricielle : $e^A \\in SO(n)$ pour $A \\in \\mathfrak{so}(n)$",
+            "Dimension : $\\dim \\mathfrak{so}(n) = n(n-1)/2$"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Théorème d'Euler : toute rotation de $\\mathbb{R}^3$ (élément de $SO(3) \\setminus \\{I\\}$) est une rotation d'angle $\\theta$ autour d'un axe orienté",
+        "Classification des sous-groupes finis de $SO(3)$ : cycliques $C_n$, diédraux $D_n$ ($n \\geq 2$), $A_4$ (tétraèdre), $S_4$ (cube/octaèdre), $A_5$ (dodécaèdre/icosaèdre)",
+        "Revêtement double : $SU(2) \\to SO(3)$ est un morphisme de groupes surjectif de noyau $\\{\\pm I\\}$, i.e. $SO(3) \\cong SU(2)/\\{\\pm I\\}$",
+        "L'application exponentielle $\\exp : \\mathfrak{so}(n) \\to SO(n)$ est surjective"
+      ],
+      "exemples_importants": [
+        "Groupe des rotations du cube : $24$ éléments, isomorphe à $S_4$",
+        "Groupe des rotations de l'icosaèdre : $60$ éléments, isomorphe à $A_5$",
+        "Quaternion $q = \\cos(\\theta/2) + \\sin(\\theta/2)(ai + bj + ck)$ pour la rotation d'angle $\\theta$ autour de $(a, b, c)$",
+        "Matrice antisymétrique $\\begin{pmatrix} 0 & -c & b \\\\ c & 0 & -a \\\\ -b & a & 0 \\end{pmatrix}$ dans $\\mathfrak{so}(3)$ associée au vecteur $(a, b, c)$"
+      ],
+      "erreurs_courantes": [
+        "Confondre $O(n)$ et $SO(n)$ (les réflexions ne sont pas dans $SO(n)$)",
+        "Oublier que le revêtement $SU(2) \\to SO(3)$ est $2:1$ (le noyau est $\\{\\pm I\\}$)",
+        "Croire que tout sous-groupe fini de $O(3)$ est un sous-groupe fini de $SO(3)$"
+      ],
+      "conseils_jury": [
+        "La classification des sous-groupes finis de $SO(3)$ est un développement classique et très apprécié",
+        "Savoir relier les sous-groupes aux polyèdres réguliers",
+        "Le jury apprécie la présentation des quaternions comme outil de paramétrage des rotations"
+      ],
+      "tags": [
+        "interne",
+        "externe"
+      ]
+    },
+    {
+      "numero": 408,
+      "titre": "Barycentres. Applications affines et géométriques.",
+      "points_cles": [
+        "Barycentre de points pondérés",
+        "Espace affine et combinaisons affines",
+        "Applications affines : définition et propriétés",
+        "Coordonnées barycentriques",
+        "Applications géométriques"
+      ],
+      "developpements": [
+        "theoreme_ceva_menelaus",
+        "centre_gravite_solides"
+      ],
+      "prerequis": [
+        "espaces_vectoriels",
+        "espaces_affines",
+        "geometrie_elementaire"
+      ],
+      "plan": [
+        {
+          "section": "Barycentre : définition et existence",
+          "sous_parties": [
+            "Points pondérés $(A_i, \\lambda_i)$ avec $\\sum \\lambda_i \\neq 0$ : le barycentre $G$ vérifie $\\sum \\lambda_i \\vec{GA_i} = \\vec{0}$",
+            "Formule : $G = \\frac{\\sum \\lambda_i A_i}{\\sum \\lambda_i}$ (en coordonnées)",
+            "Associativité du barycentre : regroupement de points pondérés"
+          ]
+        },
+        {
+          "section": "Combinaisons affines et coordonnées barycentriques",
+          "sous_parties": [
+            "Combinaison affine : $\\sum \\lambda_i A_i$ avec $\\sum \\lambda_i = 1$",
+            "Enveloppe affine : plus petit sous-espace affine contenant un ensemble de points",
+            "Coordonnées barycentriques d'un point par rapport à un repère affine"
+          ]
+        },
+        {
+          "section": "Applications affines",
+          "sous_parties": [
+            "Définition : $f$ affine si $f(\\sum \\lambda_i A_i) = \\sum \\lambda_i f(A_i)$ pour toute combinaison affine",
+            "Caractérisation : $f(A) = \\vec{f}(\\vec{OA}) + f(O)$ avec $\\vec{f}$ linéaire",
+            "Propriétés : conservation du parallélisme, des rapports de division, du barycentre"
+          ]
+        },
+        {
+          "section": "Théorèmes classiques de géométrie affine",
+          "sous_parties": [
+            "Théorème de Thalès et applications",
+            "Théorème de Céva : $\\frac{\\overline{BD}}{\\overline{DC}} \\cdot \\frac{\\overline{CE}}{\\overline{EA}} \\cdot \\frac{\\overline{AF}}{\\overline{FB}} = 1$ (céviennes concourantes)",
+            "Théorème de Ménélaüs : condition d'alignement"
+          ]
+        },
+        {
+          "section": "Points remarquables d'un triangle",
+          "sous_parties": [
+            "Centre de gravité $G$ : barycentre $(A, 1), (B, 1), (C, 1)$",
+            "Centre du cercle inscrit $I$ : barycentre $(A, a), (B, b), (C, c)$ (côtés opposés)",
+            "Droite d'Euler : $O$, $G$, $H$ alignés avec $\\vec{OG} = \\frac{1}{3}\\vec{OH}$"
+          ]
+        },
+        {
+          "section": "Applications",
+          "sous_parties": [
+            "Calcul du centre de masse de figures planes et de solides",
+            "Démonstration du théorème de Ménélaüs par les coordonnées barycentriques",
+            "Transformation affine des coniques"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Existence et unicité du barycentre : si $\\sum \\lambda_i \\neq 0$, il existe un unique point $G$ tel que $\\sum \\lambda_i \\vec{GA_i} = \\vec{0}$",
+        "Théorème de Céva : dans un triangle $ABC$, les céviennes $AD$, $BE$, $CF$ sont concourantes ssi $\\frac{\\overline{BD}}{\\overline{DC}} \\cdot \\frac{\\overline{CE}}{\\overline{EA}} \\cdot \\frac{\\overline{AF}}{\\overline{FB}} = 1$",
+        "Théorème de Ménélaüs : $D \\in (BC)$, $E \\in (CA)$, $F \\in (AB)$ sont alignés ssi $\\frac{\\overline{BD}}{\\overline{DC}} \\cdot \\frac{\\overline{CE}}{\\overline{EA}} \\cdot \\frac{\\overline{AF}}{\\overline{FB}} = -1$",
+        "Toute application affine bijective envoie barycentre sur barycentre : $f(\\mathrm{Bar}((A_i, \\lambda_i))) = \\mathrm{Bar}((f(A_i), \\lambda_i))$"
+      ],
+      "exemples_importants": [
+        "Centre de gravité du triangle : intersection des médianes, $G = (A + B + C)/3$",
+        "Droite d'Euler d'un triangle : $O$ (circumcentre), $G$ (centre de gravité), $H$ (orthocentre) alignés",
+        "Centre de masse d'un disque homogène : son centre géométrique",
+        "Application affine : la projection parallèle est une application affine"
+      ],
+      "erreurs_courantes": [
+        "Oublier la condition $\\sum \\lambda_i \\neq 0$ pour l'existence du barycentre",
+        "Confondre combinaison affine ($\\sum \\lambda_i = 1$) et combinaison linéaire",
+        "Ne pas orienter les rapports dans les théorèmes de Céva et Ménélaüs"
+      ],
+      "conseils_jury": [
+        "Les théorèmes de Céva et Ménélaüs sont des développements classiques",
+        "Savoir retrouver les points remarquables du triangle comme barycentres",
+        "Le jury apprécie l'utilisation des coordonnées barycentriques pour simplifier les preuves"
+      ],
+      "tags": [
+        "interne",
+        "externe"
+      ]
+    },
+    {
+      "numero": 409,
+      "titre": "Similitudes planes. Applications.",
+      "points_cles": [
+        "Similitude directe et indirecte du plan",
+        "Écriture complexe des similitudes",
+        "Point fixe et rapport de similitude",
+        "Composition de similitudes",
+        "Applications géométriques"
+      ],
+      "developpements": [
+        "similitudes_complexes",
+        "spirale_similitude"
+      ],
+      "prerequis": [
+        "nombres_complexes",
+        "isometries_plan",
+        "espaces_affines"
+      ],
+      "plan": [
+        {
+          "section": "Similitudes du plan : définition",
+          "sous_parties": [
+            "Définition : $f$ est une similitude de rapport $k > 0$ si $d(f(A), f(B)) = k \\cdot d(A, B)$",
+            "Similitude directe et indirecte : $\\det \\vec{f} = \\pm k^2$",
+            "Groupe des similitudes : le rapport est un morphisme vers $(\\mathbb{R}^{+*}, \\times)$"
+          ]
+        },
+        {
+          "section": "Écriture complexe",
+          "sous_parties": [
+            "Similitude directe : $z \\mapsto az + b$ avec $a \\neq 0$, rapport $|a|$, angle $\\arg(a)$",
+            "Similitude indirecte : $z \\mapsto a\\bar{z} + b$ avec $a \\neq 0$",
+            "Point fixe : si $|a| \\neq 1$, unique point fixe $\\omega = b/(1-a)$"
+          ]
+        },
+        {
+          "section": "Similitudes directes : classification",
+          "sous_parties": [
+            "Si $a = 1$ : translation $z \\mapsto z + b$",
+            "Si $|a| = 1$, $a \\neq 1$ : rotation de centre $\\omega$ et d'angle $\\arg(a)$",
+            "Si $|a| \\neq 1$ : similitude directe de centre $\\omega$, de rapport $|a|$ et d'angle $\\arg(a)$ (similitude spirale)"
+          ]
+        },
+        {
+          "section": "Composition de similitudes",
+          "sous_parties": [
+            "La composée de deux similitudes est une similitude (ou une translation)",
+            "Rapport de la composée : produit des rapports",
+            "Composée de deux réflexions d'axes sécants : rotation"
+          ]
+        },
+        {
+          "section": "Applications géométriques",
+          "sous_parties": [
+            "Spirale de Fibonacci et similitudes itérées",
+            "Construction de triangles semblables : conditions suffisantes",
+            "Point de concours par les similitudes : théorème de Napoléon"
+          ]
+        },
+        {
+          "section": "Systèmes de fonctions itérées (IFS)",
+          "sous_parties": [
+            "Similitudes contractantes et attracteur",
+            "Fractales classiques : triangle de Sierpinski, flocon de Koch",
+            "Théorème du point fixe de Hutchinson"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Toute similitude directe du plan s'écrit $z \\mapsto az + b$ avec $a, b \\in \\mathbb{C}$, $a \\neq 0$, de rapport $|a|$ et d'angle $\\arg(a)$",
+        "Point fixe : une similitude directe de rapport $k \\neq 1$ admet un unique point fixe $\\omega = b/(1 - a)$",
+        "Théorème de Napoléon : si l'on construit des triangles équilatéraux sur les côtés d'un triangle quelconque, leurs centres forment un triangle équilatéral",
+        "Théorème de Hutchinson : si $f_1, \\ldots, f_m$ sont des similitudes contractantes, il existe un unique compact $K$ tel que $K = \\bigcup f_i(K)$"
+      ],
+      "exemples_importants": [
+        "Similitude directe $z \\mapsto (1+i)z$ : rapport $\\sqrt{2}$, angle $\\pi/4$, centre $0$",
+        "Triangle de Sierpinski : attracteur de $3$ similitudes de rapport $1/2$",
+        "Spirale logarithmique comme orbite d'un point sous itération d'une similitude spirale",
+        "Théorème de Napoléon : preuve par les similitudes complexes"
+      ],
+      "erreurs_courantes": [
+        "Oublier le cas de la translation ($a = 1$) qui n'a pas de point fixe",
+        "Confondre similitude directe ($z \\mapsto az + b$) et indirecte ($z \\mapsto a\\bar{z} + b$)",
+        "Ne pas distinguer rapport de similitude et angle de similitude"
+      ],
+      "conseils_jury": [
+        "L'écriture complexe est un outil puissant : l'utiliser systématiquement",
+        "Le théorème de Napoléon est un développement élégant",
+        "Le jury apprécie les applications aux fractales et aux systèmes itérés"
+      ],
+      "tags": [
+        "interne",
+        "externe"
+      ]
+    },
+    {
+      "numero": 410,
+      "titre": "Géométrie projective du plan. Dualité, birapport.",
+      "points_cles": [
+        "Espace projectif : définition et coordonnées homogènes",
+        "Droites projectives et dualité",
+        "Birapport et invariance projective",
+        "Théorème de Desargues et théorème de Pappus",
+        "Coniques projectives"
+      ],
+      "developpements": [
+        "theoreme_desargues",
+        "birapport_invariance"
+      ],
+      "prerequis": [
+        "algebre_lineaire",
+        "espaces_affines",
+        "geometrie_elementaire"
+      ],
+      "plan": [
+        {
+          "section": "Espace projectif",
+          "sous_parties": [
+            "Définition : $\\mathbb{P}^n(K) = (K^{n+1} \\setminus \\{0\\}) / \\sim$ où $x \\sim \\lambda x$",
+            "Coordonnées homogènes $[x_0 : x_1 : \\cdots : x_n]$",
+            "Carte affine : $\\mathbb{P}^n = \\mathbb{A}^n \\cup H_\\infty$ (droite/plan à l'infini)"
+          ]
+        },
+        {
+          "section": "Le plan projectif $\\mathbb{P}^2(K)$",
+          "sous_parties": [
+            "Points et droites : une droite projective est l'ensemble des zéros d'une forme linéaire $ax + by + cz = 0$",
+            "Deux droites distinctes se coupent toujours en exactement un point",
+            "Axiomes d'incidence : par deux points passe une unique droite"
+          ]
+        },
+        {
+          "section": "Dualité projective",
+          "sous_parties": [
+            "Principe de dualité : échange points $\\leftrightarrow$ droites dans $\\mathbb{P}^2$",
+            "Dual d'un théorème : Desargues est auto-dual",
+            "Espace dual $\\mathbb{P}^{n*}$ et conique duale"
+          ]
+        },
+        {
+          "section": "Birapport",
+          "sous_parties": [
+            "Définition pour quatre points alignés : $[A, B, C, D] = \\frac{\\overline{CA}/\\overline{CB}}{\\overline{DA}/\\overline{DB}}$",
+            "Invariance par homographie (transformation projective)",
+            "Division harmonique : birapport $= -1$"
+          ]
+        },
+        {
+          "section": "Théorèmes fondamentaux",
+          "sous_parties": [
+            "Théorème de Desargues : deux triangles en perspective depuis un point sont en perspective depuis une droite",
+            "Théorème de Pappus : si $A, C, E$ sont sur une droite et $B, D, F$ sur une autre, alors $AB \\cap DE$, $CD \\cap FA$, $EF \\cap BC$ sont alignés",
+            "Théorème fondamental de la géométrie projective : une homographie est déterminée par $n+2$ points en position générale"
+          ]
+        },
+        {
+          "section": "Coniques projectives",
+          "sous_parties": [
+            "Conique de $\\mathbb{P}^2$ : zéros d'une forme quadratique",
+            "Classification projective : toute conique non dégénérée est projectivement équivalente à $x^2 + y^2 - z^2 = 0$",
+            "Théorème de Pascal : hexagone inscrit dans une conique"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Théorème de Desargues : si deux triangles $ABC$ et $A'B'C'$ sont en perspective depuis un point $O$, alors les intersections $AB \\cap A'B'$, $BC \\cap B'C'$, $CA \\cap C'A'$ sont alignées",
+        "Théorème de Pappus : pour six points $A, B, C, D, E, F$ alternés sur deux droites, les points $AE \\cap BD$, $AF \\cap CD$, $BF \\cap CE$ sont alignés",
+        "Invariance du birapport : si $f$ est une homographie, $[f(A), f(B), f(C), f(D)] = [A, B, C, D]$",
+        "Théorème de Pascal : les côtés opposés d'un hexagone inscrit dans une conique se coupent en trois points alignés"
+      ],
+      "exemples_importants": [
+        "Droite projective réelle $\\mathbb{P}^1(\\mathbb{R})$ : homéomorphe au cercle $S^1$",
+        "Droites parallèles dans le plan affine se coupent en un point à l'infini dans $\\mathbb{P}^2$",
+        "Division harmonique : le milieu de $[A, B]$ et le point à l'infini forment un couple harmonique avec $A, B$",
+        "Théorème de Desargues appliqué à la perspective en dessin"
+      ],
+      "erreurs_courantes": [
+        "Oublier les points à l'infini dans les énoncés projectifs",
+        "Confondre birapport et rapport simple",
+        "Appliquer le principe de dualité sans vérifier que le théorème est valide dans le cadre projectif"
+      ],
+      "conseils_jury": [
+        "Le théorème de Desargues avec sa démonstration est un développement classique",
+        "L'invariance du birapport par homographie est un résultat fondamental à maîtriser",
+        "Le jury apprécie des figures soignées illustrant les configurations projectives"
+      ],
+      "tags": [
+        "externe"
+      ]
+    },
+    {
+      "numero": 411,
+      "titre": "Enveloppes de familles de courbes et surfaces.",
+      "points_cles": [
+        "Famille de courbes à un paramètre",
+        "Condition d'enveloppe",
+        "Enveloppe d'une famille de droites",
+        "Caustiques et développées",
+        "Enveloppes de surfaces"
+      ],
+      "developpements": [
+        "enveloppe_droites_tangentes",
+        "caustique_cercle"
+      ],
+      "prerequis": [
+        "calcul_differentiel",
+        "courbes_parametrees",
+        "fonctions_implicites"
+      ],
+      "plan": [
+        {
+          "section": "Familles de courbes à un paramètre",
+          "sous_parties": [
+            "Famille $(C_t)_{t \\in I}$ définie par $F(x, y, t) = 0$",
+            "Enveloppe : courbe tangente à chaque $C_t$",
+            "Condition nécessaire : $F(x, y, t) = 0$ et $\\frac{\\partial F}{\\partial t}(x, y, t) = 0$"
+          ]
+        },
+        {
+          "section": "Théorie des enveloppes",
+          "sous_parties": [
+            "Système d'enveloppe : éliminer $t$ entre $F = 0$ et $\\partial F/\\partial t = 0$",
+            "Courbe discriminante : lieu des points singuliers de la famille",
+            "Condition suffisante de tangence : transversalité"
+          ]
+        },
+        {
+          "section": "Enveloppe d'une famille de droites",
+          "sous_parties": [
+            "Famille de droites : $ax + by + c = 0$ avec $a, b, c$ fonctions de $t$",
+            "L'enveloppe est la développée si les droites sont les normales à une courbe",
+            "Exemple : droites tangentes à une courbe plane, l'enveloppe est la courbe elle-même"
+          ]
+        },
+        {
+          "section": "Développées et développantes",
+          "sous_parties": [
+            "Développée : enveloppe des normales à une courbe = lieu des centres de courbure",
+            "Développante : courbe dont la développée est une courbe donnée",
+            "Relation : la développante se déroule sur la développée"
+          ]
+        },
+        {
+          "section": "Caustiques",
+          "sous_parties": [
+            "Caustique par réflexion : enveloppe des rayons réfléchis",
+            "Caustique d'un cercle pour une source ponctuelle : néphroïde",
+            "Caustique par réfraction"
+          ]
+        },
+        {
+          "section": "Enveloppes de familles de surfaces",
+          "sous_parties": [
+            "Famille $(S_t)$ : $F(x, y, z, t) = 0$, enveloppe par $F = 0$ et $\\partial F/\\partial t = 0$",
+            "Tube autour d'une courbe : enveloppe de sphères de rayon $r$",
+            "Canal : enveloppe de sphères à rayon variable"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Condition d'enveloppe : l'enveloppe de la famille $F(x, y, t) = 0$ est contenue dans l'ensemble défini par $F(x, y, t) = 0$ et $\\partial F/\\partial t(x, y, t) = 0$",
+        "La développée d'une courbe est l'enveloppe de ses normales et le lieu de ses centres de courbure",
+        "Théorème de dualité : si $\\Gamma$ est l'enveloppe des tangentes à $C$, alors $C$ est l'enveloppe des tangentes à $\\Gamma$ (sous conditions de régularité)",
+        "L'enveloppe d'une famille de géodésiques d'une surface est une caustique (front d'onde)"
+      ],
+      "exemples_importants": [
+        "Développée de l'ellipse : astroïde $x^{2/3}/a^{2/3} + y^{2/3}/b^{2/3} = 1$",
+        "Enveloppe de la famille de droites $x\\cos t + y\\sin t = 1$ : cercle de rayon $1$",
+        "Néphroïde : caustique d'un cercle pour des rayons parallèles",
+        "Cycloïde comme développante d'elle-même (à translation près)"
+      ],
+      "erreurs_courantes": [
+        "La condition $F = 0$, $\\partial F/\\partial t = 0$ est nécessaire mais pas toujours suffisante (vérifier la tangence)",
+        "Confondre enveloppe et lieu de points singuliers de la famille",
+        "Oublier de vérifier que la courbe obtenue est effectivement tangente aux courbes de la famille"
+      ],
+      "conseils_jury": [
+        "Savoir calculer des enveloppes sur des exemples variés (droites, cercles)",
+        "Le lien développée/enveloppe des normales est un résultat important",
+        "Le jury apprécie les applications physiques (optique, caustiques)"
+      ],
+      "tags": [
+        "externe"
+      ]
+    },
+    {
+      "numero": 412,
+      "titre": "Courbes paramétrées dans $\\mathbb{R}^2$ et $\\mathbb{R}^3$. Courbure, torsion.",
+      "points_cles": [
+        "Courbe paramétrée régulière",
+        "Abscisse curviligne et repère de Frenet",
+        "Courbure d'une courbe plane et spatiale",
+        "Torsion d'une courbe de l'espace",
+        "Formules de Frenet-Serret"
+      ],
+      "developpements": [
+        "frenet_serret",
+        "courbe_courbure_torsion_prescrites"
+      ],
+      "prerequis": [
+        "calcul_differentiel",
+        "produit_vectoriel",
+        "courbes_parametrees"
+      ],
+      "plan": [
+        {
+          "section": "Courbes paramétrées : rappels",
+          "sous_parties": [
+            "Arc paramétré $\\gamma : I \\to \\mathbb{R}^n$ de classe $C^k$",
+            "Point régulier ($\\gamma'(t) \\neq 0$), point birégulier ($\\gamma'(t)$ et $\\gamma''(t)$ non colinéaires en dim $3$)",
+            "Paramétrage par l'abscisse curviligne : $\\|\\gamma'(s)\\| = 1$"
+          ]
+        },
+        {
+          "section": "Repère de Frenet dans le plan",
+          "sous_parties": [
+            "Vecteur tangent $T(s) = \\gamma'(s)$ et vecteur normal $N(s) = T(s)^\\perp$ (rotation $+\\pi/2$)",
+            "Courbure signée : $\\kappa(s) = \\langle T'(s), N(s) \\rangle$",
+            "Formules de Frenet en dimension $2$ : $T' = \\kappa N$, $N' = -\\kappa T$"
+          ]
+        },
+        {
+          "section": "Repère de Frenet dans $\\mathbb{R}^3$",
+          "sous_parties": [
+            "Vecteur tangent $T$, vecteur normal principal $N = T'/\\|T'\\|$, vecteur binormal $B = T \\wedge N$",
+            "Courbure : $\\kappa(s) = \\|T'(s)\\| = \\|\\gamma''(s)\\|$",
+            "Torsion : $\\tau(s) = -\\langle B'(s), N(s) \\rangle$"
+          ]
+        },
+        {
+          "section": "Formules de Frenet-Serret",
+          "sous_parties": [
+            "Système : $T' = \\kappa N$, $N' = -\\kappa T + \\tau B$, $B' = -\\tau N$",
+            "Écriture matricielle antisymétrique",
+            "Interprétation géométrique : $\\kappa$ mesure la déviation du plan osculateur, $\\tau$ mesure la torsion hors du plan"
+          ]
+        },
+        {
+          "section": "Formules en paramétrage quelconque",
+          "sous_parties": [
+            "Courbure dans $\\mathbb{R}^2$ : $\\kappa = \\frac{x'y'' - x''y'}{(x'^2 + y'^2)^{3/2}}$",
+            "Courbure dans $\\mathbb{R}^3$ : $\\kappa = \\frac{\\|\\gamma' \\wedge \\gamma''\\|}{\\|\\gamma'\\|^3}$",
+            "Torsion : $\\tau = \\frac{(\\gamma' \\wedge \\gamma'') \\cdot \\gamma'''}{\\|\\gamma' \\wedge \\gamma''\\|^2}$"
+          ]
+        },
+        {
+          "section": "Théorème fondamental des courbes",
+          "sous_parties": [
+            "Énoncé : $\\kappa(s)$ et $\\tau(s)$ déterminent la courbe à déplacement rigide près",
+            "Courbes planes : $\\tau = 0$ caractérise les courbes contenues dans un plan",
+            "Hélice circulaire : $\\kappa$ et $\\tau$ constants"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Formules de Frenet-Serret : $\\frac{d}{ds}\\begin{pmatrix} T \\\\ N \\\\ B \\end{pmatrix} = \\begin{pmatrix} 0 & \\kappa & 0 \\\\ -\\kappa & 0 & \\tau \\\\ 0 & -\\tau & 0 \\end{pmatrix} \\begin{pmatrix} T \\\\ N \\\\ B \\end{pmatrix}$",
+        "Théorème fondamental des courbes : deux fonctions continues $\\kappa(s) > 0$ et $\\tau(s)$ déterminent, à isométrie directe près, une unique courbe birégulière de $\\mathbb{R}^3$",
+        "Caractérisation des courbes planes : une courbe de $\\mathbb{R}^3$ est plane ssi $\\tau \\equiv 0$",
+        "Caractérisation des hélices : $\\tau/\\kappa = \\text{constante}$ ssi la courbe fait un angle constant avec une direction fixe (hélice généralisée)"
+      ],
+      "exemples_importants": [
+        "Cercle de rayon $R$ : $\\kappa = 1/R$ (constante), $\\tau = 0$",
+        "Hélice circulaire $\\gamma(t) = (a\\cos t, a\\sin t, bt)$ : $\\kappa = a/(a^2+b^2)$, $\\tau = b/(a^2+b^2)$",
+        "Courbe de Viviani : intersection d'un cylindre et d'une sphère",
+        "Cycloïde : point de rebroussement ($\\kappa \\to \\infty$ aux cusps)"
+      ],
+      "erreurs_courantes": [
+        "Confondre courbure signée (en dimension $2$) et courbure (toujours $\\geq 0$ en dimension $3$)",
+        "Appliquer Frenet en un point non birégulier",
+        "Oublier que les formules de courbure et torsion changent selon le paramétrage"
+      ],
+      "conseils_jury": [
+        "Les formules de Frenet-Serret et leur démonstration sont un développement classique",
+        "Savoir calculer courbure et torsion sur des exemples concrets sans hésiter",
+        "Le théorème fondamental des courbes mérite d'être énoncé et discuté"
+      ],
+      "tags": [
+        "interne",
+        "externe"
+      ]
+    },
+    {
+      "numero": 413,
+      "titre": "Triangles, cercles, polygones réguliers. Résultats classiques.",
+      "points_cles": [
+        "Points remarquables du triangle",
+        "Cercle inscrit et cercle circonscrit",
+        "Relations métriques dans le triangle",
+        "Polygones réguliers et constructibilité",
+        "Résultats classiques de géométrie euclidienne"
+      ],
+      "developpements": [
+        "theoreme_ptolemee",
+        "constructibilite_polygones"
+      ],
+      "prerequis": [
+        "geometrie_elementaire",
+        "nombres_complexes",
+        "trigonometrie"
+      ],
+      "plan": [
+        {
+          "section": "Points remarquables du triangle",
+          "sous_parties": [
+            "Centre de gravité $G$ : intersection des médianes",
+            "Orthocentre $H$ : intersection des hauteurs",
+            "Circumcentre $O$ : centre du cercle circonscrit",
+            "Centre du cercle inscrit $I$ et cercles exinscrits"
+          ]
+        },
+        {
+          "section": "Relations métriques",
+          "sous_parties": [
+            "Loi des sinus : $\\frac{a}{\\sin A} = \\frac{b}{\\sin B} = \\frac{c}{\\sin C} = 2R$",
+            "Loi des cosinus (Al-Kashi) : $c^2 = a^2 + b^2 - 2ab\\cos C$",
+            "Formule de Héron : $\\mathcal{A} = \\sqrt{s(s-a)(s-b)(s-c)}$ avec $s = (a+b+c)/2$"
+          ]
+        },
+        {
+          "section": "Droite d'Euler et cercle d'Euler",
+          "sous_parties": [
+            "Droite d'Euler : $O$, $G$, $H$ alignés avec $\\vec{OG} = \\frac{1}{3}\\vec{OH}$",
+            "Cercle des neuf points (cercle d'Euler) : passe par les milieux des côtés, les pieds des hauteurs, les milieux de $[AH]$, $[BH]$, $[CH]$",
+            "Rayon du cercle d'Euler : $R/2$"
+          ]
+        },
+        {
+          "section": "Cercle inscrit et excercles",
+          "sous_parties": [
+            "Rayon du cercle inscrit : $r = \\mathcal{A}/s$ où $\\mathcal{A}$ est l'aire et $s$ le demi-périmètre",
+            "Formule d'Euler : $OI^2 = R^2 - 2Rr$ (distance entre circumcentre et incentre)",
+            "Cercles exinscrits et rayons $r_a, r_b, r_c$"
+          ]
+        },
+        {
+          "section": "Polygones réguliers",
+          "sous_parties": [
+            "Polygone régulier à $n$ côtés inscrit dans un cercle de rayon $R$ : sommets $R e^{2ik\\pi/n}$",
+            "Aire : $\\frac{1}{2}nR^2 \\sin(2\\pi/n)$",
+            "Théorème de Gauss-Wantzel : constructibilité à la règle et au compas ssi $n = 2^a p_1 \\cdots p_k$ (premiers de Fermat)"
+          ]
+        },
+        {
+          "section": "Résultats classiques",
+          "sous_parties": [
+            "Théorème de Ptolémée : $AC \\cdot BD = AB \\cdot CD + AD \\cdot BC$ (quadrilatère inscrit)",
+            "Théorème de l'angle inscrit et ses conséquences",
+            "Puissance d'un point par rapport à un cercle"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Théorème de Ptolémée : pour un quadrilatère $ABCD$ inscrit dans un cercle, $AC \\cdot BD = AB \\cdot CD + AD \\cdot BC$",
+        "Loi des sinus : dans un triangle de circumrayon $R$, $a/\\sin A = b/\\sin B = c/\\sin C = 2R$",
+        "Formule d'Euler : $OI^2 = R(R - 2r)$ où $R$ est le circumrayon et $r$ le rayon du cercle inscrit",
+        "Théorème de Gauss-Wantzel : le polygone régulier à $n$ côtés est constructible à la règle et au compas ssi $n = 2^a p_1 \\cdots p_k$ où les $p_i$ sont des nombres premiers de Fermat distincts"
+      ],
+      "exemples_importants": [
+        "Triangle équilatéral : $R = 2r$, tous les points remarquables confondus sauf $O = G = H = I$, cercle d'Euler = cercle inscrit",
+        "Triangle rectangle : $R = c/2$ (hypoténuse = diamètre), $H$ au sommet de l'angle droit",
+        "Pentagone régulier : le nombre d'or $\\varphi = (1+\\sqrt{5})/2$ apparaît dans les diagonales",
+        "Hexagone régulier inscrit dans un cercle de rayon $R$ : côté $= R$"
+      ],
+      "erreurs_courantes": [
+        "Confondre cercle inscrit et cercle circonscrit dans les formules",
+        "Oublier que la droite d'Euler n'est pas définie pour un triangle équilatéral ($O = G = H$)",
+        "Appliquer le théorème de Ptolémée à un quadrilatère non inscriptible"
+      ],
+      "conseils_jury": [
+        "Le théorème de Ptolémée est un développement classique avec plusieurs démonstrations possibles (inversions, complexes)",
+        "Maîtriser les formules métriques du triangle et savoir les retrouver",
+        "Le jury apprécie le lien entre constructibilité et théorie algébrique (Galois, corps)"
+      ],
+      "tags": [
+        "interne",
+        "externe"
+      ]
+    },
+    {
+      "numero": 414,
+      "titre": "Transformations du plan. Composition et applications.",
+      "points_cles": [
+        "Translations, rotations, réflexions, homothéties, similitudes",
+        "Composition de transformations",
+        "Groupe des isométries du plan",
+        "Applications à la résolution de problèmes géométriques",
+        "Transformations involutives"
+      ],
+      "developpements": [
+        "composition_reflexions",
+        "inversion_applications"
+      ],
+      "prerequis": [
+        "isometries_plan",
+        "nombres_complexes",
+        "groupes_structures"
+      ],
+      "plan": [
+        {
+          "section": "Rappels sur les transformations du plan",
+          "sous_parties": [
+            "Translations : $T_{\\vec{u}}(M) = M + \\vec{u}$",
+            "Rotations de centre $O$ et d'angle $\\theta$ : écriture complexe $z \\mapsto e^{i\\theta}(z - z_O) + z_O$",
+            "Réflexions par rapport à une droite : écriture complexe",
+            "Homothéties de centre $O$ et de rapport $k$"
+          ]
+        },
+        {
+          "section": "Composition d'isométries",
+          "sous_parties": [
+            "Composée de deux réflexions d'axes parallèles : translation",
+            "Composée de deux réflexions d'axes sécants : rotation d'angle double de l'angle des axes",
+            "Composée de deux rotations : rotation ou translation"
+          ]
+        },
+        {
+          "section": "Groupe des isométries du plan",
+          "sous_parties": [
+            "Structure : isométries directes (translations, rotations) et indirectes (réflexions, réflexions glissées)",
+            "Sous-groupe des déplacements : noyau de $\\det$",
+            "Tout sous-groupe fini est cyclique ou diédral"
+          ]
+        },
+        {
+          "section": "Inversion",
+          "sous_parties": [
+            "Définition : $I_{O,k}(M) = M'$ tel que $\\vec{OM'} = \\frac{k}{OM^2} \\vec{OM}$",
+            "Propriétés : transforme droites et cercles en droites et cercles",
+            "Conservation des angles (transformation conforme)",
+            "Application : problème d'Apollonius"
+          ]
+        },
+        {
+          "section": "Applications à la résolution de problèmes",
+          "sous_parties": [
+            "Recherche de points fixes et d'invariants",
+            "Problème de Napoléon par les rotations",
+            "Construction de tangentes communes par inversion"
+          ]
+        },
+        {
+          "section": "Pavages et groupes de symétrie",
+          "sous_parties": [
+            "Groupes de frises : $7$ types",
+            "Groupes de pavages du plan : $17$ types (groupes cristallographiques plans)",
+            "Lien avec les sous-groupes discrets du groupe des isométries"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Toute isométrie du plan est la composée d'au plus $3$ réflexions",
+        "Composée de deux réflexions d'axes sécants d'angle $\\alpha$ : rotation d'angle $2\\alpha$ de centre le point d'intersection",
+        "L'inversion de pôle $O$ et de puissance $k$ transforme tout cercle ne passant pas par $O$ en un cercle, et tout cercle passant par $O$ en une droite",
+        "Classification des groupes de pavages du plan : il existe exactement $17$ groupes cristallographiques plans (théorème de Fedorov)"
+      ],
+      "exemples_importants": [
+        "Composée des réflexions d'axes $Ox$ et la droite d'angle $\\pi/3$ : rotation d'angle $2\\pi/3$",
+        "Inversion qui transforme deux cercles non sécants en cercles concentriques",
+        "Problème d'Apollonius : trouver un cercle tangent à trois cercles donnés",
+        "Les $17$ pavages plans : exemples dans l'art islamique et les motifs d'Escher"
+      ],
+      "erreurs_courantes": [
+        "Se tromper dans l'ordre de composition (la composée n'est pas commutative)",
+        "Oublier que l'inversion n'est pas définie au pôle",
+        "Confondre le sens de la rotation obtenue par composition de deux réflexions"
+      ],
+      "conseils_jury": [
+        "La composition de réflexions est un outil fondamental : maîtriser tous les cas",
+        "L'inversion est un outil puissant : savoir l'utiliser pour simplifier des problèmes de cercles",
+        "Le jury apprécie la classification des frises et pavages illustrée par des exemples"
+      ],
+      "tags": [
+        "interne",
+        "externe"
+      ]
+    },
+    {
+      "numero": 415,
+      "titre": "Polyèdres réguliers. Classification, groupes de symétrie.",
+      "points_cles": [
+        "Solides de Platon : les 5 polyèdres réguliers convexes",
+        "Formule d'Euler pour les polyèdres",
+        "Classification par la formule d'Euler",
+        "Groupes de symétrie des polyèdres réguliers",
+        "Dualité des polyèdres"
+      ],
+      "developpements": [
+        "classification_polyedres_reguliers",
+        "groupe_icosaedre"
+      ],
+      "prerequis": [
+        "groupes_structures",
+        "groupe_orthogonal",
+        "geometrie_elementaire"
+      ],
+      "plan": [
+        {
+          "section": "Polyèdres convexes",
+          "sous_parties": [
+            "Définition : intersection finie de demi-espaces, bornée, de dimension $3$",
+            "Sommets, arêtes, faces d'un polyèdre",
+            "Formule d'Euler : $S - A + F = 2$ pour un polyèdre convexe"
+          ]
+        },
+        {
+          "section": "Polyèdres réguliers : définition et classification",
+          "sous_parties": [
+            "Définition : toutes les faces sont des polygones réguliers identiques, même nombre de faces à chaque sommet",
+            "Symbole de Schläfli $\\{p, q\\}$ : faces à $p$ côtés, $q$ faces par sommet",
+            "Contrainte : $\\frac{1}{p} + \\frac{1}{q} > \\frac{1}{2}$ (d'après la formule d'Euler)"
+          ]
+        },
+        {
+          "section": "Les cinq solides de Platon",
+          "sous_parties": [
+            "Tétraèdre $\\{3, 3\\}$ : $4$ faces, $6$ arêtes, $4$ sommets",
+            "Cube (hexaèdre) $\\{4, 3\\}$ : $6$ faces, $12$ arêtes, $8$ sommets",
+            "Octaèdre $\\{3, 4\\}$ : $8$ faces, $12$ arêtes, $6$ sommets",
+            "Dodécaèdre $\\{5, 3\\}$ : $12$ faces, $30$ arêtes, $20$ sommets",
+            "Icosaèdre $\\{3, 5\\}$ : $20$ faces, $30$ arêtes, $12$ sommets"
+          ]
+        },
+        {
+          "section": "Dualité des polyèdres",
+          "sous_parties": [
+            "Polyèdre dual : sommets = centres des faces, faces = autour de chaque sommet",
+            "Le dual de $\\{p, q\\}$ est $\\{q, p\\}$ : cube $\\leftrightarrow$ octaèdre, dodécaèdre $\\leftrightarrow$ icosaèdre",
+            "Le tétraèdre est auto-dual"
+          ]
+        },
+        {
+          "section": "Groupes de symétrie",
+          "sous_parties": [
+            "Groupe des rotations du tétraèdre : $A_4$ ($12$ éléments)",
+            "Groupe des rotations du cube (et de l'octaèdre) : $S_4$ ($24$ éléments)",
+            "Groupe des rotations de l'icosaèdre (et du dodécaèdre) : $A_5$ ($60$ éléments)",
+            "Groupes complets (avec réflexions) : ordres $24$, $48$, $120$"
+          ]
+        },
+        {
+          "section": "Compléments",
+          "sous_parties": [
+            "Polyèdres semi-réguliers (archimédiens) : faces régulières mais non toutes identiques",
+            "Polyèdres étoilés de Kepler-Poinsot",
+            "Lien entre les sous-groupes finis de $SO(3)$ et les polyèdres réguliers"
+          ]
+        }
+      ],
+      "theoremes_cles": [
+        "Formule d'Euler : pour tout polyèdre convexe, $S - A + F = 2$ (sommets $-$ arêtes $+$ faces)",
+        "Théorème de classification : il existe exactement $5$ polyèdres réguliers convexes : tétraèdre, cube, octaèdre, dodécaèdre, icosaèdre",
+        "Le groupe des rotations de l'icosaèdre est isomorphe à $A_5$, le plus petit groupe simple non abélien",
+        "Le dual d'un polyèdre régulier $\\{p, q\\}$ est le polyèdre régulier $\\{q, p\\}$, et le dual du dual est l'original (à homothétie près)"
+      ],
+      "exemples_importants": [
+        "Tétraèdre régulier inscrit dans un cube : sommets alternés du cube",
+        "Cube inscrit dans un dodécaèdre : $5$ cubes possibles, orbite sous le groupe de l'icosaèdre",
+        "Fullerène $C_{60}$ : structure d'icosaèdre tronqué ($12$ pentagones et $20$ hexagones)",
+        "Démonstration qu'il n'y a pas de sixième solide de Platon par la formule $1/p + 1/q > 1/2$"
+      ],
+      "erreurs_courantes": [
+        "Oublier de vérifier que les polyèdres trouvés existent effectivement (la condition $1/p + 1/q > 1/2$ est nécessaire mais il faut construire les solides)",
+        "Confondre groupe des rotations et groupe complet des isométries (qui inclut les réflexions)",
+        "Se tromper dans la dualité : le dual du cube est l'octaèdre (pas le cube lui-même)"
+      ],
+      "conseils_jury": [
+        "La classification des polyèdres réguliers par la formule d'Euler est un développement classique",
+        "Savoir identifier les groupes de symétrie et donner leurs ordres",
+        "Le jury apprécie le lien avec la classification des sous-groupes finis de $SO(3)$"
+      ],
+      "tags": [
+        "externe"
+      ]
+    }
   ]
 }
