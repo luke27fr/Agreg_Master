@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
+import '../utils/content_loader.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import '../utils/theme_utils.dart';
@@ -27,7 +27,7 @@ class _ExportPdfPageState extends State<ExportPdfPage> {
 
   Future<void> _loadManifest() async {
     try {
-      final json = await rootBundle.loadString('assets/fiches/manifest.json');
+      final json = await ContentLoader.loadString('assets/fiches/manifest.json');
       final data = jsonDecode(json) as Map<String, dynamic>;
       final themes = (data['themes'] as List<dynamic>?)
           ?.map((e) => e as Map<String, dynamic>)
@@ -163,7 +163,7 @@ class _ExportPdfPageState extends State<ExportPdfPage> {
 
         if (fichePath != null) {
           try {
-            final content = await rootBundle.loadString(fichePath);
+            final content = await ContentLoader.loadString(fichePath);
             
             // Convertir le markdown en texte simple pour le PDF
             final cleanContent = _cleanMarkdown(content);

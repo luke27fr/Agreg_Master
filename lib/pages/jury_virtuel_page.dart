@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'dart:async';
 import 'dart:convert';
+import '../utils/content_loader.dart';
 import '../services/jury_virtuel_service.dart';
 import '../models/jury_virtuel_model.dart';
 
@@ -46,7 +46,7 @@ class _JuryVirtuelPageState extends State<JuryVirtuelPage> {
   /// Charge les données de la leçon depuis lecons.json
   Future<void> _loadLeconData() async {
     try {
-      final jsonString = await rootBundle.loadString('assets/data/lecons.json');
+      final jsonString = await ContentLoader.loadString('assets/data/lecons.json');
       final Map<String, dynamic> allData = json.decode(jsonString);
 
       for (final domain in allData.keys) {
@@ -626,7 +626,7 @@ class LeconReferencePage extends StatelessWidget {
     // Load all lessons
     List<Map<String, dynamic>> allLecons = [];
     try {
-      final jsonString = await rootBundle.loadString('assets/data/lecons.json');
+      final jsonString = await ContentLoader.loadString('assets/data/lecons.json');
       final Map<String, dynamic> allData = json.decode(jsonString);
       for (final domain in allData.keys) {
         final lecons = allData[domain] as List<dynamic>;
@@ -1339,7 +1339,7 @@ class _JuryVirtuelMainPageState extends State<JuryVirtuelMainPage> {
   /// Charge toutes les leçons depuis assets/data/lecons.json
   Future<List<Map<String, dynamic>>> _loadAllLecons() async {
     try {
-      final jsonString = await rootBundle.loadString('assets/data/lecons.json');
+      final jsonString = await ContentLoader.loadString('assets/data/lecons.json');
       final Map<String, dynamic> data = json.decode(jsonString);
       final List<Map<String, dynamic>> allLecons = [];
 

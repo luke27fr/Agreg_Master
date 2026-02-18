@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import '../utils/content_loader.dart';
 import 'jury_virtuel_page.dart';
 
 import '../widgets/global_search_button.dart';
@@ -53,7 +53,7 @@ class _OralSimulationPageState extends State<OralSimulationPage> {
 
   Future<void> _loadLecons() async {
     try {
-      final json = await rootBundle.loadString('assets/data/lecons.json');
+      final json = await ContentLoader.loadString('assets/data/lecons.json');
       final data = Map<String, dynamic>.from(jsonDecode(json) as Map);
       setState(() {
         _allLecons = [

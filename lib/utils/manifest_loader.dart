@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:flutter/services.dart';
 import '../constants/app_constants.dart';
 import '../main.dart'; // ThemeItem
+import 'content_loader.dart';
 
 /// Utilitaire centralisé pour charger le manifest des fiches
 class ManifestLoader {
@@ -15,7 +15,7 @@ class ManifestLoader {
   static Future<List<ThemeItem>> loadThemes() async {
     if (_cachedThemes != null) return _cachedThemes!;
 
-    final json = await rootBundle.loadString(AppAssets.manifestPath);
+    final json = await ContentLoader.loadString(AppAssets.manifestPath);
     final data = jsonDecode(json) as Map<String, dynamic>;
     final list = (data['themes'] as List<dynamic>?)
         ?.map((e) => ThemeItem.fromJson(e as Map<String, dynamic>))
@@ -42,7 +42,7 @@ class ManifestLoader {
   static Future<Map<String, String>> getPathMap() async {
     if (_cachedPathMap != null) return _cachedPathMap!;
 
-    final json = await rootBundle.loadString(AppAssets.manifestPath);
+    final json = await ContentLoader.loadString(AppAssets.manifestPath);
     final manifest = jsonDecode(json) as Map<String, dynamic>;
     final themes = manifest['themes'] as List<dynamic>;
 

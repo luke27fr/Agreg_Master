@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import '../utils/content_loader.dart';
 import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
 import 'package:markdown/markdown.dart' as md;
 
@@ -55,7 +55,7 @@ class _FlashcardsPageState extends State<FlashcardsPage> with SingleTickerProvid
 
   Future<void> _loadGlossaire() async {
     try {
-      final jsonString = await rootBundle.loadString('assets/glossaire.json');
+      final jsonString = await ContentLoader.loadString('assets/glossaire.json');
       final Map<String, dynamic> data = jsonDecode(jsonString);
       setState(() {
         _glossaire = data.map((k, v) => MapEntry(k.toString(), v.toString()));

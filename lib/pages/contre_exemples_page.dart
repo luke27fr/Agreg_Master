@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
+import '../utils/content_loader.dart';
 import '../widgets/global_search_button.dart';
 import '../widgets/latex_text.dart';
 
@@ -25,7 +25,7 @@ class _ContreExemplesPageState extends State<ContreExemplesPage> {
 
   Future<void> _loadData() async {
     try {
-      final json = await rootBundle.loadString('assets/data/contre_exemples.json');
+      final json = await ContentLoader.loadString('assets/data/contre_exemples.json');
       final data = jsonDecode(json);
       setState(() {
         _contreExemples = data['contre_exemples'] ?? [];

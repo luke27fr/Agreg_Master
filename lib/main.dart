@@ -25,6 +25,7 @@ import 'package:agreg_master/services/annales_service.dart';
 import 'package:agreg_master/services/backup_service.dart';
 import 'package:agreg_master/services/subscription_service.dart';
 import 'package:agreg_master/services/cloud_sync_service.dart';
+import 'package:agreg_master/services/content_update_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -104,6 +105,7 @@ Future<void> _initializeAllServices() async {
 
   if (!kIsWeb) {
     CloudSyncService().initialize();
+    ContentUpdateService().initialize();
   }
 }
 

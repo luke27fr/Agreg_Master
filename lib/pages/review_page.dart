@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import '../utils/content_loader.dart';
 import '../services/score_service.dart';
 import '../models/quiz_model.dart';
 import 'quiz_page.dart';
@@ -36,7 +36,7 @@ class _ReviewPageState extends State<ReviewPage> {
 
   Future<void> _loadQuizData() async {
     try {
-      final json = await rootBundle.loadString('assets/data/quiz.json');
+      final json = await ContentLoader.loadString('assets/data/quiz.json');
       if (mounted) {
         setState(() {
           _quizData = jsonDecode(json);

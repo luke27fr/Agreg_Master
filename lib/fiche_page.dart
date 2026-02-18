@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
@@ -13,6 +12,7 @@ import 'package:agreg_master/services/score_service.dart';
 import 'package:agreg_master/services/streak_service.dart';
 import 'package:agreg_master/services/reading_service.dart';
 import 'package:agreg_master/utils/theme_utils.dart';
+import 'package:agreg_master/utils/content_loader.dart';
 
 /// Custom builder for `<glossary>` tags that renders them as clickable links
 class GlossaryElementBuilder extends MarkdownElementBuilder {
@@ -122,7 +122,7 @@ class _FichePageState extends State<FichePage> {
   // Chargement du glossaire depuis JSON (81 définitions)
   Future<void> _loadGlossaire() async {
     try {
-      final jsonString = await rootBundle.loadString('assets/glossaire.json');
+      final jsonString = await ContentLoader.loadString('assets/glossaire.json');
       final Map<String, dynamic> data = json.decode(jsonString);
       setState(() {
         _glossaire = data.map((k, v) => MapEntry(k.toString(), v.toString()));
@@ -151,7 +151,7 @@ class _FichePageState extends State<FichePage> {
   Future<void> _loadQuiz() async {
     try {
       // A. On charge tout le fichier quiz.json
-      final String response = await rootBundle.loadString('assets/data/quiz.json');
+      final String response = await ContentLoader.loadString('assets/data/quiz.json');
       final Map<String, dynamic> data = json.decode(response);
 
       // B. On nettoie le nom du fichier pour avoir la "clé"
@@ -182,7 +182,7 @@ class _FichePageState extends State<FichePage> {
 
   Future<void> _loadContent() async {
     try {
-      final content = await rootBundle.loadString(widget.assetPath);
+      final content = await ContentLoader.loadString(widget.assetPath);
       if (mounted) {
         setState(() {
           _content = content;

@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import '../constants/app_constants.dart';
 import '../models/quiz_model.dart';
 import '../pages/quiz_page.dart';
+import 'content_loader.dart';
 import 'theme_utils.dart';
 
 /// Utilitaire centralisé pour charger et lancer les quiz
@@ -13,7 +13,7 @@ class QuizLoader {
 
   /// Charge toutes les questions du quiz
   static Future<List<QuizQuestion>> loadAllQuestions() async {
-    final String response = await rootBundle.loadString(AppAssets.quizPath);
+    final String response = await ContentLoader.loadString(AppAssets.quizPath);
     final Map<String, dynamic> data = json.decode(response);
     final List<QuizQuestion> questions = [];
     data.forEach((key, value) {
@@ -28,7 +28,7 @@ class QuizLoader {
 
   /// Charge les questions d'une section spécifique
   static Future<List<QuizQuestion>> loadSectionQuestions(List<String> files) async {
-    final String response = await rootBundle.loadString(AppAssets.quizPath);
+    final String response = await ContentLoader.loadString(AppAssets.quizPath);
     final Map<String, dynamic> data = json.decode(response);
     final List<QuizQuestion> questions = [];
     for (var file in files) {
@@ -44,7 +44,7 @@ class QuizLoader {
 
   /// Charge les questions d'une fiche spécifique
   static Future<List<QuizQuestion>?> loadFicheQuestions(String ficheId) async {
-    final String response = await rootBundle.loadString(AppAssets.quizPath);
+    final String response = await ContentLoader.loadString(AppAssets.quizPath);
     final Map<String, dynamic> data = json.decode(response);
     if (!data.containsKey(ficheId)) return null;
     final List<QuizQuestion> questions = [];

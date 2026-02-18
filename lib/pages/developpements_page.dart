@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
 import 'package:markdown/markdown.dart' as md;
+import '../utils/content_loader.dart';
 import '../widgets/global_search_button.dart';
 import '../pages/search_page.dart';
 import 'jury_virtuel_page.dart';
@@ -35,11 +35,11 @@ class _DeveloppementsPageState extends State<DeveloppementsPage> {
 
   Future<void> _loadData() async {
     try {
-      final json = await rootBundle.loadString('assets/data/developpements.json');
+      final json = await ContentLoader.loadString('assets/data/developpements.json');
       final data = jsonDecode(json);
 
       // Charger aussi les leçons pour la navigation
-      final leconsJson = await rootBundle.loadString('assets/data/lecons.json');
+      final leconsJson = await ContentLoader.loadString('assets/data/lecons.json');
       final leconsData = jsonDecode(leconsJson);
       final allLecons = <Map<String, dynamic>>[];
       if (leconsData is Map) {

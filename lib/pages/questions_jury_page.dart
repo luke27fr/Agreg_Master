@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
+import '../utils/content_loader.dart';
 import '../widgets/global_search_button.dart';
 
 class QuestionsJuryPage extends StatefulWidget {
@@ -26,11 +26,11 @@ class _QuestionsJuryPageState extends State<QuestionsJuryPage> {
   Future<void> _loadData() async {
     try {
       // Charger les questions
-      final questionsJson = await rootBundle.loadString('assets/data/questions_jury.json');
+      final questionsJson = await ContentLoader.loadString('assets/data/questions_jury.json');
       final questionsData = jsonDecode(questionsJson);
       
       // Charger les leçons pour avoir les titres
-      final leconsJson = await rootBundle.loadString('assets/data/lecons.json');
+      final leconsJson = await ContentLoader.loadString('assets/data/lecons.json');
       final leconsData = jsonDecode(leconsJson);
       
       final Map<int, String> titles = {};

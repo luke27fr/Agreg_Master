@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
+import '../utils/content_loader.dart';
 import '../widgets/global_search_button.dart';
 import '../widgets/latex_text.dart';
 import '../services/subscription_service.dart';
@@ -29,7 +29,7 @@ class _ExercicesPageState extends State<ExercicesPage> {
 
   Future<void> _loadData() async {
     try {
-      final json = await rootBundle.loadString('assets/data/exercices.json');
+      final json = await ContentLoader.loadString('assets/data/exercices.json');
       final data = jsonDecode(json);
       setState(() {
         _exercices = data['exercices'] ?? [];

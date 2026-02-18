@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import '../constants/app_constants.dart';
+import '../utils/content_loader.dart';
 import '../utils/theme_utils.dart';
 import '../utils/debouncer.dart';
 import '../widgets/shared_widgets.dart';
@@ -37,7 +37,7 @@ class _SearchPageState extends State<SearchPage> {
 
   Future<void> _loadAllFiches() async {
     try {
-      final manifestJson = await rootBundle.loadString(AppAssets.manifestPath);
+      final manifestJson = await ContentLoader.loadString(AppAssets.manifestPath);
       final manifest = jsonDecode(manifestJson) as Map<String, dynamic>;
       final themes = manifest['themes'] as List<dynamic>;
 
@@ -52,7 +52,7 @@ class _SearchPageState extends State<SearchPage> {
           final ficheId = file.replaceAll('.md', '');
           final assetPath = '$themePath/$file';
           try {
-            final content = await rootBundle.loadString(assetPath);
+            final content = await ContentLoader.loadString(assetPath);
             fiches.add(SearchResult(
               ficheId: ficheId,
               themeLabel: themeLabel,

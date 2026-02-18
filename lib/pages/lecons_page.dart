@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import '../utils/content_loader.dart';
 import '../widgets/latex_text.dart';
 import '../widgets/global_search_button.dart';
 import '../services/subscription_service.dart';
@@ -35,7 +35,7 @@ class _LeconsPageState extends State<LeconsPage> with SingleTickerProviderStateM
 
   Future<void> _loadData() async {
     try {
-      final json = await rootBundle.loadString('assets/data/lecons.json');
+      final json = await ContentLoader.loadString('assets/data/lecons.json');
       setState(() {
         _data = jsonDecode(json);
         _loading = false;

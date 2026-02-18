@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fl_chart/fl_chart.dart';
+import '../utils/content_loader.dart';
 import '../services/score_service.dart';
 import '../services/reading_service.dart';
 import '../utils/theme_utils.dart';
@@ -42,7 +42,7 @@ class _StatsPageState extends State<StatsPage> {
 
   Future<void> _loadManifest() async {
     try {
-      final json = await rootBundle.loadString('assets/fiches/manifest.json');
+      final json = await ContentLoader.loadString('assets/fiches/manifest.json');
       if (mounted) {
         setState(() {
           _manifest = jsonDecode(json);
