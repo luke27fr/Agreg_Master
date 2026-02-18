@@ -24,7 +24,7 @@ class _LeconsPageState extends State<LeconsPage> with SingleTickerProviderStateM
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
     _loadData();
   }
 
@@ -74,9 +74,12 @@ class _LeconsPageState extends State<LeconsPage> with SingleTickerProviderStateM
         actions: const [GlobalSearchButton()],
         bottom: TabBar(
           controller: _tabController,
+          isScrollable: true,
           tabs: const [
             Tab(text: 'Algèbre'),
             Tab(text: 'Analyse'),
+            Tab(text: 'Probabilités'),
+            Tab(text: 'Géométrie'),
           ],
         ),
       ),
@@ -131,6 +134,8 @@ class _LeconsPageState extends State<LeconsPage> with SingleTickerProviderStateM
                     children: [
                       _buildLeconsList(_data?['algebre'] ?? [], isDark),
                       _buildLeconsList(_data?['analyse'] ?? [], isDark),
+                      _buildLeconsList(_data?['probabilites'] ?? [], isDark),
+                      _buildLeconsList(_data?['geometrie'] ?? [], isDark),
                     ],
                   ),
                 ),
@@ -163,9 +168,14 @@ class _LeconsPageState extends State<LeconsPage> with SingleTickerProviderStateM
 
   Widget _buildLeconCard(Map<String, dynamic> lecon, bool isDark) {
     final subscriptionService = SubscriptionService();
-    final index = _data!['algebre'].indexOf(lecon) != -1 
-        ? _data!['algebre'].indexOf(lecon) 
-        : _data!['analyse'].indexOf(lecon);
+    int index = -1;
+    for (final cat in ['algebre', 'analyse', 'probabilites', 'geometrie']) {
+      final list = _data?[cat] as List<dynamic>?;
+      if (list != null) {
+        final i = list.indexOf(lecon);
+        if (i != -1) { index = i; break; }
+      }
+    }
     final isLocked = !subscriptionService.isPremium && 
                      index >= subscriptionService.getFreeAccessCount('lecons');
 
