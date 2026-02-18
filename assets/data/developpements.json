@@ -382,6 +382,216 @@
       ]
     },
     {
+      "id": "loi_grands_nombres",
+      "titre": "Loi forte des grands nombres",
+      "domaine": "Probabilités",
+      "niveau": "Classique",
+      "duree_min": 15,
+      "lecons": [301, 304, 307],
+      "prerequis": ["Variables aléatoires indépendantes", "Espérance et variance", "Lemme de Borel-Cantelli"],
+      "plan": [
+        "1. Loi faible des grands nombres via Tchebychev",
+        "2. Troncature et réduction au cas borné",
+        "3. Contrôle du moment d'ordre 4 de la somme partielle",
+        "4. Convergence presque sûre par Borel-Cantelli",
+        "5. Application : méthode de Monte-Carlo"
+      ],
+      "points_cles": [
+        "Distinction loi faible / loi forte",
+        "Troncature et recentrage",
+        "Sous-suite et Borel-Cantelli"
+      ]
+    },
+    {
+      "id": "tcl_demo",
+      "titre": "Théorème central limite via fonctions caractéristiques",
+      "domaine": "Probabilités",
+      "niveau": "Classique",
+      "duree_min": 15,
+      "lecons": [304, 307, 311],
+      "prerequis": ["Fonctions caractéristiques", "Convergence en loi", "Théorème de Lévy"],
+      "plan": [
+        "1. Rappel : fonction caractéristique, propriétés élémentaires",
+        "2. Développement de φ_X(t) au voisinage de 0",
+        "3. Calcul de φ_{Sₙ*}(t) pour la somme normalisée",
+        "4. Convergence vers e^{-t²/2} et conclusion par Lévy",
+        "5. Application : intervalles de confiance asymptotiques"
+      ],
+      "points_cles": [
+        "DL de la fonction caractéristique à l'ordre 2",
+        "Théorème de continuité de Lévy",
+        "Normalisation √n"
+      ]
+    },
+    {
+      "id": "borel_cantelli_dev",
+      "titre": "Lemmes de Borel-Cantelli et applications",
+      "domaine": "Probabilités",
+      "niveau": "Avancé",
+      "duree_min": 12,
+      "lecons": [301, 307, 310],
+      "prerequis": ["σ-algèbre et mesure de probabilité", "Indépendance d'événements", "Série convergente/divergente"],
+      "plan": [
+        "1. Premier lemme de Borel-Cantelli (cas général)",
+        "2. Deuxième lemme (cas indépendant) : preuve par l'inégalité 1 - x ≤ e^{-x}",
+        "3. Application : comportement asymptotique de suites aléatoires",
+        "4. Application : loi du 0-1 de Kolmogorov",
+        "5. Exemple : records dans une suite i.i.d."
+      ],
+      "points_cles": [
+        "limsup d'événements",
+        "Indépendance essentielle dans le deuxième lemme",
+        "Lien avec la convergence presque sûre"
+      ]
+    },
+    {
+      "id": "chaines_markov_stationnaire",
+      "titre": "Distribution stationnaire des chaînes de Markov",
+      "domaine": "Probabilités",
+      "niveau": "Avancé",
+      "duree_min": 15,
+      "lecons": [308],
+      "prerequis": ["Chaînes de Markov", "Matrice stochastique", "Irréductibilité et apériodicité"],
+      "plan": [
+        "1. Définition d'une mesure stationnaire π : πP = π",
+        "2. Existence : théorème de Perron-Frobenius pour matrices stochastiques",
+        "3. Unicité sous hypothèse d'irréductibilité",
+        "4. Convergence vers la loi stationnaire (cas apériodique irréductible)",
+        "5. Théorème ergodique pour les chaînes de Markov"
+      ],
+      "points_cles": [
+        "Irréductibilité ⟹ unicité de π",
+        "π(i) = 1/E_i[τ_i] (temps moyen de retour)",
+        "Convergence en variation totale"
+      ]
+    },
+    {
+      "id": "ruine_joueur",
+      "titre": "Problème de la ruine du joueur",
+      "domaine": "Probabilités",
+      "niveau": "Classique",
+      "duree_min": 12,
+      "lecons": [306, 308, 314],
+      "prerequis": ["Marche aléatoire", "Chaînes de Markov", "Temps d'arrêt"],
+      "plan": [
+        "1. Modélisation : marche aléatoire à barrières absorbantes",
+        "2. Probabilité de ruine par résolution de l'équation harmonique",
+        "3. Cas symétrique p = 1/2 : ruine certaine",
+        "4. Cas dissymétrique : formule explicite avec r = q/p",
+        "5. Durée moyenne de jeu"
+      ],
+      "points_cles": [
+        "Fonction harmonique discrète",
+        "Martingale associée à la marche",
+        "Théorème d'arrêt optionnel"
+      ]
+    },
+    {
+      "id": "classification_isometries",
+      "titre": "Classification des isométries du plan euclidien",
+      "domaine": "Géométrie",
+      "niveau": "Classique",
+      "duree_min": 15,
+      "lecons": [401, 407, 414],
+      "prerequis": ["Groupe orthogonal O(2)", "Réflexions et rotations", "Translations"],
+      "plan": [
+        "1. Structure du groupe des isométries : partie linéaire et translation",
+        "2. Isométries directes : translations et rotations",
+        "3. Isométries indirectes : réflexions et réflexions glissées",
+        "4. Preuve de la classification (existence de point fixe ou d'axe)",
+        "5. Applications : décomposition en réflexions"
+      ],
+      "points_cles": [
+        "Toute isométrie directe avec point fixe est une rotation",
+        "Toute isométrie indirecte est une réflexion ou une réflexion glissée",
+        "Théorème de Cartan-Dieudonné en dimension 2"
+      ]
+    },
+    {
+      "id": "gauss_bonnet_dev",
+      "titre": "Théorème de Gauss-Bonnet pour les surfaces",
+      "domaine": "Géométrie",
+      "niveau": "Avancé",
+      "duree_min": 15,
+      "lecons": [406, 412],
+      "prerequis": ["Courbure de Gauss", "Géodésiques", "Caractéristique d'Euler"],
+      "plan": [
+        "1. Courbure de Gauss K : définition intrinsèque",
+        "2. Version locale : formule pour un triangle géodésique",
+        "3. Théorème de Gauss-Bonnet global : ∫∫_S K dA = 2πχ(S)",
+        "4. Démonstration par triangulation",
+        "5. Applications : théorème des cheveux et sphère"
+      ],
+      "points_cles": [
+        "Lien courbure / topologie",
+        "∫∫_{S²} K dA = 4π",
+        "Invariance par déformation continue"
+      ]
+    },
+    {
+      "id": "euler_polyedres_dev",
+      "titre": "Formule d'Euler pour les polyèdres convexes",
+      "domaine": "Géométrie",
+      "niveau": "Classique",
+      "duree_min": 12,
+      "lecons": [405, 415],
+      "prerequis": ["Graphes planaires", "Polyèdres convexes", "Connexité"],
+      "plan": [
+        "1. Énoncé : S - A + F = 2",
+        "2. Preuve par récurrence sur le nombre d'arêtes",
+        "3. Preuve par projection stéréographique et graphes planaires",
+        "4. Application : classification des solides de Platon",
+        "5. Généralisation : genre d'une surface"
+      ],
+      "points_cles": [
+        "S - A + F = 2 pour tout polyèdre convexe",
+        "Exactement 5 polyèdres réguliers convexes",
+        "Lien avec la caractéristique d'Euler-Poincaré"
+      ]
+    },
+    {
+      "id": "coniques_foyer_directrice",
+      "titre": "Propriété foyer-directrice des coniques",
+      "domaine": "Géométrie",
+      "niveau": "Classique",
+      "duree_min": 12,
+      "lecons": [402, 409],
+      "prerequis": ["Coniques : définition par équation du second degré", "Excentricité", "Formes quadratiques"],
+      "plan": [
+        "1. Définition bifocale et monofocale des coniques",
+        "2. Équivalence foyer-directrice : d(M,F) = e·d(M,D)",
+        "3. Calcul de l'excentricité : e < 1 ellipse, e = 1 parabole, e > 1 hyperbole",
+        "4. Équation en coordonnées polaires : r = p/(1 + e·cos θ)",
+        "5. Applications : lois de Kepler"
+      ],
+      "points_cles": [
+        "L'excentricité caractérise le type de conique",
+        "Équation polaire unifiée",
+        "Propriété de réflexion (optique)"
+      ]
+    },
+    {
+      "id": "courbure_torsion",
+      "titre": "Courbure et torsion d'une courbe de l'espace",
+      "domaine": "Géométrie",
+      "niveau": "Classique",
+      "duree_min": 15,
+      "lecons": [404, 412],
+      "prerequis": ["Courbes paramétrées", "Repère de Frenet", "Produit vectoriel"],
+      "plan": [
+        "1. Paramétrisation par abscisse curviligne",
+        "2. Repère de Frenet (T, N, B) et formules de Frenet",
+        "3. Courbure κ : mesure de la déviation par rapport à la tangente",
+        "4. Torsion τ : mesure de la sortie du plan osculateur",
+        "5. Théorème fondamental des courbes : (κ, τ) détermine la courbe à isométrie près"
+      ],
+      "points_cles": [
+        "κ = ‖γ'' ∧ γ'‖ / ‖γ'‖³ pour paramétrisation quelconque",
+        "τ = −B'·N (dérivée du binormal)",
+        "Théorème fondamental : existence et unicité"
+      ]
+    },
+    {
       "id": "wallis",
       "titre": "Intégrales de Wallis et formule de Stirling",
       "domaine": "Analyse",

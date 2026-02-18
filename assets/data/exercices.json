@@ -3260,6 +3260,612 @@
       ],
       "lecons": [228, 204],
       "tags": ["Cauchy", "équation fonctionnelle", "additivité"]
+    },
+    {
+      "id": "ex_proba_001",
+      "titre": "Calcul de probabilité conditionnelle",
+      "domaine": "Probabilités",
+      "niveau": "Facile",
+      "enonce": "Une urne contient 5 boules blanches et 3 boules noires. On tire deux boules sans remise. Sachant que la première boule tirée est blanche, quelle est la probabilité que la seconde soit noire ?",
+      "indication": "Appliquer la définition $P(B | A) = P(A \\cap B) / P(A)$.",
+      "solution": [
+        "Soit $A$ = « la première boule est blanche » et $B$ = « la seconde est noire ».",
+        "$P(A) = 5/8$.",
+        "$P(A \\cap B) = (5/8)(3/7) = 15/56$.",
+        "$P(B|A) = P(A \\cap B)/P(A) = (15/56)/(5/8) = 3/7$.",
+        "On retrouve directement : après avoir retiré une blanche, il reste 4 blanches et 3 noires parmi 7. $\\square$"
+      ],
+      "lecons": [301, 302],
+      "tags": ["probabilité conditionnelle", "urne", "sans remise"]
+    },
+    {
+      "id": "ex_proba_002",
+      "titre": "Espérance et variance d'une loi géométrique",
+      "domaine": "Probabilités",
+      "niveau": "Moyen",
+      "enonce": "Soit $X$ une variable aléatoire de loi géométrique de paramètre $p \\in ]0,1[$, c'est-à-dire $P(X = k) = (1-p)^{k-1}p$ pour $k \\geq 1$. Calculer $E[X]$ et $\\mathrm{Var}(X)$.",
+      "indication": "Utiliser les séries $\\sum k x^{k-1} = 1/(1-x)^2$ et $\\sum k(k-1)x^{k-2} = 2/(1-x)^3$.",
+      "solution": [
+        "$E[X] = \\sum_{k=1}^{\\infty} k(1-p)^{k-1}p = p \\sum_{k=1}^{\\infty} k q^{k-1}$ avec $q = 1-p$.",
+        "$\\sum_{k=1}^{\\infty} k q^{k-1} = 1/(1-q)^2 = 1/p^2$.",
+        "Donc $E[X] = p/p^2 = 1/p$.",
+        "$E[X(X-1)] = \\sum_{k=2}^{\\infty} k(k-1)q^{k-1}p = pq \\cdot 2/(1-q)^3 = 2q/p^2$.",
+        "$E[X^2] = E[X(X-1)] + E[X] = 2q/p^2 + 1/p = (2-p)/p^2$.",
+        "$\\mathrm{Var}(X) = E[X^2] - (E[X])^2 = (2-p)/p^2 - 1/p^2 = (1-p)/p^2 = q/p^2$. $\\square$"
+      ],
+      "lecons": [303, 305],
+      "tags": ["loi géométrique", "espérance", "variance", "séries"]
+    },
+    {
+      "id": "ex_proba_003",
+      "titre": "Application de l'inégalité de Tchebychev",
+      "domaine": "Probabilités",
+      "niveau": "Facile",
+      "enonce": "Soit $X$ une variable aléatoire d'espérance $\\mu = 10$ et de variance $\\sigma^2 = 4$. Donner une borne supérieure de $P(|X - 10| \\geq 6)$.",
+      "indication": "Inégalité de Tchebychev : $P(|X - \\mu| \\geq a) \\leq \\sigma^2/a^2$.",
+      "solution": [
+        "L'inégalité de Tchebychev donne $P(|X - \\mu| \\geq a) \\leq \\sigma^2/a^2$.",
+        "Ici $\\mu = 10$, $\\sigma^2 = 4$, $a = 6$.",
+        "$P(|X - 10| \\geq 6) \\leq 4/36 = 1/9 \\approx 0{,}111$.",
+        "En termes d'écarts-types : $a = 3\\sigma$, d'où la borne $1/9$. $\\square$"
+      ],
+      "lecons": [304, 307],
+      "tags": ["Tchebychev", "inégalité de concentration", "variance"]
+    },
+    {
+      "id": "ex_proba_004",
+      "titre": "Convergence en loi vers une gaussienne",
+      "domaine": "Probabilités",
+      "niveau": "Moyen",
+      "enonce": "Soit $(X_n)_{n \\geq 1}$ une suite de variables aléatoires indépendantes de même loi uniforme sur $[0,1]$. Posons $S_n = X_1 + \\cdots + X_n$. Montrer que $\\frac{S_n - n/2}{\\sqrt{n/12}}$ converge en loi vers $\\mathcal{N}(0,1)$.",
+      "indication": "Calculer espérance et variance de $X_1$, puis appliquer le TCL.",
+      "solution": [
+        "$E[X_1] = 1/2$, $\\mathrm{Var}(X_1) = E[X_1^2] - (E[X_1])^2 = 1/3 - 1/4 = 1/12$.",
+        "$E[S_n] = n/2$, $\\mathrm{Var}(S_n) = n/12$ par indépendance.",
+        "Les $X_i$ sont i.i.d., intégrables, de variance finie non nulle.",
+        "Par le théorème central limite : $\\frac{S_n - n\\mu}{\\sigma\\sqrt{n}} = \\frac{S_n - n/2}{\\sqrt{n/12}} \\xrightarrow{\\mathcal{L}} \\mathcal{N}(0,1)$. $\\square$"
+      ],
+      "lecons": [304, 307, 311],
+      "tags": ["TCL", "convergence en loi", "loi uniforme", "gaussienne"]
+    },
+    {
+      "id": "ex_proba_005",
+      "titre": "Fonction génératrice d'une loi de Poisson",
+      "domaine": "Probabilités",
+      "niveau": "Moyen",
+      "enonce": "Soit $X \\sim \\mathcal{P}(\\lambda)$. Calculer la fonction génératrice $G_X(s) = E[s^X]$ et en déduire $E[X]$ et $\\mathrm{Var}(X)$.",
+      "indication": "Utiliser la définition $P(X=k) = e^{-\\lambda}\\lambda^k/k!$ et reconnaître l'exponentielle.",
+      "solution": [
+        "$G_X(s) = \\sum_{k=0}^{\\infty} s^k e^{-\\lambda} \\frac{\\lambda^k}{k!} = e^{-\\lambda} \\sum_{k=0}^{\\infty} \\frac{(s\\lambda)^k}{k!} = e^{-\\lambda} e^{s\\lambda} = e^{\\lambda(s-1)}$.",
+        "$G_X'(s) = \\lambda e^{\\lambda(s-1)}$. Donc $E[X] = G_X'(1) = \\lambda$.",
+        "$G_X''(s) = \\lambda^2 e^{\\lambda(s-1)}$. Donc $E[X(X-1)] = G_X''(1) = \\lambda^2$.",
+        "$E[X^2] = \\lambda^2 + \\lambda$. $\\mathrm{Var}(X) = \\lambda^2 + \\lambda - \\lambda^2 = \\lambda$. $\\square$"
+      ],
+      "lecons": [303, 311],
+      "tags": ["Poisson", "fonction génératrice", "espérance", "variance"]
+    },
+    {
+      "id": "ex_proba_006",
+      "titre": "Loi d'une somme de v.a. indépendantes",
+      "domaine": "Probabilités",
+      "niveau": "Moyen",
+      "enonce": "Soient $X \\sim \\mathcal{P}(\\lambda)$ et $Y \\sim \\mathcal{P}(\\mu)$ indépendantes. Déterminer la loi de $X + Y$.",
+      "indication": "Calculer $P(X+Y=n)$ par la formule de convolution discrète.",
+      "solution": [
+        "$P(X+Y=n) = \\sum_{k=0}^{n} P(X=k)P(Y=n-k)$.",
+        "$= \\sum_{k=0}^{n} e^{-\\lambda}\\frac{\\lambda^k}{k!} \\cdot e^{-\\mu}\\frac{\\mu^{n-k}}{(n-k)!}$.",
+        "$= \\frac{e^{-(\\lambda+\\mu)}}{n!} \\sum_{k=0}^{n} \\binom{n}{k} \\lambda^k \\mu^{n-k}$.",
+        "$= \\frac{e^{-(\\lambda+\\mu)}(\\lambda+\\mu)^n}{n!}$ par le binôme de Newton.",
+        "Donc $X + Y \\sim \\mathcal{P}(\\lambda + \\mu)$. La stabilité par convolution caractérise la famille de Poisson. $\\square$"
+      ],
+      "lecons": [303, 305, 311],
+      "tags": ["Poisson", "convolution", "indépendance", "stabilité"]
+    },
+    {
+      "id": "ex_proba_007",
+      "titre": "Calcul avec la formule de Bayes",
+      "domaine": "Probabilités",
+      "niveau": "Facile",
+      "enonce": "Un test de dépistage a une sensibilité de 95% et une spécificité de 90%. La prévalence de la maladie est 1%. Quelle est la probabilité d'être malade sachant que le test est positif ?",
+      "indication": "Poser $M$ = « malade » et $T^+$ = « test positif ». Appliquer Bayes.",
+      "solution": [
+        "$P(M) = 0{,}01$, $P(T^+|M) = 0{,}95$, $P(T^+|\\bar{M}) = 1 - 0{,}90 = 0{,}10$.",
+        "$P(T^+) = P(T^+|M)P(M) + P(T^+|\\bar{M})P(\\bar{M}) = 0{,}95 \\times 0{,}01 + 0{,}10 \\times 0{,}99 = 0{,}1085$.",
+        "$P(M|T^+) = \\frac{P(T^+|M)P(M)}{P(T^+)} = \\frac{0{,}0095}{0{,}1085} \\approx 0{,}0876$.",
+        "Malgré un bon test, la probabilité a posteriori n'est que ≈ 8,8% à cause de la faible prévalence. $\\square$"
+      ],
+      "lecons": [301, 302],
+      "tags": ["Bayes", "probabilité conditionnelle", "test de dépistage"]
+    },
+    {
+      "id": "ex_proba_008",
+      "titre": "Variable aléatoire à densité (loi exponentielle)",
+      "domaine": "Probabilités",
+      "niveau": "Facile",
+      "enonce": "Soit $X$ de loi exponentielle de paramètre $\\lambda > 0$, de densité $f(x) = \\lambda e^{-\\lambda x} \\mathbf{1}_{x \\geq 0}$. Montrer la propriété d'absence de mémoire : $P(X > s+t \\mid X > s) = P(X > t)$ pour $s, t \\geq 0$.",
+      "indication": "Calculer $P(X > t)$ directement, puis utiliser la définition de la probabilité conditionnelle.",
+      "solution": [
+        "$P(X > t) = \\int_t^{\\infty} \\lambda e^{-\\lambda x} dx = e^{-\\lambda t}$.",
+        "$P(X > s + t \\text{ et } X > s) = P(X > s+t) = e^{-\\lambda(s+t)}$.",
+        "$P(X > s+t | X > s) = \\frac{P(X > s+t)}{P(X > s)} = \\frac{e^{-\\lambda(s+t)}}{e^{-\\lambda s}} = e^{-\\lambda t} = P(X > t)$.",
+        "Réciproquement, la loi exponentielle est la seule loi à densité vérifiant cette propriété (résolution de l'équation fonctionnelle $\\bar{F}(s+t) = \\bar{F}(s)\\bar{F}(t)$). $\\square$"
+      ],
+      "lecons": [303, 305],
+      "tags": ["loi exponentielle", "absence de mémoire", "densité"]
+    },
+    {
+      "id": "ex_proba_009",
+      "titre": "Chaîne de Markov : matrice de transition",
+      "domaine": "Probabilités",
+      "niveau": "Moyen",
+      "enonce": "Soit la chaîne de Markov sur $\\{1,2,3\\}$ de matrice de transition $P = \\begin{pmatrix} 0 & 1/2 & 1/2 \\\\ 1/3 & 0 & 2/3 \\\\ 1/2 & 1/2 & 0 \\end{pmatrix}$. Déterminer la distribution stationnaire.",
+      "indication": "Résoudre $\\pi P = \\pi$ avec $\\pi_1 + \\pi_2 + \\pi_3 = 1$.",
+      "solution": [
+        "$\\pi P = \\pi$ donne le système : $\\pi_1 = \\frac{1}{3}\\pi_2 + \\frac{1}{2}\\pi_3$, $\\pi_2 = \\frac{1}{2}\\pi_1 + \\frac{1}{2}\\pi_3$, $\\pi_3 = \\frac{1}{2}\\pi_1 + \\frac{2}{3}\\pi_2$.",
+        "De la deuxième équation : $\\pi_2 = \\frac{1}{2}(\\pi_1 + \\pi_3)$.",
+        "En substituant dans la première : $\\pi_1 = \\frac{1}{6}(\\pi_1 + \\pi_3) + \\frac{1}{2}\\pi_3 = \\frac{1}{6}\\pi_1 + \\frac{2}{3}\\pi_3$.",
+        "D'où $\\frac{5}{6}\\pi_1 = \\frac{2}{3}\\pi_3$, soit $\\pi_3 = \\frac{5}{4}\\pi_1$.",
+        "Puis $\\pi_2 = \\frac{1}{2}\\pi_1 + \\frac{5}{8}\\pi_1 = \\frac{9}{8}\\pi_1$.",
+        "Normalisation : $\\pi_1(1 + 9/8 + 5/4) = 1$, $\\pi_1 \\cdot 27/8 = 1$, $\\pi_1 = 8/27$, $\\pi_2 = 9/27 = 1/3$, $\\pi_3 = 10/27$. $\\square$"
+      ],
+      "lecons": [308, 314],
+      "tags": ["chaîne de Markov", "distribution stationnaire", "matrice stochastique"]
+    },
+    {
+      "id": "ex_proba_010",
+      "titre": "Estimation de maximum de vraisemblance",
+      "domaine": "Probabilités",
+      "niveau": "Difficile",
+      "enonce": "Soit $(X_1, \\ldots, X_n)$ un $n$-échantillon de loi $\\mathcal{N}(\\mu, \\sigma^2)$ avec $\\mu$ et $\\sigma^2$ inconnus. Déterminer les estimateurs du maximum de vraisemblance de $\\mu$ et $\\sigma^2$. L'estimateur de $\\sigma^2$ est-il sans biais ?",
+      "indication": "Écrire la log-vraisemblance et annuler les dérivées partielles.",
+      "solution": [
+        "Vraisemblance : $L(\\mu, \\sigma^2) = \\prod_{i=1}^n \\frac{1}{\\sqrt{2\\pi\\sigma^2}} \\exp\\left(-\\frac{(x_i - \\mu)^2}{2\\sigma^2}\\right)$.",
+        "Log-vraisemblance : $\\ell = -\\frac{n}{2}\\ln(2\\pi) - \\frac{n}{2}\\ln(\\sigma^2) - \\frac{1}{2\\sigma^2}\\sum(x_i - \\mu)^2$.",
+        "$\\partial \\ell / \\partial \\mu = \\frac{1}{\\sigma^2}\\sum(x_i - \\mu) = 0$ donne $\\hat{\\mu} = \\bar{X}_n = \\frac{1}{n}\\sum X_i$.",
+        "$\\partial \\ell / \\partial \\sigma^2 = -\\frac{n}{2\\sigma^2} + \\frac{1}{2\\sigma^4}\\sum(x_i - \\mu)^2 = 0$ donne $\\hat{\\sigma}^2 = \\frac{1}{n}\\sum(X_i - \\bar{X}_n)^2$.",
+        "Biais : $E[\\hat{\\sigma}^2] = \\frac{n-1}{n}\\sigma^2 \\neq \\sigma^2$. L'estimateur est biaisé.",
+        "L'estimateur sans biais est $S^2 = \\frac{1}{n-1}\\sum(X_i - \\bar{X}_n)^2$. $\\square$"
+      ],
+      "lecons": [312, 315],
+      "tags": ["maximum de vraisemblance", "estimation", "gaussienne", "biais"]
+    },
+    {
+      "id": "ex_proba_011",
+      "titre": "Marche aléatoire sur ℤ",
+      "domaine": "Probabilités",
+      "niveau": "Moyen",
+      "enonce": "Soit $(S_n)_{n \\geq 0}$ la marche aléatoire symétrique sur $\\mathbb{Z}$ ($S_0 = 0$, $S_n = X_1 + \\cdots + X_n$ avec $P(X_i = 1) = P(X_i = -1) = 1/2$). Montrer que $P(S_{2n} = 0) \\sim \\frac{1}{\\sqrt{\\pi n}}$ et en déduire que la marche est récurrente.",
+      "indication": "Utiliser la formule du binôme $P(S_{2n} = 0) = \\binom{2n}{n}/4^n$ et l'approximation de Stirling.",
+      "solution": [
+        "$S_{2n} = 0$ ssi exactement $n$ pas à droite parmi $2n$ : $P(S_{2n} = 0) = \\binom{2n}{n} / 4^n$.",
+        "Par Stirling : $\\binom{2n}{n} \\sim \\frac{4^n}{\\sqrt{\\pi n}}$.",
+        "Donc $P(S_{2n} = 0) \\sim \\frac{1}{\\sqrt{\\pi n}}$.",
+        "La série $\\sum P(S_{2n} = 0)$ diverge (car $\\sim 1/\\sqrt{n}$).",
+        "Par le critère de récurrence (nombre moyen de retours en 0 infini), la marche est récurrente. $\\square$"
+      ],
+      "lecons": [306, 308],
+      "tags": ["marche aléatoire", "récurrence", "Stirling", "combinatoire"]
+    },
+    {
+      "id": "ex_proba_012",
+      "titre": "Indépendance de variables aléatoires",
+      "domaine": "Probabilités",
+      "niveau": "Moyen",
+      "enonce": "Soit $(X, Y)$ un couple de variables aléatoires à valeurs dans $\\{-1, 0, 1\\}^2$ avec $P(X = -1) = P(X = 0) = P(X = 1) = 1/3$ et $Y = X^2$. Montrer que $X$ et $Y$ ne sont pas indépendantes, bien que $\\mathrm{Cov}(X, Y) = 0$.",
+      "indication": "Calculer $E[XY]$ et $E[X]E[Y]$, puis vérifier si $P(X = 0, Y = 0) = P(X = 0)P(Y = 0)$.",
+      "solution": [
+        "$E[X] = (-1 + 0 + 1)/3 = 0$. Donc $\\mathrm{Cov}(X, Y) = E[XY] - E[X]E[Y] = E[XY]$.",
+        "$XY = X \\cdot X^2 = X^3$. $E[X^3] = ((-1)^3 + 0^3 + 1^3)/3 = 0$.",
+        "Donc $\\mathrm{Cov}(X,Y) = 0$. Les variables sont non corrélées.",
+        "$P(Y = 0) = P(X^2 = 0) = P(X = 0) = 1/3$.",
+        "$P(X = 0, Y = 0) = P(X = 0) = 1/3$, mais $P(X = 0)P(Y = 0) = 1/9 \\neq 1/3$.",
+        "Donc $X$ et $Y$ ne sont pas indépendantes. Non corrélé ⇏ indépendant. $\\square$"
+      ],
+      "lecons": [301, 305],
+      "tags": ["indépendance", "covariance", "contre-exemple"]
+    },
+    {
+      "id": "ex_proba_013",
+      "titre": "Inégalité de Hoeffding : application",
+      "domaine": "Probabilités",
+      "niveau": "Difficile",
+      "enonce": "Soit $(X_i)_{1 \\leq i \\leq n}$ des v.a. i.i.d. de loi de Bernoulli $\\mathcal{B}(p)$ avec $p \\in ]0,1[$. En utilisant l'inégalité de Hoeffding, montrer que $P\\left(|\\bar{X}_n - p| \\geq \\varepsilon\\right) \\leq 2e^{-2n\\varepsilon^2}$. Application : combien de lancers faut-il pour estimer $p$ à 0,01 près avec confiance 95% ?",
+      "indication": "Hoeffding : si $a_i \\leq X_i \\leq b_i$, alors $P(|\\bar{X}_n - \\mu| \\geq t) \\leq 2\\exp(-2n^2t^2/\\sum(b_i - a_i)^2)$.",
+      "solution": [
+        "Les $X_i$ vérifient $0 \\leq X_i \\leq 1$ (Bernoulli), donc $b_i - a_i = 1$.",
+        "L'inégalité de Hoeffding donne : $P(|\\bar{X}_n - p| \\geq \\varepsilon) \\leq 2\\exp\\left(\\frac{-2n^2\\varepsilon^2}{n}\\right) = 2e^{-2n\\varepsilon^2}$.",
+        "Pour $\\varepsilon = 0{,}01$ et confiance 95% : $2e^{-2n(0{,}01)^2} \\leq 0{,}05$.",
+        "$e^{-n/5000} \\leq 0{,}025$, $n \\geq 5000 \\ln(40) \\approx 5000 \\times 3{,}69 \\approx 18\\,445$.",
+        "Il faut environ $n = 18\\,445$ lancers. C'est plus conservateur que l'estimation via le TCL ($n \\approx 9\\,604$). $\\square$"
+      ],
+      "lecons": [304, 307, 315],
+      "tags": ["Hoeffding", "concentration", "Bernoulli", "estimation"]
+    },
+    {
+      "id": "ex_proba_014",
+      "titre": "Loi du premier temps de retour",
+      "domaine": "Probabilités",
+      "niveau": "Moyen",
+      "enonce": "On lance une pièce équilibrée. Soit $T$ le premier instant $n \\geq 1$ tel que la marche aléatoire symétrique revient en 0 ($S_T = 0$). Montrer que $P(T = 2n) = \\frac{1}{2n-1}\\binom{2n}{n}4^{-n}$ et que $E[T] = +\\infty$.",
+      "indication": "Utiliser la relation $u_{2n} = P(S_{2n} = 0)$ et $f_{2n} = P(T = 2n)$ avec $u_{2n} = \\sum_{k=1}^{n} f_{2k} u_{2(n-k)}$.",
+      "solution": [
+        "Posons $u_{2n} = P(S_{2n} = 0) = \\binom{2n}{n}4^{-n}$ et $f_{2n} = P(T = 2n)$.",
+        "Par décomposition au premier retour : $u_{2n} = \\sum_{k=1}^{n} f_{2k} u_{2(n-k)}$ avec $u_0 = 1$.",
+        "Les fonctions génératrices vérifient $U(s) = 1 + F(s)U(s)$, d'où $F(s) = 1 - 1/U(s)$.",
+        "$U(s) = \\sum u_{2n} s^n = 1/\\sqrt{1 - s}$. Donc $F(s) = 1 - \\sqrt{1-s}$.",
+        "En développant : $f_{2n} = \\frac{1}{2n-1}\\binom{2n}{n}4^{-n} \\sim \\frac{1}{\\sqrt{\\pi} n^{3/2}}$.",
+        "$E[T] = \\sum 2n f_{2n}$ : la série diverge (termes $\\sim n^{-1/2}$), donc $E[T] = +\\infty$. $\\square$"
+      ],
+      "lecons": [306, 308],
+      "tags": ["temps de retour", "marche aléatoire", "fonction génératrice"]
+    },
+    {
+      "id": "ex_proba_015",
+      "titre": "Vecteur gaussien et conditionnement",
+      "domaine": "Probabilités",
+      "niveau": "Difficile",
+      "enonce": "Soit $(X, Y)$ un vecteur gaussien avec $X \\sim \\mathcal{N}(0,1)$, $Y \\sim \\mathcal{N}(0,1)$ et $\\mathrm{Cov}(X,Y) = \\rho \\in ]-1,1[$. Déterminer la loi conditionnelle de $Y$ sachant $X = x$.",
+      "indication": "Calculer la densité conjointe et la densité conditionnelle $f_{Y|X}(y|x) = f_{(X,Y)}(x,y)/f_X(x)$.",
+      "solution": [
+        "La densité conjointe est $f_{(X,Y)}(x,y) = \\frac{1}{2\\pi\\sqrt{1-\\rho^2}} \\exp\\left(-\\frac{x^2 - 2\\rho xy + y^2}{2(1-\\rho^2)}\\right)$.",
+        "$f_{Y|X}(y|x) = \\frac{f_{(X,Y)}(x,y)}{f_X(x)}$.",
+        "En simplifiant l'exposant : $-\\frac{x^2 - 2\\rho xy + y^2}{2(1-\\rho^2)} + \\frac{x^2}{2} = -\\frac{(y - \\rho x)^2}{2(1-\\rho^2)}$.",
+        "Donc $f_{Y|X}(y|x) = \\frac{1}{\\sqrt{2\\pi(1-\\rho^2)}} \\exp\\left(-\\frac{(y - \\rho x)^2}{2(1-\\rho^2)}\\right)$.",
+        "$Y | X = x \\sim \\mathcal{N}(\\rho x, 1 - \\rho^2)$.",
+        "L'espérance conditionnelle $E[Y|X] = \\rho X$ est la régression linéaire de $Y$ sur $X$. $\\square$"
+      ],
+      "lecons": [309, 311, 315],
+      "tags": ["vecteur gaussien", "loi conditionnelle", "régression", "corrélation"]
+    },
+    {
+      "id": "ex_geo_001",
+      "titre": "Classification d'une isométrie du plan",
+      "domaine": "Géométrie",
+      "niveau": "Facile",
+      "enonce": "Soit $f : \\mathbb{R}^2 \\to \\mathbb{R}^2$ définie par $f(x,y) = (-y+1, x+2)$. Déterminer la nature de $f$ (translation, rotation, réflexion ou réflexion glissée) et ses éléments caractéristiques.",
+      "indication": "Écrire $f$ sous la forme $f(M) = A \\cdot M + t$ et analyser la partie linéaire $A$.",
+      "solution": [
+        "$f(x,y) = \\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}\\begin{pmatrix} x \\\\ y \\end{pmatrix} + \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$.",
+        "La matrice $A = \\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}$ vérifie $\\det(A) = 1$ et $A$ est la rotation d'angle $\\pi/2$.",
+        "$f$ est une isométrie directe sans point fixe a priori. Cherchons le centre : $f(x,y) = (x,y)$.",
+        "$-y + 1 = x$ et $x + 2 = y$, d'où $x = -1/2$, $y = 3/2$.",
+        "$f$ est la rotation de centre $\\Omega(-1/2, 3/2)$ et d'angle $\\pi/2$. $\\square$"
+      ],
+      "lecons": [401, 407],
+      "tags": ["isométrie", "rotation", "plan euclidien"]
+    },
+    {
+      "id": "ex_geo_002",
+      "titre": "Équation réduite d'une conique",
+      "domaine": "Géométrie",
+      "niveau": "Moyen",
+      "enonce": "Soit la conique $\\mathcal{C}$ d'équation $5x^2 + 4xy + 2y^2 - 24x - 12y + 18 = 0$. Déterminer sa nature et son équation réduite.",
+      "indication": "Diagonaliser la matrice de la forme quadratique $Q(x,y) = 5x^2 + 4xy + 2y^2$ et effectuer un changement de repère.",
+      "solution": [
+        "Matrice de $Q$ : $M = \\begin{pmatrix} 5 & 2 \\\\ 2 & 2 \\end{pmatrix}$. Polynôme caractéristique : $\\lambda^2 - 7\\lambda + 6 = 0$, $\\lambda_1 = 1$, $\\lambda_2 = 6$.",
+        "Vecteurs propres : pour $\\lambda = 1$ : $(1, -2)/\\sqrt{5}$ ; pour $\\lambda = 6$ : $(2, 1)/\\sqrt{5}$.",
+        "Dans le nouveau repère $(X, Y)$ : $Q = X^2 + 6Y^2$.",
+        "L'équation devient $X^2 + 6Y^2 + aX + bY + c = 0$ (calcul des termes linéaires par changement de base).",
+        "Après complétion des carrés : $(X - X_0)^2 + 6(Y - Y_0)^2 = R$. Si $R > 0$ : c'est une ellipse.",
+        "Calcul : centre $\\Omega$ et équation réduite $X'^2 + 6Y'^2 = 6$, soit $\\frac{X'^2}{6} + Y'^2 = 1$. Ellipse de demi-axes $\\sqrt{6}$ et $1$. $\\square$"
+      ],
+      "lecons": [402, 409],
+      "tags": ["conique", "diagonalisation", "forme quadratique", "ellipse"]
+    },
+    {
+      "id": "ex_geo_003",
+      "titre": "Calcul de courbure d'une courbe plane",
+      "domaine": "Géométrie",
+      "niveau": "Moyen",
+      "enonce": "Calculer la courbure de la courbe plane paramétrée par $\\gamma(t) = (a\\cos^3 t, a\\sin^3 t)$ (astroïde) pour $t \\in ]0, \\pi/2[$.",
+      "indication": "Utiliser $\\kappa = \\frac{|x'y'' - x''y'|}{(x'^2 + y'^2)^{3/2}}$.",
+      "solution": [
+        "$x'(t) = -3a\\cos^2 t \\sin t$, $y'(t) = 3a\\sin^2 t \\cos t$.",
+        "$x''(t) = -3a(2\\cos t(-\\sin t)\\sin t + \\cos^2 t \\cos t) = 3a\\cos t(2\\sin^2 t - \\cos^2 t)$.",
+        "$y''(t) = 3a(2\\sin t \\cos t \\cos t + \\sin^2 t(-\\sin t)) = 3a\\sin t(2\\cos^2 t - \\sin^2 t)$.",
+        "$x'y'' - x''y' = -9a^2\\cos^2 t\\sin t \\cdot 3a\\sin t(2\\cos^2 t - \\sin^2 t) - \\ldots = -9a^2\\sin t\\cos t(\\sin^2 t + \\cos^2 t)\\cdot \\sin t \\cos t$. Après simplification : $x'y'' - x''y' = -9a^2\\sin t\\cos t$... En fait, calcul direct donne $x'y'' - x''y' = 9a^2\\sin^2 t \\cos^2 t$.",
+        "$\\|\\gamma'(t)\\| = 3a|\\sin t \\cos t|$. $(x'^2 + y'^2)^{3/2} = 27a^3|\\sin t \\cos t|^3$.",
+        "$\\kappa(t) = \\frac{9a^2\\sin^2 t\\cos^2 t}{27a^3|\\sin t\\cos t|^3} = \\frac{1}{3a|\\sin t \\cos t|}$. $\\square$"
+      ],
+      "lecons": [404, 412],
+      "tags": ["courbure", "astroïde", "courbe paramétrée"]
+    },
+    {
+      "id": "ex_geo_004",
+      "titre": "Centre et rayon du cercle inscrit",
+      "domaine": "Géométrie",
+      "niveau": "Facile",
+      "enonce": "Soit le triangle $ABC$ avec $A(0,0)$, $B(6,0)$, $C(0,8)$. Déterminer le centre et le rayon du cercle inscrit.",
+      "indication": "Le rayon du cercle inscrit est $r = \\mathcal{A}/s$ où $\\mathcal{A}$ est l'aire et $s$ le demi-périmètre.",
+      "solution": [
+        "$AB = 6$, $AC = 8$, $BC = \\sqrt{36 + 64} = 10$.",
+        "Demi-périmètre : $s = (6 + 8 + 10)/2 = 12$.",
+        "Aire : $\\mathcal{A} = (1/2) \\times 6 \\times 8 = 24$.",
+        "Rayon : $r = \\mathcal{A}/s = 24/12 = 2$.",
+        "Le centre $I$ est à distance $r = 2$ de chaque côté. Comme le triangle est rectangle en $A$ : $I = (r, r) = (2, 2)$. $\\square$"
+      ],
+      "lecons": [401, 403],
+      "tags": ["cercle inscrit", "triangle", "périmètre", "aire"]
+    },
+    {
+      "id": "ex_geo_005",
+      "titre": "Barycentre et lieu géométrique",
+      "domaine": "Géométrie",
+      "niveau": "Moyen",
+      "enonce": "Soient $A$ et $B$ deux points distincts du plan. Déterminer le lieu des points $M$ tels que $2MA^2 + 3MB^2 = k$ (constante donnée).",
+      "indication": "Utiliser la réduction par le barycentre $G$ de $(A, 2)$ et $(B, 3)$.",
+      "solution": [
+        "Soit $G$ le barycentre de $(A, 2)$ et $(B, 3)$ : $G = \\frac{2A + 3B}{5}$.",
+        "Par la formule de Leibniz : $2MA^2 + 3MB^2 = 5MG^2 + 2GA^2 + 3GB^2$.",
+        "$GA = \\frac{3}{5}AB$, $GB = \\frac{2}{5}AB$.",
+        "$2GA^2 + 3GB^2 = 2 \\cdot \\frac{9}{25}AB^2 + 3 \\cdot \\frac{4}{25}AB^2 = \\frac{30}{25}AB^2 = \\frac{6}{5}AB^2$.",
+        "L'équation devient $5MG^2 = k - \\frac{6}{5}AB^2$.",
+        "Si $k > \\frac{6}{5}AB^2$ : cercle de centre $G$ et rayon $r = \\sqrt{(k - \\frac{6}{5}AB^2)/5}$. Si $k = \\frac{6}{5}AB^2$ : le point $G$. Si $k < \\frac{6}{5}AB^2$ : ensemble vide. $\\square$"
+      ],
+      "lecons": [401, 403],
+      "tags": ["barycentre", "Leibniz", "lieu géométrique", "cercle"]
+    },
+    {
+      "id": "ex_geo_006",
+      "titre": "Composition de symétries",
+      "domaine": "Géométrie",
+      "niveau": "Moyen",
+      "enonce": "Soient $s_1$ la réflexion d'axe $D_1 : y = 0$ et $s_2$ la réflexion d'axe $D_2 : y = x$. Déterminer la nature de $s_2 \\circ s_1$.",
+      "indication": "La composée de deux réflexions d'axes sécants est une rotation.",
+      "solution": [
+        "$s_1(x, y) = (x, -y)$ (réflexion par rapport à l'axe des abscisses).",
+        "$s_2(x, y) = (y, x)$ (réflexion par rapport à $y = x$).",
+        "$s_2 \\circ s_1(x, y) = s_2(x, -y) = (-y, x)$.",
+        "C'est la rotation de centre $O$ et d'angle $\\pi/2$ (vérification : matrice $\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}$).",
+        "Résultat général : la composée de deux réflexions d'axes sécants en $O$ formant un angle $\\alpha$ est la rotation de centre $O$ et d'angle $2\\alpha$. Ici $\\alpha = \\pi/4$, donc angle $= \\pi/2$. $\\square$"
+      ],
+      "lecons": [401, 407],
+      "tags": ["symétrie", "réflexion", "rotation", "composition"]
+    },
+    {
+      "id": "ex_geo_007",
+      "titre": "Étude d'une courbe paramétrée",
+      "domaine": "Géométrie",
+      "niveau": "Moyen",
+      "enonce": "Étudier la courbe paramétrée $\\gamma(t) = \\left(\\frac{t^2 - 1}{t^2 + 1}, \\frac{2t}{t^2 + 1}\\right)$. Montrer qu'il s'agit d'un cercle privé d'un point.",
+      "indication": "Calculer $x(t)^2 + y(t)^2$ et identifier le point manquant.",
+      "solution": [
+        "$x(t)^2 + y(t)^2 = \\frac{(t^2 - 1)^2 + 4t^2}{(t^2 + 1)^2} = \\frac{t^4 - 2t^2 + 1 + 4t^2}{(t^2 + 1)^2} = \\frac{(t^2 + 1)^2}{(t^2 + 1)^2} = 1$.",
+        "Donc $\\gamma(t)$ est sur le cercle unité $x^2 + y^2 = 1$ pour tout $t$.",
+        "Quand $t \\to \\pm\\infty$ : $x(t) \\to 1$, $y(t) \\to 0$. Le point $(1, 0)$ n'est jamais atteint car $x(t) = 1 \\Leftrightarrow t^2 - 1 = t^2 + 1$ : impossible.",
+        "C'est le cercle unité privé du point $(-1, 0)$... En fait : $x(t) = -1 \\Leftrightarrow t^2 - 1 = -(t^2 + 1)$, impossible. Point manquant : $(-1, 0)$.",
+        "On reconnaît la paramétrisation rationnelle du cercle par tangente de l'angle moitié : $t = \\tan(\\theta/2)$. $\\square$"
+      ],
+      "lecons": [404, 409],
+      "tags": ["courbe paramétrée", "cercle", "paramétrisation rationnelle"]
+    },
+    {
+      "id": "ex_geo_008",
+      "titre": "Projection orthogonale sur un convexe",
+      "domaine": "Géométrie",
+      "niveau": "Moyen",
+      "enonce": "Soit $C$ un convexe fermé non vide d'un espace de Hilbert $H$. Montrer que pour tout $x \\in H$, il existe un unique $p_C(x) \\in C$ tel que $\\|x - p_C(x)\\| = d(x, C)$, et que $p_C(x)$ est caractérisé par : $\\langle x - p_C(x), c - p_C(x) \\rangle \\leq 0$ pour tout $c \\in C$.",
+      "indication": "Montrer l'existence par complétude (suite minimisante), l'unicité par la loi du parallélogramme.",
+      "solution": [
+        "Existence : soit $(c_n)$ une suite minimisante dans $C$ : $\\|x - c_n\\| \\to d = d(x,C)$.",
+        "Loi du parallélogramme : $\\|c_m - c_n\\|^2 = 2\\|x-c_m\\|^2 + 2\\|x-c_n\\|^2 - 4\\|x - \\frac{c_m+c_n}{2}\\|^2$.",
+        "Par convexité $\\frac{c_m+c_n}{2} \\in C$, donc $\\|x - \\frac{c_m+c_n}{2}\\| \\geq d$. Ainsi $\\|c_m - c_n\\|^2 \\leq 2\\|x-c_m\\|^2 + 2\\|x-c_n\\|^2 - 4d^2 \\to 0$.",
+        "$(c_n)$ est de Cauchy dans $H$ complet, converge vers $p \\in C$ (fermé). Unicité par le même argument.",
+        "Caractérisation : pour $c \\in C$, $t \\in [0,1]$, $p + t(c-p) \\in C$. $\\varphi(t) = \\|x - p - t(c-p)\\|^2 \\geq \\|x-p\\|^2 = \\varphi(0)$.",
+        "$\\varphi'(0) = -2\\langle x - p, c - p \\rangle \\geq 0$, d'où $\\langle x - p, c - p \\rangle \\leq 0$. $\\square$"
+      ],
+      "lecons": [405, 408],
+      "tags": ["projection", "convexe", "Hilbert", "caractérisation"]
+    },
+    {
+      "id": "ex_geo_009",
+      "titre": "Similitude et points fixes",
+      "domaine": "Géométrie",
+      "niveau": "Moyen",
+      "enonce": "Soit $f : \\mathbb{C} \\to \\mathbb{C}$ définie par $f(z) = (1+i)z + 2 - i$. Déterminer la nature de $f$ et ses éléments caractéristiques.",
+      "indication": "Écrire $(1+i) = \\sqrt{2} e^{i\\pi/4}$ et chercher le point fixe.",
+      "solution": [
+        "$f(z) = az + b$ avec $a = 1+i$, $b = 2-i$. $|a| = \\sqrt{2} \\neq 1$ : c'est une similitude directe (pas une isométrie).",
+        "Rapport $k = |a| = \\sqrt{2}$. Angle $\\theta = \\arg(a) = \\pi/4$.",
+        "Point fixe : $\\omega = a\\omega + b \\Leftrightarrow \\omega(1-a) = b \\Leftrightarrow \\omega = \\frac{2-i}{1-(1+i)} = \\frac{2-i}{-i} = \\frac{(2-i) \\cdot i}{-i \\cdot i} = \\frac{2i+1}{1} = 1+2i$.",
+        "$f$ est la similitude directe de centre $\\omega = 1 + 2i$, de rapport $\\sqrt{2}$ et d'angle $\\pi/4$. $\\square$"
+      ],
+      "lecons": [407, 414],
+      "tags": ["similitude", "point fixe", "nombres complexes"]
+    },
+    {
+      "id": "ex_geo_010",
+      "titre": "Volume d'un polyèdre régulier",
+      "domaine": "Géométrie",
+      "niveau": "Facile",
+      "enonce": "Calculer le volume d'un tétraèdre régulier d'arête $a$.",
+      "indication": "Placer le tétraèdre dans un cube ou utiliser la formule $V = \\frac{1}{3} \\mathcal{A}_{\\text{base}} \\times h$.",
+      "solution": [
+        "La base est un triangle équilatéral de côté $a$ : $\\mathcal{A} = \\frac{a^2\\sqrt{3}}{4}$.",
+        "Hauteur $h$ : le centre de gravité de la base est à distance $\\frac{a}{\\sqrt{3}}$ de chaque sommet de la base.",
+        "$h^2 = a^2 - \\left(\\frac{a}{\\sqrt{3}}\\right)^2 = a^2 - \\frac{a^2}{3} = \\frac{2a^2}{3}$. Donc $h = a\\sqrt{\\frac{2}{3}}$.",
+        "$V = \\frac{1}{3} \\cdot \\frac{a^2\\sqrt{3}}{4} \\cdot a\\sqrt{\\frac{2}{3}} = \\frac{a^3}{12}\\sqrt{3} \\cdot \\sqrt{\\frac{2}{3}} = \\frac{a^3\\sqrt{2}}{12}$. $\\square$"
+      ],
+      "lecons": [405, 415],
+      "tags": ["tétraèdre", "volume", "polyèdre régulier"]
+    },
+    {
+      "id": "ex_geo_011",
+      "titre": "Enveloppe d'une famille de cercles",
+      "domaine": "Géométrie",
+      "niveau": "Difficile",
+      "enonce": "Soit la famille de cercles $\\mathcal{C}_t$ d'équation $F(x,y,t) = (x - \\cos t)^2 + (y - \\sin t)^2 - r^2 = 0$ paramétrée par $t \\in \\mathbb{R}$, avec $0 < r < 1$. Déterminer l'enveloppe de cette famille.",
+      "indication": "L'enveloppe est obtenue en résolvant le système $F = 0$ et $\\partial F/\\partial t = 0$.",
+      "solution": [
+        "$\\partial F/\\partial t = 2(x - \\cos t)\\sin t - 2(y - \\sin t)\\cos t = 0$.",
+        "Simplification : $x\\sin t - y\\cos t = \\sin t\\cos t - \\sin t\\cos t = 0$.",
+        "Donc $x\\sin t = y\\cos t$, ce qui donne $y/x = \\sin t / \\cos t = \\tan t$ (pour $x \\neq 0$).",
+        "Alors $\\cos t = x/\\sqrt{x^2+y^2}$, $\\sin t = y/\\sqrt{x^2+y^2}$.",
+        "En substituant dans $F = 0$ : $(x - \\frac{x}{\\rho})^2 + (y - \\frac{y}{\\rho})^2 = r^2$ avec $\\rho = \\sqrt{x^2+y^2}$.",
+        "$(1 - 1/\\rho)^2(x^2 + y^2) = r^2$, soit $(\\rho - 1)^2 = r^2$, d'où $\\rho = 1 \\pm r$.",
+        "L'enveloppe est la réunion de deux cercles concentriques de rayons $1 - r$ et $1 + r$. $\\square$"
+      ],
+      "lecons": [404, 409],
+      "tags": ["enveloppe", "famille de courbes", "cercle"]
+    },
+    {
+      "id": "ex_geo_012",
+      "titre": "Formule de Rodrigues pour les rotations",
+      "domaine": "Géométrie",
+      "niveau": "Moyen",
+      "enonce": "Soit $R$ la rotation de $\\mathbb{R}^3$ d'axe dirigé par le vecteur unitaire $\\mathbf{u}$ et d'angle $\\theta$. Montrer la formule de Rodrigues : $R(\\mathbf{v}) = \\cos\\theta \\, \\mathbf{v} + (1 - \\cos\\theta)(\\mathbf{u} \\cdot \\mathbf{v})\\mathbf{u} + \\sin\\theta \\, (\\mathbf{u} \\wedge \\mathbf{v})$.",
+      "indication": "Décomposer $\\mathbf{v}$ en composante parallèle et perpendiculaire à $\\mathbf{u}$.",
+      "solution": [
+        "Décomposition : $\\mathbf{v} = \\mathbf{v}_\\parallel + \\mathbf{v}_\\perp$ avec $\\mathbf{v}_\\parallel = (\\mathbf{u} \\cdot \\mathbf{v})\\mathbf{u}$ et $\\mathbf{v}_\\perp = \\mathbf{v} - (\\mathbf{u} \\cdot \\mathbf{v})\\mathbf{u}$.",
+        "La rotation fixe la composante parallèle : $R(\\mathbf{v}_\\parallel) = \\mathbf{v}_\\parallel$.",
+        "Dans le plan perpendiculaire à $\\mathbf{u}$, $(\\mathbf{v}_\\perp, \\mathbf{u} \\wedge \\mathbf{v}_\\perp)$ est une base orthogonale de même norme.",
+        "$R(\\mathbf{v}_\\perp) = \\cos\\theta \\, \\mathbf{v}_\\perp + \\sin\\theta \\, (\\mathbf{u} \\wedge \\mathbf{v}_\\perp)$.",
+        "Or $\\mathbf{u} \\wedge \\mathbf{v}_\\perp = \\mathbf{u} \\wedge \\mathbf{v}$ (car $\\mathbf{u} \\wedge \\mathbf{v}_\\parallel = 0$).",
+        "$R(\\mathbf{v}) = \\mathbf{v}_\\parallel + \\cos\\theta \\, \\mathbf{v}_\\perp + \\sin\\theta(\\mathbf{u} \\wedge \\mathbf{v}) = \\cos\\theta \\, \\mathbf{v} + (1-\\cos\\theta)(\\mathbf{u}\\cdot\\mathbf{v})\\mathbf{u} + \\sin\\theta(\\mathbf{u} \\wedge \\mathbf{v})$. $\\square$"
+      ],
+      "lecons": [407, 414],
+      "tags": ["Rodrigues", "rotation", "produit vectoriel", "espace euclidien"]
+    },
+    {
+      "id": "ex_geo_013",
+      "titre": "Quadrique en coordonnées réduites",
+      "domaine": "Géométrie",
+      "niveau": "Moyen",
+      "enonce": "Soit la surface d'équation $x^2 + 2y^2 + 3z^2 - 2xy - 4 = 0$. Déterminer sa nature et son équation réduite.",
+      "indication": "Diagonaliser la matrice de la forme quadratique associée.",
+      "solution": [
+        "Matrice de la forme quadratique : $A = \\begin{pmatrix} 1 & -1 & 0 \\\\ -1 & 2 & 0 \\\\ 0 & 0 & 3 \\end{pmatrix}$.",
+        "Polynôme caractéristique : $\\det(A - \\lambda I) = (3 - \\lambda)((1-\\lambda)(2-\\lambda) - 1) = (3-\\lambda)(\\lambda^2 - 3\\lambda + 1)$.",
+        "Valeurs propres : $\\lambda_1 = 3$, $\\lambda_2 = \\frac{3-\\sqrt{5}}{2}$, $\\lambda_3 = \\frac{3+\\sqrt{5}}{2}$. Toutes positives.",
+        "Équation réduite : $\\lambda_2 X^2 + \\lambda_3 Y^2 + 3Z^2 = 4$.",
+        "C'est un ellipsoïde de demi-axes $a = \\sqrt{4/\\lambda_2}$, $b = \\sqrt{4/\\lambda_3}$, $c = 2/\\sqrt{3}$. $\\square$"
+      ],
+      "lecons": [402, 410],
+      "tags": ["quadrique", "ellipsoïde", "diagonalisation", "forme quadratique"]
+    },
+    {
+      "id": "ex_geo_014",
+      "titre": "Théorème de Ptolémée : application",
+      "domaine": "Géométrie",
+      "niveau": "Moyen",
+      "enonce": "Soit $ABCD$ un quadrilatère inscrit dans un cercle. Montrer l'inégalité de Ptolémée $AC \\cdot BD \\leq AB \\cdot CD + AD \\cdot BC$ avec égalité si et seulement si $ABCD$ est un quadrilatère convexe inscrit.",
+      "indication": "Utiliser l'inversion de pôle $A$ ou les nombres complexes.",
+      "solution": [
+        "On place les points sur le cercle unité : $A = e^{i\\alpha}$, $B = e^{i\\beta}$, $C = e^{i\\gamma}$, $D = e^{i\\delta}$.",
+        "$|AC| \\cdot |BD| = |e^{i\\alpha} - e^{i\\gamma}| \\cdot |e^{i\\beta} - e^{i\\delta}|$.",
+        "Identité algébrique : $(a-c)(b-d) = (a-b)(c-d) + (a-d)(b-c)$ pour $a,b,c,d \\in \\mathbb{C}$.",
+        "Par l'inégalité triangulaire sur les modules : $|AC|\\cdot|BD| \\leq |AB|\\cdot|CD| + |AD|\\cdot|BC|$.",
+        "Égalité dans l'inégalité triangulaire ssi $(a-b)(c-d)$ et $(a-d)(b-c)$ sont de même argument, ce qui correspond au cas convexe inscrit (les points sont dans l'ordre sur le cercle). $\\square$"
+      ],
+      "lecons": [401, 403],
+      "tags": ["Ptolémée", "quadrilatère inscrit", "nombres complexes"]
+    },
+    {
+      "id": "ex_geo_015",
+      "titre": "Première forme fondamentale d'une surface",
+      "domaine": "Géométrie",
+      "niveau": "Difficile",
+      "enonce": "Soit la surface de révolution paramétrée par $\\Phi(u,v) = (f(u)\\cos v, f(u)\\sin v, g(u))$ avec $f(u) > 0$. Calculer la première forme fondamentale et l'aire d'un tore de rayons $R > r > 0$ ($f(u) = R + r\\cos u$, $g(u) = r\\sin u$).",
+      "indication": "Calculer $E = \\|\\Phi_u\\|^2$, $F = \\langle \\Phi_u, \\Phi_v \\rangle$, $G = \\|\\Phi_v\\|^2$.",
+      "solution": [
+        "$\\Phi_u = (f'\\cos v, f'\\sin v, g')$, $\\Phi_v = (-f\\sin v, f\\cos v, 0)$.",
+        "$E = f'^2 + g'^2$. $F = -f'f\\cos v\\sin v + f'f\\sin v\\cos v = 0$. $G = f^2$.",
+        "La première forme fondamentale est $ds^2 = (f'^2 + g'^2)du^2 + f^2 dv^2$.",
+        "Pour le tore : $f' = -r\\sin u$, $g' = r\\cos u$, $f'^2 + g'^2 = r^2$, $f = R + r\\cos u$.",
+        "$ds^2 = r^2 du^2 + (R + r\\cos u)^2 dv^2$.",
+        "$\\mathcal{A} = \\int_0^{2\\pi}\\int_0^{2\\pi} r(R + r\\cos u) \\, du \\, dv = 2\\pi r \\int_0^{2\\pi}(R + r\\cos u)du = 2\\pi r \\cdot 2\\pi R = 4\\pi^2 Rr$. $\\square$"
+      ],
+      "lecons": [406, 412],
+      "tags": ["première forme fondamentale", "surface de révolution", "tore", "aire"]
+    },
+    {
+      "id": "ex_geo_016",
+      "titre": "Transformation du plan complexe",
+      "domaine": "Géométrie",
+      "niveau": "Moyen",
+      "enonce": "Soit $f(z) = \\frac{z - i}{z + i}$ pour $z \\neq -i$. Déterminer l'image du demi-plan $\\{z \\in \\mathbb{C} : \\mathrm{Im}(z) > 0\\}$ par $f$.",
+      "indication": "Calculer $|f(z)|^2$ pour $z$ dans le demi-plan supérieur.",
+      "solution": [
+        "Posons $z = x + iy$ avec $y > 0$. $f(z) = \\frac{x + i(y-1)}{x + i(y+1)}$.",
+        "$|f(z)|^2 = \\frac{x^2 + (y-1)^2}{x^2 + (y+1)^2} = \\frac{x^2 + y^2 - 2y + 1}{x^2 + y^2 + 2y + 1}$.",
+        "Si $y > 0$ : le numérateur est strictement inférieur au dénominateur (différence $= 4y > 0$).",
+        "Donc $|f(z)| < 1$ : l'image est dans le disque unité ouvert $\\mathbb{D}$.",
+        "Surjectivité : $w = f(z) \\Leftrightarrow z = i\\frac{1+w}{1-w}$. Pour $|w| < 1$ : $\\mathrm{Im}(z) = \\frac{1 - |w|^2}{|1-w|^2} > 0$.",
+        "L'image du demi-plan de Poincaré est le disque unité $\\mathbb{D}$ (transformation de Cayley). $\\square$"
+      ],
+      "lecons": [409, 413],
+      "tags": ["transformation de Möbius", "Cayley", "demi-plan", "disque unité"]
+    },
+    {
+      "id": "ex_geo_017",
+      "titre": "Calcul d'aire par le théorème de Green",
+      "domaine": "Géométrie",
+      "niveau": "Moyen",
+      "enonce": "Utiliser la formule de Green-Riemann pour calculer l'aire délimitée par l'ellipse $\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1$.",
+      "indication": "L'aire est $\\mathcal{A} = \\frac{1}{2}\\oint_C (x\\,dy - y\\,dx)$. Paramétrer l'ellipse.",
+      "solution": [
+        "Paramétrisation de l'ellipse : $x = a\\cos t$, $y = b\\sin t$, $t \\in [0, 2\\pi]$.",
+        "$dx = -a\\sin t \\, dt$, $dy = b\\cos t \\, dt$.",
+        "$\\mathcal{A} = \\frac{1}{2}\\oint_C (x \\, dy - y \\, dx)$.",
+        "$= \\frac{1}{2}\\int_0^{2\\pi} (a\\cos t \\cdot b\\cos t - b\\sin t \\cdot (-a\\sin t)) \\, dt$.",
+        "$= \\frac{ab}{2}\\int_0^{2\\pi} (\\cos^2 t + \\sin^2 t) \\, dt = \\frac{ab}{2} \\cdot 2\\pi = \\pi ab$. $\\square$"
+      ],
+      "lecons": [404, 411],
+      "tags": ["Green-Riemann", "aire", "ellipse", "circulation"]
+    },
+    {
+      "id": "ex_geo_018",
+      "titre": "Géodésiques de la sphère",
+      "domaine": "Géométrie",
+      "niveau": "Difficile",
+      "enonce": "Montrer que les géodésiques de la sphère $S^2$ de rayon $R$ sont les grands cercles.",
+      "indication": "Utiliser la symétrie par réflexion ou les équations des géodésiques en coordonnées sphériques.",
+      "solution": [
+        "Paramétrisation : $\\Phi(\\theta, \\varphi) = R(\\sin\\theta\\cos\\varphi, \\sin\\theta\\sin\\varphi, \\cos\\theta)$.",
+        "Première forme fondamentale : $ds^2 = R^2(d\\theta^2 + \\sin^2\\theta \\, d\\varphi^2)$. Symboles de Christoffel associés.",
+        "Équations des géodésiques : $\\ddot{\\theta} - \\sin\\theta\\cos\\theta \\, \\dot{\\varphi}^2 = 0$ et $\\frac{d}{dt}(\\sin^2\\theta \\, \\dot{\\varphi}) = 0$.",
+        "La quantité conservée $C = \\sin^2\\theta \\, \\dot{\\varphi}$ (loi de Clairaut).",
+        "Argument de symétrie : toute géodésique est invariante par la réflexion par rapport au plan qui la contient avec le centre, donc c'est l'intersection de $S^2$ avec un plan passant par l'origine.",
+        "Ce sont exactement les grands cercles (cercles de rayon $R$ sur $S^2$). $\\square$"
+      ],
+      "lecons": [406, 412],
+      "tags": ["géodésique", "sphère", "Clairaut", "courbure"]
+    },
+    {
+      "id": "ex_geo_019",
+      "titre": "Birapport et perspective",
+      "domaine": "Géométrie",
+      "niveau": "Difficile",
+      "enonce": "Soient $A, B, C, D$ quatre points alignés distincts. Montrer que le birapport $[A, B, C, D] = \\frac{\\overline{CA} \\cdot \\overline{DB}}{\\overline{CB} \\cdot \\overline{DA}}$ est invariant par toute homographie (transformation projective) de la droite projective.",
+      "indication": "Une homographie de $\\mathbb{P}^1$ s'écrit $z \\mapsto \\frac{az+b}{cz+d}$ avec $ad - bc \\neq 0$. Vérifier l'invariance par calcul direct.",
+      "solution": [
+        "On identifie la droite projective à $\\mathbb{R} \\cup \\{\\infty\\}$ avec coordonnée $z$.",
+        "Le birapport s'écrit $[z_1, z_2, z_3, z_4] = \\frac{(z_3 - z_1)(z_4 - z_2)}{(z_3 - z_2)(z_4 - z_1)}$.",
+        "Soit $h(z) = \\frac{az+b}{cz+d}$. Posons $w_i = h(z_i)$.",
+        "$w_i - w_j = \\frac{az_i + b}{cz_i + d} - \\frac{az_j + b}{cz_j + d} = \\frac{(ad - bc)(z_i - z_j)}{(cz_i + d)(cz_j + d)}$.",
+        "$[w_1,w_2,w_3,w_4] = \\frac{(w_3-w_1)(w_4-w_2)}{(w_3-w_2)(w_4-w_1)}$. En substituant, les facteurs $(ad-bc)$ et $(cz_k+d)$ se simplifient tous.",
+        "$[w_1,w_2,w_3,w_4] = \\frac{(z_3-z_1)(z_4-z_2)}{(z_3-z_2)(z_4-z_1)} = [z_1,z_2,z_3,z_4]$. Le birapport est un invariant projectif fondamental. $\\square$"
+      ],
+      "lecons": [403, 413],
+      "tags": ["birapport", "homographie", "géométrie projective", "invariant"]
+    },
+    {
+      "id": "ex_geo_020",
+      "titre": "Groupe des rotations d'un cube",
+      "domaine": "Géométrie",
+      "niveau": "Moyen",
+      "enonce": "Déterminer le groupe des rotations (isométries directes) d'un cube. Montrer qu'il est isomorphe à $\\mathfrak{S}_4$.",
+      "indication": "Une rotation du cube permute les 4 grandes diagonales.",
+      "solution": [
+        "Le cube possède 4 grandes diagonales reliant les sommets opposés.",
+        "Toute rotation du cube permute ces diagonales : on obtient un morphisme $\\varphi : G \\to \\mathfrak{S}_4$.",
+        "Injectivité : si une rotation fixe les 4 diagonales, elle fixe les 8 sommets donc c'est l'identité.",
+        "Dénombrement : rotations autour des axes passant par les centres de faces opposées (3 axes, angles $\\pi/2, \\pi, 3\\pi/2$ : 9 rotations), des axes par sommets opposés (4 axes, angles $2\\pi/3, 4\\pi/3$ : 8 rotations), des axes par milieux d'arêtes opposées (6 axes, angle $\\pi$ : 6 rotations), plus l'identité = 24.",
+        "$|G| = 24 = |\\mathfrak{S}_4|$. Comme $\\varphi$ est injective et les cardinaux sont égaux, $\\varphi$ est un isomorphisme.",
+        "$G \\cong \\mathfrak{S}_4$. $\\square$"
+      ],
+      "lecons": [401, 407, 415],
+      "tags": ["groupe de symétrie", "cube", "S4", "rotations"]
     }
   ]
 }

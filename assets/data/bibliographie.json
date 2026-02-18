@@ -119,6 +119,66 @@
       "niveau": "Agrégation",
       "description": "Approche moderne de la géométrie avec les outils algébriques.",
       "lecons": [160, 161, 170, 171]
+    },
+    {
+      "id": "ouvrard_proba",
+      "titre": "Probabilités 2",
+      "auteur": "Jean-Yves Ouvrard",
+      "editeur": "Cassini",
+      "domaine": "Probabilités",
+      "niveau": "Agrégation",
+      "description": "Référence française complète pour les probabilités au niveau agrégation. Couvre les convergences, les lois des grands nombres, le TCL, les martingales et les chaînes de Markov avec rigueur.",
+      "lecons": [301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 314, 315]
+    },
+    {
+      "id": "barbe_ledoux",
+      "titre": "Probabilité",
+      "auteur": "Philippe Barbe & Michel Ledoux",
+      "editeur": "EDP Sciences",
+      "domaine": "Probabilités",
+      "niveau": "Agrégation",
+      "description": "Ouvrage de synthèse couvrant la théorie de la mesure, les variables aléatoires, les différents modes de convergence, et les résultats limites. Approche rigoureuse avec de nombreux exercices.",
+      "lecons": [301, 303, 304, 305, 307, 309, 311, 312, 315]
+    },
+    {
+      "id": "cottrell_proba",
+      "titre": "Probabilités : Synthèse de cours, exercices corrigés",
+      "auteur": "Marie Cottrell, Christian Duhamel, Vincent Genon-Catalot",
+      "editeur": "Dunod",
+      "domaine": "Probabilités",
+      "niveau": "Agrégation",
+      "description": "Manuel pédagogique avec synthèse de cours et exercices corrigés détaillés. Particulièrement utile pour la préparation aux épreuves d'oral avec ses fiches méthodologiques.",
+      "lecons": [301, 302, 303, 305, 306, 308, 310, 312, 314]
+    },
+    {
+      "id": "audin_geometrie",
+      "titre": "Géométrie",
+      "auteur": "Michèle Audin",
+      "editeur": "EDP Sciences",
+      "domaine": "Géométrie",
+      "niveau": "Agrégation",
+      "description": "Traitement moderne et complet de la géométrie affine, euclidienne et projective. Riche en exemples et applications, avec une attention particulière aux liens avec l'algèbre linéaire.",
+      "lecons": [401, 402, 403, 405, 407, 409, 413, 414, 415]
+    },
+    {
+      "id": "berger_geometrie",
+      "titre": "Géométrie",
+      "auteur": "Marcel Berger",
+      "editeur": "Nathan",
+      "domaine": "Géométrie",
+      "niveau": "Agrégation",
+      "description": "Ouvrage encyclopédique de référence sur la géométrie. Couvre la géométrie affine, euclidienne, projective, les coniques, les quadriques, la géométrie différentielle des courbes et surfaces.",
+      "lecons": [401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 412, 413, 414, 415]
+    },
+    {
+      "id": "deschamps_geometrie",
+      "titre": "Géométrie : cours et 300 exercices",
+      "auteur": "Claude Deschamps, André Warusfel",
+      "editeur": "Dunod",
+      "domaine": "Géométrie",
+      "niveau": "Agrégation",
+      "description": "Cours structuré avec 300 exercices corrigés. Couvre les isométries, les similitudes, les coniques, les courbes et surfaces. Idéal pour la préparation méthodique à l'agrégation.",
+      "lecons": [401, 402, 404, 405, 407, 409, 411, 412, 414]
     }
   ],
   "ressources_en_ligne": [
