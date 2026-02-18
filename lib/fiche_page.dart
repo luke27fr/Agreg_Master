@@ -450,7 +450,7 @@ class _FichePageState extends State<FichePage> {
         if (seg.containsKey(_keyBlock)) {
           flushRun();
           addSpacing();
-          rows.add(_buildBlockFormula(seg[_keyBlock]!));
+          rows.add(_buildBlockFormula(context, seg[_keyBlock]!));
         } else if (seg.containsKey(_keyText)) {
           final text = seg[_keyText] ?? '';
           if (_isListContent(text)) {
@@ -485,7 +485,13 @@ class _FichePageState extends State<FichePage> {
     return trimmed.contains(RegExp(r'\n\s*[\*\-]\s+'));
   }
 
-  Widget _buildBlockFormula(String formula) {
+  Color _mathColor(BuildContext context) {
+    return Theme.of(context).brightness == Brightness.dark
+        ? Colors.grey[200]!
+        : const Color(0xFF1B365D);
+  }
+
+  Widget _buildBlockFormula(BuildContext context, String formula) {
     try {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 12.0),
@@ -495,7 +501,7 @@ class _FichePageState extends State<FichePage> {
             child: Math.tex(
               formula,
               mathStyle: MathStyle.display,
-              textStyle: const TextStyle(fontSize: 18, color: Color(0xFF1B365D)),
+              textStyle: TextStyle(fontSize: 18, color: _mathColor(context)),
             ),
           ),
         ),
@@ -572,17 +578,19 @@ class _FichePageState extends State<FichePage> {
   static const double _lineHeight = 1.5;
 
   MarkdownStyleSheet _buildMarkdownStyleSheet(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final textColor = isDark ? Colors.grey[200]! : const Color(0xFF1B365D);
     final base = Theme.of(context).textTheme.bodyMedium ?? const TextStyle(fontSize: 14);
     final withHeight = base.copyWith(height: _lineHeight, fontFamily: base.fontFamily);
     return MarkdownStyleSheet(
-      p: withHeight.copyWith(color: const Color(0xFF1B365D)),
+      p: withHeight.copyWith(color: textColor),
       h1: base.copyWith(height: _lineHeight, fontWeight: FontWeight.bold, fontSize: 22),
       h2: base.copyWith(height: _lineHeight, fontWeight: FontWeight.bold, fontSize: 18),
       h3: base.copyWith(height: _lineHeight, fontWeight: FontWeight.w600, fontSize: 16),
       listBullet: withHeight,
       strong: withHeight.copyWith(fontWeight: FontWeight.bold),
       blockquoteDecoration: BoxDecoration(
-        color: const Color(0xFFFFF5F0),
+        color: isDark ? const Color(0xFF2D1B10) : const Color(0xFFFFF5F0),
         border: Border(
           left: BorderSide(
             color: const Color(0xFFD84315),
@@ -596,7 +604,7 @@ class _FichePageState extends State<FichePage> {
         vertical: 12,
       ),
       blockquote: withHeight.copyWith(
-        color: const Color(0xFFBF360C),
+        color: isDark ? Colors.orange[200]! : const Color(0xFFBF360C),
         fontWeight: FontWeight.w600,
         fontSize: 14,
       ),
@@ -627,30 +635,30 @@ class _FichePageState extends State<FichePage> {
   };
 
   /// Style d'un blockquote : balises GitHub ([!NOTE], [!WARNING], [!TIP], [!QUESTION]) puis mots-clés, sinon gris.
-  ({Color accentColor, Color bgColor, String title, IconData icon}) _getBlockquoteStyle(String firstLine) {
+  ({Color accentColor, Color bgColor, String title, IconData icon}) _getBlockquoteStyle(String firstLine, {bool isDark = false}) {
     final lower = firstLine.toLowerCase();
     if (lower.contains('[!note]')) {
-      return (accentColor: Colors.blue[800]!, bgColor: Colors.blue[50]!, title: 'Cours', icon: Icons.info);
+      return (accentColor: Colors.blue[isDark ? 200 : 800]!, bgColor: isDark ? Colors.blue[900]!.withValues(alpha: 0.3) : Colors.blue[50]!, title: 'Cours', icon: Icons.info);
     }
     if (lower.contains('[!warning]')) {
-      return (accentColor: const Color(0xFFE65100), bgColor: const Color(0xFFFFF3E0), title: 'Pièges à éviter', icon: Icons.warning_amber_rounded);
+      return (accentColor: isDark ? Colors.orange[200]! : const Color(0xFFE65100), bgColor: isDark ? Colors.orange[900]!.withValues(alpha: 0.3) : const Color(0xFFFFF3E0), title: 'Pièges à éviter', icon: Icons.warning_amber_rounded);
     }
     if (lower.contains('[!tip]')) {
-      return (accentColor: Colors.green[800]!, bgColor: Colors.green[50]!, title: 'Exercice', icon: Icons.lightbulb);
+      return (accentColor: Colors.green[isDark ? 200 : 800]!, bgColor: isDark ? Colors.green[900]!.withValues(alpha: 0.3) : Colors.green[50]!, title: 'Exercice', icon: Icons.lightbulb);
     }
     if (lower.contains('[!question]')) {
-      return (accentColor: Colors.purple[800]!, bgColor: Colors.purple.shade50, title: 'Questions de Jury', icon: Icons.question_answer);
+      return (accentColor: Colors.purple[isDark ? 200 : 800]!, bgColor: isDark ? Colors.purple[900]!.withValues(alpha: 0.3) : Colors.purple.shade50, title: 'Questions de Jury', icon: Icons.question_answer);
     }
     if (RegExp(r'définition|théorème|theorem|propriété|lemme|proposition').hasMatch(lower)) {
-      return (accentColor: Colors.blue[800]!, bgColor: Colors.blue[50]!, title: 'Cours', icon: Icons.menu_book);
+      return (accentColor: Colors.blue[isDark ? 200 : 800]!, bgColor: isDark ? Colors.blue[900]!.withValues(alpha: 0.3) : Colors.blue[50]!, title: 'Cours', icon: Icons.menu_book);
     }
     if (RegExp(r'exercice|exemple|correction|application').hasMatch(lower)) {
-      return (accentColor: Colors.green[800]!, bgColor: Colors.green[50]!, title: 'Exercice', icon: Icons.assignment);
+      return (accentColor: Colors.green[isDark ? 200 : 800]!, bgColor: isDark ? Colors.green[900]!.withValues(alpha: 0.3) : Colors.green[50]!, title: 'Exercice', icon: Icons.assignment);
     }
     if (RegExp(r'pièges|attention|erreur').hasMatch(lower)) {
-      return (accentColor: const Color(0xFFE65100), bgColor: const Color(0xFFFFF3E0), title: 'Pièges à éviter', icon: Icons.warning_amber_rounded);
+      return (accentColor: isDark ? Colors.orange[200]! : const Color(0xFFE65100), bgColor: isDark ? Colors.orange[900]!.withValues(alpha: 0.3) : const Color(0xFFFFF3E0), title: 'Pièges à éviter', icon: Icons.warning_amber_rounded);
     }
-    return (accentColor: Colors.grey[800]!, bgColor: Colors.grey[50]!, title: 'Note', icon: Icons.format_quote);
+    return (accentColor: Colors.grey[isDark ? 300 : 800]!, bgColor: isDark ? Colors.grey[900]!.withValues(alpha: 0.3) : Colors.grey[50]!, title: 'Note', icon: Icons.format_quote);
   }
 
   /// Découpe le contenu : tout ce qui commence par > est un seul segment blockquote
@@ -751,7 +759,8 @@ class _FichePageState extends State<FichePage> {
     final stripped = _stripBlockquotePrefix(rawContent);
     final lines = stripped.split('\n');
     final firstLine = lines.isNotEmpty ? lines.first.trim() : '';
-    final style = _getBlockquoteStyle(firstLine);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final style = _getBlockquoteStyle(firstLine, isDark: isDark);
     final content = _stripBlockquoteLabel(stripped);
     if (content.trim().isEmpty) return const SizedBox.shrink();
     return _buildAdmonitionContainer(
@@ -902,10 +911,7 @@ class _FichePageState extends State<FichePage> {
           child: Math.tex(
             formula,
             mathStyle: MathStyle.display,
-            textStyle: const TextStyle(
-              fontSize: 18,
-              color: Color(0xFF1B365D),
-            ),
+            textStyle: TextStyle(fontSize: 18, color: _mathColor(context)),
           ),
         );
       } catch (_) {
@@ -913,11 +919,7 @@ class _FichePageState extends State<FichePage> {
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Text(
             formula,
-            style: const TextStyle(
-              fontFamily: 'monospace',
-              color: Colors.red,
-              fontSize: 12,
-            ),
+            style: const TextStyle(fontFamily: 'monospace', color: Colors.red, fontSize: 12),
           ),
         );
       }
@@ -930,10 +932,7 @@ class _FichePageState extends State<FichePage> {
           child: Math.tex(
             formula,
             mathStyle: MathStyle.text,
-            textStyle: const TextStyle(
-              fontSize: 14,
-              color: Color(0xFF1B365D),
-            ),
+            textStyle: TextStyle(fontSize: 14, color: _mathColor(context)),
           ),
         );
       } catch (_) {
@@ -941,11 +940,7 @@ class _FichePageState extends State<FichePage> {
           padding: const EdgeInsets.only(right: 4.0),
           child: Text(
             formula,
-            style: const TextStyle(
-              fontFamily: 'monospace',
-              color: Colors.red,
-              fontSize: 12,
-            ),
+            style: const TextStyle(fontFamily: 'monospace', color: Colors.red, fontSize: 12),
           ),
         );
       }
