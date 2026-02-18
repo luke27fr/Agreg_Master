@@ -61,6 +61,10 @@ upload_certificate.pem
 # Firebase
 .firebase/
 
+# Node.js (tools/)
+tools/node_modules/
+tools/package-lock.json
+
 # Store assets (large images)
 google_play_feature_graphic_1024x500.png
 google_play_icon_512x512.png
