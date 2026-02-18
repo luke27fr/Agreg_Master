@@ -84,14 +84,6 @@ Dans Firebase Console, activer :
 - **Période de facturation** : 1 an
 - **Essai gratuit** : 7 jours (optionnel)
 
-#### Abonnement Étudiant (Annuel)
-- **ID du produit** : `agreg_master_premium_student`
-- **Nom** : Premium Étudiant (1 an)
-- **Description** : Tarif étudiant avec justificatif
-- **Prix** : **29,99 €** (économie de 40%)
-- **Période de facturation** : 1 an
-- **Essai gratuit** : 7 jours (optionnel)
-
 ⚠️ **IMPORTANT** : Les IDs ci-dessus sont déjà codés dans `SubscriptionService.dart`
 
 ### D. Configurer le Build Android
@@ -180,11 +172,10 @@ storeFile=../agreg-master-release-key.jks
 
 1. Dans App Store Connect > Votre app > **Abonnements**
 2. Créer un **Groupe d'abonnements** : `Premium`
-3. Créer 3 abonnements avec les **mêmes IDs** que Google Play :
+3. Créer 2 abonnements avec les **mêmes IDs** que Google Play :
 
 - `agreg_master_premium_monthly` - **4,99 €** / mois
 - `agreg_master_premium_yearly` - **39,99 €** / an
-- `agreg_master_premium_student` - **29,99 €** / an
 
 ### D. Configurer Xcode
 
