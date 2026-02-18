@@ -133,18 +133,10 @@ class SubscriptionService extends ChangeNotifier {
 
   /// Récupérer les offres disponibles (prix, packages)
   Future<Offerings?> getOfferings() async {
-    if (!_isInitialized) {
-      debugPrint('RevenueCat non initialisé — tentative de réinitialisation');
-      try {
-        await initialize();
-      } catch (e) {
-        debugPrint('Réinitialisation échouée: $e');
-      }
-      if (!_isInitialized) {
-        _error = 'Service d\'abonnement non disponible';
-        notifyListeners();
-        return null;
-      }
+    if (!_isInitialized || !await _ensureConfigured()) {
+      _error = 'Service d\'abonnement non disponible';
+      notifyListeners();
+      return null;
     }
 
     try {
@@ -155,6 +147,23 @@ class SubscriptionService extends ChangeNotifier {
       _error = 'Impossible de charger les offres';
       notifyListeners();
       return null;
+    }
+  }
+
+  /// Vérifie que le SDK RevenueCat est configuré, tente une réinit sinon
+  Future<bool> _ensureConfigured() async {
+    try {
+      if (await Purchases.isConfigured) return true;
+    } catch (_) {}
+
+    debugPrint('RevenueCat non configuré — tentative de réinitialisation');
+    _isInitialized = false;
+    try {
+      await initialize();
+      return _isInitialized;
+    } catch (e) {
+      debugPrint('Réinitialisation échouée: $e');
+      return false;
     }
   }
 
