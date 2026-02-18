@@ -182,22 +182,6 @@
       "tags": ["point fixe", "Banach"]
     },
     {
-      "id": "ex_decomposition_polaire",
-      "titre": "Décomposition polaire",
-      "domaine": "Algèbre",
-      "niveau": "Difficile",
-      "enonce": "A = [[1,1],[0,1]]. Trouver A = UP (U orthogonale, P sym. déf. pos.).",
-      "indication": "P = √(AᵀA).",
-      "solution": [
-        "AᵀA = [[1,1],[1,2]].",
-        "Valeurs propres : λ = (3 ± √5)/2.",
-        "P = √(AᵀA) via diagonalisation.",
-        "U = AP⁻¹."
-      ],
-      "lecons": [160],
-      "tags": ["décomposition polaire", "matrices"]
-    },
-    {
       "id": "ex_gram_schmidt",
       "titre": "Orthonormalisation de Gram-Schmidt",
       "domaine": "Algèbre",
@@ -287,32 +271,15 @@
       "domaine": "Analyse",
       "niveau": "Facile",
       "enonce": "Soit uₙ = ∑_{k=1}^n 1/k - ln(n) et vₙ = uₙ + 1/n. Montrer que (uₙ) et (vₙ) sont adjacentes.",
-      "indication": "Montrer que uₙ croît, vₙ décroît et vₙ - uₙ → 0.",
+      "indication": "Montrer que uₙ décroît, vₙ croît et vₙ - uₙ → 0.",
       "solution": [
         "vₙ - uₙ = 1/n → 0.",
-        "uₙ₊₁ - uₙ = 1/(n+1) - ln((n+1)/n) > 0 (concavité de ln).",
-        "vₙ₊₁ - vₙ = uₙ₊₁ - uₙ + 1/(n+1) - 1/n < 0.",
-        "Donc (uₙ) et (vₙ) adjacentes, convergent vers γ (Euler)."
+        "uₙ₊₁ - uₙ = 1/(n+1) - ln((n+1)/n) < 0 car ln(1+h) > h/(1+h) pour h > 0 : (uₙ) décroît.",
+        "vₙ₊₁ - vₙ = uₙ₊₁ - uₙ + 1/(n+1) - 1/n. On montre que vₙ croît : vₙ₊₁ - vₙ = 1/(n+1) - ln(1+1/n) + 1/(n+1) - 1/n > 0.",
+        "Donc (uₙ) décroissante, (vₙ) croissante, vₙ - uₙ → 0 : suites adjacentes, convergent vers γ (Euler)."
       ],
       "lecons": [203],
       "tags": ["suites", "constante d'Euler"]
-    },
-    {
-      "id": "ex_formule_stirling",
-      "titre": "Approximation de Stirling",
-      "domaine": "Analyse",
-      "niveau": "Difficile",
-      "enonce": "Montrer que n! ~ √(2πn)·(n/e)ⁿ.",
-      "indication": "Utiliser la formule de Wallis ou Laplace.",
-      "solution": [
-        "Méthode 1 : Via Wallis et W₂ₙ.",
-        "Méthode 2 : ln(n!) = ∑ln(k) ≈ ∫ln(x)dx = n·ln(n) - n.",
-        "Encadrement : ∫_{k-1}^k ln ≤ ln(k) ≤ ∫_k^{k+1} ln.",
-        "Développement précis via Euler-Maclaurin.",
-        "Constante √(2π) via intégrale de Gauss."
-      ],
-      "lecons": [239, 265],
-      "tags": ["Stirling", "asymptotique"]
     },
     {
       "id": "ex_theoreme_hahn_banach",
@@ -576,7 +543,7 @@
       "indication": "Distinguer les cas selon x.",
       "solution": [
         "(f⋆g)(x) = ∫_{-1}^1 e^(-|x-t|) dt.",
-        "Cas x ≥ 1 : ∫_{-1}^1 e^(t-x) dt = e^(-x)(e - e^{-2}).",
+        "Cas x ≥ 1 : ∫_{-1}^1 e^(t-x) dt = e^(-x)(e - e^{-1}).",
         "Cas -1 ≤ x ≤ 1 : séparer en ∫_{-1}^x e^(t-x) + ∫_x^1 e^(x-t).",
         "Cas x ≤ -1 : symétrie.",
         "Résultat : fonction C¹ par morceaux."
@@ -664,7 +631,7 @@
       "solution": [
         "x = (1+cos θ)cos θ, y = (1+cos θ)sin θ.",
         "Périodicité 2π, symétrie/Ox.",
-        "Points doubles : θ = 0 (point de rebroussement).",
+        "Point de rebroussement : θ = π (à l'origine, r = 0).",
         "Tangente : v'(θ) = (-sin θ(2+cos θ), cos θ(2+cos θ)).",
         "Aire : A = (1/2)∫r² dθ = 3π/2."
       ],
@@ -822,24 +789,6 @@
       "tags": ["Perron-Frobenius", "positif"]
     },
     {
-      "id": "ex_decomposition_dunford",
-      "titre": "Décomposition de Dunford",
-      "domaine": "Algèbre",
-      "niveau": "Difficile",
-      "enonce": "Montrer que tout endomorphisme s'écrit u = d + n avec d diagonalisable, n nilpotent, dn = nd.",
-      "indication": "Utiliser la forme de Jordan.",
-      "solution": [
-        "Sur ℂ, u trigonalisable : u = D + N (Jordan).",
-        "D = diag(λ₁,...,λₙ) diagonale.",
-        "N strictement triangulaire sup., donc nilpotente.",
-        "DN = ND (matrices triangulaires commutent).",
-        "Unicité : si u = d₁+n₁ = d₂+n₂, alors d₁-d₂ = n₂-n₁.",
-        "d₁-d₂ diag. ET nilpotent ⟹ d₁ = d₂."
-      ],
-      "lecons": [154, 157],
-      "tags": ["Dunford", "Jordan"]
-    },
-    {
       "id": "ex_theoreme_ascoli",
       "titre": "Application d'Ascoli",
       "domaine": "Analyse",
@@ -855,23 +804,6 @@
       ],
       "lecons": [206, 241],
       "tags": ["Ascoli", "équicontinuité"]
-    },
-    {
-      "id": "ex_lemme_fatou",
-      "titre": "Lemme de Fatou",
-      "domaine": "Analyse",
-      "niveau": "Difficile",
-      "enonce": "Si fₙ ≥ 0, montrer ∫(lim inf fₙ) ≤ lim inf(∫fₙ).",
-      "indication": "Poser gₖ = inf_{n≥k} fₙ et utiliser la monotonie.",
-      "solution": [
-        "gₖ = inf_{n≥k} fₙ ≤ fₙ pour n ≥ k.",
-        "Donc ∫gₖ ≤ ∫fₙ pour tout n ≥ k.",
-        "∫gₖ ≤ inf_{n≥k} ∫fₙ.",
-        "gₖ ↗ lim inf fₙ, monotone croissant.",
-        "∫(lim inf fₙ) = lim ∫gₖ ≤ lim(inf_{n≥k} ∫fₙ) = lim inf ∫fₙ."
-      ],
-      "lecons": [234],
-      "tags": ["Fatou", "Lebesgue"]
     },
     {
       "id": "ex_variable_densite_exo",
@@ -1123,8 +1055,8 @@
       "tags": ["Eisenstein", "irréductibilité", "polynômes"]
     },
     {
-      "id": "ex_tcl_application",
-      "titre": "Théorème Central Limite - Application",
+      "id": "ex_tcl_application_binomiale",
+      "titre": "Théorème Central Limite - Application binomiale",
       "domaine": "Probabilités",
       "niveau": "Moyen",
       "enonce": "On lance 10000 fois une pièce équilibrée. Estimer P(4900 ≤ S ≤ 5100) où S = nombre de piles.",
@@ -1506,22 +1438,6 @@
       "tags": ["Cauchy-Schwarz", "produit scalaire", "inégalité"]
     },
     {
-      "id": "ex_determinant_vandermonde",
-      "titre": "Déterminant de Vandermonde",
-      "domaine": "Algèbre",
-      "niveau": "Moyen",
-      "enonce": "Calculer det(V) pour V = [[1,x₁,x₁²],[1,x₂,x₂²],[1,x₃,x₃²]].",
-      "indication": "Factoriser par les différences xᵢ − xⱼ.",
-      "solution": [
-        "Formule générale : det(V_n) = ∏_{i<j} (xⱼ − xᵢ).",
-        "Pour n=3 : det(V) = (x₂−x₁)(x₃−x₁)(x₃−x₂).",
-        "Vérification par développement ou récurrence.",
-        "Interprétation : det(V) = 0 ⟺ deux xᵢ égaux ⟺ colonnes liées."
-      ],
-      "lecons": [103, 105],
-      "tags": ["Vandermonde", "déterminant", "polynômes"]
-    },
-    {
       "id": "ex_critere_dalembert",
       "titre": "Critère de d'Alembert",
       "domaine": "Analyse",
@@ -1555,7 +1471,7 @@
       "tags": ["interpolation", "Lagrange", "polynômes"]
     },
     {
-      "id": "ex_formule_bayes",
+      "id": "ex_formule_bayes_v2",
       "titre": "Formule de Bayes - Diagnostic médical",
       "domaine": "Probabilités",
       "niveau": "Moyen",
@@ -1605,23 +1521,6 @@
       ],
       "lecons": [245, 247],
       "tags": ["Fubini", "intégrale double", "polaires"]
-    },
-    {
-      "id": "ex_suite_adjacente",
-      "titre": "Suites adjacentes",
-      "domaine": "Analyse",
-      "niveau": "Facile",
-      "enonce": "Soit uₙ = Σ₁ⁿ 1/k et vₙ = uₙ − ln(n). Montrer que (vₙ) converge.",
-      "indication": "Montrer que vₙ est décroissante et minorée.",
-      "solution": [
-        "vₙ₊₁ − vₙ = 1/(n+1) − ln(1 + 1/n).",
-        "Par concavité de ln : ln(1+h) > h − h²/2 pour h petit.",
-        "Donc vₙ₊₁ − vₙ < 0, la suite décroît.",
-        "De plus, ∫ₖ^(k+1) dx/x < 1/k donne vₙ > 0 (minorée).",
-        "Suite décroissante minorée ⟹ convergente. Limite = γ ≈ 0.577 (constante d'Euler)."
-      ],
-      "lecons": [233, 214],
-      "tags": ["suites adjacentes", "Euler", "convergence"]
     },
     {
       "id": "ex_decomposition_polaire",
@@ -1721,9 +1620,8 @@
         "Les diviseurs de $12$ sont $\\{1, 2, 3, 4, 6, 12\\}$.",
         "$\\Phi_1 = X-1$, $\\Phi_2 = X+1$, $\\Phi_3 = X^2+X+1$, $\\Phi_4 = X^2+1$, $\\Phi_6 = X^2-X+1$.",
         "$X^{12} - 1 = \\Phi_1 \\Phi_2 \\Phi_3 \\Phi_4 \\Phi_6 \\Phi_{12}$.",
-        "$\\Phi_1 \\Phi_2 \\Phi_3 \\Phi_4 \\Phi_6 = (X^2-1)(X^2+X+1)(X^2+1)(X^2-X+1)$",
-        "$= (X^4-1)(X^4+X^2+1) = X^8 + X^4 - X^4 - 1 + X^6 + X^2 = X^8-X^4+1$... Non.",
-        "Méthode directe : $\\Phi_{12}(X) = \\frac{X^{12}-1}{(X^6-1)(X^4-1)/(X^2-1)} = X^4 - X^2 + 1$. $\\square$"
+        "$\\Phi_1 \\Phi_2 \\Phi_3 \\Phi_6 = (X^2-1)(X^2+X+1)(X^2-X+1) \\cdot \\Phi_4 = (X^6-1)(X^2+1) = X^8+X^6-X^2-1$.",
+        "Donc $\\Phi_{12}(X) = \\frac{X^{12}-1}{X^8+X^6-X^2-1} = X^4 - X^2 + 1$. $\\square$"
       ],
       "lecons": [106, 141],
       "tags": ["cyclotomique", "racines de l'unité"]
@@ -2158,8 +2056,8 @@
       "tags": ["TCL", "convergence en loi", "gaussienne"]
     },
     {
-      "id": "ex_esperance_conditionnelle",
-      "titre": "Espérance conditionnelle",
+      "id": "ex_esperance_conditionnelle_densite",
+      "titre": "Espérance conditionnelle - Densité",
       "domaine": "Probabilités",
       "niveau": "Moyen",
       "enonce": "Soit $(X, Y)$ de densité $f(x,y) = 2$ sur le triangle $\\{0 < x < y < 1\\}$. Calculer $E[X|Y]$.",
@@ -2227,8 +2125,8 @@
       "tags": ["gaussienne", "moments", "IPP"]
     },
     {
-      "id": "ex_inegalite_jensen",
-      "titre": "Inégalité de Jensen",
+      "id": "ex_inegalite_jensen_preuve",
+      "titre": "Inégalité de Jensen - Preuve générale",
       "domaine": "Probabilités",
       "niveau": "Moyen",
       "enonce": "Soit $X$ une v.a. intégrable et $\\varphi$ convexe. Montrer que $\\varphi(E[X]) \\leq E[\\varphi(X)]$.",
@@ -2376,8 +2274,8 @@
         "Dans $\\mathrm{Im}(z) > 0$ : $z_0 = e^{i\\pi/4}$ et $z_1 = e^{3i\\pi/4}$.",
         "Résidu en $z_0$ : $\\mathrm{Res}_{z_0} = \\frac{1}{4z_0^3} = \\frac{1}{4}e^{-3i\\pi/4}$.",
         "Résidu en $z_1$ : $\\mathrm{Res}_{z_1} = \\frac{1}{4z_1^3} = \\frac{1}{4}e^{-9i\\pi/4} = \\frac{1}{4}e^{-i\\pi/4}$.",
-        "Somme des résidus : $\\frac{1}{4}(e^{-3i\\pi/4} + e^{-i\\pi/4}) = \\frac{1}{4} \\cdot \\frac{-\\sqrt{2}}{2}(1+i) + \\frac{\\sqrt{2}}{2}(1-i)) = \\frac{-i\\sqrt{2}}{4}$... Non.",
-        "$I = 2\\pi i \\cdot \\text{(somme résidus)} = \\frac{\\pi}{\\sqrt{2}}$. $\\square$"
+        "Somme des résidus : $\\frac{1}{4}(e^{-3i\\pi/4} + e^{-i\\pi/4}) = \\frac{1}{4}(-i\\sqrt{2}) = \\frac{-i\\sqrt{2}}{4}$.",
+        "$I = 2\\pi i \\cdot \\frac{-i\\sqrt{2}}{4} = \\frac{\\pi\\sqrt{2}}{2} = \\frac{\\pi}{\\sqrt{2}}$. $\\square$"
       ],
       "lecons": [243, 246],
       "tags": ["résidus", "intégrales", "fonctions holomorphes"]
@@ -2394,7 +2292,7 @@
         "**Cas $\\varphi \\neq 0$** : $F = \\ker(\\varphi)$ est un sous-espace fermé de codimension $1$.",
         "$F^\\perp$ est de dimension $1$ : soit $e \\in F^\\perp$, $\\|e\\| = 1$.",
         "Pour tout $x$ : $x = (x - \\frac{\\varphi(x)}{\\varphi(e)}e) + \\frac{\\varphi(x)}{\\varphi(e)}e$.",
-        "Le premier terme est dans $\\ker(\\varphi)$, donc $\\varphi(x) = \\varphi(e) \\langle x, e \\rangle / \\|e\\|^2$... Non.",
+        "Le premier terme est dans $\\ker(\\varphi) \\perp e$, donc $\\langle x, e \\rangle = \\frac{\\varphi(x)}{\\varphi(e)} \\|e\\|^2$, i.e. $\\varphi(x) = \\frac{\\varphi(e)}{\\|e\\|^2} \\langle x, e \\rangle$.",
         "Posons $y = \\frac{\\overline{\\varphi(e)}}{\\|e\\|^2} e$. Alors $\\varphi(x) = \\langle x, y \\rangle$ pour tout $x$.",
         "**Unicité** : si $\\langle x, y_1 \\rangle = \\langle x, y_2 \\rangle$ pour tout $x$, alors $y_1 = y_2$. $\\square$"
       ],
@@ -3633,7 +3531,7 @@
         "$x(t)^2 + y(t)^2 = \\frac{(t^2 - 1)^2 + 4t^2}{(t^2 + 1)^2} = \\frac{t^4 - 2t^2 + 1 + 4t^2}{(t^2 + 1)^2} = \\frac{(t^2 + 1)^2}{(t^2 + 1)^2} = 1$.",
         "Donc $\\gamma(t)$ est sur le cercle unité $x^2 + y^2 = 1$ pour tout $t$.",
         "Quand $t \\to \\pm\\infty$ : $x(t) \\to 1$, $y(t) \\to 0$. Le point $(1, 0)$ n'est jamais atteint car $x(t) = 1 \\Leftrightarrow t^2 - 1 = t^2 + 1$ : impossible.",
-        "C'est le cercle unité privé du point $(-1, 0)$... En fait : $x(t) = -1 \\Leftrightarrow t^2 - 1 = -(t^2 + 1)$, impossible. Point manquant : $(-1, 0)$.",
+        "C'est le cercle unité privé du point $(1, 0)$ (limite quand $t \\to \\pm\\infty$, jamais atteint).",
         "On reconnaît la paramétrisation rationnelle du cercle par tangente de l'angle moitié : $t = \\tan(\\theta/2)$. $\\square$"
       ],
       "lecons": [404, 409],
