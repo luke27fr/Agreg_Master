@@ -60,7 +60,7 @@
     {"question": "Si une matrice a deux lignes identiques, son déterminant vaut...", "options": ["1", "-1", "0", "2"], "correctIndex": 2, "explanation": "Le déterminant est alterné : deux lignes égales donnent un déterminant nul."},
     {"question": "Comment le déterminant change-t-il si on échange deux lignes ?", "options": ["Il reste identique", "Il change de signe", "Il double", "Il s'annule"], "correctIndex": 1, "explanation": "Le déterminant est une forme alternée : échanger deux lignes change le signe."},
     {"question": "Quelle est la formule du déterminant de Vandermonde ?", "options": ["$\\sum_{i<j}(x_j - x_i)$", "$\\prod_{i<j}(x_j - x_i)$", "$\\sum x_i^{n-1}$", "$\\prod x_i$"], "correctIndex": 1, "explanation": "Vandermonde : $\\det(x_j^{i-1}) = \\prod_{1 \\leq i < j \\leq n}(x_j - x_i)$."},
-    {"question": "Quel est le déterminant de $\\begin{pmatrix} 2 & 1 \\\\ 3 & 4 \\end{pmatrix}$ ?", "options": ["5", "8", "11", "5"], "correctIndex": 0, "explanation": "$\\det = 2 \\times 4 - 1 \\times 3 = 8 - 3 = 5$."}
+    {"question": "Quel est le déterminant de $\\begin{pmatrix} 2 & 1 \\\\ 3 & 4 \\end{pmatrix}$ ?", "options": ["5", "8", "11", "-2"], "correctIndex": 0, "explanation": "$\\det = 2 \\times 4 - 1 \\times 3 = 8 - 3 = 5$."}
   ],
   "systemes_lineaires": [
     {"question": "Quand un système de Cramer a-t-il une solution unique ?", "options": ["Toujours", "Quand $\\det(A) = 0$", "Quand $\\det(A) \\neq 0$", "Quand $A$ est symétrique"], "correctIndex": 2, "explanation": "Un système de Cramer ($n$ équations, $n$ inconnues) a une unique solution ssi $\\det(A) \\neq 0$."},
@@ -409,7 +409,7 @@
     {"question": "Une quadrique est définie par une équation de degré...", "options": ["1", "2", "3", "4"], "correctIndex": 1, "explanation": "Quadrique = surface d'équation polynomiale de degré 2."},
     {"question": "L'équation $x^2 + y^2 + z^2 = 1$ représente...", "options": ["Un plan", "Une sphère", "Un ellipsoïde", "Un cylindre"], "correctIndex": 1, "explanation": "Sphère unité de centre O."},
     {"question": "Un paraboloïde hyperbolique (selle de cheval) a pour équation...", "options": ["$x^2 + y^2 = z$", "$x^2 - y^2 = z$", "$x^2 + y^2 + z^2 = 1$", "$x^2 + y^2 = 1$"], "correctIndex": 1, "explanation": "$z = x^2 - y^2$ : paraboloïde hyperbolique (point selle à l'origine)."},
-    {"question": "Combien de types de quadriques non dégénérées y a-t-il ?", "options": ["3", "5", "7", "9"], "correctIndex": 3, "explanation": "9 types : ellipsoïde, hyperboloïdes (1 et 2 nappes), paraboloïdes (elliptique, hyperbolique), cônes, cylindres (3 types)."},
+    {"question": "Combien de types de quadriques non dégénérées y a-t-il dans $\\mathbb{R}^3$ ?", "options": ["3", "5", "7", "9"], "correctIndex": 1, "explanation": "5 types non dégénérées : ellipsoïde, hyperboloïde à 1 nappe, hyperboloïde à 2 nappes, paraboloïde elliptique, paraboloïde hyperbolique. Les cônes et cylindres sont des quadriques dégénérées."},
     {"question": "Un cylindre est une quadrique...", "options": ["Propre", "Dégénérée", "Compacte", "Connexe"], "correctIndex": 1, "explanation": "Cylindre = quadrique dégénérée (rang de la matrice < 4)."}
   ],
   "projective": [

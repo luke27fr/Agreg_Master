@@ -1501,7 +1501,7 @@
         {
           "section": "Théorèmes classiques de géométrie affine",
           "sous_parties": [
-            "Théorème de Thalès : soit $D_1 \\parallel D_2$ deux droites et $\\Delta, \\Delta'$ deux sécantes coupant $D_1$ en $A, A'$ et $D_2$ en $B, B'$. Alors $\\frac{AB}{AB'} = \\frac{A'B}{A'B'}$",
+            "Théorème de Thalès : soient deux droites $\\Delta$ et $\\Delta'$ sécantes en $O$, coupées par deux parallèles $D_1$ et $D_2$. Si $\\Delta$ coupe $D_1$ en $A$ et $D_2$ en $B$, et $\\Delta'$ coupe $D_1$ en $A'$ et $D_2$ en $B'$, alors $\\frac{OA}{OB} = \\frac{OA'}{OB'}$",
             "Théorème de Ménélaüs : si $M, N, P$ sont sur les côtés (ou prolongements) $BC, CA, AB$ d'un triangle, alors $M, N, P$ alignés ssi $\\frac{\\overline{BM}}{\\overline{MC}} \\cdot \\frac{\\overline{CN}}{\\overline{NA}} \\cdot \\frac{\\overline{AP}}{\\overline{PB}} = -1$",
             "Théorème de Céva : les céviennes $AM, BN, CP$ sont concourantes ssi $\\frac{\\overline{BM}}{\\overline{MC}} \\cdot \\frac{\\overline{CN}}{\\overline{NA}} \\cdot \\frac{\\overline{AP}}{\\overline{PB}} = 1$",
             "Application : concours des médianes, des hauteurs (via le produit scalaire), existence du centre de gravité"
@@ -6740,7 +6740,7 @@
           "section": "Applications",
           "sous_parties": [
             "Problème de la ruine du joueur : probabilité de ruine par le théorème d'arrêt",
-            "Martingale de Doléans : $\\mathcal{E}(M)_n = \\exp(M_n - \\frac{1}{2}\\langle M \\rangle_n)$",
+            "Exponentielle stochastique de Doléans (cas discret) : $\\mathcal{E}(M)_n = \\prod_{k=1}^n (1 + \\Delta M_k)$. En temps continu pour les martingales continues : $\\mathcal{E}(M)_t = \\exp(M_t - \\frac{1}{2}\\langle M \\rangle_t)$",
             "Loi du zéro-un de Kolmogorov comme conséquence de la convergence des martingales"
           ]
         }
@@ -8561,7 +8561,7 @@
         "Théorème de Gauss-Wantzel : le polygone régulier à $n$ côtés est constructible à la règle et au compas ssi $n = 2^a p_1 \\cdots p_k$ où les $p_i$ sont des nombres premiers de Fermat distincts"
       ],
       "exemples_importants": [
-        "Triangle équilatéral : $R = 2r$, tous les points remarquables confondus sauf $O = G = H = I$, cercle d'Euler = cercle inscrit",
+        "Triangle équilatéral : $R = 2r$, tous les points remarquables confondus : $O = G = H = I$, cercle d'Euler = cercle inscrit",
         "Triangle rectangle : $R = c/2$ (hypoténuse = diamètre), $H$ au sommet de l'angle droit",
         "Pentagone régulier : le nombre d'or $\\varphi = (1+\\sqrt{5})/2$ apparaît dans les diagonales",
         "Hexagone régulier inscrit dans un cercle de rayon $R$ : côté $= R$"

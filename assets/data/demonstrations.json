@@ -182,8 +182,9 @@
         "Méthode 1 (sur ℂ) : A est semblable à une triangulaire T.",
         "On vérifie χ_T(T) = 0 par calcul direct.",
         "Méthode 2 : utiliser la comatrice.",
-        "(XI - A)·Com(XI-A)ᵀ = det(XI-A)·I = χ_A(X)·I",
-        "La comatrice est polynomiale en X, substituer A."
+        "$(XI_n - A) \\cdot \\mathrm{Com}(XI_n - A)^T = \\chi_A(X) \\cdot I_n$ dans $M_n(\\mathbb{K}[X])$.",
+        "Écrire $\\mathrm{Com}(XI_n - A)^T = B_0 + B_1 X + \\cdots + B_{n-1} X^{n-1}$ avec $B_k \\in M_n(\\mathbb{K})$.",
+        "Développer le produit, identifier les coefficients de chaque puissance de $X$, puis multiplier l'identité de degré $k$ par $A^k$ et sommer : on obtient $\\chi_A(A) = 0$ par télescopage. (Attention : on ne peut pas simplement substituer $A$ à $X$ car $A$ et $XI_n - A$ ne commutent pas a priori dans le bon sens.)"
       ],
       "corollaires": [
         "Le polynôme minimal divise le caractéristique",
@@ -210,11 +211,10 @@
       "domaine": "Algèbre",
       "enonce": "Toute matrice symétrique réelle est diagonalisable en base orthonormée.",
       "preuve": [
-        "Étape 1 : Valeurs propres réelles.",
-        "Si Ax = λx, alors λ‖x‖² = ⟨Ax,x⟩ = ⟨x,Ax⟩ = λ̄‖x‖², donc λ ∈ ℝ.",
-        "Étape 2 : Espaces propres orthogonaux.",
-        "Si Ax = λx, Ay = μy avec λ ≠ μ, alors ⟨x,y⟩ = 0.",
-        "Étape 3 : Récurrence. F = ker(A-λI), F⊥ stable par A."
+        "Préliminaire : $\\chi_A$ admet des racines dans $\\mathbb{C}$ (théorème de d'Alembert-Gauss). On montre qu'elles sont réelles.",
+        "Étape 1 : Valeurs propres réelles. Si $Ax = \\lambda x$ dans $\\mathbb{C}^n$, alors $\\lambda\\|x\\|^2 = \\langle Ax, x\\rangle = \\langle x, A^T x\\rangle = \\langle x, Ax\\rangle = \\bar{\\lambda}\\|x\\|^2$, donc $\\lambda = \\bar{\\lambda} \\in \\mathbb{R}$.",
+        "Étape 2 : Espaces propres orthogonaux. Si $Ax = \\lambda x$, $Ay = \\mu y$ avec $\\lambda \\neq \\mu$, alors $\\lambda\\langle x,y\\rangle = \\langle Ax,y\\rangle = \\langle x,Ay\\rangle = \\mu\\langle x,y\\rangle$, donc $\\langle x,y\\rangle = 0$.",
+        "Étape 3 : Récurrence sur $n$. Soit $\\lambda_1$ valeur propre, $F = \\ker(A - \\lambda_1 I)$. Alors $F^\\perp$ est stable par $A$ (car $A$ symétrique). Appliquer l'hypothèse de récurrence à $A|_{F^\\perp}$."
       ],
       "corollaires": [
         "Classification des quadriques",
@@ -359,16 +359,16 @@
       "id": "sylow_premier",
       "titre": "Premier théorème de Sylow",
       "domaine": "Algèbre",
-      "enonce": "Si pᵏ divise |G|, alors G possède un sous-groupe d'ordre pᵏ.",
+      "enonce": "Si $p^a$ est la plus grande puissance de $p$ divisant $|G|$ (avec $|G| = p^a m$, $\\pgcd(p,m) = 1$), alors $G$ possède un sous-groupe d'ordre $p^a$ ($p$-Sylow).",
       "preuve": [
-        "Action de G sur X = {parties à pᵏ éléments}.",
-        "Pour A ∈ X, |G·A| = [G:Stab(A)] divise |G|.",
-        "|X| ≢ 0 (mod p) par Lucas.",
-        "Donc ∃A avec |G·A| ≢ 0 (mod p), d'où |Stab(A)| ≥ pᵏ."
+        "Action de $G$ par translation à gauche sur $X = \\{A \\subset G : |A| = p^a\\}$.",
+        "Pour $A \\in X$, $|G \\cdot A| = [G:\\mathrm{Stab}(A)]$ divise $|G|$.",
+        "$|X| = \\binom{p^a m}{p^a} \\equiv m \\not\\equiv 0 \\pmod{p}$ (identité combinatoire).",
+        "Donc $\\exists A$ avec $|G \\cdot A| \\not\\equiv 0 \\pmod{p}$, d'où $|\\mathrm{Stab}(A)| \\geq p^a$. Comme l'action à gauche est libre sur $A$, $|\\mathrm{Stab}(A)| \\leq |A| = p^a$, donc $|\\mathrm{Stab}(A)| = p^a$."
       ],
       "corollaires": [
-        "Existence des p-Sylow",
-        "Théorème de Cauchy"
+        "Théorème de Cauchy : si $p$ divise $|G|$, alors $G$ possède un élément d'ordre $p$",
+        "Tout sous-groupe d'indice le plus petit premier divisant $|G|$ est distingué"
       ],
       "lecons": [101, 104],
       "tags": ["groupes", "Sylow"],
@@ -542,11 +542,11 @@
       "id": "serie_alternee_leibniz",
       "titre": "Critère des séries alternées (Leibniz)",
       "domaine": "Analyse",
-      "enonce": "Si $(a_n)$ est décroissante et tend vers 0, alors $\\sum (-1)^n a_n$ converge. De plus $|R_N| \\leq a_{N+1}$.",
+      "enonce": "Si $(a_n)$ est une suite de réels positifs, décroissante, tendant vers 0, alors $\\sum (-1)^n a_n$ converge. De plus $|R_N| \\leq a_{N+1}$.",
       "preuve": [
-        "$S_{2n} = \\sum_{k=0}^{2n-1} (-1)^k a_k$ : $S_{2n+2} - S_{2n} = a_{2n+1} - a_{2n+2} \\leq 0$ : $(S_{2n})$ décroissante.",
-        "$S_{2n+1} = S_{2n} - a_{2n}$ : $S_{2n+3} - S_{2n+1} = a_{2n+2} - a_{2n+1} \\geq 0$ : $(S_{2n+1})$ croissante.",
-        "$S_{2n} - S_{2n+1} = a_{2n} \\to 0$ : les deux suites ont la même limite $S$.",
+        "$S_{2n} = \\sum_{k=0}^{2n} (-1)^k a_k$ : $S_{2n+2} - S_{2n} = a_{2n+2} - a_{2n+1} \\leq 0$ car $(a_n)$ décroissante : $(S_{2n})$ est décroissante.",
+        "$S_{2n+1} = S_{2n} - a_{2n+1}$ : $S_{2n+3} - S_{2n+1} = a_{2n+2} - a_{2n+3} \\geq 0$ : $(S_{2n+1})$ est croissante.",
+        "$S_{2n} - S_{2n+1} = a_{2n+1} \\to 0$ : les deux suites ont la même limite $S$.",
         "$S_{2n+1} \\leq S \\leq S_{2n}$ : encadrement du reste $|S - S_N| \\leq a_{N+1}$."
       ],
       "corollaires": [

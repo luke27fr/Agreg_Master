@@ -32,7 +32,7 @@
       "titre": "Série convergente non absolument convergente",
       "domaine": "Analyse",
       "enonce": "∑ (-1)ⁿ/n",
-      "explication": "Converge vers ln(2) (alternée), mais ∑1/n diverge. La somme dépend de l'ordre (Riemann).",
+      "explication": "∑ₙ₌₁ (-1)ⁿ⁺¹/n = ln(2) (série alternée, par développement de ln(1+x) en x=1), mais ∑1/n diverge. La somme d'une série semi-convergente dépend de l'ordre des termes (théorème de réarrangement de Riemann).",
       "lecons": [230],
       "tags": ["séries", "convergence"]
     },
@@ -146,10 +146,10 @@
     },
     {
       "id": "bijection_non_isomorphisme",
-      "titre": "Bijection linéaire non continue (dim ∞)",
+      "titre": "Bijection linéaire continue non bicontinue (dim ∞)",
       "domaine": "Analyse",
       "enonce": "Id : (C([0,1]), ‖·‖∞) → (C([0,1]), ‖·‖₁)",
-      "explication": "Bijective mais pas bicontinue. Normes non équivalentes en dim ∞.",
+      "explication": "Continue (car ‖f‖₁ ≤ ‖f‖∞) mais l'inverse Id : (C([0,1]), ‖·‖₁) → (C([0,1]), ‖·‖∞) n'est pas continue. Normes non équivalentes en dimension infinie (le théorème de Banach de l'isomorphisme ne s'applique pas car (C([0,1]), ‖·‖₁) n'est pas complet).",
       "lecons": [208],
       "tags": ["normes", "applications linéaires"]
     },
@@ -200,10 +200,10 @@
     },
     {
       "id": "produit_integrables_pas_integrable",
-      "titre": "Produit de fonctions $L^2$ intégrables mais...",
+      "titre": "Produit de fonctions $L^1$ intégrables non intégrable",
       "domaine": "Analyse",
       "enonce": "$f = g = 1/\\sqrt{x}$ sur $]0,1]$",
-      "explication": "$f, g \\in L^2(0,1)$ car $\\int_0^1 1/x\\,dx$ diverge, mais $fg = 1/x \\notin L^1(0,1)$. Par Hölder, $fg \\in L^1$ ssi $f \\in L^p$, $g \\in L^q$ conjugués. Ici $p = q = 2$ ne suffit pas car les fonctions ne sont pas dans $L^\\infty$.",
+      "explication": "$f, g \\in L^1(0,1)$ car $\\int_0^1 1/\\sqrt{x}\\,dx = 2 < \\infty$, mais $fg = 1/x \\notin L^1(0,1)$ car $\\int_0^1 1/x\\,dx = +\\infty$. Le produit de deux fonctions $L^1$ n'est pas nécessairement $L^1$. Par Hölder, si $f \\in L^p$ et $g \\in L^q$ avec $1/p + 1/q = 1$, alors $fg \\in L^1$. Ici $f, g \\notin L^2(0,1)$ (car $\\int_0^1 1/x\\,dx$ diverge), donc Hölder avec $p = q = 2$ ne s'applique pas.",
       "lecons": [213, 234],
       "tags": ["Lp", "Hölder", "intégrabilité"]
     },
