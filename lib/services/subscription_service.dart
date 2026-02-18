@@ -133,6 +133,20 @@ class SubscriptionService extends ChangeNotifier {
 
   /// Récupérer les offres disponibles (prix, packages)
   Future<Offerings?> getOfferings() async {
+    if (!_isInitialized) {
+      debugPrint('RevenueCat non initialisé — tentative de réinitialisation');
+      try {
+        await initialize();
+      } catch (e) {
+        debugPrint('Réinitialisation échouée: $e');
+      }
+      if (!_isInitialized) {
+        _error = 'Service d\'abonnement non disponible';
+        notifyListeners();
+        return null;
+      }
+    }
+
     try {
       final offerings = await Purchases.getOfferings();
       return offerings;
@@ -148,6 +162,12 @@ class SubscriptionService extends ChangeNotifier {
   /// Sur mobile : ouvre le flow natif (App Store / Google Play).
   /// Sur web : ouvre le flow Stripe via RevenueCat.
   Future<bool> purchasePackage(Package package) async {
+    if (!_isInitialized) {
+      _error = 'Service d\'abonnement non disponible';
+      notifyListeners();
+      return false;
+    }
+
     _isLoading = true;
     _error = null;
     notifyListeners();
@@ -184,6 +204,12 @@ class SubscriptionService extends ChangeNotifier {
 
   /// Restaurer les achats précédents
   Future<void> restorePurchases() async {
+    if (!_isInitialized) {
+      _error = 'Service d\'abonnement non disponible';
+      notifyListeners();
+      return;
+    }
+
     _isLoading = true;
     _error = null;
     notifyListeners();

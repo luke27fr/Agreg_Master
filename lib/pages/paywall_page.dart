@@ -39,11 +39,12 @@ class _PaywallPageState extends State<PaywallPage> {
         if (mounted) {
           setState(() {
             _packages = packages;
-            // Sélectionner le package annuel par défaut, sinon le premier
-            _selectedPackage = packages.firstWhere(
-              (p) => p.packageType == PackageType.annual,
-              orElse: () => packages.first,
-            );
+            if (packages.isNotEmpty) {
+              _selectedPackage = packages.firstWhere(
+                (p) => p.packageType == PackageType.annual,
+                orElse: () => packages.first,
+              );
+            }
             _isLoading = false;
           });
         }
@@ -171,7 +172,7 @@ class _PaywallPageState extends State<PaywallPage> {
                         alignment: WrapAlignment.center,
                         children: [
                           TextButton(
-                            onPressed: () => _openLegalPage('https://luke27fr.github.io/Agreg_Master/privacy.html'),
+                            onPressed: () => _openLegalPage('https://agregmaster.fr/privacy.html'),
                             child: Text(
                               'Politique de confidentialité',
                               style: TextStyle(
@@ -184,7 +185,7 @@ class _PaywallPageState extends State<PaywallPage> {
                           ),
                           Text(' • ', style: TextStyle(color: Colors.white.withAlpha((0.4 * 255).round()))),
                           TextButton(
-                            onPressed: () => _openLegalPage('https://luke27fr.github.io/Agreg_Master/terms.html'),
+                            onPressed: () => _openLegalPage('https://agregmaster.fr/terms.html'),
                             child: Text(
                               'Conditions d\'utilisation (EULA)',
                               style: TextStyle(
