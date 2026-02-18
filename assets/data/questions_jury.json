@@ -11,6 +11,26 @@
       ]
     },
     {
+      "lecon": 102,
+      "questions": [
+        "Énoncer et démontrer que tout sous-groupe fini du groupe multiplicatif d'un corps est cyclique.",
+        "Quels sont les sous-groupes fermés du cercle unité 𝕌 ?",
+        "Comment montre-t-on que le groupe des racines n-ièmes de l'unité est isomorphe à ℤ/nℤ ?",
+        "Donner une application des racines de l'unité au calcul de sommes trigonométriques.",
+        "Pourquoi le groupe 𝕌 est-il connexe ? Quelle conséquence topologique cela a-t-il ?"
+      ]
+    },
+    {
+      "lecon": 103,
+      "questions": [
+        "Énoncer et démontrer que le centre d'un p-groupe non trivial est non trivial.",
+        "Donner un exemple de sous-groupe qui n'est pas distingué et justifier.",
+        "Quelle est la relation entre noyau d'un morphisme de groupes et sous-groupe distingué ?",
+        "Comment détermine-t-on les classes de conjugaison dans Sₙ ?",
+        "Peut-on munir l'ensemble des classes à gauche d'une structure de groupe sans que le sous-groupe soit distingué ?"
+      ]
+    },
+    {
       "lecon": 104,
       "questions": [
         "Énoncer et démontrer les théorèmes de Sylow.",
@@ -31,6 +51,26 @@
       ]
     },
     {
+      "lecon": 106,
+      "questions": [
+        "Démontrer que GL_n(ℝ) a exactement deux composantes connexes.",
+        "Pourquoi SL_n(K) est-il un sous-groupe distingué de GL_n(K) ?",
+        "Quel est le centre de GL_n(K) ?",
+        "Montrer que GL_n(K) est engendré par les transvections et les dilatations.",
+        "Comment démontre-t-on que le groupe orthogonal O(n) est compact ?"
+      ]
+    },
+    {
+      "lecon": 108,
+      "questions": [
+        "Montrer que les transpositions engendrent le groupe symétrique Sₙ.",
+        "Donner un exemple de partie génératrice minimale d'un groupe qui n'est pas une base.",
+        "Comment prouve-t-on que les transvections engendrent SL_n(K) ?",
+        "Qu'est-ce qu'un groupe monogène ? Quels sont les groupes monogènes à isomorphisme près ?",
+        "Quelle est la différence entre partie génératrice et famille libre dans un groupe ?"
+      ]
+    },
+    {
       "lecon": 120,
       "questions": [
         "Énoncer et démontrer le théorème chinois.",
@@ -38,6 +78,96 @@
         "Comment calcule-t-on l'indicatrice d'Euler ?",
         "Application à la cryptographie RSA ?",
         "Quels sont les carrés dans ℤ/pℤ ?"
+      ]
+    },
+    {
+      "lecon": 121,
+      "questions": [
+        "Énoncer et démontrer le théorème de Bézout.",
+        "Pourquoi l'ensemble des nombres premiers est-il infini ? Donner au moins deux démonstrations.",
+        "Énoncer le théorème des nombres premiers. Que signifie-t-il intuitivement ?",
+        "Comment le petit théorème de Fermat intervient-il dans les tests de primalité ?",
+        "Donner un exemple d'application des nombres premiers en cryptographie."
+      ]
+    },
+    {
+      "lecon": 122,
+      "questions": [
+        "Énoncer et démontrer que tout anneau euclidien est principal.",
+        "Donner un exemple d'anneau principal qui n'est pas euclidien.",
+        "Qu'est-ce que la décomposition en facteurs irréductibles dans un anneau principal ? Est-elle unique ?",
+        "Pourquoi ℤ[X] n'est-il pas principal ?",
+        "Quel est le lien entre idéaux premiers et idéaux maximaux dans un anneau principal ?"
+      ]
+    },
+    {
+      "lecon": 123,
+      "questions": [
+        "Démontrer l'existence et l'unicité à isomorphisme près d'un corps à pⁿ éléments.",
+        "Le groupe multiplicatif d'un corps fini est-il cyclique ? Démontrer.",
+        "Quel est le lien entre corps finis et polynômes irréductibles sur 𝔽ₚ ?",
+        "Comment construit-on explicitement 𝔽₄ ? Et 𝔽₈ ?",
+        "Donner une application des corps finis aux codes correcteurs d'erreurs."
+      ]
+    },
+    {
+      "lecon": 126,
+      "questions": [
+        "Comment résout-on une équation diophantienne de la forme ax + by = c ?",
+        "Énoncer et démontrer le théorème des deux carrés de Fermat.",
+        "Quels entiers sont somme de deux carrés ? Donner une condition nécessaire et suffisante.",
+        "Résoudre x² ≡ −1 mod p pour p premier. Pour quels p existe-t-il une solution ?",
+        "Donner un exemple d'utilisation des entiers de Gauss pour résoudre une équation arithmétique."
+      ]
+    },
+    {
+      "lecon": 141,
+      "questions": [
+        "Énoncer et démontrer le critère d'Eisenstein.",
+        "Comment montre-t-on qu'un polynôme est irréductible sur ℚ en pratique ?",
+        "Donner un exemple de polynôme irréductible sur ℚ mais réductible modulo p pour tout premier p.",
+        "Quel est le lien entre polynômes irréductibles et extensions de corps ?",
+        "Combien y a-t-il de polynômes irréductibles unitaires de degré n sur 𝔽ₚ ?"
+      ]
+    },
+    {
+      "lecon": 142,
+      "questions": [
+        "Énoncer et démontrer la validité de l'algorithme d'Euclide.",
+        "Quelle est la complexité de l'algorithme d'Euclide ?",
+        "Comment calcule-t-on le PGCD de deux polynômes ?",
+        "Quel est le lien entre PGCD, PPCM et factorisation en irréductibles ?",
+        "Comment l'algorithme d'Euclide étendu permet-il de résoudre une équation de Bézout ?"
+      ]
+    },
+    {
+      "lecon": 150,
+      "questions": [
+        "Démontrer le théorème de la base incomplète.",
+        "Comment montre-t-on que deux bases d'un même espace vectoriel ont le même cardinal ?",
+        "Énoncer et démontrer le théorème du rang.",
+        "Donner un exemple concret où le calcul du rang résout un problème.",
+        "Que vaut la dimension de l'espace des matrices symétriques de taille n ?"
+      ]
+    },
+    {
+      "lecon": 151,
+      "questions": [
+        "Quelle est la différence entre un sous-espace vectoriel et un sous-espace affine ?",
+        "Quand deux sous-espaces affines sont-ils parallèles ? Quelle est la dimension de leur intersection ?",
+        "Énoncer et démontrer la formule de Grassmann pour les sous-espaces affines.",
+        "Comment définit-on le barycentre ? Pourquoi est-il indépendant du repère ?",
+        "Donner un exemple de trois sous-espaces affines deux à deux non parallèles et d'intersection vide."
+      ]
+    },
+    {
+      "lecon": 152,
+      "questions": [
+        "Énoncer et démontrer la formule de développement du déterminant par rapport à une ligne.",
+        "Donner une interprétation géométrique du déterminant.",
+        "Comment le déterminant caractérise-t-il l'inversibilité d'une matrice ?",
+        "Démontrer la formule det(AB) = det(A)det(B).",
+        "Calculer le déterminant de Vandermonde et donner une application."
       ]
     },
     {
@@ -51,6 +181,46 @@
       ]
     },
     {
+      "lecon": 154,
+      "questions": [
+        "Quel est le lien entre sous-espaces stables et réduction des endomorphismes ?",
+        "Montrer que les sous-espaces propres sont stables. La réciproque est-elle vraie ?",
+        "Comment le lemme des noyaux fournit-il des sous-espaces stables ?",
+        "Donner un exemple d'endomorphisme de ℝ² sans sous-espace stable non trivial.",
+        "Si deux endomorphismes commutent, que peut-on dire de leurs sous-espaces propres respectifs ?"
+      ]
+    },
+    {
+      "lecon": 155,
+      "questions": [
+        "Énoncer et démontrer le critère de diagonalisabilité par le polynôme minimal.",
+        "Donner un exemple de matrice non diagonalisable sur ℝ mais diagonalisable sur ℂ.",
+        "Comment la diagonalisation simultanée est-elle liée à la commutation ?",
+        "Pourquoi une matrice symétrique réelle est-elle toujours diagonalisable ?",
+        "Quelle est l'application de la diagonalisation au calcul des puissances de matrices ?"
+      ]
+    },
+    {
+      "lecon": 156,
+      "questions": [
+        "Démontrer la convergence de la série exponentielle pour toute matrice.",
+        "A-t-on exp(A + B) = exp(A)exp(B) en général ? Sous quelle condition ?",
+        "Comment calcule-t-on l'exponentielle d'une matrice diagonalisable ? Et nilpotente ?",
+        "Quel est le lien entre exponentielle de matrices et résolution de systèmes différentiels linéaires ?",
+        "Montrer que det(exp(A)) = exp(tr(A))."
+      ]
+    },
+    {
+      "lecon": 157,
+      "questions": [
+        "Énoncer et démontrer le théorème de trigonalisation sur un corps algébriquement clos.",
+        "Qu'est-ce que l'indice de nilpotence ? Que vaut-il au maximum en dimension n ?",
+        "Décrire la réduction de Jordan et expliquer son intérêt pratique.",
+        "Donner un exemple d'endomorphisme nilpotent non nul en dimension 3.",
+        "Comment la décomposition de Dunford utilise-t-elle les endomorphismes nilpotents et diagonalisables ?"
+      ]
+    },
+    {
       "lecon": 158,
       "questions": [
         "Démontrer le théorème spectral.",
@@ -58,6 +228,106 @@
         "Qu'est-ce qu'une matrice positive ?",
         "Comment définit-on la racine carrée d'une matrice positive ?",
         "Applications aux formes quadratiques ?"
+      ]
+    },
+    {
+      "lecon": 159,
+      "questions": [
+        "Qu'est-ce que la base duale ? Comment la construit-on ?",
+        "Énoncer et démontrer le théorème du bidual en dimension finie.",
+        "Quel est le lien entre hyperplans et formes linéaires ?",
+        "Comment l'orthogonalité au sens de la dualité diffère-t-elle de l'orthogonalité euclidienne ?",
+        "Énoncer et démontrer la formule dim(F) + dim(F°) = dim(E) pour un sous-espace F."
+      ]
+    },
+    {
+      "lecon": 160,
+      "questions": [
+        "Caractériser les endomorphismes symétriques, antisymétriques et orthogonaux.",
+        "Démontrer que toute isométrie d'un espace euclidien se décompose en produit de réflexions.",
+        "Quelle est la structure des endomorphismes orthogonaux en dimension 2 et 3 ?",
+        "Qu'est-ce qu'un endomorphisme autoadjoint ? Énoncer le théorème spectral.",
+        "Pourquoi les valeurs propres d'un endomorphisme symétrique sont-elles réelles ?"
+      ]
+    },
+    {
+      "lecon": 161,
+      "questions": [
+        "Énoncer et démontrer la classification des isométries du plan euclidien.",
+        "Qu'est-ce qu'un déplacement ? Quelle est la structure du groupe des déplacements ?",
+        "Comment caractérise-t-on les isométries qui fixent un point ?",
+        "Donner un exemple d'isométrie du plan qui n'est ni une rotation ni une réflexion.",
+        "Énoncer le théorème de Cartan sur la décomposition en réflexions."
+      ]
+    },
+    {
+      "lecon": 162,
+      "questions": [
+        "Expliquer l'algorithme du pivot de Gauss et démontrer qu'il termine.",
+        "Quel est le lien entre le rang d'un système et l'existence ou l'unicité des solutions ?",
+        "Comment le pivot de Gauss permet-il de calculer l'inverse d'une matrice ?",
+        "Quelle est la complexité de l'algorithme du pivot de Gauss ?",
+        "Comment interpréter géométriquement l'ensemble des solutions d'un système linéaire ?"
+      ]
+    },
+    {
+      "lecon": 170,
+      "questions": [
+        "Énoncer et démontrer le théorème de réduction de Gauss des formes quadratiques.",
+        "Qu'est-ce que la signature d'une forme quadratique réelle ? Énoncer la loi d'inertie de Sylvester.",
+        "Quel est le lien entre forme quadratique et forme bilinéaire symétrique associée ?",
+        "Comment classifie-t-on les formes quadratiques sur un corps fini ?",
+        "Donner un exemple de forme quadratique non dégénérée qui n'est pas définie positive."
+      ]
+    },
+    {
+      "lecon": 171,
+      "questions": [
+        "Comment classifie-t-on les coniques dans le plan affine réel ?",
+        "Énoncer et démontrer la loi d'inertie de Sylvester.",
+        "Quel est le rôle des invariants (trace, déterminant) dans la classification des coniques ?",
+        "Comment détermine-t-on la nature d'une conique à partir de son équation cartésienne ?",
+        "Donner une application des formes quadratiques à un problème d'optimisation."
+      ]
+    },
+    {
+      "lecon": 201,
+      "questions": [
+        "Donner des exemples d'espaces de fonctions munis de différentes topologies et comparer ces topologies.",
+        "L'espace C([0,1], ℝ) muni de la norme uniforme est-il complet ? Démontrer.",
+        "Énoncer et démontrer le théorème de Stone-Weierstrass.",
+        "Pourquoi l'espace C([0,1], ℝ) n'est-il pas de dimension finie ?",
+        "Donner un exemple de suite de fonctions continues qui converge simplement vers une fonction discontinue."
+      ]
+    },
+    {
+      "lecon": 202,
+      "questions": [
+        "Énoncer et démontrer le théorème d'approximation de Weierstrass.",
+        "Montrer que ℚ est dense dans ℝ. Donner d'autres exemples de parties denses.",
+        "Les polynômes trigonométriques sont-ils denses dans C(𝕋, ℂ) pour la norme uniforme ? Justifier.",
+        "Quel est le lien entre densité et approximation en analyse ?",
+        "Donner un exemple de partie dense et de mesure nulle dans ℝ."
+      ]
+    },
+    {
+      "lecon": 203,
+      "questions": [
+        "Énoncer et démontrer le théorème de Bolzano-Weierstrass.",
+        "Caractériser les compacts de ℝⁿ (théorème de Heine-Borel).",
+        "Pourquoi la boule unité fermée d'un espace de dimension infinie n'est-elle pas compacte ?",
+        "Énoncer le théorème d'Ascoli et donner une application.",
+        "Comment utilise-t-on la compacité pour montrer l'existence de minima ?"
+      ]
+    },
+    {
+      "lecon": 204,
+      "questions": [
+        "Quelle est la différence entre connexité et connexité par arcs ?",
+        "Donner un exemple d'espace connexe mais non connexe par arcs.",
+        "Montrer que GL_n(ℂ) est connexe par arcs mais que GL_n(ℝ) ne l'est pas.",
+        "Énoncer et démontrer le théorème des valeurs intermédiaires comme conséquence de la connexité.",
+        "Comment montre-t-on qu'un ouvert connexe de ℝⁿ est connexe par arcs ?"
       ]
     },
     {
@@ -71,6 +341,56 @@
       ]
     },
     {
+      "lecon": 208,
+      "questions": [
+        "Montrer que toutes les normes sont équivalentes en dimension finie.",
+        "Donner un exemple d'application linéaire non continue en dimension infinie.",
+        "Énoncer et démontrer le théorème de Banach-Steinhaus.",
+        "Quel est le lien entre continuité et caractère borné d'une application linéaire ?",
+        "Qu'est-ce que la norme d'opérateur ? Comment la calcule-t-on en pratique ?"
+      ]
+    },
+    {
+      "lecon": 213,
+      "questions": [
+        "Énoncer et démontrer le théorème de projection sur un convexe fermé dans un espace de Hilbert.",
+        "Qu'est-ce qu'une base hilbertienne ? Est-ce une base au sens algébrique ?",
+        "Énoncer et démontrer l'égalité de Parseval.",
+        "Montrer que L²([0,1]) est séparable et donner une base hilbertienne explicite.",
+        "Quel est le lien entre le théorème de représentation de Riesz et la dualité des espaces de Hilbert ?"
+      ]
+    },
+    {
+      "lecon": 214,
+      "questions": [
+        "Énoncer et démontrer le théorème d'inversion locale.",
+        "Comment déduit-on le théorème des fonctions implicites du théorème d'inversion locale ?",
+        "Donner un exemple d'application du théorème des fonctions implicites à la description d'une sous-variété.",
+        "Pourquoi l'hypothèse que la différentielle est inversible est-elle nécessaire ? Donner un contre-exemple.",
+        "Quel est le lien entre le théorème d'inversion locale et le théorème du point fixe de Banach ?"
+      ]
+    },
+    {
+      "lecon": 215,
+      "questions": [
+        "Définir la différentielle d'une application de ℝⁿ dans ℝᵖ. Quel est le lien avec la matrice jacobienne ?",
+        "Énoncer et démontrer la règle de la chaîne pour les applications différentiables.",
+        "Comment passe-t-on des dérivées partielles à la différentiabilité ? La réciproque est-elle vraie ?",
+        "Énoncer le théorème de Schwarz sur la symétrie des dérivées partielles croisées.",
+        "Donner un exemple de fonction admettant des dérivées partielles en un point sans y être différentiable."
+      ]
+    },
+    {
+      "lecon": 219,
+      "questions": [
+        "Énoncer et démontrer la condition nécessaire du premier ordre pour un extremum local.",
+        "Comment utilise-t-on la matrice hessienne pour déterminer la nature d'un point critique ?",
+        "Énoncer le théorème des multiplicateurs de Lagrange et donner une application concrète.",
+        "Donner un exemple où le gradient s'annule mais le point n'est ni un maximum ni un minimum.",
+        "Quelle est la différence entre extremum local et extremum global ? Quand coïncident-ils ?"
+      ]
+    },
+    {
       "lecon": 220,
       "questions": [
         "Énoncer et démontrer Cauchy-Lipschitz.",
@@ -78,6 +398,36 @@
         "Prolongement maximal des solutions ?",
         "Dépendance par rapport aux conditions initiales ?",
         "Systèmes différentiels linéaires à coefficients constants ?"
+      ]
+    },
+    {
+      "lecon": 221,
+      "questions": [
+        "Démontrer que l'ensemble des solutions d'une EDL homogène est un espace vectoriel. Quelle est sa dimension ?",
+        "Qu'est-ce que la méthode de variation de la constante ? Démontrer sa validité.",
+        "Énoncer et démontrer le théorème de Cauchy linéaire (existence globale).",
+        "Comment résout-on un système X' = AX lorsque A est diagonalisable ?",
+        "Quel est le rôle du wronskien dans l'étude des équations différentielles linéaires ?"
+      ]
+    },
+    {
+      "lecon": 223,
+      "questions": [
+        "Énoncer et démontrer le théorème de Bolzano-Weierstrass pour les suites réelles bornées.",
+        "Qu'est-ce qu'une valeur d'adhérence ? Quel est le lien avec les limites inférieure et supérieure ?",
+        "Montrer qu'une suite bornée dont toute sous-suite convergente a la même limite est elle-même convergente.",
+        "Donner un exemple de suite divergente ayant une infinité de valeurs d'adhérence.",
+        "Comparer les notions de suite de Cauchy et de suite convergente. Quand sont-elles équivalentes ?"
+      ]
+    },
+    {
+      "lecon": 226,
+      "questions": [
+        "Comment étudie-t-on la convergence d'une suite définie par uₙ₊₁ = f(uₙ) ?",
+        "Énoncer et démontrer le théorème du point fixe pour les applications contractantes sur ℝ.",
+        "Comment résout-on une récurrence linéaire d'ordre 2 à coefficients constants ?",
+        "Donner un exemple de suite récurrente convergente vers un point fixe instable de f.",
+        "Quel est le rôle de la monotonie dans l'étude des suites récurrentes réelles ?"
       ]
     },
     {
@@ -91,6 +441,26 @@
       ]
     },
     {
+      "lecon": 229,
+      "questions": [
+        "Montrer qu'une fonction monotone sur un intervalle n'a qu'un nombre dénombrable de points de discontinuité.",
+        "Énoncer et démontrer l'inégalité de Jensen pour les fonctions convexes.",
+        "Caractériser la convexité à l'aide des dérivées première et seconde.",
+        "Donner un exemple de fonction convexe non dérivable.",
+        "Quel est le lien entre convexité et inégalité arithmético-géométrique ?"
+      ]
+    },
+    {
+      "lecon": 230,
+      "questions": [
+        "Énoncer et démontrer le critère de d'Alembert.",
+        "Quelle est la différence entre convergence absolue et semi-convergence ? Donner un exemple.",
+        "Énoncer le théorème de réarrangement de Riemann pour les séries semi-convergentes.",
+        "Comment estime-t-on le reste d'une série convergente en pratique ?",
+        "Énoncer et démontrer le critère de comparaison série-intégrale."
+      ]
+    },
+    {
       "lecon": 234,
       "questions": [
         "Énoncer et démontrer le théorème de convergence dominée.",
@@ -98,6 +468,36 @@
         "Qu'est-ce que le lemme de Fatou ?",
         "Théorème de Fubini-Tonelli ?",
         "Complétude de Lᵖ ?"
+      ]
+    },
+    {
+      "lecon": 235,
+      "questions": [
+        "Énoncer et démontrer le théorème de dérivation sous le signe intégral (Leibniz).",
+        "Énoncer le théorème de continuité d'une intégrale dépendant d'un paramètre.",
+        "Pourquoi l'hypothèse de domination est-elle essentielle ? Donner un contre-exemple.",
+        "Donner un exemple de calcul d'intégrale utilisant la dérivation sous le signe intégral.",
+        "Quel est le lien entre ces théorèmes et le théorème de convergence dominée ?"
+      ]
+    },
+    {
+      "lecon": 236,
+      "questions": [
+        "Calculer les intégrales de Wallis et en déduire un équivalent de n!.",
+        "Comment utilise-t-on la formule de changement de variables en pratique ?",
+        "Calculer ∫₀⁺∞ e^{−t²} dt par la méthode de votre choix.",
+        "Donner un exemple de calcul d'intégrale par intégration par parties itérée.",
+        "Comment la symétrie d'une fonction peut-elle simplifier le calcul d'une intégrale ?"
+      ]
+    },
+    {
+      "lecon": 239,
+      "questions": [
+        "Étudier la régularité de la fonction Gamma. Montrer qu'elle est C∞ sur ]0, +∞[.",
+        "Énoncer et démontrer la relation Γ(x+1) = xΓ(x).",
+        "Comment montre-t-on qu'une intégrale à paramètre définit une fonction continue ?",
+        "Donner un exemple de fonction définie par une intégrale et calculer explicitement ses dérivées.",
+        "Quel est le domaine de définition et la régularité de la transformée de Laplace d'une fonction donnée ?"
       ]
     },
     {
@@ -111,6 +511,26 @@
       ]
     },
     {
+      "lecon": 243,
+      "questions": [
+        "Énoncer et démontrer la formule de Hadamard pour le rayon de convergence.",
+        "Que se passe-t-il au bord du disque de convergence ? Donner des exemples variés.",
+        "Peut-on dériver et intégrer terme à terme une série entière à l'intérieur du disque ? Justifier.",
+        "Énoncer le théorème d'Abel radial.",
+        "Donner un exemple de fonction C∞ non développable en série entière au voisinage d'un point."
+      ]
+    },
+    {
+      "lecon": 245,
+      "questions": [
+        "Énoncer et démontrer la formule intégrale de Cauchy.",
+        "Montrer qu'une fonction holomorphe est analytique.",
+        "Énoncer et démontrer le théorème de Liouville. Quelle application célèbre en découle ?",
+        "Qu'est-ce que le principe du maximum pour les fonctions holomorphes ? Le démontrer.",
+        "Quel est le lien entre les conditions de Cauchy-Riemann et l'holomorphie ?"
+      ]
+    },
+    {
       "lecon": 246,
       "questions": [
         "Énoncer le théorème de Parseval.",
@@ -121,6 +541,36 @@
       ]
     },
     {
+      "lecon": 250,
+      "questions": [
+        "Énoncer et démontrer la formule d'inversion de Fourier.",
+        "Comment la transformation de Fourier transforme-t-elle un produit de convolution ?",
+        "Énoncer et démontrer l'égalité de Plancherel.",
+        "Quelle est la transformée de Fourier d'une gaussienne ? Démontrer le résultat.",
+        "Comment utilise-t-on la transformation de Fourier pour résoudre des équations aux dérivées partielles ?"
+      ]
+    },
+    {
+      "lecon": 253,
+      "questions": [
+        "Énoncer et démontrer l'inégalité de Jensen dans le cadre intégral.",
+        "Comment utilise-t-on la convexité pour démontrer les inégalités de Hölder et Minkowski ?",
+        "Montrer que x ↦ ‖x‖ₚ définit une norme pour p ≥ 1 en utilisant la convexité.",
+        "Donner un exemple d'utilisation de la convexité en optimisation.",
+        "Quel est le lien entre convexité de t ↦ tᵖ et complétude des espaces Lᵖ ?"
+      ]
+    },
+    {
+      "lecon": 261,
+      "questions": [
+        "Comment la fonction de répartition caractérise-t-elle la loi d'une variable aléatoire ?",
+        "Donner des exemples de lois classiques (Poisson, exponentielle, normale) et leurs propriétés.",
+        "Quel est le lien entre la fonction caractéristique et les moments d'une variable aléatoire ?",
+        "Comment montre-t-on que deux variables aléatoires ont la même loi ?",
+        "Énoncer et démontrer l'inégalité de Markov."
+      ]
+    },
+    {
       "lecon": 262,
       "questions": [
         "Énoncer la loi des grands nombres (faible et forte).",
@@ -128,6 +578,36 @@
         "Différence entre convergence en loi et en probabilité ?",
         "Qu'est-ce qu'une fonction caractéristique ?",
         "Théorème de Lévy ?"
+      ]
+    },
+    {
+      "lecon": 264,
+      "questions": [
+        "Définir l'espérance et la variance d'une variable aléatoire discrète. Quand existent-elles ?",
+        "Énoncer et démontrer l'inégalité de Bienaymé-Tchebychev.",
+        "Comment la loi de Poisson apparaît-elle comme limite de lois binomiales ?",
+        "Donner un exemple d'utilisation de fonctions génératrices pour déterminer une loi.",
+        "Qu'est-ce que l'entropie d'une variable aléatoire discrète ? Quand est-elle maximale ?"
+      ]
+    },
+    {
+      "lecon": 265,
+      "questions": [
+        "Étudier la fonction Gamma : domaine, continuité, dérivabilité, propriétés fonctionnelles.",
+        "Montrer la formule des compléments Γ(x)Γ(1−x) = π/sin(πx).",
+        "Donner des propriétés essentielles des fonctions trigonométriques hyperboliques.",
+        "Comment définit-on les fonctions logarithme et exponentielle de manière rigoureuse ?",
+        "Donner une application de la fonction zêta de Riemann à l'étude des nombres premiers."
+      ]
+    },
+    {
+      "lecon": 266,
+      "questions": [
+        "Énoncer et démontrer le théorème de convergence monotone.",
+        "Énoncer et démontrer le théorème de convergence dominée de Lebesgue.",
+        "Pourquoi l'hypothèse de domination est-elle essentielle ? Donner un contre-exemple sans domination.",
+        "Comment utilise-t-on la convergence dominée pour calculer la limite d'une suite d'intégrales ?",
+        "Énoncer et démontrer le lemme de Fatou. Quel est le lien avec la convergence monotone ?"
       ]
     }
   ]
