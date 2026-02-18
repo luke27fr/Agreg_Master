@@ -609,6 +609,306 @@
         "Comment utilise-t-on la convergence dominée pour calculer la limite d'une suite d'intégrales ?",
         "Énoncer et démontrer le lemme de Fatou. Quel est le lien avec la convergence monotone ?"
       ]
+    },
+    {
+      "lecon": 301,
+      "questions": [
+        "Énoncer et démontrer la formule des probabilités totales.",
+        "Qu'est-ce qu'une tribu ? Donner un exemple de partie de P(Ω) qui n'est pas une tribu.",
+        "Pourquoi a-t-on besoin de la notion de tribu ? Pourquoi ne pas définir la probabilité sur P(Ω) directement ?",
+        "Énoncer la continuité séquentielle d'une mesure de probabilité et en donner une démonstration.",
+        "Donner un exemple d'espace probabilisé non dénombrable et expliquer la construction de la mesure associée."
+      ]
+    },
+    {
+      "lecon": 302,
+      "questions": [
+        "Énoncer et démontrer la formule de transfert pour l'espérance d'une fonction d'une variable aléatoire discrète.",
+        "Donner un exemple de variable aléatoire discrète admettant une espérance mais pas de variance.",
+        "Quelle est la différence entre convergence en loi et convergence en probabilité pour des variables discrètes ?",
+        "Calculer l'espérance et la variance d'une loi géométrique de paramètre p.",
+        "Pourquoi l'inégalité de Markov nécessite-t-elle que la variable aléatoire soit positive ?"
+      ]
+    },
+    {
+      "lecon": 303,
+      "questions": [
+        "Donner un exemple de variables aléatoires non corrélées mais non indépendantes.",
+        "Énoncer et démontrer la formule de la variance d'une somme de variables aléatoires indépendantes.",
+        "Comment caractérise-t-on l'indépendance de deux variables aléatoires discrètes à l'aide de leur loi conjointe ?",
+        "Quelle est la loi du couple (min(X,Y), max(X,Y)) lorsque X et Y sont indépendantes de même loi ?",
+        "Montrer que si X et Y sont indépendantes, alors f(X) et g(Y) le sont aussi pour des fonctions mesurables f et g."
+      ]
+    },
+    {
+      "lecon": 304,
+      "questions": [
+        "Énoncer et démontrer la loi faible des grands nombres.",
+        "Quelle hypothèse supplémentaire faut-il pour la loi forte par rapport à la loi faible ? Pourquoi ?",
+        "Énoncer le théorème de la limite centrale. Quel est le rôle de la normalisation par √n ?",
+        "Donner une application concrète du théorème de la limite centrale aux sondages ou intervalles de confiance.",
+        "Peut-on avoir convergence en loi vers une gaussienne sans que le TCL s'applique ? Donner un contre-exemple."
+      ]
+    },
+    {
+      "lecon": 305,
+      "questions": [
+        "Énoncer et démontrer le lemme de transfert pour les variables aléatoires à densité.",
+        "Calculer la densité de la somme de deux variables aléatoires indépendantes à densité.",
+        "Donner la densité de la loi exponentielle et démontrer sa propriété d'absence de mémoire.",
+        "Pourquoi la loi normale est-elle si importante en probabilités ? Citer au moins trois raisons.",
+        "Comment détermine-t-on la loi d'une transformation Y = g(X) lorsque g est un C¹-difféomorphisme ?"
+      ]
+    },
+    {
+      "lecon": 306,
+      "questions": [
+        "Définir la fonction génératrice d'une variable aléatoire à valeurs dans N. Quel est son domaine de convergence ?",
+        "Montrer que la fonction génératrice caractérise la loi d'une variable aléatoire.",
+        "Démontrer que la fonction génératrice d'une somme de variables indépendantes est le produit des fonctions génératrices.",
+        "Utiliser les fonctions génératrices pour retrouver la loi de la somme de variables de Poisson indépendantes.",
+        "Comment obtient-on les moments d'une variable aléatoire à partir de sa fonction génératrice ?"
+      ]
+    },
+    {
+      "lecon": 307,
+      "questions": [
+        "Rappeler les différents modes de convergence de variables aléatoires et leurs implications mutuelles.",
+        "Donner un exemple de suite convergeant en probabilité mais pas presque sûrement.",
+        "Énoncer et démontrer le théorème de convergence dominée de Lebesgue dans le cadre probabiliste.",
+        "La convergence en loi implique-t-elle la convergence des espérances ? Donner un contre-exemple.",
+        "Énoncer le lemme de Borel-Cantelli et donner une application à la convergence presque sûre."
+      ]
+    },
+    {
+      "lecon": 308,
+      "questions": [
+        "Définir une chaîne de Markov à espace d'états fini. Que signifie la propriété de Markov ?",
+        "Énoncer et démontrer le théorème ergodique pour les chaînes de Markov irréductibles apériodiques.",
+        "Qu'est-ce qu'une mesure stationnaire ? Montrer son existence et son unicité sous hypothèse d'irréductibilité.",
+        "Donner un exemple de chaîne de Markov périodique et expliquer les conséquences sur la convergence.",
+        "Comment calcule-t-on le temps moyen de retour à un état dans une chaîne irréductible ?"
+      ]
+    },
+    {
+      "lecon": 309,
+      "questions": [
+        "Définir une martingale discrète. Donner trois exemples classiques de martingales.",
+        "Énoncer et démontrer le théorème d'arrêt de Doob pour les martingales bornées.",
+        "Énoncer le théorème de convergence des martingales (convergence presque sûre). Quelle hypothèse est essentielle ?",
+        "Utiliser les martingales pour démontrer la ruine du joueur.",
+        "Quelle est la différence entre une martingale, une surmartingale et une sous-martingale ? Donner des exemples."
+      ]
+    },
+    {
+      "lecon": 310,
+      "questions": [
+        "Énoncer et démontrer la formule de Bayes.",
+        "Donner un exemple concret d'application de la formule de Bayes en statistique ou en médecine.",
+        "Définir l'espérance conditionnelle sachant un événement, puis sachant une variable aléatoire.",
+        "Montrer que l'espérance conditionnelle est une projection orthogonale dans L².",
+        "Pourquoi la probabilité conditionnelle sachant un événement de probabilité nulle pose-t-elle problème ?"
+      ]
+    },
+    {
+      "lecon": 311,
+      "questions": [
+        "Définir un vecteur gaussien. Pourquoi la définition ne se réduit-elle pas à avoir des marginales gaussiennes ?",
+        "Donner un exemple de couple de variables gaussiennes non corrélées mais non indépendantes.",
+        "Énoncer et démontrer que pour un vecteur gaussien, non-corrélation implique indépendance.",
+        "Comment caractérise-t-on la loi d'un vecteur gaussien ? Quel rôle joue la matrice de covariance ?",
+        "Montrer que toute transformation affine d'un vecteur gaussien est encore un vecteur gaussien."
+      ]
+    },
+    {
+      "lecon": 312,
+      "questions": [
+        "Définir un estimateur sans biais et un estimateur convergent. Ces propriétés sont-elles liées ?",
+        "Énoncer et démontrer l'inégalité de Cramér-Rao. Quel est le lien avec l'efficacité d'un estimateur ?",
+        "Construire un intervalle de confiance pour la moyenne d'une loi normale de variance connue, puis inconnue.",
+        "Quelle est la différence entre un intervalle de confiance et un intervalle de crédibilité (bayésien) ?",
+        "Expliquer la méthode du maximum de vraisemblance et montrer ses propriétés asymptotiques."
+      ]
+    },
+    {
+      "lecon": 313,
+      "questions": [
+        "Énoncer et démontrer l'inégalité de Markov, puis en déduire l'inégalité de Tchebychev.",
+        "Énoncer l'inégalité de Hoeffding. Quelles hypothèses sont nécessaires ?",
+        "Comparer les bornes de Tchebychev et de Hoeffding sur un exemple concret.",
+        "Pourquoi les inégalités de concentration sont-elles essentielles en apprentissage statistique ?",
+        "Énoncer l'inégalité de Chernoff et expliquer le lien avec la transformée de Laplace."
+      ]
+    },
+    {
+      "lecon": 314,
+      "questions": [
+        "Définir la marche aléatoire simple sur Z. Montrer qu'elle est récurrente en dimensions 1 et 2.",
+        "Énoncer et démontrer le théorème de récurrence/transience de Pólya.",
+        "Calculer la probabilité de ruine pour une marche aléatoire asymétrique sur N.",
+        "Quel est le lien entre marches aléatoires et problème de Dirichlet discret ?",
+        "Expliquer la loi de l'arcsinus pour le dernier passage à zéro d'une marche aléatoire."
+      ]
+    },
+    {
+      "lecon": 315,
+      "questions": [
+        "Définir le processus de Poisson sur R₊. Quelles sont ses propriétés caractéristiques ?",
+        "Démontrer que les temps inter-arrivées d'un processus de Poisson sont i.i.d. de loi exponentielle.",
+        "Énoncer et démontrer la propriété de superposition de processus de Poisson indépendants.",
+        "Comment modélise-t-on une file d'attente M/M/1 à l'aide du processus de Poisson ?",
+        "Montrer que le processus de Poisson vérifie la propriété de Markov et donner ses probabilités de transition."
+      ]
+    },
+    {
+      "lecon": 401,
+      "questions": [
+        "Énoncer et démontrer la classification des isométries du plan euclidien.",
+        "Montrer que toute isométrie de R³ est composée d'au plus trois réflexions.",
+        "Quelle est la structure du groupe des isométries de Rⁿ ? Montrer que c'est un produit semi-direct.",
+        "Classifier les isométries de R³ qui fixent un point. Quel rôle joue le déterminant ?",
+        "Donner un exemple d'isométrie de R³ qui n'est ni une rotation ni une réflexion."
+      ]
+    },
+    {
+      "lecon": 402,
+      "questions": [
+        "Donner les équations réduites des coniques et expliquer la classification par l'excentricité.",
+        "Démontrer la propriété focale de l'ellipse (somme constante des distances aux foyers).",
+        "Comment obtient-on l'équation réduite d'une conique à partir de son équation générale ?",
+        "Énoncer la définition monofocale d'une conique et en déduire l'équation polaire.",
+        "Quelles sont les propriétés de réflexion (optiques) des coniques ? Démontrer celle de la parabole."
+      ]
+    },
+    {
+      "lecon": 403,
+      "questions": [
+        "Donner la classification des quadriques de R³ à isométrie près.",
+        "Comment réduit-on l'équation d'une quadrique ? Quel rôle jouent les invariants ?",
+        "Quelle est la différence entre une quadrique réglée et une quadrique non réglée ? Donner des exemples.",
+        "Montrer que l'hyperboloïde à une nappe est une surface réglée doublement.",
+        "Quelles sont les sections planes d'un cône du second degré ? Retrouver la classification des coniques."
+      ]
+    },
+    {
+      "lecon": 404,
+      "questions": [
+        "Définir un point régulier et un point singulier d'une courbe plane. Donner des exemples.",
+        "Comment étudie-t-on un point singulier (rebroussement, point double) d'une courbe paramétrée ?",
+        "Énoncer et démontrer la formule de la courbure d'une courbe plane paramétrée.",
+        "Qu'est-ce qu'un point d'inflexion ? Comment le détecte-t-on en pratique ?",
+        "Énoncer le théorème des quatre sommets pour une courbe convexe fermée."
+      ]
+    },
+    {
+      "lecon": 405,
+      "questions": [
+        "Énoncer le théorème de séparation de Hahn-Banach dans sa version géométrique.",
+        "Montrer qu'un ensemble convexe fermé est l'intersection de demi-espaces fermés.",
+        "Démontrer que l'enveloppe convexe d'un compact de Rⁿ est compacte (théorème de Carathéodory).",
+        "Énoncer et démontrer le théorème de Krein-Milman. Donner un exemple d'application.",
+        "Quelle est la différence entre séparation stricte et séparation au sens large ? Donner des conditions suffisantes."
+      ]
+    },
+    {
+      "lecon": 406,
+      "questions": [
+        "Définir la première et la deuxième forme fondamentale d'une surface de R³.",
+        "Donner les définitions de la courbure de Gauss et de la courbure moyenne. Quelle est leur signification géométrique ?",
+        "Énoncer le Theorema Egregium de Gauss. Pourquoi est-ce un résultat remarquable ?",
+        "Calculer les courbures principales de la sphère et du tore.",
+        "Énoncer le théorème de Gauss-Bonnet et expliquer son lien entre géométrie et topologie."
+      ]
+    },
+    {
+      "lecon": 407,
+      "questions": [
+        "Montrer que SO(n) est un groupe de Lie compact connexe. Quelle est sa dimension ?",
+        "Donner la paramétrisation de SO(3) par les angles d'Euler.",
+        "Montrer que toute rotation de R³ est la composée de deux réflexions.",
+        "Quels sont les sous-groupes finis de SO(3) ? Donner la classification.",
+        "Quelle est l'algèbre de Lie de SO(n) ? Montrer que c'est l'ensemble des matrices antisymétriques."
+      ]
+    },
+    {
+      "lecon": 408,
+      "questions": [
+        "Définir le barycentre de points pondérés. Montrer qu'il ne dépend pas du choix de l'origine.",
+        "Énoncer et démontrer l'associativité du barycentre.",
+        "Comment utilise-t-on les coordonnées barycentriques pour résoudre des problèmes de géométrie ?",
+        "Montrer que les médianes d'un triangle sont concourantes à l'aide des barycentres.",
+        "Qu'est-ce qu'une application affine ? Montrer qu'elle est entièrement déterminée par l'image d'un repère affine."
+      ]
+    },
+    {
+      "lecon": 409,
+      "questions": [
+        "Définir une similitude plane directe. Montrer qu'elle admet un unique point fixe si son rapport est différent de 1.",
+        "Écrire une similitude directe sous forme complexe. Quel est l'intérêt de cette écriture ?",
+        "Montrer que le groupe des similitudes directes est isomorphe au groupe des transformations z ↦ az + b avec a ≠ 0.",
+        "Donner une application des similitudes à la résolution d'un problème de construction géométrique.",
+        "Quelle est la différence entre une similitude directe et une similitude indirecte ? Donner la décomposition canonique."
+      ]
+    },
+    {
+      "lecon": 410,
+      "questions": [
+        "Définir l'espace projectif réel P²(R). Pourquoi les droites parallèles se rencontrent-elles en un point ?",
+        "Définir le birapport de quatre points alignés. Montrer qu'il est invariant par homographie.",
+        "Énoncer le théorème de dualité projective dans le plan. Donner un exemple d'application.",
+        "Énoncer et démontrer le théorème de Desargues.",
+        "Comment classifie-t-on les coniques dans le plan projectif ?"
+      ]
+    },
+    {
+      "lecon": 411,
+      "questions": [
+        "Définir l'enveloppe d'une famille de courbes à un paramètre. Comment la calcule-t-on ?",
+        "Montrer que l'enveloppe d'une famille de droites est tangente à chaque droite de la famille.",
+        "Calculer l'enveloppe de la famille de droites normales à une ellipse (l'évoluée).",
+        "Quelle est la relation entre l'enveloppe d'une famille de courbes et les points de rebroussement ?",
+        "Donner un exemple d'enveloppe de famille de surfaces dans R³ et expliquer la méthode de calcul."
+      ]
+    },
+    {
+      "lecon": 412,
+      "questions": [
+        "Définir la courbure et la torsion d'une courbe paramétrée dans R³. Quelle est leur interprétation géométrique ?",
+        "Énoncer et démontrer les formules de Frenet dans R³.",
+        "Montrer qu'une courbe de torsion nulle est plane. Que peut-on dire si la courbure est constante ?",
+        "Énoncer le théorème fondamental des courbes dans R³ (existence et unicité à isométrie près).",
+        "Calculer la courbure et la torsion d'une hélice circulaire."
+      ]
+    },
+    {
+      "lecon": 413,
+      "questions": [
+        "Énoncer et démontrer la loi des sinus et la loi des cosinus dans un triangle.",
+        "Montrer que les trois hauteurs d'un triangle sont concourantes.",
+        "Énoncer et démontrer le théorème de Ptolémée pour un quadrilatère inscrit.",
+        "Montrer la formule de Héron pour l'aire d'un triangle. Donner des applications.",
+        "Combien de diagonales possède un polygone régulier à n côtés ? Quels sont ses axes de symétrie ?"
+      ]
+    },
+    {
+      "lecon": 414,
+      "questions": [
+        "Comment se décompose une isométrie du plan en composée de réflexions ?",
+        "Montrer que la composée de deux rotations de centres distincts est une rotation ou une translation.",
+        "Quel est le groupe engendré par deux réflexions dont les axes forment un angle irrationnel de π ?",
+        "Énoncer et démontrer le théorème de classification des isométries du plan.",
+        "Comment utilise-t-on les transformations du plan pour démontrer des résultats de géométrie ?"
+      ]
+    },
+    {
+      "lecon": 415,
+      "questions": [
+        "Combien y a-t-il de polyèdres réguliers convexes ? Démontrer la classification.",
+        "Énoncer et démontrer la formule d'Euler pour les polyèdres convexes.",
+        "Déterminer le groupe des rotations du tétraèdre régulier. Est-il isomorphe à un groupe connu ?",
+        "Quel est le groupe de symétrie du cube ? Montrer qu'il est isomorphe à S₄.",
+        "Expliquer la dualité entre les polyèdres réguliers. Quels polyèdres sont duaux l'un de l'autre ?"
+      ]
     }
   ]
 }
