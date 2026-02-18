@@ -26,7 +26,7 @@
   <meta name="twitter:description" content="Fiches, leçons, exercices, quiz et simulations orales pour l'agrégation de mathématiques.">
   <meta name="twitter:image" content="https://agreg-master-prod.web.app/icons/Icon-512.png">
 
-  <!-- Structured Data -->
+  <!-- Structured Data: App -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -36,6 +36,7 @@
     "operatingSystem": "iOS, Android, Web",
     "applicationCategory": "EducationalApplication",
     "inLanguage": "fr",
+    "url": "https://agreg-master-prod.web.app/",
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -43,8 +44,59 @@
     },
     "author": {
       "@type": "Organization",
-      "name": "Agreg Master"
+      "name": "Agreg Master",
+      "url": "https://agreg-master-prod.web.app/"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "ratingCount": "1",
+      "bestRating": "5"
     }
+  }
+  </script>
+  <!-- Structured Data: WebSite (enables Google sitelinks search) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Agreg Master",
+    "url": "https://agreg-master-prod.web.app/",
+    "description": "Préparer l'agrégation de mathématiques : 91 leçons, 226 exercices, 43 démonstrations, 455 questions de jury, quiz interactifs.",
+    "inLanguage": "fr"
+  }
+  </script>
+  <!-- Structured Data: FAQ (rich snippet in Google) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Comment préparer l'oral de l'agrégation de mathématiques ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Agreg Master propose 91 leçons avec plans détaillés, développements, théorèmes clés et exemples importants. Chaque leçon couvre algèbre, analyse, probabilités et géométrie. Entraînez-vous avec les 455 questions de jury et les simulations orales."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quelles matières sont couvertes par Agreg Master ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "L'application couvre les 4 domaines de l'agrégation : algèbre (29 leçons), analyse (32 leçons), probabilités (15 leçons) et géométrie (15 leçons). Chaque domaine inclut des exercices corrigés, des démonstrations et des contre-exemples."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Agreg Master couvre-t-il l'agrégation interne et externe ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Oui, les leçons sont taguées interne et externe. Un filtre permet de n'afficher que les leçons du programme de l'agrégation interne ou de l'agrégation externe de mathématiques."
+        }
+      }
+    ]
   }
   </script>
 
@@ -94,6 +146,40 @@
     <h1>Agreg Master</h1>
     <p>Chargement...</p>
   </div>
+
+  <!-- Contenu crawlable pour les moteurs de recherche (masqué par Flutter au chargement) -->
+  <div id="seo-content" style="position:absolute;left:-9999px;top:-9999px;">
+    <h1>Agreg Master — Préparer l'agrégation de mathématiques</h1>
+    <p>Application gratuite de préparation à l'agrégation de mathématiques (interne et externe). Disponible sur iOS, Android et Web.</p>
+
+    <h2>91 leçons d'oral avec plans détaillés</h2>
+    <p>Préparez chaque leçon avec un plan structuré, des points clés, des théorèmes essentiels, des exemples importants et des développements recommandés.</p>
+    <ul>
+      <li><strong>Algèbre</strong> (29 leçons) : groupes, anneaux, corps finis, algèbre linéaire, réduction, formes quadratiques</li>
+      <li><strong>Analyse</strong> (32 leçons) : topologie, espaces de Hilbert, calcul différentiel, équations différentielles, séries, intégration, Fourier</li>
+      <li><strong>Probabilités</strong> (15 leçons) : espaces probabilisés, variables aléatoires, loi des grands nombres, chaînes de Markov, martingales</li>
+      <li><strong>Géométrie</strong> (15 leçons) : isométries, coniques, quadriques, courbes, convexité, surfaces, géométrie projective</li>
+    </ul>
+
+    <h2>226 exercices corrigés</h2>
+    <p>Exercices de niveau agrégation avec énoncé, indication et solution détaillée, classés par domaine et difficulté.</p>
+
+    <h2>43 démonstrations classiques</h2>
+    <p>Démonstrations incontournables avec preuve pas à pas, corollaires et liens vers les leçons correspondantes.</p>
+
+    <h2>455 questions de jury</h2>
+    <p>Questions typiques posées par le jury lors de l'oral de l'agrégation de mathématiques, couvrant les 91 leçons.</p>
+
+    <h2>Quiz interactifs et simulations orales</h2>
+    <p>Testez vos connaissances avec des quiz par thème et simulez un oral complet avec jury virtuel et chronomètre.</p>
+
+    <h2>Contre-exemples et développements</h2>
+    <p>47 contre-exemples classiques et 31 développements pour enrichir vos leçons et impressionner le jury.</p>
+
+    <h2>Agrégation interne et externe</h2>
+    <p>Filtrez les leçons par concours : agrégation interne ou externe de mathématiques. Identifiez rapidement les leçons communes et spécifiques.</p>
+  </div>
+
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>
