@@ -48,7 +48,6 @@ workflows:
       flutter: stable
       java: 17
       groups:
-        - google_play_credentials
         - keystore_credentials
     scripts:
       - name: Set up keystore
