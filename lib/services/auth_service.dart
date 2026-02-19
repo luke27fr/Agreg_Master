@@ -68,13 +68,19 @@ class AuthService extends ChangeNotifier {
 
   Future<UserCredential?> signInWithApple() async {
     try {
+      final appleProvider = OAuthProvider('apple.com')
+        ..addScope('email')
+        ..addScope('name');
+
       if (kIsWeb) {
-        final provider = OAuthProvider('apple.com')
-          ..addScope('email')
-          ..addScope('name');
-        return await _signInWithPopup(provider);
+        return await _signInWithPopup(appleProvider);
       }
 
+      if (defaultTargetPlatform == TargetPlatform.android) {
+        return await _signInWithProvider(appleProvider);
+      }
+
+      // iOS: native Apple Sign-In
       final rawNonce = _generateNonce();
       final nonce = _sha256ofString(rawNonce);
 
@@ -127,6 +133,31 @@ class AuthService extends ChangeNotifier {
   // ──────────────────────────────────────────────────────────────────────────
   // Link or sign-in logic
   // ──────────────────────────────────────────────────────────────────────────
+
+  /// Android: use Firebase Auth provider flow (opens browser for OAuth).
+  Future<UserCredential?> _signInWithProvider(OAuthProvider provider) async {
+    final user = _auth.currentUser;
+    try {
+      UserCredential result;
+      if (user != null && user.isAnonymous) {
+        result = await user.linkWithProvider(provider);
+      } else {
+        result = await _auth.signInWithProvider(provider);
+      }
+      await _syncRevenueCat();
+      notifyListeners();
+      return result;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'credential-already-in-use') {
+        debugPrint('Credential already in use – signing in with provider');
+        final result = await _auth.signInWithProvider(provider);
+        await _syncRevenueCat();
+        notifyListeners();
+        return result;
+      }
+      rethrow;
+    }
+  }
 
   /// Web-only: use Firebase Auth popup flow (no separate OAuth client needed).
   Future<UserCredential?> _signInWithPopup(AuthProvider provider) async {

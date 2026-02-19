@@ -111,8 +111,7 @@ class _AccueilTabState extends State<AccueilTab> {
     }
   }
 
-  bool get _showAppleSignIn =>
-      kIsWeb || defaultTargetPlatform == TargetPlatform.iOS;
+  bool get _showAppleSignIn => true;
 
   Future<void> _showWelcomeIfFirstLaunch() async {
     try {

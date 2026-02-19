@@ -573,7 +573,7 @@ class _PaywallPageState extends State<PaywallPage> {
   // Actions
   // ============================================================================
 
-  bool get _showAppleSignIn => kIsWeb || (!kIsWeb && Platform.isIOS);
+  bool get _showAppleSignIn => true;
 
   /// Show a bottom sheet prompting anonymous users to sign in before purchase.
   /// Returns true if the user signed in or explicitly chose to skip.

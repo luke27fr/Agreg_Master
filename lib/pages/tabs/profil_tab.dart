@@ -58,7 +58,7 @@ class _ProfilTabState extends State<ProfilTab> {
     if (mounted) setState(() {});
   }
 
-  bool get _showAppleSignIn => kIsWeb || (!kIsWeb && Platform.isIOS);
+  bool get _showAppleSignIn => true;
 
   Future<void> _handleGoogleSignIn() async {
     setState(() => _authLoading = true);
