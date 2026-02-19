@@ -118,10 +118,7 @@
   <link rel="preload" href="main.dart.js" as="script">
   <link rel="preload" href="flutter_bootstrap.js" as="script">
 
-  <!-- Preload Firebase SDK -->
-  <link rel="preload" href="https://www.gstatic.com/firebasejs/11.4.0/firebase-app-compat.js" as="script" crossorigin>
-  <link rel="preload" href="https://www.gstatic.com/firebasejs/11.4.0/firebase-auth-compat.js" as="script" crossorigin>
-  <link rel="preload" href="https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore-compat.js" as="script" crossorigin>
+  <!-- Firebase JS SDK loaded automatically by FlutterFire -->
 
   <!-- Preconnect to CDNs (saves DNS + TLS handshake time) -->
   <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
@@ -191,22 +188,6 @@
   </div>
 
 
-  <!-- Firebase SDK loaded here (after spinner renders, before Flutter starts) -->
-  <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore-compat.js"></script>
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyAnTVfL0JWO2pxGTUoe3_ha4UXJet9smus",
-      authDomain: "agreg-master-prod.firebaseapp.com",
-      projectId: "agreg-master-prod",
-      storageBucket: "agreg-master-prod.firebasestorage.app",
-      messagingSenderId: "189782425075",
-      appId: "1:189782425075:web:agreg_master_web"
-    };
-    firebase.initializeApp(firebaseConfig);
-  </script>
   <script src="flutter_bootstrap.js" defer></script>
 </body>
 </html>

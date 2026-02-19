@@ -36,7 +36,19 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   try {
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(
+      options: kIsWeb
+          ? const FirebaseOptions(
+              apiKey: 'AIzaSyC5kcLyzmiEnou4DjXnAYua2iG6GWlAs34',
+              appId: '1:189782425075:web:300d849818868809cea686',
+              messagingSenderId: '189782425075',
+              projectId: 'agreg-master-prod',
+              authDomain: 'agreg-master-prod.firebaseapp.com',
+              storageBucket: 'agreg-master-prod.firebasestorage.app',
+              measurementId: 'G-2DJGQ749PC',
+            )
+          : null,
+    );
 
     if (!kIsWeb) {
       FlutterError.onError = (errorDetails) {

@@ -1,5 +1,3 @@
-import 'dart:io' show Platform;
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -65,7 +63,7 @@ class _AccueilTabState extends State<AccueilTab> {
     super.initState();
     _authService.addListener(_onChanged);
     _loadManifest();
-    _showWelcomeIfFirstLaunch();
+    _showWelcomeIfFirstLaunch().catchError((_) {});
     _scoreService.addListener(_onChanged);
     _streakService.addListener(_onChanged);
     _srsService.addListener(_onChanged);
@@ -112,17 +110,19 @@ class _AccueilTabState extends State<AccueilTab> {
     }
   }
 
-  bool get _showAppleSignIn => kIsWeb || (!kIsWeb && Platform.isIOS);
+  bool get _showAppleSignIn =>
+      kIsWeb || defaultTargetPlatform == TargetPlatform.iOS;
 
   Future<void> _showWelcomeIfFirstLaunch() async {
-    final prefs = await SharedPreferences.getInstance();
-    if (prefs.getBool('welcome_shown') == true) return;
-    await prefs.setBool('welcome_shown', true);
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      if (prefs.getBool('welcome_shown') == true) return;
+      await prefs.setBool('welcome_shown', true);
 
-    if (!mounted || _authService.isSignedIn) return;
+      if (!mounted || _authService.isSignedIn) return;
 
-    await Future.delayed(const Duration(milliseconds: 1200));
-    if (!mounted) return;
+      await Future.delayed(const Duration(milliseconds: 1200));
+      if (!mounted) return;
 
     showModalBottomSheet<void>(
       context: context,
@@ -233,6 +233,9 @@ class _AccueilTabState extends State<AccueilTab> {
         });
       },
     );
+    } catch (e) {
+      debugPrint('Welcome sheet error: $e');
+    }
   }
 
   void _showSignInSheet() {

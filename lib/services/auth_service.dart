@@ -21,14 +21,16 @@ class AuthService extends ChangeNotifier {
   static final AuthService _instance = AuthService._();
   factory AuthService() => _instance;
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseAuth get _auth => FirebaseAuth.instance;
 
-  User? get currentUser => _auth.currentUser;
-  bool get isAnonymous => _auth.currentUser?.isAnonymous ?? true;
-  bool get isSignedIn => _auth.currentUser != null && !isAnonymous;
-  String? get displayName => _auth.currentUser?.displayName;
-  String? get email => _auth.currentUser?.email;
-  String? get photoUrl => _auth.currentUser?.photoURL;
+  User? get currentUser {
+    try { return _auth.currentUser; } catch (_) { return null; }
+  }
+  bool get isAnonymous => currentUser?.isAnonymous ?? true;
+  bool get isSignedIn => currentUser != null && !isAnonymous;
+  String? get displayName => currentUser?.displayName;
+  String? get email => currentUser?.email;
+  String? get photoUrl => currentUser?.photoURL;
 
   // ──────────────────────────────────────────────────────────────────────────
   // Google Sign-In
@@ -36,8 +38,11 @@ class AuthService extends ChangeNotifier {
 
   Future<UserCredential?> signInWithGoogle() async {
     try {
+      if (kIsWeb) {
+        return await _signInWithPopup(GoogleAuthProvider());
+      }
       final googleUser = await GoogleSignIn().signIn();
-      if (googleUser == null) return null; // user cancelled
+      if (googleUser == null) return null;
 
       final googleAuth = await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
@@ -61,6 +66,13 @@ class AuthService extends ChangeNotifier {
 
   Future<UserCredential?> signInWithApple() async {
     try {
+      if (kIsWeb) {
+        final provider = OAuthProvider('apple.com')
+          ..addScope('email')
+          ..addScope('name');
+        return await _signInWithPopup(provider);
+      }
+
       final rawNonce = _generateNonce();
       final nonce = _sha256ofString(rawNonce);
 
@@ -79,7 +91,6 @@ class AuthService extends ChangeNotifier {
 
       final result = await _linkOrSignIn(oauthCredential);
 
-      // Apple only returns the name on first sign-in; persist it.
       if (result?.user != null && appleCredential.givenName != null) {
         final name =
             '${appleCredential.givenName ?? ''} ${appleCredential.familyName ?? ''}'
@@ -114,6 +125,31 @@ class AuthService extends ChangeNotifier {
   // ──────────────────────────────────────────────────────────────────────────
   // Link or sign-in logic
   // ──────────────────────────────────────────────────────────────────────────
+
+  /// Web-only: use Firebase Auth popup flow (no separate OAuth client needed).
+  Future<UserCredential?> _signInWithPopup(AuthProvider provider) async {
+    final user = _auth.currentUser;
+    try {
+      UserCredential result;
+      if (user != null && user.isAnonymous) {
+        result = await user.linkWithPopup(provider);
+      } else {
+        result = await _auth.signInWithPopup(provider);
+      }
+      await _syncRevenueCat();
+      notifyListeners();
+      return result;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'credential-already-in-use') {
+        debugPrint('Credential already in use – signing in with popup');
+        final result = await _auth.signInWithPopup(provider);
+        await _syncRevenueCat();
+        notifyListeners();
+        return result;
+      }
+      rethrow;
+    }
+  }
 
   /// Try to link the current anonymous account. If the credential is already
   /// used by another account, sign in with that account instead.
