@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
@@ -32,8 +33,25 @@ class SubscriptionService extends ChangeNotifier {
   static const String _rcGoogleApiKey = 'goog_YNbXFosilLoiNCiTyQvgEGRgXUw';
   static const String _rcWebApiKey = 'rcb_EGwHgUixGGwKgisJMHmXxVVHfixX';
 
+  // Emails with permanent premium access
+  static const Set<String> _vipEmails = {
+    'luke27fr@gmail.com',
+    'cecile.reynaud72@gmail.com',
+    'gaiald2107@gmail.com',
+    'zoe758751@gmail.com',
+    'stephane.plantier@gmail.com',
+    'bracou71@gmail.com',
+  };
+
   // Getters
-  bool get isPremium => _isPremium;
+  bool get isPremium {
+    if (_isPremium) return true;
+    try {
+      final email = FirebaseAuth.instance.currentUser?.email?.toLowerCase();
+      if (email != null && _vipEmails.contains(email)) return true;
+    } catch (_) {}
+    return false;
+  }
   String? get currentPlan => _currentPlan;
   DateTime? get expirationDate => _expirationDate;
   bool get isLoading => _isLoading;
