@@ -8,10 +8,17 @@ class AnalyticsService {
   static final AnalyticsService _instance = AnalyticsService._();
   factory AnalyticsService() => _instance;
 
-  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+  FirebaseAnalytics? _analyticsInstance;
+  FirebaseAnalytics get _analytics {
+    _analyticsInstance ??= FirebaseAnalytics.instance;
+    return _analyticsInstance!;
+  }
 
-  FirebaseAnalyticsObserver get observer =>
-      FirebaseAnalyticsObserver(analytics: _analytics);
+  FirebaseAnalyticsObserver? _observerInstance;
+  FirebaseAnalyticsObserver get observer {
+    _observerInstance ??= FirebaseAnalyticsObserver(analytics: _analytics);
+    return _observerInstance!;
+  }
 
   // ---------------------------------------------------------------------------
   // Content views

@@ -193,12 +193,21 @@ class _AgregMasterAppState extends State<AgregMasterApp> {
     if (mounted) setState(() {});
   }
 
+  List<NavigatorObserver> _buildObservers() {
+    try {
+      return [AnalyticsService().observer];
+    } catch (e) {
+      debugPrint('Analytics observer unavailable: $e');
+      return [];
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: AppStrings.appName,
       debugShowCheckedModeBanner: false,
-      navigatorObservers: [AnalyticsService().observer],
+      navigatorObservers: _buildObservers(),
       themeMode: _settingsService.themeMode,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
