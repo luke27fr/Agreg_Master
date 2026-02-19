@@ -3,21 +3,25 @@ workflows:
     name: iOS Release
     max_build_duration: 90
     instance_type: mac_mini_m2
+    integrations:
+      app_store_connect: Agreg Master
     environment:
       flutter: stable
       xcode: latest
       cocoapods: default
       groups:
         - app_store_credentials
-      ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.agregmaster.app
-    integrations:
-      app_store_connect: Agreg Master
     scripts:
       - name: Set up Firebase config for iOS
         script: |
           echo $GOOGLE_SERVICE_INFO_PLIST | base64 --decode > "$CM_BUILD_DIR/ios/Runner/GoogleService-Info.plist"
+
+      - name: Set up code signing
+        script: |
+          keychain initialize
+          app-store-connect fetch-signing-files com.agregmaster.app --type IOS_APP_STORE --create
+          keychain add-certificates
+          xcode-project use-profiles
 
       - name: Get Flutter packages
         script: flutter packages pub get
@@ -28,7 +32,8 @@ workflows:
           pod install
 
       - name: Flutter build IPA
-        script: flutter build ipa --release --export-options-plist=/Users/builder/export_options.plist
+        script: |
+          flutter build ipa --release --export-options-plist=/Users/builder/export_options.plist
 
     artifacts:
       - build/ios/ipa/*.ipa
