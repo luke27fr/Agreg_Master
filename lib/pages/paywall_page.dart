@@ -1,9 +1,12 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../services/subscription_service.dart';
 import '../services/analytics_service.dart';
+import '../services/auth_service.dart';
 
 /// Page PayWall Premium avec offres d'abonnement.
 /// Utilise RevenueCat pour afficher les prix réels depuis les stores
@@ -549,8 +552,141 @@ class _PaywallPageState extends State<PaywallPage> {
   // Actions
   // ============================================================================
 
+  bool get _showAppleSignIn => kIsWeb || (!kIsWeb && Platform.isIOS);
+
+  /// Show a bottom sheet prompting anonymous users to sign in before purchase.
+  /// Returns true if the user signed in or explicitly chose to skip.
+  Future<bool> _promptSignInIfNeeded() async {
+    final authService = AuthService();
+    if (!authService.isAnonymous) return true;
+
+    final result = await showModalBottomSheet<bool>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) {
+        bool loading = false;
+        return StatefulBuilder(builder: (ctx, setSheetState) {
+          return Container(
+            padding: const EdgeInsets.fromLTRB(24, 28, 24, 32),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+            ),
+            child: Column(mainAxisSize: MainAxisSize.min, children: [
+              Container(
+                width: 40, height: 4,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              const SizedBox(height: 20),
+              const Icon(Icons.shield_outlined, size: 48, color: Colors.indigo),
+              const SizedBox(height: 16),
+              const Text(
+                'Protégez votre achat',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                'Connectez-vous pour accéder à votre abonnement sur tous vos appareils et ne jamais le perdre.',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+              ),
+              const SizedBox(height: 24),
+              if (loading)
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: CircularProgressIndicator(),
+                )
+              else ...[
+                SizedBox(
+                  width: double.infinity, height: 48,
+                  child: ElevatedButton.icon(
+                    onPressed: () async {
+                      setSheetState(() => loading = true);
+                      try {
+                        await authService.signInWithGoogle();
+                        if (ctx.mounted) Navigator.pop(ctx, true);
+                      } catch (e) {
+                        setSheetState(() => loading = false);
+                        if (ctx.mounted) {
+                          ScaffoldMessenger.of(ctx).showSnackBar(
+                            SnackBar(content: Text('Erreur : $e')),
+                          );
+                        }
+                      }
+                    },
+                    icon: const Icon(Icons.g_mobiledata, size: 24),
+                    label: const Text('Continuer avec Google',
+                        style: TextStyle(fontWeight: FontWeight.w600)),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black87,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        side: BorderSide(color: Colors.grey[300]!),
+                      ),
+                    ),
+                  ),
+                ),
+                if (_showAppleSignIn) ...[
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: double.infinity, height: 48,
+                    child: ElevatedButton.icon(
+                      onPressed: () async {
+                        setSheetState(() => loading = true);
+                        try {
+                          await authService.signInWithApple();
+                          if (ctx.mounted) Navigator.pop(ctx, true);
+                        } catch (e) {
+                          setSheetState(() => loading = false);
+                          if (ctx.mounted) {
+                            ScaffoldMessenger.of(ctx).showSnackBar(
+                              SnackBar(content: Text('Erreur : $e')),
+                            );
+                          }
+                        }
+                      },
+                      icon: const Icon(Icons.apple, size: 24),
+                      label: const Text('Continuer avec Apple',
+                          style: TextStyle(fontWeight: FontWeight.w600)),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black,
+                        foregroundColor: Colors.white,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+                const SizedBox(height: 16),
+                TextButton(
+                  onPressed: () => Navigator.pop(ctx, true),
+                  child: Text(
+                    'Continuer sans compte',
+                    style: TextStyle(color: Colors.grey[500], fontSize: 14),
+                  ),
+                ),
+              ],
+            ]),
+          );
+        });
+      },
+    );
+    return result == true;
+  }
+
   Future<void> _handlePurchase() async {
     if (_selectedPackage == null) return;
+
+    final proceed = await _promptSignInIfNeeded();
+    if (!proceed || !mounted) return;
 
     _analyticsService.logPurchaseStart(
       productId: _selectedPackage!.storeProduct.identifier,

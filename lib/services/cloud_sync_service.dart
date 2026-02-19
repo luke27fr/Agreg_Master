@@ -41,21 +41,13 @@ class CloudSyncService extends ChangeNotifier {
   String? get userId => _userId;
   bool get isAuthenticated => _userId != null;
 
-  /// Vérifie si Firebase est disponible (mobile uniquement)
-  bool get _isFirebaseAvailable {
-    return !kIsWeb;
-  }
+  /// Firebase is available on all platforms (web, Android, iOS)
+  bool get _isFirebaseAvailable => true;
 
   /// Initialiser le service de synchronisation
   Future<void> initialize() async {
     if (_initialized) return;
     
-    if (!_isFirebaseAvailable) {
-      debugPrint('ℹ️ CloudSync désactivé sur desktop');
-      _initialized = true;
-      return;
-    }
-
     try {
       // Vérifier la connectivité
       final connectivity = Connectivity();
@@ -75,16 +67,17 @@ class CloudSyncService extends ChangeNotifier {
         notifyListeners();
       });
 
-      // Authentification anonyme
-      await _signInAnonymously();
+      // Use the current user (anonymous auth is handled in main.dart)
+      _userId = FirebaseAuth.instance.currentUser?.uid;
 
-      // Écouter les changements d'authentification
+      // Listen to auth state changes (anonymous → linked, sign-in, sign-out)
       _authSubscription = FirebaseAuth.instance.authStateChanges().listen((user) {
+        final previousUid = _userId;
         _userId = user?.uid;
         debugPrint('🔐 User ID: $_userId');
         notifyListeners();
 
-        if (_userId != null && _isOnline) {
+        if (_userId != null && _isOnline && _userId != previousUid) {
           syncAll();
         }
       });

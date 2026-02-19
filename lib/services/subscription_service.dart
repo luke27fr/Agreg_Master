@@ -211,6 +211,21 @@ class SubscriptionService extends ChangeNotifier {
     }
   }
 
+  /// Re-login RevenueCat after an auth change (link, sign-in, sign-out).
+  /// Called by [AuthService] when the Firebase UID changes.
+  Future<void> refreshAfterAuthChange(String newUid) async {
+    if (!_isInitialized) return;
+    try {
+      final result = await Purchases.logIn(newUid);
+      _updateFromCustomerInfo(result.customerInfo);
+      await _saveLocalStatus();
+      notifyListeners();
+      debugPrint('RevenueCat re-login: uid=$newUid, premium=$_isPremium');
+    } catch (e) {
+      debugPrint('RevenueCat re-login error: $e');
+    }
+  }
+
   /// Restaurer les achats précédents
   Future<void> restorePurchases() async {
     if (!_isInitialized) {

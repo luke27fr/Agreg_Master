@@ -108,8 +108,8 @@ Future<void> _initializeAllServices() async {
   // Si ça échoue ou prend trop de temps, l'app démarre quand même.
   _initializeSubscriptions();
 
+  CloudSyncService().initialize();
   if (!kIsWeb) {
-    CloudSyncService().initialize();
     ContentUpdateService().initialize();
   }
 }
