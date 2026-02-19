@@ -11,21 +11,34 @@ workflows:
       cocoapods: default
       groups:
         - keystore_credentials
-      ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.agregmaster.app
     scripts:
       - name: Set up Firebase config for iOS
         script: |
           echo $GOOGLE_SERVICE_INFO_PLIST | base64 --decode > "$CM_BUILD_DIR/ios/Runner/GoogleService-Info.plist"
 
+      - name: Set up code signing
+        script: |
+          keychain initialize
+          app-store-connect fetch-signing-files com.agregmaster.app --type IOS_APP_STORE --create
+          keychain add-certificates
+          xcode-project use-profiles
+          echo "=== Signing identities ==="
+          security find-identity -v -p codesigning
+          echo "=== Provisioning profiles ==="
+          ls ~/Library/MobileDevice/Provisioning\ Profiles/ || true
+
       - name: Get Flutter packages
         script: flutter packages pub get
 
-      - name: Flutter build IPA
+      - name: Build iOS
+        script: flutter build ios --release --no-codesign
+
+      - name: Create IPA
         script: |
-          flutter build ipa --release \
-            --export-options-plist=/Users/builder/export_options.plist
+          xcode-project build-ipa \
+            --workspace "$CM_BUILD_DIR/ios/Runner.xcworkspace" \
+            --scheme Runner \
+            --archive-flags="CODE_SIGN_IDENTITY=Apple Distribution"
 
     artifacts:
       - build/ios/ipa/*.ipa
