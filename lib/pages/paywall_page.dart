@@ -242,6 +242,11 @@ class _PaywallPageState extends State<PaywallPage> {
         'subtitle': 'Synchronisez vos données entre appareils',
       },
       {
+        'icon': Icons.devices,
+        'title': 'Multiplateforme',
+        'subtitle': 'iOS, Android et Web — un seul abonnement',
+      },
+      {
         'icon': Icons.trending_up,
         'title': 'Stats avancées',
         'subtitle': 'Analyses détaillées de votre progression',

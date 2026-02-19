@@ -322,6 +322,12 @@ class _SettingsPageState extends State<SettingsPage> {
               subtitle: Text('Préparation à l\'Agrégation de Mathématiques'),
             ),
             const Divider(height: 1),
+            const ListTile(
+              leading: Icon(Icons.devices),
+              title: Text('Multiplateforme'),
+              subtitle: Text('Disponible sur iOS, Android et Web.\nVotre abonnement est valable partout.'),
+            ),
+            const Divider(height: 1),
             ListTile(
               leading: const Icon(Icons.email_outlined),
               title: const Text('Contact & Support'),

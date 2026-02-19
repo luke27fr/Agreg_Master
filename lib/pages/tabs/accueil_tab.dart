@@ -379,6 +379,11 @@ class _AccueilTabState extends State<AccueilTab> {
                   badge: '#${pepiteIndex + 1}/${ConseilsData.pepitesDuJour.length}',
                   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ConseilsAgregPage())),
                 ),
+
+                const SizedBox(height: 16),
+
+                // Multiplatform banner
+                _buildMultiplatformBanner(isDark),
               ]),
             ),
           ),
@@ -556,6 +561,54 @@ class _AccueilTabState extends State<AccueilTab> {
           ),
         ),
       ),
+    );
+  }
+
+  // ==========================================================================
+  // Multiplatform banner
+  // ==========================================================================
+  Widget _buildMultiplatformBanner(bool isDark) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: isDark
+              ? [const Color(0xFF1A237E), const Color(0xFF283593)]
+              : [const Color(0xFFE8EAF6), const Color(0xFFC5CAE9)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Column(children: [
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Icon(Icons.phone_iphone, size: 20,
+              color: isDark ? Colors.white70 : Colors.indigo[700]),
+          const SizedBox(width: 6),
+          Icon(Icons.laptop_mac, size: 20,
+              color: isDark ? Colors.white70 : Colors.indigo[700]),
+          const SizedBox(width: 6),
+          Icon(Icons.tablet_android, size: 20,
+              color: isDark ? Colors.white70 : Colors.indigo[700]),
+        ]),
+        const SizedBox(height: 10),
+        Text(
+          'Disponible sur iOS, Android et Web',
+          style: TextStyle(
+            fontWeight: FontWeight.bold, fontSize: 15,
+            color: isDark ? Colors.white : Colors.indigo[800],
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          'Votre progression et votre abonnement Premium sont synchronisés sur tous vos appareils.',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 12,
+            color: isDark ? Colors.white60 : Colors.indigo[400],
+          ),
+        ),
+      ]),
     );
   }
 
