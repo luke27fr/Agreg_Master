@@ -12,6 +12,8 @@ workflows:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.agregmaster.app
+    integrations:
+      app_store_connect: Agreg Master API Key
     scripts:
       - name: Set up Firebase config for iOS
         script: |
