@@ -51,6 +51,7 @@ void main() async {
     } else {
       await Firebase.initializeApp();
     }
+    debugPrint('Firebase initialisé avec succès');
 
     if (!kIsWeb) {
       FlutterError.onError = (errorDetails) {
