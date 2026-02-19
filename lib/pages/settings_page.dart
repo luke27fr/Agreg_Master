@@ -322,11 +322,29 @@ class _SettingsPageState extends State<SettingsPage> {
               subtitle: Text('Préparation à l\'Agrégation de Mathématiques'),
             ),
             const Divider(height: 1),
-            const ListTile(
-              leading: Icon(Icons.devices),
-              title: Text('Multiplateforme'),
-              subtitle: Text('Disponible sur iOS, Android et Web.\nVotre abonnement est valable partout.'),
+            ListTile(
+              leading: const Icon(Icons.devices),
+              title: const Text('Multiplateforme'),
+              subtitle: const Text('Disponible sur iOS, Android et Web.\nVotre abonnement est valable partout.'),
             ),
+            if (kIsWeb) ...[
+              const Divider(height: 1),
+              ListTile(
+                leading: const Icon(Icons.apple),
+                title: const Text('Télécharger sur l\'App Store'),
+                subtitle: const Text('iPhone et iPad'),
+                trailing: const Icon(Icons.open_in_new, size: 16),
+                onTap: () => _openUrl('https://apps.apple.com/app/agreg-master/id6740000879'),
+              ),
+              const Divider(height: 1),
+              ListTile(
+                leading: const Icon(Icons.shop),
+                title: const Text('Télécharger sur Google Play'),
+                subtitle: const Text('Android'),
+                trailing: const Icon(Icons.open_in_new, size: 16),
+                onTap: () => _openUrl('https://play.google.com/store/apps/details?id=com.agregmaster.app'),
+              ),
+            ],
             const Divider(height: 1),
             ListTile(
               leading: const Icon(Icons.email_outlined),

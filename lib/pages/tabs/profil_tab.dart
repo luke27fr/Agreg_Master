@@ -2,6 +2,7 @@ import 'dart:io' show Platform;
 
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../constants/app_constants.dart';
 import '../../utils/theme_utils.dart';
 import '../../widgets/shared_widgets.dart';
@@ -251,6 +252,33 @@ class _ProfilTabState extends State<ProfilTab> {
                 color: Colors.red,
                 onTap: _handleSignOut,
               ),
+
+            if (kIsWeb) ...[
+              const SizedBox(height: 24),
+              Text('Télécharger l\'app', style: TextStyle(
+                fontSize: 17, fontWeight: FontWeight.bold,
+                color: isDark ? Colors.white : Colors.black87,
+              )),
+              const SizedBox(height: 10),
+              ToolCard(
+                icon: Icons.apple, title: 'App Store',
+                subtitle: 'iPhone et iPad',
+                color: Colors.black,
+                onTap: () => launchUrl(
+                  Uri.parse('https://apps.apple.com/app/agreg-master/id6740000879'),
+                  mode: LaunchMode.externalApplication,
+                ),
+              ),
+              ToolCard(
+                icon: Icons.shop, title: 'Google Play',
+                subtitle: 'Android',
+                color: Colors.green.shade700,
+                onTap: () => launchUrl(
+                  Uri.parse('https://play.google.com/store/apps/details?id=com.agregmaster.app'),
+                  mode: LaunchMode.externalApplication,
+                ),
+              ),
+            ],
 
             const SizedBox(height: 24),
 
