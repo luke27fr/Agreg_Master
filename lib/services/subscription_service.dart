@@ -17,6 +17,7 @@ class SubscriptionService extends ChangeNotifier {
   bool _isLoading = false;
   String? _error;
   bool _isInitialized = false;
+  String? _initError;
 
   // RevenueCat Entitlement ID (configuré dans le Dashboard RevenueCat)
   static const String entitlementId = 'Agreg Master Pro';
@@ -29,7 +30,7 @@ class SubscriptionService extends ChangeNotifier {
   // Ces clés sont publiques (côté client), elles ne sont pas secrètes.
   static const String _rcAppleApiKey = 'appl_KGZJHYCjiiPMQbarNCnJbyakVGP';
   static const String _rcGoogleApiKey = 'goog_YNbXFosilLoiNCiTyQvgEGRgXUw';
-  static const String _rcWebApiKey = 'strp_TbOCGUgTVDBKMFCXtVXXmuUQnkc';
+  static const String _rcWebApiKey = 'rcb_EGwHgUixGGwKgisJMHmXxVVHfixX';
 
   // Getters
   bool get isPremium => _isPremium;
@@ -38,6 +39,7 @@ class SubscriptionService extends ChangeNotifier {
   bool get isLoading => _isLoading;
   String? get error => _error;
   bool get isInitialized => _isInitialized;
+  String? get initError => _initError;
 
   /// Initialiser RevenueCat sur toutes les plateformes.
   /// [appUserID] : Firebase UID pour synchroniser les abonnements cross-plateforme.
@@ -81,9 +83,10 @@ class SubscriptionService extends ChangeNotifier {
 
       _isInitialized = true;
       debugPrint('RevenueCat initialisé (premium=$_isPremium, plan=$_currentPlan)');
-    } catch (e) {
-      debugPrint('Erreur initialisation RevenueCat: $e');
+    } catch (e, stack) {
+      debugPrint('Erreur initialisation RevenueCat: $e\n$stack');
       _error = e.toString();
+      _initError = 'Init failed: $e';
 
       // Fallback : charger le statut depuis le stockage local
       await _loadLocalStatus();

@@ -36,6 +36,13 @@ class _PaywallPageState extends State<PaywallPage> {
   Future<void> _loadOfferings() async {
     setState(() => _isLoading = true);
     try {
+      if (!_subscriptionService.isInitialized) {
+        try {
+          await _subscriptionService.initialize().timeout(
+            const Duration(seconds: 20),
+          );
+        } catch (_) {}
+      }
       final offerings = await _subscriptionService.getOfferings();
       if (offerings != null && offerings.current != null) {
         final packages = offerings.current!.availablePackages;
