@@ -9,6 +9,8 @@ workflows:
       flutter: stable
       xcode: latest
       cocoapods: default
+      groups:
+        - keystore_credentials
     scripts:
       - name: Set up Firebase config for iOS
         script: |
