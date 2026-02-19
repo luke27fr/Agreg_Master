@@ -345,6 +345,16 @@ class _SettingsPageState extends State<SettingsPage> {
                 onTap: () => _openUrl('https://play.google.com/store/apps/details?id=com.agregmaster.app'),
               ),
             ],
+            if (!kIsWeb) ...[
+              const Divider(height: 1),
+              ListTile(
+                leading: const Icon(Icons.language),
+                title: const Text('Version Web'),
+                subtitle: const Text('agregmaster.fr'),
+                trailing: const Icon(Icons.open_in_new, size: 16),
+                onTap: () => _openUrl('https://agregmaster.fr'),
+              ),
+            ],
             const Divider(height: 1),
             ListTile(
               leading: const Icon(Icons.email_outlined),

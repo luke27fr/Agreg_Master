@@ -253,13 +253,13 @@ class _ProfilTabState extends State<ProfilTab> {
                 onTap: _handleSignOut,
               ),
 
+            const SizedBox(height: 24),
+            Text('Disponible partout', style: TextStyle(
+              fontSize: 17, fontWeight: FontWeight.bold,
+              color: isDark ? Colors.white : Colors.black87,
+            )),
+            const SizedBox(height: 10),
             if (kIsWeb) ...[
-              const SizedBox(height: 24),
-              Text('Télécharger l\'app', style: TextStyle(
-                fontSize: 17, fontWeight: FontWeight.bold,
-                color: isDark ? Colors.white : Colors.black87,
-              )),
-              const SizedBox(height: 10),
               ToolCard(
                 icon: Icons.apple, title: 'App Store',
                 subtitle: 'iPhone et iPad',
@@ -279,6 +279,15 @@ class _ProfilTabState extends State<ProfilTab> {
                 ),
               ),
             ],
+            if (!kIsWeb) ToolCard(
+              icon: Icons.language, title: 'Version Web',
+              subtitle: 'agregmaster.fr — accessible depuis tout navigateur',
+              color: Colors.indigo,
+              onTap: () => launchUrl(
+                Uri.parse('https://agregmaster.fr'),
+                mode: LaunchMode.externalApplication,
+              ),
+            ),
 
             const SizedBox(height: 24),
 
