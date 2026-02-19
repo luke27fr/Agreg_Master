@@ -114,30 +114,39 @@
   <title>Agreg Master — Préparer l'agrégation de mathématiques</title>
   <link rel="manifest" href="manifest.json">
 
-  <!-- Preload Firebase SDK (download starts immediately, non-blocking) -->
+  <!-- Preload critical Flutter resources (starts download immediately, non-blocking) -->
+  <link rel="preload" href="main.dart.js" as="script">
+  <link rel="preload" href="flutter_bootstrap.js" as="script">
+
+  <!-- Preload Firebase SDK -->
   <link rel="preload" href="https://www.gstatic.com/firebasejs/11.4.0/firebase-app-compat.js" as="script" crossorigin>
   <link rel="preload" href="https://www.gstatic.com/firebasejs/11.4.0/firebase-auth-compat.js" as="script" crossorigin>
   <link rel="preload" href="https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore-compat.js" as="script" crossorigin>
 
-  <!-- Preconnect to Google Fonts (used by Flutter at runtime) -->
+  <!-- Preconnect to CDNs (saves DNS + TLS handshake time) -->
+  <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://www.gstatic.com">
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 
   <!-- Loading indicator while Flutter initializes -->
   <style>
     body { margin: 0; background: #1A237E; }
-    .loading { display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column; }
+    .loading { display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column; transition: opacity 0.3s ease; }
     .loading h1 { color: white; font-family: 'Segoe UI', sans-serif; font-size: 28px; margin-bottom: 16px; }
     .loading p { color: rgba(255,255,255,0.7); font-family: 'Segoe UI', sans-serif; font-size: 14px; }
     .spinner { width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: white; animation: spin 1s ease-in-out infinite; margin-bottom: 24px; }
     @keyframes spin { to { transform: rotate(360deg); } }
+    .progress-bar { width: 200px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; margin-top: 16px; overflow: hidden; }
+    .progress-fill { height: 100%; width: 0%; background: white; border-radius: 2px; transition: width 0.5s ease; }
   </style>
 </head>
 <body>
   <div class="loading" id="loading">
     <div class="spinner"></div>
     <h1>Agreg Master</h1>
-    <p>Chargement...</p>
+    <p id="loading-status">Chargement...</p>
+    <div class="progress-bar"><div class="progress-fill" id="loading-progress"></div></div>
   </div>
 
   <!-- Contenu crawlable pour les moteurs de recherche (masqué par Flutter au chargement) -->
