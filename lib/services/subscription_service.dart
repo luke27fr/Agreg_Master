@@ -41,6 +41,8 @@ class SubscriptionService extends ChangeNotifier {
   bool get isInitialized => _isInitialized;
   String? get initError => _initError;
 
+  static bool _configureAttempted = false;
+
   /// Initialiser RevenueCat sur toutes les plateformes.
   /// [appUserID] : Firebase UID pour synchroniser les abonnements cross-plateforme.
   Future<void> initialize({String? appUserID}) async {
@@ -51,37 +53,37 @@ class SubscriptionService extends ChangeNotifier {
     notifyListeners();
 
     try {
-      // Choisir la bonne API key selon la plateforme
-      late String apiKey;
-      if (kIsWeb) {
-        apiKey = _rcWebApiKey;
-      } else if (defaultTargetPlatform == TargetPlatform.iOS ||
-                 defaultTargetPlatform == TargetPlatform.macOS) {
-        apiKey = _rcAppleApiKey;
-      } else {
-        apiKey = _rcGoogleApiKey;
+      // Skip configure if already called (avoids duplicate config errors)
+      if (!_configureAttempted) {
+        late String apiKey;
+        if (kIsWeb) {
+          apiKey = _rcWebApiKey;
+        } else if (defaultTargetPlatform == TargetPlatform.iOS ||
+                   defaultTargetPlatform == TargetPlatform.macOS) {
+          apiKey = _rcAppleApiKey;
+        } else {
+          apiKey = _rcGoogleApiKey;
+        }
+
+        final configuration = PurchasesConfiguration(apiKey);
+        if (appUserID != null) {
+          configuration.appUserID = appUserID;
+        }
+
+        await Purchases.configure(configuration);
+        _configureAttempted = true;
+
+        if (kDebugMode) {
+          await Purchases.setLogLevel(LogLevel.debug);
+        }
+
+        Purchases.addCustomerInfoUpdateListener(_onCustomerInfoUpdated);
       }
 
-      // Configurer RevenueCat
-      final configuration = PurchasesConfiguration(apiKey);
-      if (appUserID != null) {
-        configuration.appUserID = appUserID;
-      }
-
-      await Purchases.configure(configuration);
-
-      // Activer le mode debug en développement
-      if (kDebugMode) {
-        await Purchases.setLogLevel(LogLevel.debug);
-      }
-
-      // Vérifier le statut initial
       await _refreshSubscriptionStatus();
 
-      // Écouter les changements de statut (achat, restauration, expiration)
-      Purchases.addCustomerInfoUpdateListener(_onCustomerInfoUpdated);
-
       _isInitialized = true;
+      _initError = null;
       debugPrint('RevenueCat initialisé (premium=$_isPremium, plan=$_currentPlan)');
     } catch (e, stack) {
       debugPrint('Erreur initialisation RevenueCat: $e\n$stack');

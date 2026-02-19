@@ -121,7 +121,7 @@ Future<void> _initializeSubscriptions() async {
     final appUserID = firebaseUser?.uid;
     await SubscriptionService()
         .initialize(appUserID: appUserID)
-        .timeout(const Duration(seconds: 10), onTimeout: () {
+        .timeout(Duration(seconds: kIsWeb ? 30 : 10), onTimeout: () {
       debugPrint('RevenueCat init timeout - app continue sans abonnements');
     });
   } catch (e) {
