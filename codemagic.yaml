@@ -26,11 +26,6 @@ workflows:
       - name: Get Flutter packages
         script: flutter packages pub get
 
-      - name: Install CocoaPods dependencies
-        script: |
-          cd ios
-          pod install
-
       - name: Flutter build IPA
         script: |
           flutter build ipa --release --export-options-plist=/Users/builder/export_options.plist
