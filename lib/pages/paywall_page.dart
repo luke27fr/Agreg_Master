@@ -92,129 +92,138 @@ class _PaywallPageState extends State<PaywallPage> {
           ),
         ),
         child: SafeArea(
-          child: Column(
-            children: [
-              // Bouton fermer
-              Align(
-                alignment: Alignment.topRight,
-                child: IconButton(
-                  icon: const Icon(Icons.close, color: Colors.white, size: 28),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-              ),
-
-              Expanded(
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-                  child: Column(
-                    children: [
-                      // Titre
-                      const Text(
-                        'Agreg Master Premium',
-                        style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          height: 1.2,
-                        ),
-                        textAlign: TextAlign.center,
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 540),
+              child: Column(
+                children: [
+                  // Bouton fermer
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 8, top: 4),
+                      child: IconButton(
+                        icon: const Icon(Icons.close, color: Colors.white, size: 28),
+                        onPressed: () => Navigator.of(context).pop(),
                       ),
-                      const SizedBox(height: 12),
-                      Text(
-                        'Déverrouillez tout le contenu\npour réussir votre agrégation',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.white.withAlpha((0.85 * 255).round()),
-                          height: 1.4,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
+                    ),
+                  ),
 
-                      const SizedBox(height: 36),
-
-                      // Avantages Premium
-                      _buildFeaturesList(),
-
-                      const SizedBox(height: 32),
-
-                      // Plans d'abonnement
-                      if (_isLoading)
-                        const Center(
-                          child: CircularProgressIndicator(color: Colors.white),
-                        )
-                      else if (_packages.isEmpty)
-                        _buildNoOfferings()
-                      else
-                        _buildSubscriptionPlans(),
-
-                      const SizedBox(height: 24),
-
-                      // Bouton restaurer achats (masqué sur web)
-                      if (!kIsWeb)
-                        TextButton(
-                          onPressed: _restorePurchases,
-                          child: Text(
-                            'Restaurer mes achats',
-                            style: TextStyle(
-                              color: Colors.white.withAlpha((0.7 * 255).round()),
-                              fontSize: 15,
-                            ),
-                          ),
-                        ),
-
-                      const SizedBox(height: 8),
-
-                      // Texte légal adapté selon la plateforme
-                      Text(
-                        _getLegalText(),
-                        style: TextStyle(
-                          color: Colors.white.withAlpha((0.6 * 255).round()),
-                          fontSize: 12,
-                          height: 1.5,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-
-                      const SizedBox(height: 12),
-
-                      // Liens légaux (requis par Apple 3.1.2)
-                      Wrap(
-                        alignment: WrapAlignment.center,
+                  Expanded(
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 12.0),
+                      child: Column(
                         children: [
-                          TextButton(
-                            onPressed: () => _openLegalPage('https://agregmaster.fr/privacy.html'),
-                            child: Text(
-                              'Politique de confidentialité',
-                              style: TextStyle(
-                                color: Colors.white.withAlpha((0.7 * 255).round()),
-                                fontSize: 13,
-                                decoration: TextDecoration.underline,
-                                decorationColor: Colors.white.withAlpha((0.7 * 255).round()),
+                          const SizedBox(height: 8),
+                          // Titre
+                          const Text(
+                            'Agreg Master Premium',
+                            style: TextStyle(
+                              fontSize: 32,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              height: 1.2,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 12),
+                          Text(
+                            'Déverrouillez tout le contenu\npour réussir votre agrégation',
+                            style: TextStyle(
+                              fontSize: 17,
+                              color: Colors.white.withAlpha((0.85 * 255).round()),
+                              height: 1.5,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+
+                          const SizedBox(height: 36),
+
+                          // Avantages Premium
+                          _buildFeaturesList(),
+
+                          const SizedBox(height: 32),
+
+                          // Plans d'abonnement
+                          if (_isLoading)
+                            const Center(
+                              child: CircularProgressIndicator(color: Colors.white),
+                            )
+                          else if (_packages.isEmpty)
+                            _buildNoOfferings()
+                          else
+                            _buildSubscriptionPlans(),
+
+                          const SizedBox(height: 24),
+
+                          // Bouton restaurer achats (masqué sur web)
+                          if (!kIsWeb)
+                            TextButton(
+                              onPressed: _restorePurchases,
+                              child: Text(
+                                'Restaurer mes achats',
+                                style: TextStyle(
+                                  color: Colors.white.withAlpha((0.7 * 255).round()),
+                                  fontSize: 15,
+                                ),
                               ),
                             ),
-                          ),
-                          Text(' • ', style: TextStyle(color: Colors.white.withAlpha((0.4 * 255).round()))),
-                          TextButton(
-                            onPressed: () => _openLegalPage('https://agregmaster.fr/terms.html'),
-                            child: Text(
-                              'Conditions d\'utilisation (EULA)',
-                              style: TextStyle(
-                                color: Colors.white.withAlpha((0.7 * 255).round()),
-                                fontSize: 13,
-                                decoration: TextDecoration.underline,
-                                decorationColor: Colors.white.withAlpha((0.7 * 255).round()),
-                              ),
+
+                          const SizedBox(height: 8),
+
+                          // Texte légal
+                          Text(
+                            _getLegalText(),
+                            style: TextStyle(
+                              color: Colors.white.withAlpha((0.6 * 255).round()),
+                              fontSize: 12,
+                              height: 1.5,
                             ),
+                            textAlign: TextAlign.center,
                           ),
+
+                          const SizedBox(height: 12),
+
+                          // Liens légaux
+                          Wrap(
+                            alignment: WrapAlignment.center,
+                            children: [
+                              TextButton(
+                                onPressed: () => _openLegalPage('https://agregmaster.fr/privacy.html'),
+                                child: Text(
+                                  'Politique de confidentialité',
+                                  style: TextStyle(
+                                    color: Colors.white.withAlpha((0.7 * 255).round()),
+                                    fontSize: 13,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: Colors.white.withAlpha((0.7 * 255).round()),
+                                  ),
+                                ),
+                              ),
+                              Text(' • ', style: TextStyle(color: Colors.white.withAlpha((0.4 * 255).round()))),
+                              TextButton(
+                                onPressed: () => _openLegalPage('https://agregmaster.fr/terms.html'),
+                                child: Text(
+                                  'Conditions d\'utilisation (EULA)',
+                                  style: TextStyle(
+                                    color: Colors.white.withAlpha((0.7 * 255).round()),
+                                    fontSize: 13,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: Colors.white.withAlpha((0.7 * 255).round()),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          const SizedBox(height: 16),
                         ],
                       ),
-
-                      const SizedBox(height: 16),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
