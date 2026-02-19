@@ -39,7 +39,6 @@ void main() async {
     await Firebase.initializeApp();
 
     if (!kIsWeb) {
-      // Crashlytics is not supported on web
       FlutterError.onError = (errorDetails) {
         FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
       };
@@ -51,27 +50,32 @@ void main() async {
     }
 
     await FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(!kDebugMode);
-
-    // Anonymous auth to get a stable user ID for RevenueCat cross-platform sync
-    try {
-      User? user = FirebaseAuth.instance.currentUser;
-      if (user == null) {
-        final credential = await FirebaseAuth.instance
-            .signInAnonymously()
-            .timeout(const Duration(seconds: 5));
-        user = credential.user;
-      }
-      debugPrint('Firebase Auth: uid=${user?.uid}');
-    } catch (e) {
-      debugPrint('Firebase Auth non disponible: $e');
-    }
-
     debugPrint('Firebase initialisé');
   } catch (e) {
     debugPrint('Firebase non disponible: $e');
   }
 
+  // Auth + subscriptions in background — don't block app start
+  _initializeAuthAndSubscriptions();
+
   runApp(const AgregMasterApp());
+}
+
+/// Auth and RevenueCat load in background without blocking the UI
+Future<void> _initializeAuthAndSubscriptions() async {
+  try {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      final credential = await FirebaseAuth.instance
+          .signInAnonymously()
+          .timeout(const Duration(seconds: 5));
+      user = credential.user;
+    }
+    debugPrint('Firebase Auth: uid=${user?.uid}');
+  } catch (e) {
+    debugPrint('Firebase Auth non disponible: $e');
+  }
+  _initializeSubscriptions();
 }
 
 /// Charge tous les services en arrière-plan
@@ -163,7 +167,6 @@ class AgregMasterApp extends StatefulWidget {
 
 class _AgregMasterAppState extends State<AgregMasterApp> {
   final SettingsService _settingsService = SettingsService();
-  bool _isInitialized = false;
 
   @override
   void initState() {
@@ -173,10 +176,11 @@ class _AgregMasterAppState extends State<AgregMasterApp> {
   }
 
   Future<void> _loadServices() async {
-    await _initializeAllServices();
-    if (mounted) {
-      setState(() => _isInitialized = true);
-    }
+    // Settings first (fast, needed for correct theme)
+    await SettingsService().loadSettings();
+    if (mounted) setState(() {});
+    // All other services load in background — UI updates reactively
+    _initializeAllServices();
   }
 
   @override
@@ -247,7 +251,7 @@ class _AgregMasterAppState extends State<AgregMasterApp> {
           color: AppColors.cardDark,
         ),
       ),
-      home: _isInitialized ? const HomeNavigationPage() : const SplashScreen(),
+      home: const HomeNavigationPage(),
     );
   }
 }

@@ -114,22 +114,14 @@
   <title>Agreg Master — Préparer l'agrégation de mathématiques</title>
   <link rel="manifest" href="manifest.json">
 
-  <!-- Firebase JS SDK -->
-  <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore-compat.js"></script>
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyAnTVfL0JWO2pxGTUoe3_ha4UXJet9smus",
-      authDomain: "agreg-master-prod.firebaseapp.com",
-      projectId: "agreg-master-prod",
-      storageBucket: "agreg-master-prod.firebasestorage.app",
-      messagingSenderId: "189782425075",
-      appId: "1:189782425075:web:agreg_master_web"
-    };
-    firebase.initializeApp(firebaseConfig);
-  </script>
+  <!-- Preload Firebase SDK (download starts immediately, non-blocking) -->
+  <link rel="preload" href="https://www.gstatic.com/firebasejs/11.4.0/firebase-app-compat.js" as="script" crossorigin>
+  <link rel="preload" href="https://www.gstatic.com/firebasejs/11.4.0/firebase-auth-compat.js" as="script" crossorigin>
+  <link rel="preload" href="https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore-compat.js" as="script" crossorigin>
+
+  <!-- Preconnect to Google Fonts (used by Flutter at runtime) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 
   <!-- Loading indicator while Flutter initializes -->
   <style>
@@ -181,6 +173,22 @@
     <p>Filtrez les leçons par concours : agrégation interne ou externe de mathématiques. Identifiez rapidement les leçons communes et spécifiques.</p>
   </div>
 
+  <!-- Firebase SDK loaded here (after spinner renders, before Flutter starts) -->
+  <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAnTVfL0JWO2pxGTUoe3_ha4UXJet9smus",
+      authDomain: "agreg-master-prod.firebaseapp.com",
+      projectId: "agreg-master-prod",
+      storageBucket: "agreg-master-prod.firebasestorage.app",
+      messagingSenderId: "189782425075",
+      appId: "1:189782425075:web:agreg_master_web"
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>
