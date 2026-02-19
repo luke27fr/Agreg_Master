@@ -697,40 +697,59 @@ class _PaywallPageState extends State<PaywallPage> {
   Future<void> _handlePurchase() async {
     if (_selectedPackage == null) return;
 
-    final proceed = await _promptSignInIfNeeded();
-    if (!proceed || !mounted) return;
+    // On web, RevenueCat Web Billing handles email collection in checkout.
+    // Only prompt sign-in on native platforms.
+    if (!kIsWeb) {
+      final proceed = await _promptSignInIfNeeded();
+      if (!proceed || !mounted) return;
+    }
 
     _analyticsService.logPurchaseStart(
       productId: _selectedPackage!.storeProduct.identifier,
       packageType: _selectedPackage!.packageType.name,
     );
     setState(() => _isPurchasing = true);
-    final success = await _subscriptionService.purchasePackage(_selectedPackage!);
 
-    if (mounted) {
-      setState(() => _isPurchasing = false);
+    try {
+      final success = await _subscriptionService.purchasePackage(_selectedPackage!);
 
-      if (success) {
-        _analyticsService.logPurchaseComplete(
-          productId: _selectedPackage!.storeProduct.identifier,
-          packageType: _selectedPackage!.packageType.name,
-        );
-        Navigator.of(context).pop(true);
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Abonnement activé ! Bienvenue Premium !'),
-            backgroundColor: Colors.green,
-            duration: Duration(seconds: 3),
-          ),
-        );
-      } else if (_subscriptionService.error != null) {
-        _analyticsService.logPurchaseError(
-          productId: _selectedPackage!.storeProduct.identifier,
-          error: _subscriptionService.error ?? 'unknown',
-        );
+      if (mounted) {
+        setState(() => _isPurchasing = false);
+
+        if (success) {
+          _analyticsService.logPurchaseComplete(
+            productId: _selectedPackage!.storeProduct.identifier,
+            packageType: _selectedPackage!.packageType.name,
+          );
+          Navigator.of(context).pop(true);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Abonnement activé ! Bienvenue Premium !'),
+              backgroundColor: Colors.green,
+              duration: Duration(seconds: 3),
+            ),
+          );
+        } else if (_subscriptionService.error != null) {
+          _analyticsService.logPurchaseError(
+            productId: _selectedPackage!.storeProduct.identifier,
+            error: _subscriptionService.error ?? 'unknown',
+          );
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Erreur : ${_subscriptionService.error}'),
+              backgroundColor: Colors.red,
+              duration: const Duration(seconds: 4),
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      debugPrint('Purchase error: $e');
+      if (mounted) {
+        setState(() => _isPurchasing = false);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Erreur : ${_subscriptionService.error}'),
+            content: Text('Erreur : $e'),
             backgroundColor: Colors.red,
             duration: const Duration(seconds: 4),
           ),
