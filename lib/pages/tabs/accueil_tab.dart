@@ -639,10 +639,6 @@ class _AccueilTabState extends State<AccueilTab> {
                 // Multiplatform banner
                 _buildMultiplatformBanner(isDark),
 
-                if (kIsWeb) ...[
-                  const SizedBox(height: 16),
-                  _buildStoreDownloadBanner(isDark),
-                ],
               ]),
             ),
           ),
@@ -931,67 +927,6 @@ class _AccueilTabState extends State<AccueilTab> {
   // ==========================================================================
   // Store download banner (web only)
   // ==========================================================================
-  Widget _buildStoreDownloadBanner(bool isDark) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: ThemeUtils.cardColor(context),
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(
-          color: isDark ? Colors.white.withValues(alpha: 0.06) : Colors.grey.withValues(alpha: 0.12),
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(children: [
-            Icon(Icons.phone_iphone, size: 20, color: isDark ? Colors.white70 : Colors.grey[700]),
-            const SizedBox(width: 8),
-            Text(
-              'Aussi disponible sur mobile',
-              style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 15,
-                color: isDark ? Colors.white : Colors.black87,
-              ),
-            ),
-          ]),
-          const SizedBox(height: 12),
-          Row(children: [
-            Expanded(
-              child: OutlinedButton.icon(
-                onPressed: () => launchUrl(
-                  Uri.parse('https://apps.apple.com/app/agreg-master/id6740000879'),
-                  mode: LaunchMode.externalApplication,
-                ),
-                icon: const Icon(Icons.apple, size: 20),
-                label: const Text('App Store', style: TextStyle(fontWeight: FontWeight.w600)),
-                style: OutlinedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                ),
-              ),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: OutlinedButton.icon(
-                onPressed: () => launchUrl(
-                  Uri.parse('https://play.google.com/store/apps/details?id=com.agregmaster.app'),
-                  mode: LaunchMode.externalApplication,
-                ),
-                icon: const Icon(Icons.shop, size: 20),
-                label: const Text('Google Play', style: TextStyle(fontWeight: FontWeight.w600)),
-                style: OutlinedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                ),
-              ),
-            ),
-          ]),
-        ],
-      ),
-    );
-  }
-
   // ==========================================================================
   // SRS notification
   // ==========================================================================
