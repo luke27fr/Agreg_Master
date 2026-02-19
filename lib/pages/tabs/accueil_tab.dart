@@ -1,4 +1,8 @@
+import 'dart:io' show Platform;
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../main.dart'; // ThemeItem
 import '../../constants/app_constants.dart';
 import '../../utils/theme_utils.dart';
@@ -34,6 +38,7 @@ import '../../services/streak_service.dart';
 import '../../services/spaced_repetition_service.dart';
 import '../../services/wellness_service.dart';
 import '../../services/reading_service.dart';
+import '../../services/auth_service.dart';
 
 class AccueilTab extends StatefulWidget {
   final void Function(int tabIndex)? onNavigateToTab;
@@ -51,13 +56,16 @@ class _AccueilTabState extends State<AccueilTab> {
   final SpacedRepetitionService _srsService = SpacedRepetitionService();
   final WellnessService _wellnessService = WellnessService();
   final ReadingService _readingService = ReadingService();
+  final AuthService _authService = AuthService();
   int _totalFiches = 0;
   List<ThemeItem> _themes = [];
 
   @override
   void initState() {
     super.initState();
+    _authService.addListener(_onChanged);
     _loadManifest();
+    _showWelcomeIfFirstLaunch();
     _scoreService.addListener(_onChanged);
     _streakService.addListener(_onChanged);
     _srsService.addListener(_onChanged);
@@ -68,6 +76,7 @@ class _AccueilTabState extends State<AccueilTab> {
 
   @override
   void dispose() {
+    _authService.removeListener(_onChanged);
     _scoreService.removeListener(_onChanged);
     _streakService.removeListener(_onChanged);
     _srsService.removeListener(_onChanged);
@@ -101,6 +110,241 @@ class _AccueilTabState extends State<AccueilTab> {
         );
       }
     }
+  }
+
+  bool get _showAppleSignIn => kIsWeb || (!kIsWeb && Platform.isIOS);
+
+  Future<void> _showWelcomeIfFirstLaunch() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.getBool('welcome_shown') == true) return;
+    await prefs.setBool('welcome_shown', true);
+
+    if (!mounted || _authService.isSignedIn) return;
+
+    await Future.delayed(const Duration(milliseconds: 1200));
+    if (!mounted) return;
+
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) {
+        bool loading = false;
+        return StatefulBuilder(builder: (ctx, setSheetState) {
+          return Container(
+            padding: const EdgeInsets.fromLTRB(24, 28, 24, 32),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+            ),
+            child: Column(mainAxisSize: MainAxisSize.min, children: [
+              Container(
+                width: 40, height: 4,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              const SizedBox(height: 20),
+              const Icon(Icons.waving_hand, size: 48, color: Colors.amber),
+              const SizedBox(height: 16),
+              const Text(
+                'Bienvenue sur Agreg Master !',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                'Connectez-vous pour synchroniser votre progression sur tous vos appareils (iOS, Android, Web).',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+              ),
+              const SizedBox(height: 24),
+              if (loading)
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: CircularProgressIndicator(),
+                )
+              else ...[
+                SizedBox(
+                  width: double.infinity, height: 48,
+                  child: ElevatedButton.icon(
+                    onPressed: () async {
+                      setSheetState(() => loading = true);
+                      try {
+                        await _authService.signInWithGoogle();
+                        if (ctx.mounted) Navigator.pop(ctx);
+                      } catch (e) {
+                        setSheetState(() => loading = false);
+                      }
+                    },
+                    icon: const Icon(Icons.g_mobiledata, size: 24),
+                    label: const Text('Continuer avec Google',
+                        style: TextStyle(fontWeight: FontWeight.w600)),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black87,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        side: BorderSide(color: Colors.grey[300]!),
+                      ),
+                    ),
+                  ),
+                ),
+                if (_showAppleSignIn) ...[
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: double.infinity, height: 48,
+                    child: ElevatedButton.icon(
+                      onPressed: () async {
+                        setSheetState(() => loading = true);
+                        try {
+                          await _authService.signInWithApple();
+                          if (ctx.mounted) Navigator.pop(ctx);
+                        } catch (e) {
+                          setSheetState(() => loading = false);
+                        }
+                      },
+                      icon: const Icon(Icons.apple, size: 24),
+                      label: const Text('Continuer avec Apple',
+                          style: TextStyle(fontWeight: FontWeight.w600)),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black,
+                        foregroundColor: Colors.white,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+                const SizedBox(height: 16),
+                TextButton(
+                  onPressed: () => Navigator.pop(ctx),
+                  child: Text(
+                    'Plus tard',
+                    style: TextStyle(color: Colors.grey[500], fontSize: 14),
+                  ),
+                ),
+              ],
+            ]),
+          );
+        });
+      },
+    );
+  }
+
+  void _showSignInSheet() {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) {
+        bool loading = false;
+        return StatefulBuilder(builder: (ctx, setSheetState) {
+          return Container(
+            padding: const EdgeInsets.fromLTRB(24, 28, 24, 32),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+            ),
+            child: Column(mainAxisSize: MainAxisSize.min, children: [
+              Container(
+                width: 40, height: 4,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              const SizedBox(height: 20),
+              const Icon(Icons.cloud_sync, size: 48, color: Colors.indigo),
+              const SizedBox(height: 16),
+              const Text(
+                'Synchronisez vos données',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                'Connectez-vous pour retrouver votre progression et votre abonnement sur tous vos appareils.',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+              ),
+              const SizedBox(height: 24),
+              if (loading)
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: CircularProgressIndicator(),
+                )
+              else ...[
+                SizedBox(
+                  width: double.infinity, height: 48,
+                  child: ElevatedButton.icon(
+                    onPressed: () async {
+                      setSheetState(() => loading = true);
+                      try {
+                        await _authService.signInWithGoogle();
+                        if (ctx.mounted) Navigator.pop(ctx);
+                      } catch (e) {
+                        setSheetState(() => loading = false);
+                      }
+                    },
+                    icon: const Icon(Icons.g_mobiledata, size: 24),
+                    label: const Text('Continuer avec Google',
+                        style: TextStyle(fontWeight: FontWeight.w600)),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black87,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        side: BorderSide(color: Colors.grey[300]!),
+                      ),
+                    ),
+                  ),
+                ),
+                if (_showAppleSignIn) ...[
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: double.infinity, height: 48,
+                    child: ElevatedButton.icon(
+                      onPressed: () async {
+                        setSheetState(() => loading = true);
+                        try {
+                          await _authService.signInWithApple();
+                          if (ctx.mounted) Navigator.pop(ctx);
+                        } catch (e) {
+                          setSheetState(() => loading = false);
+                        }
+                      },
+                      icon: const Icon(Icons.apple, size: 24),
+                      label: const Text('Continuer avec Apple',
+                          style: TextStyle(fontWeight: FontWeight.w600)),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black,
+                        foregroundColor: Colors.white,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+                const SizedBox(height: 16),
+                TextButton(
+                  onPressed: () => Navigator.pop(ctx),
+                  child: Text(
+                    'Annuler',
+                    style: TextStyle(color: Colors.grey[500], fontSize: 14),
+                  ),
+                ),
+              ],
+            ]),
+          );
+        });
+      },
+    );
   }
 
   void _showFavoritesSheet() async {
@@ -205,6 +449,12 @@ class _AccueilTabState extends State<AccueilTab> {
                     ],
                   ),
                   Row(children: [
+                    if (_authService.isAnonymous)
+                      IconButton(
+                        icon: const Icon(Icons.login_rounded),
+                        tooltip: 'Se connecter',
+                        onPressed: _showSignInSheet,
+                      ),
                     IconButton(
                       icon: const Icon(Icons.search),
                       tooltip: 'Rechercher',
@@ -565,9 +815,62 @@ class _AccueilTabState extends State<AccueilTab> {
   }
 
   // ==========================================================================
-  // Multiplatform banner
+  // Multiplatform / Sign-in banner
   // ==========================================================================
   Widget _buildMultiplatformBanner(bool isDark) {
+    if (_authService.isAnonymous) {
+      return GestureDetector(
+        onTap: _showSignInSheet,
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: isDark
+                  ? [const Color(0xFF1A237E), const Color(0xFF283593)]
+                  : [const Color(0xFFE8EAF6), const Color(0xFFC5CAE9)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(14),
+          ),
+          child: Row(children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: (isDark ? Colors.white : Colors.indigo).withAlpha(30),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(Icons.cloud_sync, size: 28,
+                  color: isDark ? Colors.white : Colors.indigo[700]),
+            ),
+            const SizedBox(width: 14),
+            Expanded(child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Connectez-vous',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold, fontSize: 15,
+                    color: isDark ? Colors.white : Colors.indigo[800],
+                  ),
+                ),
+                const SizedBox(height: 3),
+                Text(
+                  'Synchronisez progression et abonnement sur tous vos appareils.',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: isDark ? Colors.white60 : Colors.indigo[400],
+                  ),
+                ),
+              ],
+            )),
+            Icon(Icons.arrow_forward_ios, size: 16,
+                color: isDark ? Colors.white38 : Colors.indigo[300]),
+          ]),
+        ),
+      );
+    }
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -580,34 +883,38 @@ class _AccueilTabState extends State<AccueilTab> {
         ),
         borderRadius: BorderRadius.circular(14),
       ),
-      child: Column(children: [
-        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Icon(Icons.phone_iphone, size: 20,
-              color: isDark ? Colors.white70 : Colors.indigo[700]),
-          const SizedBox(width: 6),
-          Icon(Icons.laptop_mac, size: 20,
-              color: isDark ? Colors.white70 : Colors.indigo[700]),
-          const SizedBox(width: 6),
-          Icon(Icons.tablet_android, size: 20,
-              color: isDark ? Colors.white70 : Colors.indigo[700]),
-        ]),
-        const SizedBox(height: 10),
-        Text(
-          'Disponible sur iOS, Android et Web',
-          style: TextStyle(
-            fontWeight: FontWeight.bold, fontSize: 15,
-            color: isDark ? Colors.white : Colors.indigo[800],
+      child: Row(children: [
+        Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: (isDark ? Colors.white : Colors.indigo).withAlpha(30),
+            borderRadius: BorderRadius.circular(12),
           ),
+          child: Icon(Icons.check_circle, size: 28,
+              color: Colors.green[400]),
         ),
-        const SizedBox(height: 4),
-        Text(
-          'Votre progression et votre abonnement Premium sont synchronisés sur tous vos appareils.',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 12,
-            color: isDark ? Colors.white60 : Colors.indigo[400],
-          ),
-        ),
+        const SizedBox(width: 14),
+        Expanded(child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Connecté — ${_authService.displayName ?? _authService.email ?? ''}',
+              style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 14,
+                color: isDark ? Colors.white : Colors.indigo[800],
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
+            const SizedBox(height: 3),
+            Text(
+              'Vos données sont synchronisées sur iOS, Android et Web.',
+              style: TextStyle(
+                fontSize: 12,
+                color: isDark ? Colors.white60 : Colors.indigo[400],
+              ),
+            ),
+          ],
+        )),
       ]),
     );
   }
