@@ -36,9 +36,7 @@ class AuthService extends ChangeNotifier {
       if (kIsWeb) {
         return await _signInWithPopup(GoogleAuthProvider());
       }
-      final googleUser = await GoogleSignIn(
-        clientId: '189782425075-7doiosmmrha54469kcv3r8d13e33gbps.apps.googleusercontent.com',
-      ).signIn();
+      final googleUser = await GoogleSignIn().signIn();
       if (googleUser == null) return null;
 
       final googleAuth = await googleUser.authentication;
