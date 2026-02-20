@@ -27,9 +27,13 @@ workflows:
 
           echo "=== Provisioning profiles ==="
           for f in ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision; do
-            NAME=$(/usr/libexec/PlistBuddy -c "Print :Name" /dev/stdin <<< $(/usr/bin/security cms -D -i "$f") 2>/dev/null)
+            DECODED=$(/usr/bin/security cms -D -i "$f" 2>/dev/null)
+            NAME=$(/usr/libexec/PlistBuddy -c "Print :Name" /dev/stdin <<< "$DECODED" 2>/dev/null)
             UUID=$(basename "$f" .mobileprovision)
             echo "  Profile: $NAME (UUID: $UUID)"
+            echo "  --- Entitlements ---"
+            /usr/libexec/PlistBuddy -c "Print :Entitlements" /dev/stdin <<< "$DECODED" 2>/dev/null || echo "    (could not read entitlements)"
+            echo "  ---"
           done
 
       - name: Get Flutter packages
@@ -43,9 +47,24 @@ workflows:
           # Find provisioning profile
           PROFILE_PATH=$(ls ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision 2>/dev/null | head -1)
           PROFILE_UUID=$(basename "$PROFILE_PATH" .mobileprovision)
-          PROFILE_NAME=$(/usr/libexec/PlistBuddy -c "Print :Name" /dev/stdin <<< $(/usr/bin/security cms -D -i "$PROFILE_PATH"))
+          DECODED=$(/usr/bin/security cms -D -i "$PROFILE_PATH")
+          PROFILE_NAME=$(/usr/libexec/PlistBuddy -c "Print :Name" /dev/stdin <<< "$DECODED")
+          TEAM_ID=$(/usr/libexec/PlistBuddy -c "Print :Entitlements:com.apple.developer.team-identifier" /dev/stdin <<< "$DECODED")
           echo "Profile UUID: $PROFILE_UUID"
           echo "Profile Name: $PROFILE_NAME"
+          echo "Team ID: $TEAM_ID"
+
+          # Patch project.pbxproj to set profile for Release config
+          PBXPROJ="$CM_BUILD_DIR/ios/Runner.xcodeproj/project.pbxproj"
+          sed -i '' "s/PROVISIONING_PROFILE_SPECIFIER = .*/PROVISIONING_PROFILE_SPECIFIER = \"$PROFILE_NAME\";/" "$PBXPROJ" || true
+          # If not already present, add it after CODE_SIGN_STYLE = Manual
+          if ! grep -q "PROVISIONING_PROFILE_SPECIFIER" "$PBXPROJ"; then
+            sed -i '' "/CODE_SIGN_STYLE = Manual;/a\\
+				PROVISIONING_PROFILE_SPECIFIER = \"$PROFILE_NAME\";" "$PBXPROJ"
+          fi
+
+          echo "=== Checking pbxproj signing settings ==="
+          grep -A2 "CODE_SIGN_STYLE\|PROVISIONING_PROFILE\|DEVELOPMENT_TEAM" "$PBXPROJ" || true
 
           # Archive
           xcodebuild -workspace "$CM_BUILD_DIR/ios/Runner.xcworkspace" \
@@ -58,33 +77,33 @@ workflows:
             CODE_SIGN_IDENTITY="Apple Distribution" \
             PROVISIONING_PROFILE_SPECIFIER="$PROFILE_NAME" \
             PROVISIONING_PROFILE="$PROFILE_UUID" \
-            DEVELOPMENT_TEAM="KHH4F4S3YV" \
+            DEVELOPMENT_TEAM="$TEAM_ID" \
             COMPILER_INDEX_STORE_ENABLE=NO
 
-          # Create export options plist manually
-          cat > /tmp/ExportOptions.plist <<PLIST
-          <?xml version="1.0" encoding="UTF-8"?>
-          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-          <plist version="1.0">
-          <dict>
-            <key>method</key>
-            <string>app-store</string>
-            <key>teamID</key>
-            <string>KHH4F4S3YV</string>
-            <key>uploadBitcode</key>
-            <false/>
-            <key>uploadSymbols</key>
-            <true/>
-            <key>signingStyle</key>
-            <string>manual</string>
-            <key>provisioningProfiles</key>
-            <dict>
-              <key>com.agregmaster.app</key>
-              <string>${PROFILE_NAME}</string>
-            </dict>
-          </dict>
-          </plist>
-          PLIST
+          # Create export options plist
+          cat > /tmp/ExportOptions.plist << 'ENDOFPLIST'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>method</key>
+  <string>app-store</string>
+  <key>teamID</key>
+  <string>KHH4F4S3YV</string>
+  <key>uploadBitcode</key>
+  <false/>
+  <key>uploadSymbols</key>
+  <true/>
+  <key>signingStyle</key>
+  <string>manual</string>
+  <key>provisioningProfiles</key>
+  <dict>
+    <key>com.agregmaster.app</key>
+    <string>Agreg Master App Store</string>
+  </dict>
+</dict>
+</plist>
+ENDOFPLIST
 
           echo "=== Export Options ==="
           cat /tmp/ExportOptions.plist
