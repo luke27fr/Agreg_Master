@@ -21,11 +21,16 @@ workflows:
           keychain initialize
           app-store-connect fetch-signing-files com.agregmaster.app --type IOS_APP_STORE
           keychain add-certificates
-          xcode-project use-profiles
+
           echo "=== Signing identities ==="
           security find-identity -v -p codesigning
+
           echo "=== Provisioning profiles ==="
-          ls ~/Library/MobileDevice/Provisioning\ Profiles/ || true
+          for f in ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision; do
+            NAME=$(/usr/libexec/PlistBuddy -c "Print :Name" /dev/stdin <<< $(/usr/bin/security cms -D -i "$f") 2>/dev/null)
+            UUID=$(basename "$f" .mobileprovision)
+            echo "  Profile: $NAME (UUID: $UUID)"
+          done
 
       - name: Get Flutter packages
         script: flutter packages pub get
