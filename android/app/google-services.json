@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "189782425075-jrgcqv4phs8ouqp6hsldmqi180s7ikrs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.agregmaster.app",
+            "certificate_hash": "4b2558b2a84c72d0b1c5b93154303e2554ed1a2e"
+          }
+        },
+        {
           "client_id": "189782425075-n3v7pgddkvejf1394seasti62e5p225g.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
