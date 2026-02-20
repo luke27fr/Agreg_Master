@@ -67,7 +67,10 @@ class _ProfilTabState extends State<ProfilTab> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Erreur de connexion Google : $e')),
+          SnackBar(
+            content: Text(e.toString()),
+            duration: const Duration(seconds: 10),
+          ),
         );
       }
     } finally {

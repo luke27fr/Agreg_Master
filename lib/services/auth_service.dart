@@ -36,7 +36,9 @@ class AuthService extends ChangeNotifier {
       if (kIsWeb) {
         return await _signInWithPopup(GoogleAuthProvider());
       }
-      final googleUser = await GoogleSignIn().signIn();
+      final googleUser = await GoogleSignIn(
+        serverClientId: '189782425075-8vohijvlgtama9l9fa75jqk4rp5d66ue.apps.googleusercontent.com',
+      ).signIn();
       if (googleUser == null) return null;
 
       final googleAuth = await googleUser.authentication;
@@ -51,6 +53,11 @@ class AuthService extends ChangeNotifier {
       return result;
     } catch (e) {
       debugPrint('Google Sign-In error: $e');
+      if (defaultTargetPlatform == TargetPlatform.android) {
+        // Broadcast the specific error so the UI can show a SnackBar or Dialog
+        // This helps tremendously with debugging release builds without ADB
+        throw Exception('Erreur Google Sign-In : $e');
+      }
       rethrow;
     }
   }
