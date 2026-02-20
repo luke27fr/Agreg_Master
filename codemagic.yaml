@@ -35,7 +35,7 @@ workflows:
           xcode-project build-ipa \
             --project "$CM_BUILD_DIR/ios/Runner.xcodeproj" \
             --scheme Runner \
-            --archive-flags="-destination 'generic/platform=iOS'"
+            --archive-flags="-destination 'generic/platform=iOS' CODE_SIGN_IDENTITY='Apple Distribution'"
 
     artifacts:
       - build/ios/ipa/*.ipa
