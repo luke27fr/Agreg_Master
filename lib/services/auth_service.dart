@@ -1,11 +1,6 @@
-import 'dart:convert';
-import 'dart:math';
-
-import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import 'subscription_service.dart';
 
@@ -76,42 +71,8 @@ class AuthService extends ChangeNotifier {
         return await _signInWithPopup(appleProvider);
       }
 
-      if (defaultTargetPlatform == TargetPlatform.android) {
-        return await _signInWithProvider(appleProvider);
-      }
-
-      // iOS: native Apple Sign-In
-      final rawNonce = _generateNonce();
-      final nonce = _sha256ofString(rawNonce);
-
-      final appleCredential = await SignInWithApple.getAppleIDCredential(
-        scopes: [
-          AppleIDAuthorizationScopes.email,
-          AppleIDAuthorizationScopes.fullName,
-        ],
-        nonce: nonce,
-      );
-
-      final oauthCredential = OAuthProvider('apple.com').credential(
-        idToken: appleCredential.identityToken,
-        rawNonce: rawNonce,
-      );
-
-      final result = await _linkOrSignIn(oauthCredential);
-
-      if (result?.user != null && appleCredential.givenName != null) {
-        final name =
-            '${appleCredential.givenName ?? ''} ${appleCredential.familyName ?? ''}'
-                .trim();
-        if (name.isNotEmpty && (result!.user!.displayName?.isEmpty ?? true)) {
-          await result.user!.updateDisplayName(name);
-          await result.user!.reload();
-        }
-      }
-
-      await _syncRevenueCat();
-      notifyListeners();
-      return result;
+      // iOS & Android: use Firebase provider flow (web-based OAuth)
+      return await _signInWithProvider(appleProvider);
     } catch (e) {
       debugPrint('Apple Sign-In error: $e');
       rethrow;
@@ -214,21 +175,4 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  // ──────────────────────────────────────────────────────────────────────────
-  // Apple nonce helpers
-  // ──────────────────────────────────────────────────────────────────────────
-
-  String _generateNonce([int length = 32]) {
-    const charset =
-        '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
-    final random = Random.secure();
-    return List.generate(length, (_) => charset[random.nextInt(charset.length)])
-        .join();
-  }
-
-  String _sha256ofString(String input) {
-    final bytes = utf8.encode(input);
-    final digest = sha256.convert(bytes);
-    return digest.toString();
-  }
 }
