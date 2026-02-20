@@ -60,7 +60,7 @@ workflows:
           # If not already present, add it after CODE_SIGN_STYLE = Manual
           if ! grep -q "PROVISIONING_PROFILE_SPECIFIER" "$PBXPROJ"; then
             sed -i '' "/CODE_SIGN_STYLE = Manual;/a\\
-				PROVISIONING_PROFILE_SPECIFIER = \"$PROFILE_NAME\";" "$PBXPROJ"
+                PROVISIONING_PROFILE_SPECIFIER = \"$PROFILE_NAME\";" "$PBXPROJ"
           fi
 
           echo "=== Checking pbxproj signing settings ==="
