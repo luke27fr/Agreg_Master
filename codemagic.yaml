@@ -19,23 +19,59 @@ workflows:
       - name: Get Flutter packages
         script: flutter packages pub get
 
-      - name: Build iOS without signing
-        script: flutter build ios --release --no-codesign
-
       - name: Set up code signing
         script: |
           keychain initialize
-          # Le flag --create dit à Codemagic de générer un profil valide si aucun ne correspond parfaitement
+          
+          # Fetch or create the provisioning profile and certificates
           app-store-connect fetch-signing-files com.agregmaster.app --type IOS_APP_STORE --create
           keychain add-certificates
-          xcode-project use-profiles
+          
+          # Find the downloaded profile and extract metadata
+          PROFILE_PATH=$(ls ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision | head -1)
+          PROFILE_UUID=$(basename "$PROFILE_PATH" .mobileprovision)
+          DECODED=$(security cms -D -i "$PROFILE_PATH")
+          PROFILE_NAME=$(/usr/libexec/PlistBuddy -c "Print :Name" /dev/stdin <<< "$DECODED")
+          TEAM_ID=$(/usr/libexec/PlistBuddy -c "Print :Entitlements:com.apple.developer.team-identifier" /dev/stdin <<< "$DECODED")
+          
+          echo "=== Code Signing Details ==="
+          echo "Team ID: $TEAM_ID"
+          echo "Profile Name: $PROFILE_NAME"
+          echo "Profile UUID: $PROFILE_UUID"
+          
+          # Inject signing settings directly into Flutter's Release xcconfig
+          # This forces Xcode to use the exact profile we just downloaded
+          cat >> "$CM_BUILD_DIR/ios/Flutter/Release.xcconfig" <<EOF
+          CODE_SIGN_STYLE=Manual
+          DEVELOPMENT_TEAM=$TEAM_ID
+          PROVISIONING_PROFILE_SPECIFIER=$PROFILE_NAME
+          PROVISIONING_PROFILE=$PROFILE_UUID
+          CODE_SIGN_IDENTITY=Apple Distribution
+          EOF
+          
+          # Create ExportOptions.plist required by flutter build ipa
+          cat > "$CM_BUILD_DIR/export_options.plist" <<EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key>
+            <string>app-store</string>
+            <key>teamID</key>
+            <string>$TEAM_ID</string>
+            <key>provisioningProfiles</key>
+            <dict>
+              <key>com.agregmaster.app</key>
+              <string>$PROFILE_NAME</string>
+            </dict>
+          </dict>
+          </plist>
+          EOF
 
-      - name: Build IPA (Signing)
+      - name: Build IPA
         script: |
-          xcode-project build-ipa \
-            --project "$CM_BUILD_DIR/ios/Runner.xcodeproj" \
-            --scheme Runner \
-            --archive-flags="-destination 'generic/platform=iOS' CODE_SIGN_IDENTITY='Apple Distribution'"
+          # Build the IPA using standard Flutter tools, pointing to our ExportOptions
+          flutter build ipa --release --export-options-plist="$CM_BUILD_DIR/export_options.plist"
 
     artifacts:
       - build/ios/ipa/*.ipa
