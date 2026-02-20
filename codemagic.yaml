@@ -32,9 +32,11 @@ workflows:
           flutter build ios --release --no-codesign
           
           # Codemagic va utiliser les profils téléchargés pour signer et packager
+          # On lui passe explicitement les ID récupérés par app-store-connect
           xcode-project build-ipa \
             --project "$CM_BUILD_DIR/ios/Runner.xcodeproj" \
-            --scheme Runner
+            --scheme Runner \
+            --archive-flags="-destination 'generic/platform=iOS'"
 
     artifacts:
       - build/ios/ipa/*.ipa
