@@ -106,7 +106,11 @@ workflows:
         script: flutter packages pub get
 
       - name: Flutter build AAB
-        script: flutter build appbundle --release
+        script: |
+          # Affiche le SHA-1 du keystore
+          keytool -list -v -keystore android/app/agreg-master-release.jks -storepass $CM_KEYSTORE_PASSWORD -alias $CM_KEY_ALIAS | grep "SHA1:" || true
+          
+          flutter build appbundle --release
 
     artifacts:
       - build/app/outputs/bundle/release/*.aab
