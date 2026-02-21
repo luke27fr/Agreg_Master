@@ -30,11 +30,33 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:agreg_master/services/analytics_service.dart';
+
+const String _sentryDsn = 'https://33cb52a92c996965518833249f93a715@o4510852621205504.ingest.de.sentry.io/4510923076141136';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await _initializeFirebase();
+
+  _initializeAuthAndSubscriptions();
+
+  if (kIsWeb && !kDebugMode) {
+    await SentryFlutter.init(
+      (options) {
+        options.dsn = _sentryDsn;
+        options.environment = 'production';
+        options.tracesSampleRate = 0.2;
+      },
+      appRunner: () => runApp(const AgregMasterApp()),
+    );
+  } else {
+    runApp(const AgregMasterApp());
+  }
+}
+
+Future<void> _initializeFirebase() async {
   try {
     if (kIsWeb) {
       await Firebase.initializeApp(
@@ -69,11 +91,6 @@ void main() async {
   } catch (e) {
     debugPrint('Firebase non disponible: $e');
   }
-
-  // Auth + subscriptions in background — don't block app start
-  _initializeAuthAndSubscriptions();
-
-  runApp(const AgregMasterApp());
 }
 
 /// Auth and RevenueCat load in background without blocking the UI
@@ -87,6 +104,16 @@ Future<void> _initializeAuthAndSubscriptions() async {
       user = credential.user;
     }
     debugPrint('Firebase Auth: uid=${user?.uid}');
+
+    if (kIsWeb && !kDebugMode && user != null) {
+      Sentry.configureScope((scope) {
+        scope.setUser(SentryUser(
+          id: user!.uid,
+          email: user.email,
+        ));
+        scope.setTag('premium', SubscriptionService().isPremium.toString());
+      });
+    }
   } catch (e) {
     debugPrint('Firebase Auth non disponible: $e');
   }
