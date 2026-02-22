@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../services/bibliotheque_data.dart';
-import '../widgets/latex_text.dart';
 
 class BibliothequeIdealePage extends StatefulWidget {
   const BibliothequeIdealePage({super.key});

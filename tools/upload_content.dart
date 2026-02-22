@@ -6,6 +6,7 @@
 ///   dart run tools/upload_content.dart --all --changelog "Ajout fiches probabilités"
 ///
 /// Prerequisites: firebase login + npm install (in tools/)
+library;
 
 import 'dart:io';
 
@@ -37,7 +38,9 @@ void main(List<String> args) async {
   final missing = filePaths.where((f) => !File(f).existsSync()).toList();
   if (missing.isNotEmpty) {
     print('ERROR: Files not found:');
-    for (final f in missing) print('  - $f');
+    for (final f in missing) {
+      print('  - $f');
+    }
     exit(1);
   }
 

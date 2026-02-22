@@ -194,7 +194,9 @@ bool _isMathToken(String token) {
   
   // Contains mixed letters and numbers with math operators
   if (RegExp(r'[A-Za-z]\d|[=<>]').hasMatch(token) && 
-      RegExp(r'[\^_\\=<>+\-*/]').hasMatch(token)) return true;
+      RegExp(r'[\^_\\=<>+\-*/]').hasMatch(token)) {
+    return true;
+  }
   
   // Is a single variable letter followed by sub/super
   if (RegExp(r'^[A-Za-z][\^_]').hasMatch(token)) return true;
@@ -207,7 +209,9 @@ bool _isMathToken(String token) {
   
   // Fractions like 1/n, x/y
   if (RegExp(r'^[A-Za-z0-9]+/[A-Za-z0-9]+$').hasMatch(token) && 
-      RegExp(r'[A-Za-z]').hasMatch(token)) return true;
+      RegExp(r'[A-Za-z]').hasMatch(token)) {
+    return true;
+  }
   
   // Parenthesized expressions with variables: (1-p), (n+1), etc.
   if (RegExp(r'^\(.*[A-Za-z].*[+\-*/].*\)$').hasMatch(token)) return true;

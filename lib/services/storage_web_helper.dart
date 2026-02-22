@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 
 /// On web, PDF file saving is not supported directly.

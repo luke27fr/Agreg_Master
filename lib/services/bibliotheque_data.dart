@@ -1,5 +1,6 @@
 /// Bibliothèque idéale pour l'agrégation de mathématiques.
 /// Bibliographie commentée avec pages exactes des développements classiques.
+library;
 
 class LivreAgreg {
   final String id;

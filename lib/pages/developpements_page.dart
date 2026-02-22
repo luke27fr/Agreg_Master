@@ -321,10 +321,10 @@ class _DeveloppementsPageState extends State<DeveloppementsPage> {
                       crossAxisAlignment: WrapCrossAlignment.center,
                       children: [
                         Text('Leçons: ', style: TextStyle(color: Colors.grey[600], fontSize: 12)),
-                        ...lecons.map((num) => GestureDetector(
-                          onTap: () => _navigateToLecon(context, num is int ? num : int.tryParse(num.toString()) ?? 0),
+                        ...lecons.map((leconNum) => GestureDetector(
+                          onTap: () => _navigateToLecon(context, leconNum is int ? leconNum : int.tryParse(leconNum.toString()) ?? 0),
                           child: Text(
-                            '${num}${num != lecons.last ? ',' : ''}',
+                            '$leconNum${leconNum != lecons.last ? ',' : ''}',
                             style: TextStyle(
                               color: const Color(0xFF1A237E),
                               fontSize: 12,

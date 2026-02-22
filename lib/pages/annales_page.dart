@@ -151,7 +151,7 @@ class _AnnalesPageState extends State<AnnalesPage> {
                 ),
                 isDense: true,
               ),
-              value: _selectedYear,
+              initialValue: _selectedYear,
               isExpanded: true,
               items: [
                 const DropdownMenuItem(value: null, child: Text('Toutes')),
@@ -175,7 +175,7 @@ class _AnnalesPageState extends State<AnnalesPage> {
                 ),
                 isDense: true,
               ),
-              value: _selectedSession,
+              initialValue: _selectedSession,
               isExpanded: true,
               items: const [
                 DropdownMenuItem(value: null, child: Text('Tous')),
@@ -197,7 +197,7 @@ class _AnnalesPageState extends State<AnnalesPage> {
                 ),
                 isDense: true,
               ),
-              value: _selectedType,
+              initialValue: _selectedType,
               isExpanded: true,
               items: const [
                 DropdownMenuItem(value: null, child: Text('Toutes')),

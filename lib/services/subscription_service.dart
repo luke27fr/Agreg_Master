@@ -20,6 +20,10 @@ class SubscriptionService extends ChangeNotifier {
   bool _isInitialized = false;
   String? _initError;
 
+  // Guards against concurrent RevenueCat API calls
+  Future<void>? _initializeFuture;
+  bool _isRefreshing = false;
+
   // RevenueCat Entitlement ID (configuré dans le Dashboard RevenueCat)
   static const String entitlementId = 'Agreg Master Pro';
 
@@ -39,6 +43,7 @@ class SubscriptionService extends ChangeNotifier {
     'cecile.reynaud72@gmail.com',
     'gaiald2107@gmail.com',
     'zoe758751@gmail.com',
+    'jdieboldappreview@gmail.com',
     'stephane.plantier@gmail.com',
     'bracou71@gmail.com',
   };
@@ -63,15 +68,18 @@ class SubscriptionService extends ChangeNotifier {
 
   /// Initialiser RevenueCat sur toutes les plateformes.
   /// [appUserID] : Firebase UID pour synchroniser les abonnements cross-plateforme.
-  Future<void> initialize({String? appUserID}) async {
-    if (_isInitialized) return;
+  /// Safe to call multiple times — concurrent calls share the same Future.
+  Future<void> initialize({String? appUserID}) {
+    if (_isInitialized) return Future.value();
+    return _initializeFuture ??= _doInitialize(appUserID: appUserID);
+  }
 
+  Future<void> _doInitialize({String? appUserID}) async {
     _isLoading = true;
     _error = null;
     notifyListeners();
 
     try {
-      // Skip configure if already called (avoids duplicate config errors)
       if (!_configureAttempted) {
         late String apiKey;
         if (kIsWeb) {
@@ -107,8 +115,8 @@ class SubscriptionService extends ChangeNotifier {
       debugPrint('Erreur initialisation RevenueCat: $e\n$stack');
       _error = e.toString();
       _initError = 'Init failed: $e';
+      _initializeFuture = null;
 
-      // Fallback : charger le statut depuis le stockage local
       await _loadLocalStatus();
     }
 
@@ -143,14 +151,18 @@ class SubscriptionService extends ChangeNotifier {
     _error = null;
   }
 
-  /// Rafraîchir le statut depuis RevenueCat
+  /// Rafraîchir le statut depuis RevenueCat (debounced — skips if already running)
   Future<void> _refreshSubscriptionStatus() async {
+    if (_isRefreshing) return;
+    _isRefreshing = true;
     try {
       final customerInfo = await Purchases.getCustomerInfo();
       _updateFromCustomerInfo(customerInfo);
       await _saveLocalStatus();
     } catch (e) {
       debugPrint('Erreur refresh statut: $e');
+    } finally {
+      _isRefreshing = false;
     }
   }
 

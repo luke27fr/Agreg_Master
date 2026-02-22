@@ -23,7 +23,7 @@ const Map<String, String> _labelOverrides = {
 
 void main() {
   final projectRoot = Directory.current;
-  final fiches = Directory(projectRoot.path + '/$fichesDir');
+  final fiches = Directory('${projectRoot.path}/$fichesDir');
 
   if (!fiches.existsSync()) {
     print('Erreur: le dossier $fichesDir n\'existe pas.');
@@ -56,7 +56,7 @@ void main() {
   final manifest = {'themes': themes};
   final json = const JsonEncoder.withIndent('  ').convert(manifest);
 
-  final manifestFile = File(projectRoot.path + '/$manifestPath');
+  final manifestFile = File('${projectRoot.path}/$manifestPath');
   manifestFile.parent.createSync(recursive: true);
   manifestFile.writeAsStringSync('$json\n');
 

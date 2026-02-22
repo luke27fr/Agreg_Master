@@ -1,4 +1,4 @@
-import '../lib/services/latex_helper.dart';
+import 'package:agreg_master/services/latex_helper.dart';
 
 void main() {
   final tests = [

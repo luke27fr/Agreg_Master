@@ -539,7 +539,7 @@ class _FichePageState extends State<FichePage> {
       if (rows.isNotEmpty) rows.add(const SizedBox(height: _paragraphSpacing));
     }
 
-    Widget _maybeWrapTocKey(Widget child, String text) {
+    Widget maybeWrapTocKey(Widget child, String text) {
       if (_tocKeyIndex < _sectionKeys.length && _headerRegex.hasMatch(text.trim())) {
         final keyed = Container(key: _sectionKeys[_tocKeyIndex], child: child);
         _tocKeyIndex++;
@@ -601,7 +601,7 @@ class _FichePageState extends State<FichePage> {
               builders: _getBuilders(Colors.blue),
               onTapLink: (text, href, title) => _showGlossaireDialog(context, href ?? ''),
             );
-            rows.add(_maybeWrapTocKey(widget, text));
+            rows.add(maybeWrapTocKey(widget, text));
           } else {
             run.add(seg);
           }
@@ -704,11 +704,6 @@ class _FichePageState extends State<FichePage> {
         ],
       ),
     );
-  }
-
-  String _titleCase(String s) {
-    if (s.isEmpty) return s;
-    return s[0].toUpperCase() + s.substring(1).toLowerCase();
   }
 
   static const double _lineHeight = 1.5;

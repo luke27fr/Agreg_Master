@@ -1,7 +1,5 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../main.dart'; // ThemeItem
 import '../../constants/app_constants.dart';
 import '../../utils/theme_utils.dart';
@@ -1003,7 +1001,7 @@ class _AccueilTabState extends State<AccueilTab> {
     }
 
     return SizedBox(
-      height: 110,
+      height: 112,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 16),

@@ -1,5 +1,6 @@
 /// Conseils et retours d'expérience pour réussir l'agrégation de mathématiques.
 /// Synthèse des rapports de jury, retours de candidats admis, et bonnes pratiques.
+library;
 
 class ConseilCategorie {
   final String id;

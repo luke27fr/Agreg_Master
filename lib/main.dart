@@ -146,10 +146,6 @@ Future<void> _initializeAllServices() async {
     MathsIntuitivesService().loadConcepts(),
   ]);
 
-  // Initialiser RevenueCat en arrière-plan (ne bloque pas le démarrage)
-  // Si ça échoue ou prend trop de temps, l'app démarre quand même.
-  _initializeSubscriptions();
-
   CloudSyncService().initialize();
   if (!kIsWeb) {
     ContentUpdateService().initialize();
