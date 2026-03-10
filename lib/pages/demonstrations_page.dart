@@ -143,7 +143,7 @@ class _DemonstrationsPageState extends State<DemonstrationsPage> {
 
   Future<void> _showPaywall() async {
     final result = await Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => const PaywallPage()),
+      MaterialPageRoute(builder: (_) => const PaywallPage(source: 'demonstrations')),
     );
     if (result == true && mounted) setState(() {});
   }

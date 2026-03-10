@@ -3,12 +3,11 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import '../utils/content_loader.dart';
+import '../services/subscription_service.dart';
 import 'jury_virtuel_page.dart';
+import 'paywall_page.dart';
 
 import '../widgets/global_search_button.dart';
-
-// Re-export LeconReferencePage for use in this file
-// (already imported via jury_virtuel_page.dart)
 
 class OralSimulationPage extends StatefulWidget {
   const OralSimulationPage({super.key});
@@ -71,7 +70,20 @@ class _OralSimulationPageState extends State<OralSimulationPage> {
     return _allLecons.where((l) => l['domaine'] == _selectedDomain).toList();
   }
 
+  Future<void> _showPaywall() async {
+    final result = await Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const PaywallPage(source: 'oral_simulation')),
+    );
+    if (result == true && mounted) setState(() {});
+  }
+
   void _drawLecons() {
+    final sub = SubscriptionService();
+    if (!sub.isPremium) {
+      _showPaywall();
+      return;
+    }
+
     final filtered = _getFilteredLecons();
     if (filtered.length < 2) {
       ScaffoldMessenger.of(context).showSnackBar(

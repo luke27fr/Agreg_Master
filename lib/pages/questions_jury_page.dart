@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../utils/content_loader.dart';
 import '../widgets/global_search_button.dart';
+import '../services/subscription_service.dart';
+import 'paywall_page.dart';
 
 class QuestionsJuryPage extends StatefulWidget {
   const QuestionsJuryPage({super.key});
@@ -140,10 +142,48 @@ class _QuestionsJuryPageState extends State<QuestionsJuryPage> {
     );
   }
 
+  Future<void> _showPaywall() async {
+    final result = await Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const PaywallPage(source: 'questions_jury')),
+    );
+    if (result == true && mounted) setState(() {});
+  }
+
   Widget _buildLeconQuestions(Map<String, dynamic> item, bool isDark) {
     final leconNum = item['lecon'] as int;
     final titre = _leconTitles[leconNum] ?? 'Leçon $leconNum';
     final questions = item['questions'] as List;
+
+    final sub = SubscriptionService();
+    final globalIndex = _questionsData.indexOf(item);
+    final isLocked = !sub.isPremium && globalIndex >= sub.getFreeAccessCount('questions_jury');
+
+    if (isLocked) {
+      return Card(
+        margin: const EdgeInsets.only(bottom: 16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        color: isDark ? const Color(0xFF1E1E1E) : Colors.white,
+        child: ListTile(
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          leading: Container(
+            width: 50,
+            height: 50,
+            decoration: BoxDecoration(
+              color: Colors.grey.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: const Center(child: Icon(Icons.lock, color: Colors.grey)),
+          ),
+          title: Text(
+            'Leçon $leconNum',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.grey[500]),
+          ),
+          subtitle: const Text('Premium requis', style: TextStyle(fontSize: 11, color: Colors.amber)),
+          trailing: const Icon(Icons.star, color: Colors.amber, size: 20),
+          onTap: _showPaywall,
+        ),
+      );
+    }
 
     return Card(
       margin: const EdgeInsets.only(bottom: 16),

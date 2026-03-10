@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import '../utils/content_loader.dart';
 import '../widgets/global_search_button.dart';
 import '../widgets/latex_text.dart';
+import '../services/subscription_service.dart';
+import 'paywall_page.dart';
 
 class ContreExemplesPage extends StatefulWidget {
   const ContreExemplesPage({super.key});
@@ -96,7 +98,44 @@ class _ContreExemplesPageState extends State<ContreExemplesPage> {
     );
   }
 
+  Future<void> _showPaywall() async {
+    final result = await Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const PaywallPage(source: 'contre_exemples')),
+    );
+    if (result == true && mounted) setState(() {});
+  }
+
   Widget _buildContreExempleCard(Map<String, dynamic> ce, bool isDark) {
+    final sub = SubscriptionService();
+    final globalIndex = _contreExemples.indexOf(ce);
+    final isLocked = !sub.isPremium && globalIndex >= sub.getFreeAccessCount('contre_exemples');
+
+    if (isLocked) {
+      return Card(
+        margin: const EdgeInsets.only(bottom: 12),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        color: isDark ? const Color(0xFF1E1E1E) : Colors.white,
+        child: ListTile(
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          leading: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Colors.grey.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: const Icon(Icons.lock, color: Colors.grey),
+          ),
+          title: Text(
+            ce['titre'] ?? '',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.grey[500]),
+          ),
+          subtitle: const Text('Premium requis', style: TextStyle(fontSize: 11, color: Colors.amber)),
+          trailing: const Icon(Icons.star, color: Colors.amber, size: 20),
+          onTap: _showPaywall,
+        ),
+      );
+    }
+
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

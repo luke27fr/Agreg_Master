@@ -234,7 +234,7 @@ class _AnnalesPedagogiquesPageState extends State<AnnalesPedagogiquesPage> {
 
   Future<void> _showPaywall() async {
     final result = await Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => const PaywallPage()),
+      MaterialPageRoute(builder: (_) => const PaywallPage(source: 'annales_pedagogiques')),
     );
     if (result == true && mounted) setState(() {});
   }

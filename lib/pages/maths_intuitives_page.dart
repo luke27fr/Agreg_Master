@@ -3,8 +3,10 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
 import 'package:markdown/markdown.dart' as md;
 import '../services/maths_intuitives_service.dart';
+import '../services/subscription_service.dart';
 import '../models/maths_intuitives_model.dart';
 import '../widgets/global_search_button.dart';
+import 'paywall_page.dart';
 
 class MathsIntuitivesPage extends StatefulWidget {
   const MathsIntuitivesPage({super.key});
@@ -194,7 +196,10 @@ class _MathsIntuitivesPageState extends State<MathsIntuitivesPage> {
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
                   final concept = filteredConcepts[index];
-                  return _buildConceptCard(concept, isDark);
+                  final sub = SubscriptionService();
+                  final globalIndex = _service.concepts.indexOf(concept);
+                  final isLocked = !sub.isPremium && globalIndex >= sub.getFreeAccessCount('maths_intuitives');
+                  return _buildConceptCard(concept, isDark, isLocked: isLocked);
                 },
                 childCount: filteredConcepts.length,
               ),
@@ -254,7 +259,40 @@ class _MathsIntuitivesPageState extends State<MathsIntuitivesPage> {
     );
   }
 
-  Widget _buildConceptCard(ConceptIntuitif concept, bool isDark) {
+  Future<void> _showPaywall() async {
+    final result = await Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const PaywallPage(source: 'maths_intuitives')),
+    );
+    if (result == true && mounted) setState(() {});
+  }
+
+  Widget _buildConceptCard(ConceptIntuitif concept, bool isDark, {bool isLocked = false}) {
+    if (isLocked) {
+      return Card(
+        margin: const EdgeInsets.only(bottom: 16),
+        elevation: 1,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        child: ListTile(
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          leading: Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.grey.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: const Icon(Icons.lock, color: Colors.grey),
+          ),
+          title: Text(
+            concept.titre,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey[500]),
+          ),
+          subtitle: const Text('Premium requis', style: TextStyle(fontSize: 12, color: Colors.amber)),
+          trailing: const Icon(Icons.star, color: Colors.amber, size: 20),
+          onTap: _showPaywall,
+        ),
+      );
+    }
+
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
       elevation: 2,

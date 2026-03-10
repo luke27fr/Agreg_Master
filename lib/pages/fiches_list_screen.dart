@@ -6,7 +6,9 @@ import '../utils/quiz_loader.dart';
 import '../services/score_service.dart';
 import '../services/favorites_service.dart';
 import '../services/reading_service.dart';
+import '../services/subscription_service.dart';
 import '../fiche_page.dart';
+import 'paywall_page.dart';
 
 class FichesListScreen extends StatefulWidget {
   final ThemeItem theme;
@@ -39,6 +41,13 @@ class _FichesListScreenState extends State<FichesListScreen> {
 
   void _onDataChanged() {
     if (mounted) setState(() {});
+  }
+
+  Future<void> _showPaywall() async {
+    final result = await Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const PaywallPage(source: 'fiches')),
+    );
+    if (result == true && mounted) setState(() {});
   }
 
   Widget _buildScoreBadge(String ficheId) {
@@ -160,6 +169,38 @@ class _FichesListScreenState extends State<FichesListScreen> {
               itemBuilder: (context, index) {
                 final file = widget.theme.files[index];
                 final ficheId = file.replaceAll('.md', '');
+                final sub = SubscriptionService();
+                final isLocked = !sub.isPremium && index >= sub.getFreeAccessCount('fiches');
+
+                if (isLocked) {
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 12),
+                    decoration: BoxDecoration(
+                      color: ThemeUtils.cardColor(context),
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [BoxShadow(color: Colors.grey.withValues(alpha: isDark ? 0.05 : 0.1), blurRadius: 5)],
+                    ),
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      leading: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: const Icon(Icons.lock, color: Colors.grey),
+                      ),
+                      title: Text(
+                        ThemeUtils.getFicheTitle(ficheId),
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.grey[500]),
+                      ),
+                      subtitle: const Text('Premium requis', style: TextStyle(fontSize: 11, color: Colors.amber)),
+                      trailing: const Icon(Icons.star, color: Colors.amber, size: 20),
+                      onTap: _showPaywall,
+                    ),
+                  );
+                }
+
                 final score = _scoreService.getScore(ficheId);
                 final isFavorite = _favoritesService.isFavorite(ficheId);
                 final isRead = _readingService.isRead(ficheId);

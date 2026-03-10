@@ -11,7 +11,10 @@ import '../services/auth_service.dart';
 /// Utilise RevenueCat pour afficher les prix réels depuis les stores
 /// et gérer l'achat.
 class PaywallPage extends StatefulWidget {
-  const PaywallPage({super.key});
+  /// Optional source identifier for analytics (e.g., 'lecons', 'exercices', 'settings')
+  final String? source;
+
+  const PaywallPage({super.key, this.source});
 
   @override
   State<PaywallPage> createState() => _PaywallPageState();
@@ -29,7 +32,7 @@ class _PaywallPageState extends State<PaywallPage> {
   void initState() {
     super.initState();
     _loadOfferings();
-    _analyticsService.logPaywallView();
+    _analyticsService.logPaywallView(source: widget.source);
   }
 
   Future<void> _loadOfferings() async {
@@ -725,9 +728,18 @@ class _PaywallPageState extends State<PaywallPage> {
         setState(() => _isPurchasing = false);
 
         if (success) {
+          final product = _selectedPackage!.storeProduct;
+          final isYearly = product.identifier.contains('yearly');
           _analyticsService.logPurchaseComplete(
-            productId: _selectedPackage!.storeProduct.identifier,
+            productId: product.identifier,
             packageType: _selectedPackage!.packageType.name,
+          );
+          _analyticsService.logGA4Purchase(
+            transactionId: '${product.identifier}_${DateTime.now().millisecondsSinceEpoch}',
+            value: product.price,
+            currency: product.currencyCode,
+            productId: product.identifier,
+            productName: isYearly ? 'Premium Annuel' : 'Premium Mensuel',
           );
           Navigator.of(context).pop(true);
           ScaffoldMessenger.of(context).showSnackBar(

@@ -6,13 +6,16 @@ import 'package:markdown/markdown.dart' as md;
 import 'dart:convert';
 import 'package:agreg_master/models/quiz_model.dart';
 import 'package:agreg_master/pages/quiz_page.dart';
+import 'package:agreg_master/pages/paywall_page.dart';
 import 'package:agreg_master/services/favorites_service.dart';
 import 'package:agreg_master/services/notes_service.dart';
 import 'package:agreg_master/services/score_service.dart';
 import 'package:agreg_master/services/streak_service.dart';
 import 'package:agreg_master/services/reading_service.dart';
+import 'package:agreg_master/services/subscription_service.dart';
 import 'package:agreg_master/utils/theme_utils.dart';
 import 'package:agreg_master/utils/content_loader.dart';
+import 'package:agreg_master/utils/manifest_loader.dart';
 import 'package:agreg_master/services/analytics_service.dart';
 
 /// Custom builder for `<glossary>` tags that renders them as clickable links
@@ -78,6 +81,8 @@ class _FichePageState extends State<FichePage> {
   // Variables d'état
   List<QuizQuestion> quizQuestions = [];
   Map<String, String> _glossaire = {};
+  bool _isPremiumLocked = false;
+  bool _premiumCheckDone = false;
   
   // Services
   final FavoritesService _favoritesService = FavoritesService();
@@ -95,15 +100,52 @@ class _FichePageState extends State<FichePage> {
   @override
   void initState() {
     super.initState();
+    _checkPremiumAccess();
     _loadContent();
     _loadQuiz();
     _loadGlossaire();
     _favoritesService.addListener(_onDataChanged);
     _notesService.addListener(_onDataChanged);
     _loadNotes();
-    // Enregistrer l'activité de lecture
     _trackReading();
     _analyticsService.logLessonView(lessonId: _ficheId, lessonTitle: _ficheId);
+  }
+
+  Future<void> _checkPremiumAccess() async {
+    final sub = SubscriptionService();
+    if (sub.isPremium) {
+      if (mounted) setState(() => _premiumCheckDone = true);
+      return;
+    }
+    try {
+      final themes = await ManifestLoader.loadThemes();
+      final fileName = widget.assetPath.split('/').last;
+      for (final theme in themes) {
+        final idx = theme.files.indexOf(fileName);
+        if (idx != -1) {
+          if (mounted) {
+            setState(() {
+              _isPremiumLocked = idx >= sub.getFreeAccessCount('fiches');
+              _premiumCheckDone = true;
+            });
+          }
+          return;
+        }
+      }
+    } catch (_) {}
+    if (mounted) setState(() => _premiumCheckDone = true);
+  }
+
+  Future<void> _showPaywall() async {
+    final result = await Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const PaywallPage(source: 'fiches')),
+    );
+    if (result == true && mounted) {
+      setState(() {
+        _isPremiumLocked = false;
+        _premiumCheckDone = true;
+      });
+    }
   }
 
   Future<void> _trackReading() async {
@@ -310,7 +352,7 @@ class _FichePageState extends State<FichePage> {
 
   @override
   Widget build(BuildContext context) {
-    if (_loading) {
+    if (_loading || !_premiumCheckDone) {
       return Scaffold(
         appBar: AppBar(title: const Text('Chargement...')),
         body: const Center(child: CircularProgressIndicator()),
@@ -330,6 +372,45 @@ class _FichePageState extends State<FichePage> {
 
     final fileName = widget.assetPath.split('/').last.replaceAll('.md', '');
     final title = ThemeUtils.getFicheTitle(fileName);
+
+    if (_isPremiumLocked) {
+      final isDark = Theme.of(context).brightness == Brightness.dark;
+      return Scaffold(
+        backgroundColor: isDark ? const Color(0xFF121212) : const Color(0xFFF5F7FA),
+        appBar: AppBar(title: Text(title)),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(32),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.lock, size: 64, color: Colors.amber),
+                const SizedBox(height: 24),
+                Text(title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
+                const SizedBox(height: 16),
+                const Text(
+                  'Cette fiche est réservée aux membres Premium.',
+                  style: TextStyle(fontSize: 16),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 32),
+                ElevatedButton.icon(
+                  onPressed: _showPaywall,
+                  icon: const Icon(Icons.star),
+                  label: const Text('Devenir Premium'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.amber,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
     final isFavorite = _favoritesService.isFavorite(_ficheId);
     final hasNote = _notesService.hasNote(_ficheId);
     final score = _scoreService.getScore(_ficheId);

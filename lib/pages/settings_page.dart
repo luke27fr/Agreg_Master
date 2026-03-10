@@ -448,7 +448,7 @@ class _SettingsPageState extends State<SettingsPage> {
               child: ElevatedButton(
                 onPressed: () async {
                   final result = await Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => const PaywallPage()),
+                    MaterialPageRoute(builder: (_) => const PaywallPage(source: 'settings')),
                   );
                   if (result == true && mounted) {
                     setState(() {});

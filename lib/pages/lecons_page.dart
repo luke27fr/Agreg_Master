@@ -256,7 +256,7 @@ class _LeconsPageState extends State<LeconsPage> with SingleTickerProviderStateM
 
   Future<void> _showPaywall() async {
     final result = await Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => const PaywallPage()),
+      MaterialPageRoute(builder: (_) => const PaywallPage(source: 'lecons')),
     );
     if (result == true && mounted) {
       setState(() {}); // Rafraîchir après abonnement

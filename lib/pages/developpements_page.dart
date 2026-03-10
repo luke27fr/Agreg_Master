@@ -5,8 +5,10 @@ import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
 import 'package:markdown/markdown.dart' as md;
 import '../utils/content_loader.dart';
 import '../widgets/global_search_button.dart';
+import '../services/subscription_service.dart';
 import '../pages/search_page.dart';
 import 'jury_virtuel_page.dart';
+import 'paywall_page.dart';
 
 class DeveloppementsPage extends StatefulWidget {
   const DeveloppementsPage({super.key});
@@ -252,10 +254,51 @@ class _DeveloppementsPageState extends State<DeveloppementsPage> {
     );
   }
 
+  Future<void> _showPaywall() async {
+    final result = await Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const PaywallPage(source: 'developpements')),
+    );
+    if (result == true && mounted) setState(() {});
+  }
+
   Widget _buildDevCard(Map<String, dynamic> dev, bool isDark) {
+    final sub = SubscriptionService();
+    final globalIndex = _developpements.indexOf(dev);
+    final isLocked = !sub.isPremium && globalIndex >= sub.getFreeAccessCount('developpements');
+
     final niveau = dev['niveau'] as String;
     final duree = dev['duree_min'] as int;
     final lecons = dev['lecons'] as List;
+
+    if (isLocked) {
+      return Card(
+        margin: const EdgeInsets.only(bottom: 12),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        color: isDark ? const Color(0xFF1E1E1E) : Colors.white,
+        child: ListTile(
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          leading: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Colors.grey.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: const Icon(Icons.lock, color: Colors.grey),
+          ),
+          title: MarkdownBody(
+            data: dev['titre'] ?? '',
+            styleSheet: MarkdownStyleSheet(
+              p: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.grey[500]),
+            ),
+            extensionSet: _latexExtensionSet,
+            builders: {'latex': LatexElementBuilder()},
+          ),
+          subtitle: const Text('Premium requis', style: TextStyle(fontSize: 11, color: Colors.amber)),
+          trailing: const Icon(Icons.star, color: Colors.amber, size: 20),
+          onTap: _showPaywall,
+        ),
+      );
+    }
 
     return Card(
       margin: const EdgeInsets.only(bottom: 12),

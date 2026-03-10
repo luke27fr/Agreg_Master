@@ -4,7 +4,9 @@ import 'dart:async';
 import 'dart:convert';
 import '../utils/content_loader.dart';
 import '../services/jury_virtuel_service.dart';
+import '../services/subscription_service.dart';
 import '../models/jury_virtuel_model.dart';
+import 'paywall_page.dart';
 
 class JuryVirtuelPage extends StatefulWidget {
   final String leconId;
@@ -518,7 +520,7 @@ class _JuryVirtuelPageState extends State<JuryVirtuelPage> {
 // ============================================================================
 // Page de référence de la leçon (accessible depuis le jury virtuel)
 // ============================================================================
-class LeconReferencePage extends StatelessWidget {
+class LeconReferencePage extends StatefulWidget {
   final String leconNumero;
   final Map<String, dynamic> leconData;
 
@@ -527,6 +529,63 @@ class LeconReferencePage extends StatelessWidget {
     required this.leconNumero,
     required this.leconData,
   });
+
+  @override
+  State<LeconReferencePage> createState() => _LeconReferencePageState();
+}
+
+class _LeconReferencePageState extends State<LeconReferencePage> {
+  bool _isLocked = false;
+  bool _checkDone = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkPremiumAccess();
+  }
+
+  Future<void> _checkPremiumAccess() async {
+    final sub = SubscriptionService();
+    if (sub.isPremium) {
+      if (mounted) setState(() => _checkDone = true);
+      return;
+    }
+    try {
+      final jsonString = await ContentLoader.loadString('assets/data/lecons.json');
+      final Map<String, dynamic> allData = json.decode(jsonString);
+      final numero = int.tryParse(widget.leconNumero);
+      for (final domain in allData.keys) {
+        final lecons = allData[domain] as List<dynamic>;
+        for (int i = 0; i < lecons.length; i++) {
+          if (lecons[i]['numero'] == numero) {
+            if (mounted) {
+              setState(() {
+                _isLocked = i >= sub.getFreeAccessCount('lecons');
+                _checkDone = true;
+              });
+            }
+            return;
+          }
+        }
+      }
+    } catch (_) {}
+    if (mounted) setState(() => _checkDone = true);
+  }
+
+  Future<void> _showPaywall() async {
+    final result = await Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const PaywallPage(source: 'jury_virtuel')),
+    );
+    if (result == true && mounted) {
+      setState(() {
+        _isLocked = false;
+        _checkDone = true;
+      });
+    }
+  }
+
+  String get leconNumero => widget.leconNumero;
+  Map<String, dynamic> get leconData => widget.leconData;
 
   /// Renders text with inline $...$ LaTeX blocks using flutter_math_fork directly.
   /// This avoids the conflict between markdown's _ (italic) and LaTeX's _ (subscript).
@@ -788,6 +847,67 @@ class LeconReferencePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    if (!_checkDone) {
+      return Scaffold(
+        appBar: AppBar(title: Text('Leçon $leconNumero')),
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    if (_isLocked) {
+      return Scaffold(
+        backgroundColor: isDark ? const Color(0xFF121212) : const Color(0xFFF5F7FA),
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: const BackButton(),
+          title: Text('Leçon $leconNumero', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+          centerTitle: true,
+        ),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(32),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.lock, size: 64, color: Colors.amber),
+                const SizedBox(height: 24),
+                Text(
+                  'Leçon $leconNumero',
+                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  leconData['titre'] as String? ?? '',
+                  style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 24),
+                const Text(
+                  'Cette leçon est réservée aux membres Premium.',
+                  style: TextStyle(fontSize: 16),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 32),
+                ElevatedButton.icon(
+                  onPressed: _showPaywall,
+                  icon: const Icon(Icons.star),
+                  label: const Text('Devenir Premium'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.amber,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
     final titre = leconData['titre'] as String? ?? '';
     final pointsCles = leconData['points_cles'] as List<dynamic>? ?? [];
     final plan = leconData['plan'] as List<dynamic>? ?? [];

@@ -81,7 +81,9 @@ class _AnnalesPageState extends State<AnnalesPage> {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             itemCount: filtered.length,
             itemBuilder: (context, index) {
-              return _buildAnnaleCard(filtered[index], index);
+              final annale = filtered[index];
+              final globalIndex = _service.annales.indexOf(annale);
+              return _buildAnnaleCard(annale, globalIndex);
             },
           ),
         ),
@@ -214,7 +216,7 @@ class _AnnalesPageState extends State<AnnalesPage> {
 
   Future<void> _showPaywall() async {
     final result = await Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => const PaywallPage()),
+      MaterialPageRoute(builder: (_) => const PaywallPage(source: 'annales')),
     );
     if (result == true && mounted) setState(() {});
   }

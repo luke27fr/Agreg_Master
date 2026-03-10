@@ -116,7 +116,7 @@ class _CloudSyncPageState extends State<CloudSyncPage> {
               child: ElevatedButton.icon(
                 onPressed: () async {
                   final result = await Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => const PaywallPage()),
+                    MaterialPageRoute(builder: (_) => const PaywallPage(source: 'cloud_sync')),
                   );
                   if (result == true && mounted) {
                     setState(() {});

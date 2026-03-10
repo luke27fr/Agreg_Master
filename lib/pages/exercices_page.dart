@@ -197,7 +197,7 @@ class _ExercicesPageState extends State<ExercicesPage> {
 
   Future<void> _showPaywall() async {
     final result = await Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => const PaywallPage()),
+      MaterialPageRoute(builder: (_) => const PaywallPage(source: 'exercices')),
     );
     if (result == true && mounted) {
       setState(() {}); // Rafraîchir après abonnement
