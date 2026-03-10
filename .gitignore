@@ -45,6 +45,7 @@ app.*.map.json
 /android/app/release
 
 # Fichiers sensibles - NE PAS COMMITTER
+assets/data/vip_emails.json
 android/key.properties
 android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
@@ -66,6 +67,7 @@ tools/node_modules/
 tools/package-lock.json
 
 # Store assets (large images)
+app_icon_original_2048.png
 google_play_feature_graphic_1024x500.png
 google_play_icon_512x512.png
 screenshot_tablet_10inch.png

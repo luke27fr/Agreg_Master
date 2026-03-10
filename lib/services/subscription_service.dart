@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -37,16 +39,23 @@ class SubscriptionService extends ChangeNotifier {
   static const String _rcGoogleApiKey = 'goog_YNbXFosilLoiNCiTyQvgEGRgXUw';
   static const String _rcWebApiKey = 'rcb_EGwHgUixGGwKgisJMHmXxVVHfixX';
 
-  // Emails with permanent premium access
-  static const Set<String> _vipEmails = {
-    'luke27fr@gmail.com',
-    'cecile.reynaud72@gmail.com',
-    'gaiald2107@gmail.com',
-    'zoe758751@gmail.com',
-    'jdieboldappreview@gmail.com',
-    'stephane.plantier@gmail.com',
-    'bracou71@gmail.com',
-  };
+  // Emails with permanent premium access (loaded from assets/data/vip_emails.json)
+  static Set<String> _vipEmails = {};
+  static bool _vipEmailsLoaded = false;
+
+  /// Load VIP emails from local config file.
+  static Future<void> _loadVipEmails() async {
+    if (_vipEmailsLoaded) return;
+    try {
+      final jsonString = await rootBundle.loadString('assets/data/vip_emails.json');
+      final data = json.decode(jsonString) as Map<String, dynamic>;
+      final emails = (data['emails'] as List<dynamic>).cast<String>();
+      _vipEmails = emails.map((e) => e.toLowerCase()).toSet();
+      _vipEmailsLoaded = true;
+    } catch (e) {
+      debugPrint('Could not load VIP emails: $e');
+    }
+  }
 
   // Getters
   bool get isPremium {
@@ -78,6 +87,9 @@ class SubscriptionService extends ChangeNotifier {
     _isLoading = true;
     _error = null;
     notifyListeners();
+
+    // Load VIP emails from config file
+    await _loadVipEmails();
 
     try {
       if (!_configureAttempted) {
@@ -325,9 +337,17 @@ class SubscriptionService extends ChangeNotifier {
       case 'demonstrations':
         return 5;
       case 'annales':
-        return 4; // Première année gratuite (ext MG + AP + int EP1 + EP2)
+        return 4;
       case 'annales_ped':
-        return 1; // Premier sujet pédagogique gratuit
+        return 1;
+      case 'fiches':
+        return 3;
+      case 'developpements':
+        return 3;
+      case 'contre_exemples':
+        return 3;
+      case 'questions_jury':
+        return 5;
       default:
         return 0;
     }
