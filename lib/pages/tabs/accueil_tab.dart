@@ -165,6 +165,14 @@ class _AccueilTabState extends State<AccueilTab> {
                         if (ctx.mounted) Navigator.pop(ctx);
                       } catch (e) {
                         setSheetState(() => loading = false);
+                        if (ctx.mounted) {
+                          ScaffoldMessenger.of(ctx).showSnackBar(
+                            SnackBar(
+                              content: Text('Erreur de connexion : $e'),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        }
                       }
                     },
                     icon: const Icon(Icons.g_mobiledata, size: 24),
@@ -193,6 +201,14 @@ class _AccueilTabState extends State<AccueilTab> {
                           if (ctx.mounted) Navigator.pop(ctx);
                         } catch (e) {
                           setSheetState(() => loading = false);
+                          if (ctx.mounted) {
+                            ScaffoldMessenger.of(ctx).showSnackBar(
+                              SnackBar(
+                                content: Text('Erreur de connexion : $e'),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                          }
                         }
                       },
                       icon: const Icon(Icons.apple, size: 24),

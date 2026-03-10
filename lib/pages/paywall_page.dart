@@ -26,6 +26,7 @@ class _PaywallPageState extends State<PaywallPage> {
   Package? _selectedPackage;
   bool _isLoading = true;
   bool _isPurchasing = false;
+  bool _isTrialEligible = true; // Assume eligible until checked
   final AnalyticsService _analyticsService = AnalyticsService();
 
   @override
@@ -48,9 +49,24 @@ class _PaywallPageState extends State<PaywallPage> {
       final offerings = await _subscriptionService.getOfferings();
       if (offerings != null && offerings.current != null) {
         final packages = offerings.current!.availablePackages;
+
+        // Check trial eligibility via RevenueCat
+        bool trialEligible = true;
+        try {
+          final customerInfo = await Purchases.getCustomerInfo();
+          // If user already has or had an entitlement, they've used their trial
+          final entitlement = customerInfo.entitlements.all[SubscriptionService.entitlementId];
+          if (entitlement != null) {
+            trialEligible = false;
+          }
+        } catch (_) {
+          // If check fails, keep showing trial (RevenueCat will handle eligibility on purchase)
+        }
+
         if (mounted) {
           setState(() {
             _packages = packages;
+            _isTrialEligible = trialEligible;
             if (packages.isNotEmpty) {
               _selectedPackage = packages.firstWhere(
                 (p) => p.packageType == PackageType.annual,
@@ -536,7 +552,7 @@ class _PaywallPageState extends State<PaywallPage> {
 
   String _getPackageSubtitle(Package package) {
     final intro = package.storeProduct.introductoryPrice;
-    if (intro != null && intro.price == 0) {
+    if (_isTrialEligible && intro != null && intro.price == 0) {
       return 'Essai gratuit de ${_trialPeriodText(intro)}, puis ${package.storeProduct.priceString}';
     }
     switch (package.packageType) {
@@ -551,7 +567,7 @@ class _PaywallPageState extends State<PaywallPage> {
 
   String? _getPackageBadge(Package package) {
     final intro = package.storeProduct.introductoryPrice;
-    if (intro != null && intro.price == 0) {
+    if (_isTrialEligible && intro != null && intro.price == 0) {
       return 'ESSAI GRATUIT';
     }
     switch (package.packageType) {
@@ -563,6 +579,7 @@ class _PaywallPageState extends State<PaywallPage> {
   }
 
   bool _hasFreeTrial(Package package) {
+    if (!_isTrialEligible) return false;
     final intro = package.storeProduct.introductoryPrice;
     return intro != null && intro.price == 0;
   }
