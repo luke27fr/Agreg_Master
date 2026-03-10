@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../main.dart'; // ThemeItem
 import '../../constants/app_constants.dart';
@@ -180,7 +181,7 @@ class _AccueilTabState extends State<AccueilTab> {
                     ),
                   ),
                 ),
-                if (_showAppleSignIn) ...[
+                if (defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.macOS) ...[
                   const SizedBox(height: 10),
                   SizedBox(
                     width: double.infinity, height: 48,
