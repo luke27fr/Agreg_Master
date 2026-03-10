@@ -1,4 +1,5 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -92,6 +93,19 @@ class _ProfilTabState extends State<ProfilTab> {
     }
   }
 
+  void _handleEmailSignIn() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (_) => _EmailAuthSheet(authService: _authService),
+    ).then((_) {
+      if (mounted) setState(() {});
+    });
+  }
+
   Future<void> _handleSignOut() async {
     final confirm = await showDialog<bool>(
       context: context,
@@ -109,6 +123,53 @@ class _ProfilTabState extends State<ProfilTab> {
     );
     if (confirm == true) {
       await _authService.signOut();
+    }
+  }
+
+  Future<void> _handleDeleteAccount() async {
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Supprimer votre compte ?'),
+        content: const Text(
+          'Cette action est irréversible. Toutes vos données de compte '
+          'seront définitivement supprimées (progression, statistiques synchronisées). '
+          'Vos données locales resteront sur cet appareil.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('Annuler'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: const Text('Supprimer définitivement'),
+          ),
+        ],
+      ),
+    );
+    if (confirm != true) return;
+
+    try {
+      setState(() => _authLoading = true);
+      await _authService.deleteAccount();
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Compte supprimé avec succès.')),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        final msg = e.toString().contains('requires-recent-login')
+            ? 'Pour des raisons de sécurité, veuillez vous reconnecter puis réessayer.'
+            : 'Erreur lors de la suppression : $e';
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(msg), duration: const Duration(seconds: 6)),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _authLoading = false);
     }
   }
 
@@ -247,13 +308,20 @@ class _ProfilTabState extends State<ProfilTab> {
               color: Colors.grey,
               onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SettingsPage())),
             ),
-            if (_authService.isSignedIn)
+            if (_authService.isSignedIn) ...[
               ToolCard(
                 icon: Icons.logout, title: 'Se déconnecter',
                 subtitle: _authService.email ?? '',
                 color: Colors.red,
                 onTap: _handleSignOut,
               ),
+              ToolCard(
+                icon: Icons.delete_forever, title: 'Supprimer mon compte',
+                subtitle: 'Supprimer définitivement votre compte et vos données',
+                color: Colors.red.shade900,
+                onTap: _handleDeleteAccount,
+              ),
+            ],
 
             const SizedBox(height: 24),
             Text('Disponible partout', style: TextStyle(
@@ -409,6 +477,15 @@ class _ProfilTabState extends State<ProfilTab> {
               onTap: _handleAppleSignIn,
             ),
           ],
+          const SizedBox(height: 10),
+          _buildSignInButton(
+            label: 'Continuer avec Email',
+            icon: Icons.email_outlined,
+            color: Colors.white,
+            textColor: Colors.black87,
+            borderColor: Colors.grey[300],
+            onTap: _handleEmailSignIn,
+          ),
         ],
       ]),
     );
@@ -440,6 +517,215 @@ class _ProfilTabState extends State<ProfilTab> {
                 ? BorderSide(color: borderColor)
                 : BorderSide.none,
           ),
+        ),
+      ),
+    );
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Email Auth Bottom Sheet
+// ─────────────────────────────────────────────────────────────────────────────
+
+class _EmailAuthSheet extends StatefulWidget {
+  final AuthService authService;
+  const _EmailAuthSheet({required this.authService});
+
+  @override
+  State<_EmailAuthSheet> createState() => _EmailAuthSheetState();
+}
+
+class _EmailAuthSheetState extends State<_EmailAuthSheet> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool _isLogin = true;
+  bool _loading = false;
+  bool _obscurePassword = true;
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  String _firebaseErrorMessage(String code) {
+    switch (code) {
+      case 'wrong-password':
+      case 'invalid-credential':
+        return 'Email ou mot de passe incorrect.';
+      case 'user-not-found':
+        return 'Aucun compte trouvé avec cet email.';
+      case 'email-already-in-use':
+        return 'Un compte existe déjà avec cet email. Essayez de vous connecter.';
+      case 'weak-password':
+        return 'Le mot de passe doit contenir au moins 6 caractères.';
+      case 'invalid-email':
+        return 'Adresse email invalide.';
+      case 'too-many-requests':
+        return 'Trop de tentatives. Réessayez plus tard.';
+      default:
+        return 'Erreur de connexion ($code).';
+    }
+  }
+
+  Future<void> _submit() async {
+    final email = _emailController.text.trim();
+    final password = _passwordController.text;
+
+    if (email.isEmpty || !email.contains('@')) {
+      _showError('Veuillez entrer une adresse email valide.');
+      return;
+    }
+    if (password.length < 6) {
+      _showError('Le mot de passe doit contenir au moins 6 caractères.');
+      return;
+    }
+
+    setState(() => _loading = true);
+    try {
+      if (_isLogin) {
+        await widget.authService.signInWithEmail(email, password);
+      } else {
+        await widget.authService.createAccountWithEmail(email, password);
+      }
+      if (mounted) Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      _showError(_firebaseErrorMessage(e.code));
+    } catch (e) {
+      _showError(e.toString());
+    } finally {
+      if (mounted) setState(() => _loading = false);
+    }
+  }
+
+  Future<void> _handleResetPassword() async {
+    final email = _emailController.text.trim();
+    if (email.isEmpty || !email.contains('@')) {
+      _showError('Entrez votre email ci-dessus pour recevoir le lien de réinitialisation.');
+      return;
+    }
+    try {
+      await widget.authService.resetPassword(email);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Email de réinitialisation envoyé à $email')),
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      _showError(_firebaseErrorMessage(e.code));
+    } catch (e) {
+      _showError(e.toString());
+    }
+  }
+
+  void _showError(String message) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message), duration: const Duration(seconds: 5)),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return Padding(
+      padding: EdgeInsets.only(
+        left: 24, right: 24, top: 24,
+        bottom: MediaQuery.of(context).viewInsets.bottom + 24,
+      ),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Center(
+              child: Container(
+                width: 40, height: 4,
+                decoration: BoxDecoration(
+                  color: Colors.grey[400],
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              _isLogin ? 'Connexion' : 'Créer un compte',
+              style: TextStyle(
+                fontSize: 22, fontWeight: FontWeight.bold,
+                color: isDark ? Colors.white : Colors.black87,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 24),
+            TextField(
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+              autocorrect: false,
+              textInputAction: TextInputAction.next,
+              decoration: InputDecoration(
+                labelText: 'Email',
+                prefixIcon: const Icon(Icons.email_outlined),
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+              ),
+            ),
+            const SizedBox(height: 14),
+            TextField(
+              controller: _passwordController,
+              obscureText: _obscurePassword,
+              textInputAction: TextInputAction.done,
+              onSubmitted: (_) => _submit(),
+              decoration: InputDecoration(
+                labelText: 'Mot de passe',
+                prefixIcon: const Icon(Icons.lock_outline),
+                suffixIcon: IconButton(
+                  icon: Icon(_obscurePassword ? Icons.visibility_off : Icons.visibility),
+                  onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+                ),
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+              ),
+            ),
+            if (_isLogin) ...[
+              const SizedBox(height: 8),
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: _handleResetPassword,
+                  child: const Text('Mot de passe oublié ?'),
+                ),
+              ),
+            ],
+            const SizedBox(height: 16),
+            SizedBox(
+              height: 50,
+              child: ElevatedButton(
+                onPressed: _loading ? null : _submit,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: isDark ? Colors.white : Colors.black,
+                  foregroundColor: isDark ? Colors.black : Colors.white,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                ),
+                child: _loading
+                    ? const SizedBox(
+                        height: 22, width: 22,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : Text(
+                        _isLogin ? 'Se connecter' : 'Créer le compte',
+                        style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                      ),
+              ),
+            ),
+            const SizedBox(height: 12),
+            TextButton(
+              onPressed: () => setState(() => _isLogin = !_isLogin),
+              child: Text(
+                _isLogin
+                    ? 'Pas encore de compte ? Créer un compte'
+                    : 'Déjà un compte ? Se connecter',
+              ),
+            ),
+          ],
         ),
       ),
     );

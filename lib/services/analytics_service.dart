@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'ga4_web_helper.dart' if (dart.library.html) 'ga4_web_helper_web.dart';
 
 /// Centralized analytics service for tracking user behavior.
 /// Wraps Firebase Analytics with typed event methods.
@@ -167,6 +172,62 @@ class AnalyticsService {
 
   Future<void> setUserTheme(String theme) =>
       _analytics.setUserProperty(name: 'theme_mode', value: theme);
+
+  // ---------------------------------------------------------------------------
+  // GA4 purchase event (web only, via gtag.js)
+  // ---------------------------------------------------------------------------
+
+  Future<void> logGA4Purchase({
+    required String transactionId,
+    required double value,
+    required String currency,
+    required String productId,
+    required String productName,
+  }) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final key = 'ga4_purchase_$transactionId';
+      if (prefs.getBool(key) == true) {
+        debugPrint('[GA4] Purchase already tracked: $transactionId');
+        return;
+      }
+
+      final items = [
+        {
+          'item_id': productId,
+          'item_name': productName,
+          'price': value,
+          'currency': currency,
+          'quantity': 1,
+        }
+      ];
+
+      if (kIsWeb) {
+        sendGtagPurchase(
+          transactionId: transactionId,
+          value: value,
+          currency: currency,
+          items: items,
+        );
+        debugPrint('[GA4/Web] purchase event sent: $transactionId, $value $currency');
+      }
+
+      await _analytics.logEvent(
+        name: 'purchase',
+        parameters: {
+          'transaction_id': transactionId,
+          'value': value,
+          'currency': currency,
+          'items': jsonEncode(items),
+        },
+      );
+      debugPrint('[GA4/Firebase] purchase event sent: $transactionId');
+
+      await prefs.setBool(key, true);
+    } catch (e) {
+      debugPrint('[GA4] Error sending purchase event: $e');
+    }
+  }
 
   // ---------------------------------------------------------------------------
   // Internals

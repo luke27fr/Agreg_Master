@@ -97,10 +97,10 @@ class SmartPlannerService extends ChangeNotifier {
 
     // 4. Ajouter des pauses si configuré
     if (_config!.inclureRepos) {
+      final pauses = <PlannedTask>[];
       for (var task in tasks) {
         if (task.dureeMinutes >= 120) {
-          // Suggérer une pause après les longues sessions
-          tasks.add(PlannedTask(
+          pauses.add(PlannedTask(
             id: 'pause_${task.id}',
             titre: 'Pause',
             type: 'repos',
@@ -111,6 +111,7 @@ class SmartPlannerService extends ChangeNotifier {
           ));
         }
       }
+      tasks.addAll(pauses);
     }
 
     // Calculer les statistiques

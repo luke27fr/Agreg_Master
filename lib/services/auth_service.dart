@@ -63,7 +63,7 @@ class AuthService extends ChangeNotifier {
   }
 
   // ──────────────────────────────────────────────────────────────────────────
-  // Apple Sign-In
+  // Apple Sign-In (uses Firebase's built-in provider flow + native entitlement)
   // ──────────────────────────────────────────────────────────────────────────
 
   Future<UserCredential?> signInWithApple() async {
@@ -76,7 +76,6 @@ class AuthService extends ChangeNotifier {
         return await _signInWithPopup(appleProvider);
       }
 
-      // iOS & Android: use Firebase provider flow (web-based OAuth)
       return await _signInWithProvider(appleProvider);
     } catch (e) {
       debugPrint('Apple Sign-In error: $e');
@@ -84,23 +83,7 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  // ──────────────────────────────────────────────────────────────────────────
-  // Sign-Out  → back to anonymous
-  // ──────────────────────────────────────────────────────────────────────────
-
-  Future<void> signOut() async {
-    await GoogleSignIn().signOut();
-    await _auth.signOut();
-    await _auth.signInAnonymously();
-    await _syncRevenueCat();
-    notifyListeners();
-  }
-
-  // ──────────────────────────────────────────────────────────────────────────
-  // Link or sign-in logic
-  // ──────────────────────────────────────────────────────────────────────────
-
-  /// Android: use Firebase Auth provider flow (opens browser for OAuth).
+  /// iOS/Android: use Firebase Auth provider flow (native Apple dialog on iOS).
   Future<UserCredential?> _signInWithProvider(OAuthProvider provider) async {
     final user = _auth.currentUser;
     try {
@@ -124,6 +107,86 @@ class AuthService extends ChangeNotifier {
       rethrow;
     }
   }
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Email / Password Sign-In
+  // ──────────────────────────────────────────────────────────────────────────
+
+  Future<UserCredential?> signInWithEmail(String email, String password) async {
+    try {
+      final credential = EmailAuthProvider.credential(
+        email: email.trim(),
+        password: password,
+      );
+      final result = await _linkOrSignIn(credential);
+      await _syncRevenueCat();
+      notifyListeners();
+      return result;
+    } catch (e) {
+      debugPrint('Email Sign-In error: $e');
+      rethrow;
+    }
+  }
+
+  Future<UserCredential?> createAccountWithEmail(String email, String password) async {
+    try {
+      final user = _auth.currentUser;
+      UserCredential result;
+
+      if (user != null && user.isAnonymous) {
+        final credential = EmailAuthProvider.credential(
+          email: email.trim(),
+          password: password,
+        );
+        try {
+          result = await user.linkWithCredential(credential);
+        } on FirebaseAuthException catch (e) {
+          if (e.code == 'email-already-in-use') {
+            result = await _auth.signInWithEmailAndPassword(
+              email: email.trim(),
+              password: password,
+            );
+          } else {
+            rethrow;
+          }
+        }
+      } else {
+        result = await _auth.createUserWithEmailAndPassword(
+          email: email.trim(),
+          password: password,
+        );
+      }
+
+      await _syncRevenueCat();
+      notifyListeners();
+      return result;
+    } catch (e) {
+      debugPrint('Email Create Account error: $e');
+      rethrow;
+    }
+  }
+
+  Future<void> resetPassword(String email) async {
+    await _auth.sendPasswordResetEmail(email: email.trim());
+  }
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Sign-Out  → back to anonymous
+  // ──────────────────────────────────────────────────────────────────────────
+
+  Future<void> signOut() async {
+    try {
+      await GoogleSignIn().signOut();
+    } catch (_) {}
+    await _auth.signOut();
+    await _auth.signInAnonymously();
+    await _syncRevenueCat();
+    notifyListeners();
+  }
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Link or sign-in logic
+  // ──────────────────────────────────────────────────────────────────────────
 
   /// Web-only: use Firebase Auth popup flow (no separate OAuth client needed).
   Future<UserCredential?> _signInWithPopup(AuthProvider provider) async {
@@ -166,6 +229,27 @@ class AuthService extends ChangeNotifier {
       }
     }
     return await _auth.signInWithCredential(credential);
+  }
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Account Deletion (Apple Guideline 5.1.1(v))
+  // ──────────────────────────────────────────────────────────────────────────
+
+  Future<void> deleteAccount() async {
+    final user = _auth.currentUser;
+    if (user == null) throw Exception('No user signed in');
+
+    try {
+      await user.delete();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'requires-recent-login') {
+        throw Exception('requires-recent-login');
+      }
+      rethrow;
+    }
+    await _auth.signInAnonymously();
+    await _syncRevenueCat();
+    notifyListeners();
   }
 
   /// Re-login RevenueCat so subscriptions follow the Firebase UID.

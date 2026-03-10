@@ -97,7 +97,7 @@ class AppStrings {
   AppStrings._();
 
   static const String appName = 'Agreg Master';
-  static const String appVersion = 'v1.0.0';
+  static const String appVersion = 'v1.0.5';
   static const String appTagline = 'Votre compagnon pour l\'agrégation';
 
   // Niveaux
