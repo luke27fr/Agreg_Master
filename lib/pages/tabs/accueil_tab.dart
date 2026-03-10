@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../main.dart'; // ThemeItem
 import '../../constants/app_constants.dart';
 import '../../utils/theme_utils.dart';
@@ -62,7 +61,6 @@ class _AccueilTabState extends State<AccueilTab> {
     super.initState();
     _authService.addListener(_onChanged);
     _loadManifest();
-    _showWelcomeIfFirstLaunch().catchError((_) {});
     _scoreService.addListener(_onChanged);
     _streakService.addListener(_onChanged);
     _srsService.addListener(_onChanged);
@@ -106,133 +104,6 @@ class _AccueilTabState extends State<AccueilTab> {
           const SnackBar(content: Text(AppStrings.errorLoadingData)),
         );
       }
-    }
-  }
-
-  bool get _showAppleSignIn => true;
-
-  Future<void> _showWelcomeIfFirstLaunch() async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      if (prefs.getBool('welcome_shown') == true) return;
-      await prefs.setBool('welcome_shown', true);
-
-      if (!mounted || _authService.isSignedIn) return;
-
-      await Future.delayed(const Duration(milliseconds: 1200));
-      if (!mounted) return;
-
-    showModalBottomSheet<void>(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (ctx) {
-        bool loading = false;
-        return StatefulBuilder(builder: (ctx, setSheetState) {
-          return Container(
-            padding: const EdgeInsets.fromLTRB(24, 28, 24, 32),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-            ),
-            child: Column(mainAxisSize: MainAxisSize.min, children: [
-              Container(
-                width: 40, height: 4,
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Icon(Icons.waving_hand, size: 48, color: Colors.amber),
-              const SizedBox(height: 16),
-              const Text(
-                'Bienvenue sur Agreg Master !',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Connectez-vous pour synchroniser votre progression sur tous vos appareils (iOS, Android, Web).',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 14, color: Colors.grey[600]),
-              ),
-              const SizedBox(height: 24),
-              if (loading)
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                  child: CircularProgressIndicator(),
-                )
-              else ...[
-                SizedBox(
-                  width: double.infinity, height: 48,
-                  child: ElevatedButton.icon(
-                    onPressed: () async {
-                      setSheetState(() => loading = true);
-                      try {
-                        await _authService.signInWithGoogle();
-                        if (ctx.mounted) Navigator.pop(ctx);
-                      } catch (e) {
-                        setSheetState(() => loading = false);
-                      }
-                    },
-                    icon: const Icon(Icons.g_mobiledata, size: 24),
-                    label: const Text('Continuer avec Google',
-                        style: TextStyle(fontWeight: FontWeight.w600)),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: Colors.black87,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        side: BorderSide(color: Colors.grey[300]!),
-                      ),
-                    ),
-                  ),
-                ),
-                if (_showAppleSignIn) ...[
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    width: double.infinity, height: 48,
-                    child: ElevatedButton.icon(
-                      onPressed: () async {
-                        setSheetState(() => loading = true);
-                        try {
-                          await _authService.signInWithApple();
-                          if (ctx.mounted) Navigator.pop(ctx);
-                        } catch (e) {
-                          setSheetState(() => loading = false);
-                        }
-                      },
-                      icon: const Icon(Icons.apple, size: 24),
-                      label: const Text('Continuer avec Apple',
-                          style: TextStyle(fontWeight: FontWeight.w600)),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
-                        foregroundColor: Colors.white,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-                const SizedBox(height: 16),
-                TextButton(
-                  onPressed: () => Navigator.pop(ctx),
-                  child: Text(
-                    'Plus tard',
-                    style: TextStyle(color: Colors.grey[500], fontSize: 14),
-                  ),
-                ),
-              ],
-            ]),
-          );
-        });
-      },
-    );
-    } catch (e) {
-      debugPrint('Welcome sheet error: $e');
     }
   }
 

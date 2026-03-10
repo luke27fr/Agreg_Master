@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:agreg_master/constants/app_constants.dart';
 import 'package:agreg_master/pages/home_navigation_page.dart';
+import 'package:agreg_master/pages/onboarding_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:agreg_master/services/score_service.dart';
 import 'package:agreg_master/services/favorites_service.dart';
 import 'package:agreg_master/services/notes_service.dart';
@@ -205,6 +207,7 @@ class AgregMasterApp extends StatefulWidget {
 
 class _AgregMasterAppState extends State<AgregMasterApp> {
   final SettingsService _settingsService = SettingsService();
+  bool? _onboardingCompleted;
 
   @override
   void initState() {
@@ -216,7 +219,10 @@ class _AgregMasterAppState extends State<AgregMasterApp> {
   Future<void> _loadServices() async {
     // Settings first (fast, needed for correct theme)
     await SettingsService().loadSettings();
-    if (mounted) setState(() {});
+    // Check onboarding
+    final prefs = await SharedPreferences.getInstance();
+    final done = prefs.getBool('onboarding_completed') ?? false;
+    if (mounted) setState(() => _onboardingCompleted = done);
     // All other services load in background — UI updates reactively
     _initializeAllServices();
   }
@@ -298,7 +304,14 @@ class _AgregMasterAppState extends State<AgregMasterApp> {
           color: AppColors.cardDark,
         ),
       ),
-      home: const HomeNavigationPage(),
+      home: _onboardingCompleted == null
+          ? const SplashScreen()
+          : _onboardingCompleted!
+              ? const HomeNavigationPage()
+              : const OnboardingPage(),
+      routes: {
+        '/home': (_) => const HomeNavigationPage(),
+      },
     );
   }
 }
