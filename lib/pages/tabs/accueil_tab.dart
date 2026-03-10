@@ -35,6 +35,8 @@ import '../../services/spaced_repetition_service.dart';
 import '../../services/wellness_service.dart';
 import '../../services/reading_service.dart';
 import '../../services/auth_service.dart';
+import '../../services/subscription_service.dart';
+import '../paywall_page.dart';
 
 class AccueilTab extends StatefulWidget {
   final void Function(int tabIndex)? onNavigateToTab;
@@ -53,6 +55,7 @@ class _AccueilTabState extends State<AccueilTab> {
   final WellnessService _wellnessService = WellnessService();
   final ReadingService _readingService = ReadingService();
   final AuthService _authService = AuthService();
+  final SubscriptionService _subscriptionService = SubscriptionService();
   int _totalFiches = 0;
   List<ThemeItem> _themes = [];
 
@@ -60,6 +63,7 @@ class _AccueilTabState extends State<AccueilTab> {
   void initState() {
     super.initState();
     _authService.addListener(_onChanged);
+    _subscriptionService.addListener(_onChanged);
     _loadManifest();
     _scoreService.addListener(_onChanged);
     _streakService.addListener(_onChanged);
@@ -72,6 +76,7 @@ class _AccueilTabState extends State<AccueilTab> {
   @override
   void dispose() {
     _authService.removeListener(_onChanged);
+    _subscriptionService.removeListener(_onChanged);
     _scoreService.removeListener(_onChanged);
     _streakService.removeListener(_onChanged);
     _srsService.removeListener(_onChanged);
@@ -363,6 +368,40 @@ class _AccueilTabState extends State<AccueilTab> {
                       'Pensez à faire une pause !',
                       style: TextStyle(color: Colors.orange[800], fontSize: 13),
                     )),
+                  ]),
+                ),
+              ),
+            ),
+
+          // ================================================================
+          // Premium banner
+          // ================================================================
+          if (!_subscriptionService.isPremium)
+            SliverToBoxAdapter(
+              child: GestureDetector(
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PaywallPage())),
+                child: Container(
+                  margin: const EdgeInsets.fromLTRB(20, 12, 20, 0),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [AppColors.primaryDark, AppColors.primaryLight],
+                    ),
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: Row(children: [
+                    const Icon(Icons.diamond, size: 20, color: Colors.white),
+                    const SizedBox(width: 12),
+                    Expanded(child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text('Débloquez tout le contenu',
+                          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white)),
+                        Text('7 jours d\'essai gratuit',
+                          style: TextStyle(fontSize: 12, color: Colors.white.withAlpha(180))),
+                      ],
+                    )),
+                    Icon(Icons.chevron_right, size: 20, color: Colors.white.withAlpha(128)),
                   ]),
                 ),
               ),
