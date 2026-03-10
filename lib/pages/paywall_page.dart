@@ -382,9 +382,11 @@ class _PaywallPageState extends State<PaywallPage> {
                     width: 24,
                     child: CircularProgressIndicator(strokeWidth: 2),
                   )
-                : const Text(
-                    'S\'abonner maintenant',
-                    style: TextStyle(
+                : Text(
+                    _selectedPackage != null && _hasFreeTrial(_selectedPackage!)
+                        ? 'Commencer l\'essai gratuit'
+                        : 'S\'abonner maintenant',
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
@@ -533,6 +535,10 @@ class _PaywallPageState extends State<PaywallPage> {
   }
 
   String _getPackageSubtitle(Package package) {
+    final intro = package.storeProduct.introductoryPrice;
+    if (intro != null && intro.price == 0) {
+      return 'Essai gratuit de ${_trialPeriodText(intro)}, puis ${package.storeProduct.priceString}';
+    }
     switch (package.packageType) {
       case PackageType.monthly:
         return 'Engagement flexible';
@@ -544,6 +550,10 @@ class _PaywallPageState extends State<PaywallPage> {
   }
 
   String? _getPackageBadge(Package package) {
+    final intro = package.storeProduct.introductoryPrice;
+    if (intro != null && intro.price == 0) {
+      return 'ESSAI GRATUIT';
+    }
     switch (package.packageType) {
       case PackageType.annual:
         return 'POPULAIRE';
@@ -552,20 +562,44 @@ class _PaywallPageState extends State<PaywallPage> {
     }
   }
 
+  bool _hasFreeTrial(Package package) {
+    final intro = package.storeProduct.introductoryPrice;
+    return intro != null && intro.price == 0;
+  }
+
+  String _trialPeriodText(IntroductoryPrice intro) {
+    final n = intro.periodNumberOfUnits;
+    switch (intro.periodUnit) {
+      case PeriodUnit.day:
+        return '$n jour${n > 1 ? "s" : ""}';
+      case PeriodUnit.week:
+        return '$n semaine${n > 1 ? "s" : ""}';
+      case PeriodUnit.month:
+        return '$n mois';
+      case PeriodUnit.year:
+        return '$n an${n > 1 ? "s" : ""}';
+      default:
+        return '7 jours';
+    }
+  }
+
   /// Texte légal adapté selon la plateforme
   String _getLegalText() {
+    final trialPrefix = _selectedPackage != null && _hasFreeTrial(_selectedPackage!)
+        ? 'L\'essai gratuit se convertit automatiquement en abonnement payant à la fin de la période d\'essai sauf annulation.\n'
+        : '';
     if (kIsWeb) {
-      return 'Paiement sécurisé via Stripe\n'
+      return '${trialPrefix}Paiement sécurisé via Stripe\n'
           'Annulation possible à tout moment depuis votre espace client\n'
           'L\'abonnement se renouvelle automatiquement sauf annulation.';
     }
     if (defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.macOS) {
-      return 'Paiement sécurisé via l\'App Store\n'
+      return '${trialPrefix}Paiement sécurisé via l\'App Store\n'
           'Annulation possible à tout moment dans les réglages de votre compte\n'
           'L\'abonnement se renouvelle automatiquement sauf annulation\n'
           'au moins 24h avant la fin de la période en cours.';
     }
-    return 'Paiement sécurisé via votre store\n'
+    return '${trialPrefix}Paiement sécurisé via votre store\n'
         'Annulation possible à tout moment\n'
         'L\'abonnement se renouvelle automatiquement sauf annulation\n'
         'au moins 24h avant la fin de la période en cours.';
@@ -575,7 +609,9 @@ class _PaywallPageState extends State<PaywallPage> {
   // Actions
   // ============================================================================
 
-  bool get _showAppleSignIn => true;
+  bool get _showAppleSignIn =>
+      defaultTargetPlatform == TargetPlatform.iOS ||
+      defaultTargetPlatform == TargetPlatform.macOS;
 
   /// Show a bottom sheet prompting anonymous users to sign in before purchase.
   /// Returns true if the user signed in or explicitly chose to skip.
