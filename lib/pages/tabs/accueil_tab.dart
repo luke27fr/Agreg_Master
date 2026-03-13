@@ -396,7 +396,7 @@ class _AccueilTabState extends State<AccueilTab> {
           if (!_subscriptionService.isPremium)
             SliverToBoxAdapter(
               child: GestureDetector(
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PaywallPage())),
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PaywallPage(source: 'home_banner'))),
                 child: Container(
                   margin: const EdgeInsets.fromLTRB(20, 12, 20, 0),
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),

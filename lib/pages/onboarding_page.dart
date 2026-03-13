@@ -263,7 +263,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
             child: ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const PaywallPage()),
+                  MaterialPageRoute(builder: (_) => const PaywallPage(source: 'onboarding')),
                 );
               },
               style: ElevatedButton.styleFrom(

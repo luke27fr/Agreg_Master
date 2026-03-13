@@ -5,3 +5,9 @@ void sendGtagPurchase({
   required String currency,
   required List<Map<String, Object>> items,
 }) {}
+
+/// Stub for non-web platforms — sends a generic gtag event.
+void sendGtagEvent({
+  required String eventName,
+  required Map<String, Object> parameters,
+}) {}

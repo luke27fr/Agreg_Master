@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:js_interop';
 
 @JS('gtag')
@@ -34,4 +35,13 @@ void sendGtagPurchase({
       '}';
 
   _gtag('event'.toJS, 'purchase'.toJS, _jsonParse(json.toJS));
+}
+
+/// Send a generic gtag event (web only).
+void sendGtagEvent({
+  required String eventName,
+  required Map<String, Object> parameters,
+}) {
+  final json = jsonEncode(parameters);
+  _gtag('event'.toJS, eventName.toJS, _jsonParse(json.toJS));
 }

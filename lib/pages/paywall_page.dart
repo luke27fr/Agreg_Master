@@ -122,7 +122,10 @@ class _PaywallPageState extends State<PaywallPage> {
                       padding: const EdgeInsets.only(right: 8, top: 4),
                       child: IconButton(
                         icon: const Icon(Icons.close, color: Colors.white, size: 28),
-                        onPressed: () => Navigator.of(context).pop(),
+                        onPressed: () {
+                          _analyticsService.logPaywallClosed(source: widget.source);
+                          Navigator.of(context).pop();
+                        },
                       ),
                     ),
                   ),
@@ -400,8 +403,8 @@ class _PaywallPageState extends State<PaywallPage> {
                   )
                 : Text(
                     _selectedPackage != null && _hasFreeTrial(_selectedPackage!)
-                        ? 'Commencer l\'essai gratuit'
-                        : 'S\'abonner maintenant',
+                        ? 'Commencer mon essai gratuit'
+                        : 'S\'abonner',
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -409,6 +412,28 @@ class _PaywallPageState extends State<PaywallPage> {
                   ),
           ),
         ),
+
+        if (kIsWeb && _selectedPackage?.packageType == PackageType.annual && _isTrialEligible)
+          Padding(
+            padding: const EdgeInsets.only(top: 12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.check_circle_outline, size: 16,
+                     color: Colors.white.withAlpha((0.7 * 255).round())),
+                const SizedBox(width: 6),
+                Flexible(
+                  child: Text(
+                    'Aucun paiement pendant 7 jours. Annule à tout moment.',
+                    style: TextStyle(
+                      color: Colors.white.withAlpha((0.7 * 255).round()),
+                      fontSize: 13,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
       ],
     );
   }
@@ -423,6 +448,9 @@ class _PaywallPageState extends State<PaywallPage> {
     return GestureDetector(
       onTap: () {
         setState(() => _selectedPackage = package);
+        _analyticsService.logPlanSelected(
+          planType: package.packageType == PackageType.annual ? 'annual' : 'monthly',
+        );
       },
       child: Container(
         padding: const EdgeInsets.all(16),
@@ -551,6 +579,9 @@ class _PaywallPageState extends State<PaywallPage> {
   }
 
   String _getPackageSubtitle(Package package) {
+    if (kIsWeb && package.packageType == PackageType.annual && _isTrialEligible) {
+      return '7 jours gratuits, puis ${package.storeProduct.priceString}/an';
+    }
     final intro = package.storeProduct.introductoryPrice;
     if (_isTrialEligible && intro != null && intro.price == 0) {
       return 'Essai gratuit de ${_trialPeriodText(intro)}, puis ${package.storeProduct.priceString}';
@@ -566,6 +597,9 @@ class _PaywallPageState extends State<PaywallPage> {
   }
 
   String? _getPackageBadge(Package package) {
+    if (kIsWeb && package.packageType == PackageType.annual) {
+      return 'POPULAIRE';
+    }
     final intro = package.storeProduct.introductoryPrice;
     if (_isTrialEligible && intro != null && intro.price == 0) {
       return 'ESSAI GRATUIT';
@@ -579,6 +613,9 @@ class _PaywallPageState extends State<PaywallPage> {
   }
 
   bool _hasFreeTrial(Package package) {
+    if (kIsWeb && package.packageType == PackageType.annual && _isTrialEligible) {
+      return true;
+    }
     if (!_isTrialEligible) return false;
     final intro = package.storeProduct.introductoryPrice;
     return intro != null && intro.price == 0;
@@ -632,7 +669,7 @@ class _PaywallPageState extends State<PaywallPage> {
 
   /// Show a bottom sheet prompting anonymous users to sign in before purchase.
   /// Returns true if the user signed in or explicitly chose to skip.
-  Future<bool> _promptSignInIfNeeded() async {
+  Future<bool> _promptSignInIfNeeded({bool requireSignIn = false}) async {
     final authService = AuthService();
     if (!authService.isAnonymous) return true;
 
@@ -658,15 +695,18 @@ class _PaywallPageState extends State<PaywallPage> {
                 ),
               ),
               const SizedBox(height: 20),
-              const Icon(Icons.shield_outlined, size: 48, color: Colors.indigo),
+              Icon(requireSignIn ? Icons.account_circle_outlined : Icons.shield_outlined,
+                   size: 48, color: Colors.indigo),
               const SizedBox(height: 16),
-              const Text(
-                'Protégez votre achat',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              Text(
+                requireSignIn ? 'Connexion requise' : 'Protégez votre achat',
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
               Text(
-                'Connectez-vous pour accéder à votre abonnement sur tous vos appareils et ne jamais le perdre.',
+                requireSignIn
+                    ? 'Connectez-vous pour démarrer votre essai gratuit de 7 jours.'
+                    : 'Connectez-vous pour accéder à votre abonnement sur tous vos appareils et ne jamais le perdre.',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 14, color: Colors.grey[600]),
               ),
@@ -742,13 +782,14 @@ class _PaywallPageState extends State<PaywallPage> {
                   ),
                 ],
                 const SizedBox(height: 16),
-                TextButton(
-                  onPressed: () => Navigator.pop(ctx, true),
-                  child: Text(
-                    'Continuer sans compte',
-                    style: TextStyle(color: Colors.grey[500], fontSize: 14),
+                if (!requireSignIn)
+                  TextButton(
+                    onPressed: () => Navigator.pop(ctx, true),
+                    child: Text(
+                      'Continuer sans compte',
+                      style: TextStyle(color: Colors.grey[500], fontSize: 14),
+                    ),
                   ),
-                ),
               ],
             ]),
           );
@@ -761,12 +802,9 @@ class _PaywallPageState extends State<PaywallPage> {
   Future<void> _handlePurchase() async {
     if (_selectedPackage == null) return;
 
-    // On web, RevenueCat Web Billing handles email collection in checkout.
-    // Only prompt sign-in on native platforms.
-    if (!kIsWeb) {
-      final proceed = await _promptSignInIfNeeded();
-      if (!proceed || !mounted) return;
-    }
+    final isWebTrial = kIsWeb && _hasFreeTrial(_selectedPackage!);
+    final proceed = await _promptSignInIfNeeded(requireSignIn: isWebTrial);
+    if (!proceed || !mounted) return;
 
     _analyticsService.logPurchaseStart(
       productId: _selectedPackage!.storeProduct.identifier,
@@ -794,6 +832,9 @@ class _PaywallPageState extends State<PaywallPage> {
             productId: product.identifier,
             productName: isYearly ? 'Premium Annuel' : 'Premium Mensuel',
           );
+          if (isYearly && _isTrialEligible) {
+            _analyticsService.logTrialStarted(planType: 'annual');
+          }
           Navigator.of(context).pop(true);
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(

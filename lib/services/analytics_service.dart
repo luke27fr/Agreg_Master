@@ -109,10 +109,56 @@ class AnalyticsService {
   // Subscription & paywall
   // ---------------------------------------------------------------------------
 
-  Future<void> logPaywallView({String? source}) =>
-      _log('paywall_view', {
-        if (source != null) 'source': source,
-      });
+  Future<void> logPaywallView({String? source}) async {
+    final params = {
+      'event_category': 'monetization',
+      'app_name': 'agregmaster',
+      if (source != null) 'source': source,
+    };
+    await _log('paywall_viewed', params);
+    if (kIsWeb) {
+      sendGtagEvent(
+        eventName: 'paywall_viewed',
+        parameters: params,
+      );
+    }
+  }
+
+  Future<void> logPaywallClosed({String? source}) async {
+    final params = {
+      'event_category': 'monetization',
+      'app_name': 'agregmaster',
+      if (source != null) 'source': source,
+    };
+    await _log('paywall_closed', params);
+    if (kIsWeb) {
+      sendGtagEvent(eventName: 'paywall_closed', parameters: params);
+    }
+  }
+
+  Future<void> logPlanSelected({required String planType}) async {
+    final params = {
+      'event_category': 'monetization',
+      'app_name': 'agregmaster',
+      'plan_type': planType,
+    };
+    await _log('plan_selected', params);
+    if (kIsWeb) {
+      sendGtagEvent(eventName: 'plan_selected', parameters: params);
+    }
+  }
+
+  Future<void> logTrialStarted({required String planType}) async {
+    final params = {
+      'event_category': 'monetization',
+      'app_name': 'agregmaster',
+      'plan_type': planType,
+    };
+    await _log('trial_started', params);
+    if (kIsWeb) {
+      sendGtagEvent(eventName: 'trial_started', parameters: params);
+    }
+  }
 
   Future<void> logPurchaseStart({
     required String productId,
