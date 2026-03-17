@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import '../services/examen_blanc_service.dart';
+import '../services/subscription_service.dart';
+import '../services/proactive_paywall_service.dart';
 import '../models/examen_blanc_model.dart';
+import 'paywall_page.dart';
 
 import '../widgets/global_search_button.dart';
 
@@ -76,17 +79,27 @@ class _ExamenBlancPageState extends State<ExamenBlancPage> with SingleTickerProv
       );
     }
 
+    final sub = SubscriptionService();
+
     return ListView.builder(
       padding: const EdgeInsets.all(16),
       itemCount: examens.length,
       itemBuilder: (context, index) {
         final examen = examens[index];
-        return _buildExamenCard(examen, isDark);
+        final isLocked = !sub.isPremium && index >= sub.getFreeAccessCount('examens_blancs');
+        return _buildExamenCard(examen, isDark, isLocked: isLocked);
       },
     );
   }
 
-  Widget _buildExamenCard(ExamenBlanc examen, bool isDark) {
+  Future<void> _showPaywall() async {
+    final result = await Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const PaywallPage(source: 'examens_blancs')),
+    );
+    if (result == true && mounted) setState(() {});
+  }
+
+  Widget _buildExamenCard(ExamenBlanc examen, bool isDark, {bool isLocked = false}) {
     final icon = _getExamenIcon(examen.type);
     final color = _getExamenColor(examen.type);
 
@@ -184,19 +197,33 @@ class _ExamenBlancPageState extends State<ExamenBlancPage> with SingleTickerProv
             padding: const EdgeInsets.all(16),
             child: SizedBox(
               width: double.infinity,
-              child: ElevatedButton.icon(
-                onPressed: () => _startExamen(examen),
-                icon: const Icon(Icons.play_arrow),
-                label: const Text('Commencer l\'examen'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: color,
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              ),
+              child: isLocked
+                  ? ElevatedButton.icon(
+                      onPressed: _showPaywall,
+                      icon: const Icon(Icons.lock),
+                      label: const Text('Premium requis'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    )
+                  : ElevatedButton.icon(
+                      onPressed: () => _startExamen(examen),
+                      icon: const Icon(Icons.play_arrow),
+                      label: const Text('Commencer l\'examen'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: color,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
             ),
           ),
         ],
@@ -572,12 +599,25 @@ class _ExamenBlancPageState extends State<ExamenBlancPage> with SingleTickerProv
   }
 
   void _startExamen(ExamenBlanc examen) {
+    _checkProactivePaywall();
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (_) => ExamenRunningPage(examen: examen),
       ),
     );
+  }
+
+  Future<void> _checkProactivePaywall() async {
+    final service = ProactivePaywallService();
+    final shouldShow = await service.checkContentView();
+    if (shouldShow && mounted) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+            builder: (_) =>
+                const PaywallPage(source: 'proactive_content_limit')),
+      );
+    }
   }
 
   IconData _getExamenIcon(String type) {

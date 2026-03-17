@@ -4,6 +4,7 @@ import '../utils/content_loader.dart';
 import '../widgets/latex_text.dart';
 import '../widgets/global_search_button.dart';
 import '../services/subscription_service.dart';
+import '../services/proactive_paywall_service.dart';
 import 'paywall_page.dart';
 import 'jury_virtuel_page.dart';
 
@@ -244,6 +245,7 @@ class _LeconsPageState extends State<LeconsPage> with SingleTickerProviderStateM
   }
 
   void _openLeconDetail(Map<String, dynamic> lecon) {
+    _checkProactivePaywall();
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => LeconReferencePage(
@@ -252,6 +254,18 @@ class _LeconsPageState extends State<LeconsPage> with SingleTickerProviderStateM
         ),
       ),
     );
+  }
+
+  Future<void> _checkProactivePaywall() async {
+    final service = ProactivePaywallService();
+    final shouldShow = await service.checkContentView();
+    if (shouldShow && mounted) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+            builder: (_) =>
+                const PaywallPage(source: 'proactive_content_limit')),
+      );
+    }
   }
 
   Future<void> _showPaywall() async {

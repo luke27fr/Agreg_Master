@@ -3,6 +3,7 @@ import '../services/annales_service.dart';
 import '../models/annale_model.dart';
 import '../widgets/latex_text.dart';
 import '../services/subscription_service.dart';
+import '../services/proactive_paywall_service.dart';
 import 'paywall_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -221,6 +222,18 @@ class _AnnalesPageState extends State<AnnalesPage> {
     if (result == true && mounted) setState(() {});
   }
 
+  Future<void> _checkProactivePaywall() async {
+    final service = ProactivePaywallService();
+    final shouldShow = await service.checkContentView();
+    if (shouldShow && mounted) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+            builder: (_) =>
+                const PaywallPage(source: 'proactive_content_limit')),
+      );
+    }
+  }
+
   Widget _buildAnnaleCard(Annale annale, int index) {
     final sub = SubscriptionService();
     final isLocked = !sub.isPremium && index >= sub.getFreeAccessCount('annales');
@@ -435,6 +448,7 @@ class _AnnalesPageState extends State<AnnalesPage> {
   }
 
   void _showAnnaleDetail(Annale annale) {
+    _checkProactivePaywall();
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final isMG = annale.typeEpreuve == 'ecrit1';
     final isExterne = annale.session == 'externe';

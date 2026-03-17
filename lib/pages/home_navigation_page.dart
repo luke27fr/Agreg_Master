@@ -6,6 +6,9 @@ import 'tabs/organiser_tab.dart';
 import 'tabs/profil_tab.dart';
 import '../services/spaced_repetition_service.dart';
 import '../services/analytics_service.dart';
+import '../services/subscription_service.dart';
+import '../services/proactive_paywall_service.dart';
+import 'paywall_page.dart';
 
 class HomeNavigationPage extends StatefulWidget {
   const HomeNavigationPage({super.key});
@@ -22,6 +25,25 @@ class _HomeNavigationPageState extends State<HomeNavigationPage> {
   void initState() {
     super.initState();
     _srsService.addListener(_onChanged);
+    _initProactivePaywall();
+  }
+
+  Future<void> _initProactivePaywall() async {
+    final service = ProactivePaywallService();
+    await service.initSession();
+    if (await service.shouldShowSessionPaywall()) {
+      final delay = await service.getSessionDelay();
+      Future.delayed(Duration(milliseconds: delay), () {
+        if (mounted && !SubscriptionService().isPremium) {
+          service.markSessionPaywallShown();
+          Navigator.of(context).push(
+            MaterialPageRoute(
+                builder: (_) =>
+                    const PaywallPage(source: 'proactive_session')),
+          );
+        }
+      });
+    }
   }
 
   @override
